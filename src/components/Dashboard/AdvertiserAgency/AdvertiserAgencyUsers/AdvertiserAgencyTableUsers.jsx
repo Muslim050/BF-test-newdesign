@@ -52,7 +52,6 @@ function AdvertiserAgencyTableUsers() {
               <DialogTrigger asChild>
                 <Button
                   variant="ghost"
-                  // onClick={handleButtonClick}
                   className="mb-4 bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[48px]"
                 >
                   <Plus className="w-5 h-5 mr-2" />  Создать пользователя

@@ -4,7 +4,7 @@ import { toastConfig } from 'src/utils/toastConfig'
 import backendURL from 'src/utils/url'
 import { toast } from 'sonner'
 
-export const login = createAsyncThunk('auth/login', async ({ data }) => {
+export const login = createAsyncThunk('auth/login', async ({ data }, {rejectWithValue}) => {
   try {
     const response = await axios.post(
       `${backendURL}/user/token`,
@@ -20,18 +20,23 @@ export const login = createAsyncThunk('auth/login', async ({ data }) => {
       },
     )
     console.log(response)
-    if (response.status === 200) {
-      // Обработка успешного ответа
-      toast.success(response.data.message, {
-        duration: 3000,
-      })
-      return response.data
-    }
+    return response.data
+    // if (response.status === 200) {
+    //   // Обработка успешного ответа
+    //   toast.success(response.data.message, {
+    //     duration: 3000,
+    //   })
+    //   return response.data
+    // }
   } catch (error) {
-    console.log(error)
-    toast.error(error?.response?.data.error.detail, {
-      duration: 3000,
-    })
+    // console.log(error)
+    // toast.error(error?.response?.data.error.detail, {
+    //   duration: 3000,
+    // })
+    return rejectWithValue(error.response);
+
+
+
   }
 })
 

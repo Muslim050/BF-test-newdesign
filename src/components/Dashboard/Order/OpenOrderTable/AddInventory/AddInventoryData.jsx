@@ -1,27 +1,16 @@
 import React from "react";
-
-import style from "../BindingOrderModal.module.scss";
-
 import {useDispatch, useSelector} from "react-redux";
-import {AnimatePresence} from "framer-motion";
 import {TableBody, TableCell} from "@/components/ui/table.jsx";
-import {Plus, Star} from 'lucide-react';
-
-// import {ReactComponent as Deactivate} from "src/assets/Table/deactivate.svg";
-// import {ReactComponent as Linkk} from 'src/assets/link.svg'
+import { Star} from 'lucide-react';
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import ButtonBorder from "@/components/Labrery/ButtonBorder/ButtonBorder.jsx";
-import {showModalVerify} from "@/redux/modalSlice.js";
 import CircularBadge from "@/components/Labrery/Circular/CircularBadge.jsx";
-import ModalUI from "@/components/Labrery/ModalComponents/ModalUI/ModalUI.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
 import VerifyModal from "@/components/Dashboard/Order/BindingOrder/VerifyModal/VerifyModal.jsx";
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
 import {LinkSvg} from "@/assets/icons-ui.jsx";
 import {formatDate} from "@/utils/formatterDate.jsx";
 import {Button} from "@/components/ui/button.jsx";
-import {Dialog, DialogTrigger} from "@/components/ui/dialog.jsx";
-import AdvertiserModalUsers from "@/components/Dashboard/Advertiser/AdvertiserUsers/AdvertiserModalUsers.jsx";
+import {Dialog} from "@/components/ui/dialog.jsx";
 
 function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRows, handleDeactivateInventory}) {
   const dispatch = useDispatch ();
@@ -173,7 +162,7 @@ function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRow
 
                 {advert.status === "in_use" ? (
                   <div>
-                    <ButtonBorder onClick={() => handleDeactivateInventory (advert.id)}>
+                    <button onClick={() => handleDeactivateInventory (advert.id)}>
                       {/*<Deactivate*/}
                       {/*  style={{*/}
                       {/*    width: "16px",*/}
@@ -182,7 +171,7 @@ function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRow
                       {/*  }}*/}
                       {/*/>*/}
                       Завершить
-                    </ButtonBorder>
+                    </button>
                   </div>
                 ) : (
                   ""

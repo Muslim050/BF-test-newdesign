@@ -1,5 +1,4 @@
 import React from 'react'
-import ButtonTable from '../../../Labrery/ButtonTable/ButtonTable'
 // import { ReactComponent as Download } from 'src/assets/Table/Download.svg'
 import axios from 'axios'
 import backendURL from 'src/utils/url'
@@ -98,12 +97,10 @@ function DownloadReport({
 
   return (
     <>
-      <ButtonTable
+      <button
         onClick={() => exportExcel()}
         disabled={loading}
-        Customstyle={{
-          height: '50px',
-        }}
+
       >
         {loading ? (
           <div className="loaderWrapper" style={{ height: '30px' }}>
@@ -121,7 +118,7 @@ function DownloadReport({
           // <Download style={{ width: '25px', height: '30px' }} />
           <div>Download</div>
         )}
-      </ButtonTable>
+      </button>
     </>
   )
 }

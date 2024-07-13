@@ -12,12 +12,6 @@ function AddSentPublisherRows () {
         </TableHead>
         <TableHead  className={`text-${textColor} `}>Канал
         </TableHead>
-        {/*<TableHead style={{*/}
-        {/*  color: '#2c2d33',*/}
-        {/*  fontWeight: '400',*/}
-        {/*  fontSize: "14px"*/}
-        {/*}}>Видео*/}
-        {/*</TableHead>*/}
         <TableHead  className={`text-${textColor} `}>Формат
         </TableHead>
         <TableHead  className={`text-${textColor} `}>Период

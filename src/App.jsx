@@ -10,13 +10,12 @@ import OrderChart from './pages/Dashboard/OrderChart/OrderChart'
 import Publisher from './pages/Dashboard/Pablisher/index.jsx'
 import ChannelStatistics from './pages/Dashboard/ChannelStatistics/ChannelStatistics'
 import NotFound from './pages/NotFound'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   fetchComplitedInventory,
   fetchConfirmedIInventory,
 } from './redux/inventory/inventorySlice'
 import Revenue from './pages/Dashboard/Revenue/Revenue'
-import News from './components/Site/News/News'
 import PublisherReport from './components/Dashboard/Reports/PublisherReport/PublisherReportTable'
 import AdvertiserReport from './components/Dashboard/Reports/AdvertiserReport/AdvertiserReportTable'
 import AdvertiserAndUsers from "@/components/Dashboard/Advertiser/index.jsx";
@@ -26,8 +25,6 @@ import SentOrder from "@/components/Dashboard/SentOrder/index.jsx";
 
 function App() {
   const dispatch = useDispatch()
-  const { сomplitedInventories } = useSelector((state) => state.inventory)
-  const { сonfirmedInventories } = useSelector((state) => state.inventory)
   const user = localStorage.getItem('role')
 
   React.useEffect(() => {
@@ -36,11 +33,6 @@ function App() {
       dispatch(fetchConfirmedIInventory())
     }
   }, [dispatch])
-
-  const filteredComplitedI = сomplitedInventories.filter(
-    (i) => i.removal_date === null,
-  )
-  const filteredConfirmedI = сonfirmedInventories.filter((i) => i)
 
 
   return (
@@ -269,7 +261,6 @@ function App() {
           {/* Other routes */}
         </Route>
         <Route path="/login" element={<Loginn/>}/>
-        <Route path="/news" element={<News/>}/>
 
         <Route path="*" element={<NotFound/>}/>
 

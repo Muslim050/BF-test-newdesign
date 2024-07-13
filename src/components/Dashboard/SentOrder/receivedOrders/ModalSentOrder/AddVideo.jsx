@@ -1,16 +1,10 @@
 import axios from "axios";
 import React from "react";
-import style from "./ModalSent.module.scss";
 import {Controller, useForm} from "react-hook-form";
 import { toast } from 'react-hot-toast'
 import backendURL from "src/utils/url";
-import {ButtonModal} from "@/components/Labrery/ButtonUI/ButtonUI.jsx";
-
-import {toastConfig} from "../../../../../utils/toastConfig";
-import SelectUI from "@/components/Labrery/SelectUI/SelectUI.jsx";
 import {fetchOnceListSentToPublisher} from "../../../../../redux/order/SentToPublisher";
 import {useDispatch} from "react-redux";
-import InputUI from "@/components/Labrery/InputUI/InputUI.jsx";
 import {Label} from "@/components/ui/label.jsx";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue} from "@/components/ui/select.jsx";
 import {SelectTrigger} from "@/components/ui/selectTrigger.jsx";

@@ -4,7 +4,6 @@ import { toast } from 'react-hot-toast'
 import {Controller, useForm} from 'react-hook-form'
 import axios from 'axios'
 import {addChannel, fetchChannel} from '../../../../redux/channel/channelSlice.js'
-import { ButtonModal } from '@/components/Labrery/ButtonUI/ButtonUI.jsx'
 import backendURL from '@/utils/url.js'
 import {
   DialogContent,
