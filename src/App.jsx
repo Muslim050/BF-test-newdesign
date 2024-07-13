@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Inventory from './pages/Dashboard/Inventory/Inventory'
-import Loginn from './pages/Login/Loginn'
+import Login from './pages/Login/Login.jsx'
 import Video from './pages/Dashboard/video/video'
 import Protected from './Protected'
 import Order from './pages/Dashboard/Order/Order'
@@ -260,7 +260,7 @@ function App() {
 
           {/* Other routes */}
         </Route>
-        <Route path="/login" element={<Loginn/>}/>
+        <Route path="/login" element={<Login/>}/>
 
         <Route path="*" element={<NotFound/>}/>
 

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from 'src/components/ui/button'
 import { Input } from 'src/components/ui/input'
 import { useForm } from 'react-hook-form'
-import style from './Login.module.scss'
 import { login } from 'src/redux/auth/authSlice.js'
 import { toast } from 'react-hot-toast'
 import {gsap} from "gsap";
