@@ -3,7 +3,6 @@ import style from './FilteredTooltip.module.scss'
 import { X } from 'lucide-react';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import ButtonTable from '../../../../Labrery/ButtonTable/ButtonTable'
 import ru from 'date-fns/locale/ru' // Импортируйте русскую локаль
 import DownloadReport from '../DownloadReport'
 
@@ -207,7 +206,7 @@ function FilteredTooltip({
             }}
           >
             <div style={{ width: '100%', height: '100%' }}>
-              <ButtonTable
+              <button
                 onClick={handleSearch}
                 Customstyle={{
                   width: '100%',
@@ -219,7 +218,7 @@ function FilteredTooltip({
                 {/*<Search style={{ width: '23px', height: '23px' }} />*/}
                 Search
                 <div style={{ marginLeft: '5px' }}>Сортировать</div>
-              </ButtonTable>
+              </button>
             </div>
 
             {(startDateMonth ||

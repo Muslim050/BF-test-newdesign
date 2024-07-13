@@ -3,7 +3,6 @@ import style from './FilteredTooltip.module.scss'
 import { X } from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import ButtonTable from '../../../../../Labrery/ButtonTable/ButtonTable'
 // import {ReactComponent as Delete} from 'src/assets/Delete.svg'
 import ru from 'date-fns/locale/ru'
 import DownloadReport from '../DownloadReport'
@@ -204,13 +203,13 @@ function FilteredTooltip({
             ) : null}
             {(startDate || endDate || selectedAdvName) && (
               <div>
-                <ButtonTable
+                <button
                   onClick={handleClear}
                   Customstyle={{ justifyContent: 'center' }}
                 >
                   {/*<Delete style={{width: '30px', height: '30px'}}/>*/}
                   Delete
-                </ButtonTable>
+                </button>
               </div>
             )}
           </div>

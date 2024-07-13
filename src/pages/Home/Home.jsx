@@ -1,10 +1,7 @@
-import { useSelector } from 'react-redux'
+
 import { Outlet, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import ModalUI from 'src/components/Labrery/ModalComponents/ModalUI/ModalUI'
 import Site from '../Site/Site'
 import { Route, Routes } from 'react-router-dom'
-import ChangePasswordModal from 'src/pages/Login/ChangePasswordModal.jsx'
 import Navbar from 'src/components/module/SubHeader/Navbar.jsx'
 import Sidebar from 'src/components/module/Sidebar/Sidebar.jsx'
 import React from "react";
@@ -12,8 +9,6 @@ import {ThemeContext} from "@/utils/ThemeContext.jsx";
 
 function Home() {
   const { pathname } = useLocation()
-  const { showChangePassword } = useSelector((state) => state.modal)
-
   const { bgColor, textColor } = React.useContext(ThemeContext);
   return (
     <>
@@ -55,13 +50,13 @@ function Home() {
               </div>
             </div>
           </div>
-          <AnimatePresence>
-            {showChangePassword && (
-              <ModalUI>
-                <ChangePasswordModal/>
-              </ModalUI>
-            )}
-          </AnimatePresence>
+          {/*<AnimatePresence>*/}
+          {/*  {showChangePassword && (*/}
+          {/*    <ModalUI>*/}
+          {/*      <ChangePasswordModal/>*/}
+          {/*    </ModalUI>*/}
+          {/*  )}*/}
+          {/*</AnimatePresence>*/}
         </>
       )}
     </>
