@@ -247,17 +247,12 @@ function FilteredTooltip({
               endDateMonth ||
               selectedPublisher) && (
               <div>
-                <ButtonTable
+                <button
                   onClick={handleClear}
-                  Customstyle={{
-                    width: '100%',
-                    justifyContent: 'center',
-                    height: '50px',
-                  }}
                 >
                   {/*<Delete style={{ width: '23px', height: '23px' }} />*/}
                   Delete
-                </ButtonTable>
+                </button>
               </div>
             )}
           </div>

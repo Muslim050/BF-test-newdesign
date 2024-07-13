@@ -1,7 +1,7 @@
 import React from "react";
 import AddVideo from "./AddVideo";
 import SelectedVideo from "./SelectedVideo";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.jsx";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "src/components/ui/tabs.jsx";
 
 export default function ModalSentOrder ({setOpenPopoverIndex, item, setIsPopoverOpen}) {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReceivedOrders from "./receivedOrders";
 import CompletedOrder from './сompletedOrders/'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.jsx";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "src/components/ui/tabs.jsx";
 
 function SentOrder () {
   return (

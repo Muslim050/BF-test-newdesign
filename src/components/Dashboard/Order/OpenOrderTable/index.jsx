@@ -4,7 +4,7 @@ import axios from 'axios'
 import backendURL from 'src/utils/url'
 import AddInventory from './AddInventory'
 import AddSentPublisher from './AddSentPublisher'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.jsx";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "src/components/ui/tabs.jsx";
 import {hasRole} from "@/utils/roleUtils.js";
 
 const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
