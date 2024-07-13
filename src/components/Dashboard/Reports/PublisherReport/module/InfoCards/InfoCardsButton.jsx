@@ -1,5 +1,5 @@
 import React from 'react'
-import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet'
+import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet.jsx'
 
 export function InfoCardsButton ({totalComisyAdtech}) {
   const ndc = totalComisyAdtech * 0.12

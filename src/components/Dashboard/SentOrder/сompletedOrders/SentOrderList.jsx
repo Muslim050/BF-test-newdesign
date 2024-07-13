@@ -1,16 +1,10 @@
 import React from 'react'
 import ModalSentOrder from "../receivedOrders/ModalSentOrder/index";
-import style from "./receivedOrders.module.scss";
 import OpenTableSentOrder from "../OpenTableSentOrder/OpenTableSentOrder";
 import { TableCell, TableRow } from 'src/components/ui/table'
-
-import {AnimatePresence} from "framer-motion";
-import CommentSentOrderModal from "../CommentSentOrderModal/CommentSentOrderModal";
 import {formatDate} from "../../../../utils/formatterDate";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
-import ButtonBorder from "@/components/Labrery/ButtonBorder/ButtonBorder.jsx";
-import ModalUI from "@/components/Labrery/ModalComponents/ModalUI/ModalUI.jsx";
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
 import {OpenSvg} from "@/assets/icons-ui.jsx";
 
@@ -31,16 +25,16 @@ function SentOrderList ({
   }
   return (
     <>
-      <AnimatePresence>
-        {showKomment && (
-          <ModalUI>
-            <CommentSentOrderModal
-              setShowKomment={setShowKomment}
-              currentOrder={currentOrder}
-            />
-          </ModalUI>
-        )}
-      </AnimatePresence>
+      {/*<AnimatePresence>*/}
+      {/*  {showKomment && (*/}
+      {/*    <ModalUI>*/}
+      {/*      <CommentSentOrderModal*/}
+      {/*        setShowKomment={setShowKomment}*/}
+      {/*        currentOrder={currentOrder}*/}
+      {/*      />*/}
+      {/*    </ModalUI>*/}
+      {/*  )}*/}
+      {/*</AnimatePresence>*/}
       {listsentPublisher.map ((item, i) => (
         <>
           <TableRow>
@@ -84,14 +78,14 @@ function SentOrderList ({
                 item.order_status === 'finished' ? null : (
                   <td style={{display: 'contents'}}>
                     {item?.notes_text ? (
-                      <ButtonBorder
+                      <button
                         onClick={() => {
                           setShowKomment (true)
                           setCurrentOrder (item)
                         }}
                       >
                         Comment
-                      </ButtonBorder>
+                      </button>
                     ) : null}
                   </td>
                 )

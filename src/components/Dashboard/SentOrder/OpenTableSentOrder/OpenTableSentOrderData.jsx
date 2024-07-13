@@ -5,12 +5,8 @@ import { TableCell, TableRow } from 'src/components/ui/table'
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
 import {showModalVideoLinked} from "../../../../redux/modalSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {AnimatePresence} from "framer-motion";
 import {formatDate} from "../../../../utils/formatterDate";
-import ModalUI from "@/components/Labrery/ModalComponents/ModalUI/ModalUI.jsx";
-import LinkedVideo from "@/components/Dashboard/Video/TableVideo/LinkedVideo.jsx";
 import CircularTable from "@/components/Labrery/Circular/CircularTable.jsx";
-import ButtonBorder from "@/components/Labrery/ButtonBorder/ButtonBorder.jsx";
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
 function OpenTableSentOrderData ({
                                    data,
@@ -37,13 +33,13 @@ function OpenTableSentOrderData ({
   }
   return (
     <>
-      <AnimatePresence>
-        {showVideoLinked && (
-          <ModalUI>
-            <LinkedVideo selectedId={id}/>
-          </ModalUI>
-        )}
-      </AnimatePresence>
+      {/*<AnimatePresence>*/}
+      {/*  {showVideoLinked && (*/}
+      {/*    <ModalUI>*/}
+      {/*      <LinkedVideo selectedId={id}/>*/}
+      {/*    </ModalUI>*/}
+      {/*  )}*/}
+      {/*</AnimatePresence>*/}
       {data.map ((inventor, i) => (
         <>
           <TableRow className={style.table__tr}>
@@ -155,11 +151,11 @@ function OpenTableSentOrderData ({
                 user === 'advertiser' ||
                 user === 'advertising_agency') &&
               inventor.status === 'open' ? (
-                <ButtonBorder
+                <button
 
                 >
                   Edit
-                </ButtonBorder>
+                </button>
               ) : null}
             </TableCell>
           </TableRow>

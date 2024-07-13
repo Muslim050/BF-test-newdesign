@@ -1,6 +1,5 @@
 import React from 'react'
 import style from '../../../StatictickVideoTable.module.scss'
-import Anonim from 'src/assets/anonim.png'
 
 function StatictickVideoGender({ statistic }) {
   const uniqueGenders = Array.from(
@@ -28,8 +27,7 @@ function StatictickVideoGender({ statistic }) {
                 justifyContent: 'center',
               }}
             >
-              <img src={Anonim} alt="Anonim" style={{ width: '20px' }} />
-            </div>
+              Anonim            </div>
           ) : (
             gender
           )}

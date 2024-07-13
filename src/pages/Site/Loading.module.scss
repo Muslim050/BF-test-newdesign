@@ -1,0 +1,37 @@
+
+.loading_screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000; /* Adjust to your background color */
+  color: #fff; /* Adjust to your text color */
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.logo img {
+  width: 150px; /* Adjust to your logo size */
+  animation: spin 5s linear infinite; /* Add a spin animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading_text {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.loading_percentage {
+  margin-top: 10px;
+  font-size: 48px;
+  font-weight: bold;
+}

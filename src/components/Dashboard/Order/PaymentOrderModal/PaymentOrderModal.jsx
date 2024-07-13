@@ -7,9 +7,6 @@ import { toastConfig } from '../../../../utils/toastConfig'
 import 'react-datepicker/dist/react-datepicker.css'
 import { X } from 'lucide-react'
 import { hideModalPayment } from 'src/redux/modalSlice'
-import ButtonBorder from 'src/components/Labrery/ButtonBorder/ButtonBorder'
-import ButtonTable from 'src/components/Labrery/ButtonTable/ButtonTable'
-import { ButtonModal } from 'src/components/Labrery/ButtonUI/ButtonUI'
 
 export default function PaymentOrderModal({ advert }) {
   const dispatch = useDispatch()
@@ -41,20 +38,19 @@ export default function PaymentOrderModal({ advert }) {
         <div>
           <div style={{ display: 'flex' }}>
             <div style={{ marginRight: '15px' }}>
-              <ButtonModal
-                isValid={true}
+              <button
                 onClick={() => handleConfirmPayment(paymentData.id)}
               >
                 Да
-              </ButtonModal>
+              </button>
             </div>
 
-            <ButtonModal
-              isValid={true}
+            <button
+
               onClick={() => dispatch(hideModalPayment())}
             >
               Нет
-            </ButtonModal>
+            </button>
           </div>
         </div>
       </div>

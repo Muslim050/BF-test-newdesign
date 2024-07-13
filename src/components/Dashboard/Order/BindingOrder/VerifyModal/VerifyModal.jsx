@@ -1,15 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { toastConfig } from '../../../../../utils/toastConfig'
-import { X } from 'lucide-react'
 import { inventoryVerify } from '../../../../../redux/inventoryStatus/inventoryStatusSlice'
 import { toast } from 'react-hot-toast'
 import { fetchOrder } from '../../../../../redux/order/orderSlice'
 
 import style from './VerifyModal.module.scss'
-import { hideModalVerify } from 'src/redux/modalSlice'
-import { ButtonModal } from 'src/components/Labrery/ButtonUI/ButtonUI'
 import {DialogHeader, DialogTitle, DialogContent} from "@/components/ui/dialog.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import {Label} from "@/components/ui/label.jsx";

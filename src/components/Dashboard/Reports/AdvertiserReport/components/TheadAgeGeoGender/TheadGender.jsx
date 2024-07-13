@@ -1,6 +1,5 @@
 import React from 'react'
 import style from '../../AdvChartTable.module.scss'
-import Anonim from '../../../../../../assets/anonim.png'
 
 function TheadGender ({statistic}) {
   function findVideoWithThreeGenders (data) {
@@ -38,8 +37,7 @@ function TheadGender ({statistic}) {
                   justifyContent: 'center',
                 }}
               >
-                <img src={Anonim} alt="Anonim" style={{width: '13px'}}/>
-              </div>
+                Anonim              </div>
             ) : (
               <>{gender}</>
             )}

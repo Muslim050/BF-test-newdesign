@@ -175,7 +175,6 @@ export const sentToPublisherButton = createAsyncThunk (
 
     } catch (error) {
       return rejectWithValue(error.response);
-
     }
   }
 );

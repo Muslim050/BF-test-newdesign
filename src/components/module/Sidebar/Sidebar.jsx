@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { menuItems } from './MenuItems.js'
 import style from './Sidebar.module.scss'
@@ -14,13 +14,14 @@ import { fetchVideos } from 'src/redux/video/videoSlice.js'
 import axios from 'axios'
 import backendURL from '../../../utils/url.js'
 import { logout } from 'src/redux/auth/authSlice.js'
-import CircularBadge from 'src/components/Labrery/Circular/CircularBadge.jsx'
 import { ChevronLeft } from 'lucide-react'
 import Background from 'src/assets/Sidebarcopy/background.png'
 import Logo from 'src/assets/Sidebarcopy/logo.png'
 import NavItem from 'src/components/module/Sidebar/NavItem.jsx'
 // eslint-disable-next-line no-unused-vars
 import {LogoutSvg, ThemeSvg} from 'src/assets/SidebarsIcons-ui.jsx'
+import { Badge } from "@/components/ui/badge"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,10 +39,6 @@ import {
   TooltipTrigger,
 } from 'src/components/ui/tooltip'
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
-import {Button} from "@/components/ui/button.jsx";
-import ColorPicker from "@/utils/ColorPicker.jsx";
-
 
 
 
@@ -203,253 +200,45 @@ function Sidebar() {
           </div>
 
           <div className="flex flex-col 	justify-between">
+
+
             <ul className="pt-[38px] gap-1 flex flex-col relative ">
               {filteredMenuItems.map ((item, i) => (
                 <TooltipProvider key={i}>
                   <Tooltip>
                     <TooltipTrigger className="relative">
                       <NavItem item={item} open={open}/>
-
                       {/* Рекломадатели */}
-                      {user === 'advertiser' && item.label === 'Заказы' ? (
-                        <>
-                          {filteredOrdersAdvertiser.length > 0 && (
-                            <CircularBadge
-                              count={filteredOrdersAdvertiser.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      {user === 'advertising_agency' &&
-                      item.label === 'Заказы' ? (
-                        <>
-                          {filteredOrdersAdvertiser.length > 0 && (
-                            <CircularBadge
-                              count={filteredOrdersAdvertiser.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
+                      {user === 'advertiser' && item.label === 'Заказы' &&  (<>{filteredOrdersAdvertiser.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredOrdersAdvertiser.length}</Badge></div>)}</>)}
+                      {user === 'advertising_agency' && item.label === 'Заказы' &&  (<>{filteredOrdersAdvertiser.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredOrdersAdvertiser.length}</Badge></div>)}</>)}
                       {/* Рекломадатели */}
 
                       {/* Паблишер */}
-                      {user === 'publisher' && item.label === 'Заказы' ? (
-                        <>
-                          {filteredConfirmedI.length > 0 &&
-                          filteredComplitedI.length > 0 ? (
-                            <CircularBadge
-                              style={{backgroundColor: 'red', color: 'white'}}
-                              count={
-                                filteredComplitedI.length +
-                                filteredConfirmedI.length
-                              }
-                            />
-                          ) : (
-                            ''
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      {user === 'channel' && item.label === 'Заказы' ? (
-                        <>
-                          {filteredConfirmedI.length > 0 ||
-                          filteredComplitedI.length > 0 ? (
-                            <CircularBadge
-                              style={{backgroundColor: 'red', color: 'white'}}
-                              count={
-                                filteredComplitedI.length +
-                                filteredConfirmedI.length
-                              }
-                            />
-                          ) : (
-                            ''
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'channel' && item.label === 'Видео' ? (
-                        <>
-                          {filteredVideo.length > 0 && (
-                            <CircularBadge count={filteredVideo.length}/>
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      {user === 'publisher' && item.label === 'Видео' ? (
-                        <>
-                          {filteredVideo.length > 0 && (
-                            <CircularBadge count={filteredVideo.length}/>
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      {user === 'publisher' && item.label === 'Каналы' ? (
-                        <>
-                          {filteredChannel.length > 0 && (
-                            <CircularBadge
-                              style={{
-                                backgroundColor: 'red',
-                                color: 'white',
-                              }}
-                              count={filteredChannel.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'publisher' && item.label === 'Инвентарь' ? (
-                        <>
-                          {filteredInventoryPablisher.length > 0 && (
-                            <CircularBadge
-                              count={filteredInventoryPablisher.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      {user === 'channel' && item.label === 'Инвентарь' ? (
-                        <>
-                          {filteredInventoryPablisher.length > 0 && (
-                            <CircularBadge
-                              count={filteredInventoryPablisher.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
+                      {user === 'publisher' && item.label === 'Заказы' &&  (<>{filteredConfirmedI.length > 0 && filteredComplitedI.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{  filteredComplitedI.length + filteredConfirmedI.length}</Badge></div>)}</>)}
+                      {user === 'publisher' && item.label === 'Видео' &&  (<>{filteredVideo.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredVideo.length}</Badge></div>)}</>)}
+                      {user === 'publisher' && item.label === 'Каналы' &&  (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
                       {/* Паблишер */}
 
-                      {/* админ */}
-
-                      {user === 'admin' && item.label === 'Каналы' ? (
-                        <>
-                          {filteredChannel.length > 0 && (
-                            <CircularBadge
-                              style={{
-                                backgroundColor: 'red',
-                                color: 'white',
-                              }}
-                              count={filteredChannel.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'publisher' && item.label === 'Каналы' ? (
-                        <>
-                          {filteredChannel.length > 0 && (
-                            <CircularBadge
-                              style={{
-                                backgroundColor: 'red',
-                                color: 'white',
-                              }}
-                              count={filteredChannel.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'channel' && item.label === 'Каналы' ? (
-                        <>
-                          {filteredChannel.length > 0 && (
-                            <CircularBadge
-                              style={{
-                                backgroundColor: 'red',
-                                color: 'white',
-                              }}
-                              count={filteredChannel.length}
-                            />
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'admin' && item.label === 'Заказы' ? (
-                        <>
-                          {filteredOrders > 0 && (
-                            <CircularBadge count={filteredOrders}/>
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
-
-                      {user === 'admin' && item.label === 'Инвентарь' ? (
-                        <>
-                          {filteredInventory.length > 0 && (
-                            <CircularBadge count={filteredInventory.length}/>
-                          )}
-                        </>
-                      ) : (
-                        ''
-                      )}
+                      {/*Канал*/}
+                      {user === 'channel' && item.label === 'Заказы' &&  (<>{filteredConfirmedI.length > 0 || filteredComplitedI.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{ filteredComplitedI.length + filteredConfirmedI.length}</Badge></div>)}</>)}
+                      {user === 'channel' && item.label === 'Видео' &&  (<>{filteredVideo.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredVideo.length}</Badge></div>)}</>)}
+                      {/*Канал*/}
 
                       {/* админ */}
-
-                      {open === false && isTooltipOpen[item.label] && (
-                        <div className={style.tooltip}>{item.label}</div>
-                      )}
+                      {user === 'admin' && item.label === 'Каналы' &&  (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
+                      {user === 'publisher' && item.label === 'Каналы' && (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
+                      {user === 'channel' && item.label === 'Каналы' && (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
+                      {user === 'admin' && item.label === 'Заказы' && (<>{filteredOrders > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredOrders}</Badge></div>)}</>)}
+                      {/* админ */}
                     </TooltipTrigger>
                   </Tooltip>
                 </TooltipProvider>
               ))}
-              {/*<Popover>*/}
-              {/*  <PopoverTrigger asChild>*/}
-              {/*    <div*/}
-              {/*      className={`${baseStyles} hover:random-bg  bg-transparent group hover:text-white  cursor-pointer`}>*/}
-              {/*      <TooltipProvider>*/}
-              {/*        <Tooltip>*/}
-              {/*          <TooltipTrigger asChild>*/}
-              {/*            <div className="flex items-center relative">*/}
-              {/*              <ThemeSvg/>*/}
-              {/*              {open ? (*/}
-              {/*                <span*/}
-              {/*                  className={`ml-3.5 transition-opacity duration-500 ease-in-out ${*/}
-              {/*                    open ? 'opacity-100 visible' : 'opacity-0 invisible'*/}
-              {/*                  }`}*/}
-              {/*                  style={{transitionDelay: open ? '0.3s' : '0s'}}*/}
-              {/*                >*/}
-              {/*                Темы*/}
-              {/*                </span>*/}
-              {/*              ) : null}*/}
-              {/*            </div>*/}
-              {/*            </TooltipTrigger>*/}
-              {/*            {!open && (*/}
-              {/*              <TooltipContent side="right" className="ml-2" sideOffset={0}>*/}
-              {/*                <p>Темы</p>*/}
-              {/*              </TooltipContent>*/}
-              {/*            )}*/}
-              {/*        </Tooltip>*/}
-              {/*      </TooltipProvider>*/}
-              {/*    </div>*/}
-              {/*  </PopoverTrigger>*/}
-              {/*  <PopoverContent className='w-max p-0'>*/}
-              {/*    <ColorPicker color={bgColor} onChange={handleColorChange}/>*/}
-              {/*  </PopoverContent>*/}
-              {/*</Popover>*/}
             </ul>
 
 
             {/*Выход*/}
-            <div>
+            <div className='border-t border-[#e5e7eb66] pt-2'>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <div

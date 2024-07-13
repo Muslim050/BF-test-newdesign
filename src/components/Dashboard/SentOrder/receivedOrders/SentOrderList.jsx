@@ -3,12 +3,8 @@ import { TableCell, TableRow } from 'src/components/ui/table'
 
 import ModalSentOrder from "./ModalSentOrder";
 import OpenTableSentOrder from "../OpenTableSentOrder/OpenTableSentOrder";
-import {AnimatePresence} from "framer-motion";
-
-import CommentSentOrderModal from "../CommentSentOrderModal/CommentSentOrderModal";
 import {formatDate} from "../../../../utils/formatterDate";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import ModalUI from "@/components/Labrery/ModalComponents/ModalUI/ModalUI.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
 import {CommentSvg, OpenSvg} from "@/assets/icons-ui.jsx";
@@ -17,7 +13,6 @@ import {Button} from "@/components/ui/button.jsx";
 import {Copy} from "lucide-react";
 import {toast} from "sonner";
 import { PackagePlus } from 'lucide-react';
-import AdvertiserModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/AdvertiserModal.jsx";
 
 function SentOrderList ({
                           listsentPublisher,
@@ -62,16 +57,16 @@ function SentOrderList ({
 
   return (
     <>
-      <AnimatePresence>
-        {showKomment && (
-          <ModalUI>
-            <CommentSentOrderModal
-              setShowKomment={setShowKomment}
-              currentOrder={currentOrder}
-            />
-          </ModalUI>
-        )}
-      </AnimatePresence>
+      {/*<AnimatePresence>*/}
+      {/*  {showKomment && (*/}
+      {/*    <ModalUI>*/}
+      {/*      <CommentSentOrderModal*/}
+      {/*        setShowKomment={setShowKomment}*/}
+      {/*        currentOrder={currentOrder}*/}
+      {/*      />*/}
+      {/*    </ModalUI>*/}
+      {/*  )}*/}
+      {/*</AnimatePresence>*/}
       {listsentPublisher.map ((item, i) => (
         <>
           <TableRow>

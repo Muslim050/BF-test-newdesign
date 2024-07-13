@@ -1,5 +1,4 @@
 import React from 'react'
-import Anonim from 'src/assets/anonim.png'
 import { TableHead } from 'src/components/ui/table.jsx'
 
 function OrderChartTwoThead({ statistic }) {
@@ -26,8 +25,7 @@ function OrderChartTwoThead({ statistic }) {
                     justifyContent: 'center',
                   }}
                 >
-                  <img src={Anonim} alt="Anonim" style={{ width: '20px' }} />
-                </div>
+                  Anonim                </div>
               ) : (
                 <>{gender}</>
               )}

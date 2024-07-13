@@ -24,13 +24,13 @@ import {
 import { Notebook } from 'lucide-react';
 
 export const menuItems = [
-  {
-    roles: ['admin'],
-    label: 'Revenue',
-    to: '/revenue',
-    icon: overviewSvg,
-    accordion: false,
-  },
+  // {
+  //   roles: ['admin'],
+  //   label: 'Revenue',
+  //   to: '/revenue',
+  //   icon: overviewSvg,
+  //   accordion: false,
+  // },
   {
     roles: ['advertising_agency', 'advertiser', 'admin'],
     label: 'Заказы',

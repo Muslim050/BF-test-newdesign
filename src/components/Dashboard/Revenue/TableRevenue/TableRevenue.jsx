@@ -6,10 +6,8 @@ import TableRevenueList3 from './TableRevenueList3'
 import { fetchRevenue } from 'src/redux/revenueSlice'
 import style from './TableRevenue.module.scss'
 import FilteredTooltipRevenue from './FilteredTooltipRevenue/FilteredTooltipRevenue'
-import ButtonTable from 'src/components/Labrery/ButtonTable/ButtonTable'
 // import { ReactComponent as ArrowR } from '../../../../assets/arrow-right.svg'
 import { Link } from 'react-router-dom'
-import ButtonBorder from 'src/components/Labrery/ButtonBorder/ButtonBorder'
 // import { ReactComponent as Delete } from 'src/assets/Table/Delete.svg'
 
 function TableRevenue() {
@@ -49,17 +47,9 @@ function TableRevenue() {
           <div className={style.tableChartWrapper__table_title}>
             <div className={style.profile}>
               <Link to={'/order'}>
-                <ButtonTable>
-                  {/*<ArrowR*/}
-                  {/*  style={{*/}
-                  {/*    width: '18px',*/}
-                  {/*    height: '15px',*/}
-                  {/*    transform: 'rotate(180deg)',*/}
-                  {/*    marginRight: '5px',*/}
-                  {/*  }}*/}
-                  {/*/>*/}
+                <button>
                   Назад
-                </ButtonTable>
+                </button>
               </Link>
               <div style={{ display: 'flex' }}>
                 {startDate && endDate !== '' ? (
@@ -77,7 +67,7 @@ function TableRevenue() {
                         <div>Выбранный период:</div>С {startDate} по {endDate}
                       </div>
                       <div>
-                        <ButtonBorder onClick={() => clearDate()}>
+                        <button onClick={() => clearDate()}>
                           {/*<Delete*/}
                           {/*  style={{*/}
                           {/*    width: '16px',*/}
@@ -85,7 +75,7 @@ function TableRevenue() {
                           {/*  }}*/}
                           {/*/>*/}
                           Delete
-                        </ButtonBorder>
+                        </button>
                       </div>
                     </div>
                   </div>

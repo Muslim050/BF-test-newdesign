@@ -16,18 +16,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from 'src/components/ui/tooltip'
-
-import MyModal from '../../../Labrery/ModalComponents/ModalUI/ModalUI'
 import AdvertStatus from 'src/components/Labrery/AdvertStatus/AdvertStatus'
 import { toastConfig } from 'src/utils/toastConfig'
 import { toast } from 'sonner'
 import FormatterView from 'src/components/Labrery/formatter/FormatterView'
 import CircularTable from 'src/components/Labrery/Circular/CircularTable'
 import CircularBadge from 'src/components/Labrery/Circular/CircularBadge'
-import PaymentOrderModal from '../PaymentOrderModal/PaymentOrderModal'
-import { AnimatePresence } from 'framer-motion'
-import EditOrderModal from '../EditOrderModalAdmin/EditOrderModal'
-
 import { useNavigate } from 'react-router-dom'
 import { ChartSvg, OpenSvg } from '../../../../assets/icons-ui.jsx'
 import { truncate } from '../../../../utils/other.js'
@@ -102,24 +96,24 @@ function OrderData({ sortedData }) {
 
   return (
     <>
-      <AnimatePresence>
-        {showModalEditAdmin && (
-          <MyModal>
-            <EditOrderModal
-              setShowModalEditAdmin={setShowModalEditAdmin}
-              currentOrder={currentOrder}
-            />
-          </MyModal>
-        )}
-      </AnimatePresence>
+      {/*<AnimatePresence>*/}
+      {/*  {showModalEditAdmin && (*/}
+      {/*    <MyModal>*/}
+      {/*      <EditOrderModal*/}
+      {/*        setShowModalEditAdmin={setShowModalEditAdmin}*/}
+      {/*        currentOrder={currentOrder}*/}
+      {/*      />*/}
+      {/*    </MyModal>*/}
+      {/*  )}*/}
+      {/*</AnimatePresence>*/}
 
-      <AnimatePresence>
-        {showPayment && (
-          <MyModal>
-            <PaymentOrderModal />
-          </MyModal>
-        )}
-      </AnimatePresence>
+      {/*<AnimatePresence>*/}
+      {/*  {showPayment && (*/}
+      {/*    <MyModal>*/}
+      {/*      <PaymentOrderModal />*/}
+      {/*    </MyModal>*/}
+      {/*  )}*/}
+      {/*</AnimatePresence>*/}
       {sortedData().map((advert, i) => {
         return (
           <>
