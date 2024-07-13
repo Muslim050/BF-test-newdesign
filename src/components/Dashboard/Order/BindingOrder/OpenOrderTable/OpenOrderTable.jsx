@@ -21,7 +21,6 @@ import {
 } from '../../../../../redux/orderStatus/orderStatusSlice'
 import { toastConfig } from '../../../../../utils/toastConfig'
 import { sortData } from 'src/utils/SortData'
-import ButtonTable from 'src/components/Labrery/ButtonTable/ButtonTable'
 import { hideModalSInventory, showModalSInventory } from 'src/redux/modalSlice'
 import ModalUI from 'src/components/Labrery/ModalComponents/ModalUI/ModalUI'
 import backendURL from 'src/utils/url'
@@ -318,10 +317,10 @@ function OpenOrderTable({ expandedRows, statusOr, advert }) {
                   ''
                 ) : (
                   <div style={{ marginLeft: '10px', position: 'relative' }}>
-                    <ButtonTable onClick={handleConfirmOrder} color="green">
+                    <button onClick={handleConfirmOrder} color="green">
                       Подтвердить
                       {/*<ArrowR style={{ width: '18px', height: '15px' }} />*/}
-                    </ButtonTable>
+                    </button>
                     {CounterBadge === 'booked' ? (
                       <CircularBadge
                         style={{
