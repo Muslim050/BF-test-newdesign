@@ -4,7 +4,6 @@ import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import m from './BuisnessModel.module.scss'
 import PageTitle from '../module/PageTitle'
-import Logo from '@/assets/Site/Logo.png'
 import RightForm from './RightForm'
 import LeftForm from './LeftForm'
 

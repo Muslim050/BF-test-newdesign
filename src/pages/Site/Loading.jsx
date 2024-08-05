@@ -9,7 +9,7 @@ import m from './Loading.module.scss'
 
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import Logo from '@/assets/Site/Logo.png'
+import Logo from '@/assets/Logo.png'
 
 const Loading = ({ onComplete }) => {
   const [loadingValue, setLoadingValue] = useState(0)

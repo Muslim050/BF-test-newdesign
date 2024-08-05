@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './BuisnessModel.module.scss'
 import { useForm } from 'react-hook-form'
-import Logo from '@/assets/Site/Logo.png'
+import Logo from '@/assets/Logo.png'
 
 function RightForm() {
   const [isLogin, setIsLogin] = React.useState(false)
