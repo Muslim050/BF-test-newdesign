@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import { GradientBGSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import imageBranformance from './brandformance.png'
 import Logo from '@/assets/Site/Logo.png'
 function Footer() {
