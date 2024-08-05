@@ -1,0 +1,68 @@
+.text > p > div {
+  background: linear-gradient(
+    to right,
+    rgb(255, 255, 255) 50%,
+    rgb(37, 37, 37) 50%
+  );
+  background-size: 200% 100%;
+  background-position-x: 100%;
+  color: transparent;
+  background-clip: text;
+  z-index: 1001;
+  -webkit-background-clip: text;
+  /*   margin-bottom: -250px; */
+  margin-left: 50px;
+  line-height: 1.2;
+  /*   outline: 6px dotted teal; */
+  font-size: 10vw;
+}
+
+.text {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1001;
+  transform: translate(-50%, -50%);
+  border: 2px solid green;
+}
+
+.text p {
+  color: fuchsia;
+}
+
+.sectionGreen {
+  background-color: #2c9e15;
+}
+
+.sectionBlue {
+  background-color: #040e22;
+}
+
+.square {
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  transition: border-radius 1s;
+}
+
+.square--active {
+  border-radius: 20px;
+}
+
+.img {
+  display: block;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+}
+
+.transparent_text {
+  font-size: 141px;
+  font-weight: 800;
+  background: #000; /* Fallback color for older browsers */
+  background: rgba(255, 255, 255, 0); /* Make background transparent */
+  -webkit-background-clip: text; /* Background clip for Safari */
+  color: transparent; /* Make text color transparent */
+}

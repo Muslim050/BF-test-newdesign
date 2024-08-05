@@ -262,3 +262,84 @@
     width: 100%;
   }
 }
+
+.tabs_trigger[data-state='active'] {
+  background: linear-gradient(
+    357.26deg,
+    rgba(255, 255, 255, 0.1) 4.17%,
+    rgba(2, 3, 8, 0) 155.94%
+  ) !important;
+  /* Shadow 3 */
+  box-shadow: inset 0px 0.6px 0px rgba(255, 255, 255, 0.1),
+    inset 0px 1.2px 0px rgba(255, 255, 255, 0.1),
+    inset -1.2px 0px 0px rgba(255, 255, 255, 0.04),
+    inset 1.2px 0px 0px rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(6px) !important;
+  border-radius: 500px;
+  position: relative;
+
+  &::before {
+    content: url('./Blestki.svg');
+    width: 135px;
+    height: 122%;
+    position: absolute;
+  }
+}
+
+.button {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 30px;
+  gap: 10px;
+  margin-top: 30px;
+  width: 320px;
+  height: 50px;
+
+  background: linear-gradient(
+    164.58deg,
+    rgba(2, 3, 8, 0) 11.69%,
+    rgba(255, 255, 255, 0.1) 102.78%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset -0.6px 0px 0px rgba(255, 255, 255, 0.04),
+    inset 0.6px 0px 0px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  border-radius: 500px;
+  position: relative;
+
+  &:hover {
+    &::before {
+      content: url('./Blestki.svg');
+      width: 135px;
+      height: 122%;
+      position: absolute;
+    }
+  }
+}
+.button__dis {
+  color: rgb(126, 126, 126);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 30px;
+  gap: 10px;
+  margin-top: 30px;
+  width: 320px;
+  height: 50px;
+
+  background: linear-gradient(
+    164.58deg,
+    rgba(2, 3, 8, 0) 11.69%,
+    rgba(255, 255, 255, 0.1) 102.78%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset -0.6px 0px 0px rgba(255, 255, 255, 0.04),
+    inset 0.6px 0px 0px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  border-radius: 500px;
+  position: relative;
+}

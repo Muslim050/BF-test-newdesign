@@ -1,0 +1,31 @@
+.cardWrapper {
+  flex-wrap: nowrap;
+}
+
+.cardFirst {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardSecond {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .cardWrapper {
+    flex-wrap: wrap;
+  }
+  .cardSecond {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 848px) {
+  .cardWrapper {
+    flex-wrap: wrap;
+  }
+  .cardSecond {
+    flex-direction: column;
+  }
+}
