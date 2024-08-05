@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { GradientBGSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import imageBranformance from './brandformance.png'
 // import Logo from '@/assets/Site/Logo.png'
-import Logo from '../../../assets/Logo.png'
+import Logo from './../../../assets/Site/Logo.png' // Используем относительный путь
 
 function Footer() {
   const sectionRef = useRef(null)
