@@ -1,39 +1,44 @@
-import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {TableBody, TableCell} from "@/components/ui/table.jsx";
-import { Star} from 'lucide-react';
-import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import CircularBadge from "@/components/Labrery/Circular/CircularBadge.jsx";
-import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
-import VerifyModal from "@/components/Dashboard/Order/BindingOrder/VerifyModal/VerifyModal.jsx";
-import {ThemeContext} from "@/utils/ThemeContext.jsx";
-import {LinkSvg} from "@/assets/icons-ui.jsx";
-import {formatDate} from "@/utils/formatterDate.jsx";
-import {Button} from "@/components/ui/button.jsx";
-import {Dialog} from "@/components/ui/dialog.jsx";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { TableBody, TableCell } from '@/components/ui/table.jsx'
+import { Star } from 'lucide-react'
+import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
+import CircularBadge from '@/components/Labrery/Circular/CircularBadge.jsx'
+import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
+import VerifyModal from '@/components/Dashboard/Order/BindingOrder/VerifyModal/VerifyModal.jsx'
+import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import { LinkSvg } from '@/assets/icons-ui.jsx'
+import { formatDate } from '@/utils/formatterDate.jsx'
+import { Button } from '@/components/ui/button.jsx'
+import { Dialog } from '@/components/ui/dialog.jsx'
 
-function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRows, handleDeactivateInventory}) {
-  const dispatch = useDispatch ();
-  const [selectedInventoryId, setSelectedInventoryId] = React.useState ('')
-  const role = localStorage.getItem ('role')
+function AddInventoryData({
+  inventor,
+  selectedRows,
+  setSelectedRows,
+  expandedRows,
+  handleDeactivateInventory,
+}) {
+  const dispatch = useDispatch()
+  const [selectedInventoryId, setSelectedInventoryId] = React.useState('')
+  const role = localStorage.getItem('role')
 
-  const {showVerify} = useSelector ((state) => state.modal)
+  const { showVerify } = useSelector((state) => state.modal)
   const [showModalSelectingVerify, setShowModalSelectingVerify] =
-    React.useState (false)
+    React.useState(false)
 
-  function handleRowClick (rowId) {
-    if (selectedRows.includes (rowId)) {
-      setSelectedRows (selectedRows.filter ((id) => id !== rowId));
+  function handleRowClick(rowId) {
+    if (selectedRows.includes(rowId)) {
+      setSelectedRows(selectedRows.filter((id) => id !== rowId))
     } else {
-      setSelectedRows ([...selectedRows, rowId]);
+      setSelectedRows([...selectedRows, rowId])
     }
   }
 
-  const filteredVideoLink = inventor.find (
+  const filteredVideoLink = inventor.find(
     (item) => item.id === selectedInventoryId,
   )
-  const { textColor } = React.useContext(ThemeContext);
-
+  const { textColor } = React.useContext(ThemeContext)
 
   // Модальное окно OrderModal
   const [open, setOpen] = React.useState(false)
@@ -42,57 +47,83 @@ function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRow
   }
   // Модальное окно OrderModal
 
-
-
-  {}
+  {
+  }
   return (
     <>
-      {
-        open &&                       <Dialog open={open} onOpenChange={setOpen}> {open &&
-          <VerifyModal
-            setShowModalSelectingVerify={setShowModalSelectingVerify}
-            onInventoryVerify
-            expandedRows={expandedRows}
-            selectedInventoryId={selectedInventoryId}
-            videoLink={filteredVideoLink}
-            onClose={handleClose}
-          />}
+      {open && (
+        <Dialog open={open} onOpenChange={setOpen}>
+          {' '}
+          {open && (
+            <VerifyModal
+              setShowModalSelectingVerify={setShowModalSelectingVerify}
+              onInventoryVerify
+              expandedRows={expandedRows}
+              selectedInventoryId={selectedInventoryId}
+              videoLink={filteredVideoLink}
+              onClose={handleClose}
+            />
+          )}
         </Dialog>
-
-        }
-      {inventor.map ((advert, i) => (
+      )}
+      {inventor.map((advert, i) => (
         <>
           <TableBody
             key={i}
-            onClick={() => handleRowClick (advert.id)}
-            className={selectedRows.includes (advert.id) ? "selected" : ""}
+            onClick={() => handleRowClick(advert.id)}
+            className={selectedRows.includes(advert.id) ? 'selected' : ''}
           >
-
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>{i + 1}</TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {i + 1}
+            </TableCell>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
               {advert.channel?.name}
             </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>{advert.video_content?.name}</TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
-              {(advert.format === "preroll" && "Pre-roll") ||
-                ("midroll1" && "Mid-roll 1") ||
-                ("midroll2" && "Mid-roll 2") ||
-                ("midroll3" && "Mid-roll 3") ||
-                ("midroll4" && "Mid-roll 4")}
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {advert.video_content?.name}
             </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
-              <FormatterView data={advert.expected_number_of_views}/>
-            </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
               {advert.video_content?.category}
             </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {(advert.format === 'preroll' && 'Pre-roll') ||
+                ('midroll1' && 'Mid-roll 1') ||
+                ('midroll2' && 'Mid-roll 2') ||
+                ('midroll3' && 'Mid-roll 3') ||
+                ('midroll4' && 'Mid-roll 4')}
+            </TableCell>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <FormatterView data={advert.expected_number_of_views} />
+            </TableCell>
+
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
               <a
                 href={`${advert.video_content.link_to_video}&t=${advert.start_at}`}
                 target="_blank"
                 style={{
                   display: 'inline-flex',
-                  gap: "4px",
+                  gap: '4px',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   cursor:
@@ -100,69 +131,84 @@ function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRow
                       ? 'not-allowed'
                       : 'pointer',
                 }}
-                className={`underline ${advert.verified_link_with_timecode === null ? ' text-gray-500' : 'text-[#A7CCFF] hover:text-[#3282f1]'}`}
+                className={`underline ${
+                  advert.verified_link_with_timecode === null
+                    ? ' text-gray-500'
+                    : 'text-[#A7CCFF] hover:text-[#3282f1]'
+                }`}
                 onClick={(e) => {
                   if (advert.verified_link_with_timecode === null) {
-                    e.preventDefault ()
+                    e.preventDefault()
                   }
                 }}
                 rel="noreferrer"
               >
                 Ссылка
-                {
-                  advert.verified_link_with_timecode === null ? null : <LinkSvg/>
-                }
+                {advert.verified_link_with_timecode === null ? null : (
+                  <LinkSvg />
+                )}
               </a>
             </TableCell>
 
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
-              {formatDate (advert.video_content?.publication_time)}
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {formatDate(advert.video_content?.publication_time)}
             </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
-              {
-                advert.online_views ?               <FormatterView data={advert.online_views}/> : <div>-----</div>
-
-              }
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {advert.online_views ? (
+                <FormatterView data={advert.online_views} />
+              ) : (
+                <div>-----</div>
+              )}
             </TableCell>
-            <TableCell data-label="№" className={`font-normal text-${textColor} text-sm `}>
-              <div className='flex gap-2 items-center'>
-                {
-                  role === 'admin' && advert.status === "in_use" || advert.status === "inactive" ?
-                    <AdvertStatus status={advert.status}/>
-                    : <div style={{width: "fit-content"}}>
-                          <Button
-                            variant='outline'
-                            onClick={() => {
-                              setOpen(true)
-                              setSelectedInventoryId (() => advert.id);
-                            }}
-                            className='flex gap-1 relative'
-                          >
-                            <Star/>
-                            {advert.video_content.link_to_video ? (
-                              <CircularBadge
-                                style={{
-                                  backgroundColor: "#4833d0",
-                                  width: "15px",
-                                  height: "15px",
-                                  top: "-5px",
-                                  right: "-5px",
-                                  position: "absolute",
-                                }}
-                              />
-                            ) : (
-                              ""
-                            )}
-                            Проверить
-                          </Button>
+            <TableCell
+              data-label="№"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <div className="flex gap-2 items-center">
+                {(role === 'admin' && advert.status === 'in_use') ||
+                advert.status === 'inactive' ? (
+                  <AdvertStatus status={advert.status} />
+                ) : (
+                  <div style={{ width: 'fit-content' }}>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setOpen(true)
+                        setSelectedInventoryId(() => advert.id)
+                      }}
+                      className="flex gap-1 relative"
+                    >
+                      <Star />
+                      {advert.video_content.link_to_video ? (
+                        <CircularBadge
+                          style={{
+                            backgroundColor: '#4833d0',
+                            width: '15px',
+                            height: '15px',
+                            top: '-5px',
+                            right: '-5px',
+                            position: 'absolute',
+                          }}
+                        />
+                      ) : (
+                        ''
+                      )}
+                      Проверить
+                    </Button>
+                  </div>
+                )}
 
-
-                    </div>
-                }
-
-                {advert.status === "in_use" ? (
+                {advert.status === 'in_use' ? (
                   <div>
-                    <button onClick={() => handleDeactivateInventory (advert.id)}>
+                    <button
+                      onClick={() => handleDeactivateInventory(advert.id)}
+                    >
                       {/*<Deactivate*/}
                       {/*  style={{*/}
                       {/*    width: "16px",*/}
@@ -174,16 +220,15 @@ function AddInventoryData ({inventor, selectedRows, setSelectedRows, expandedRow
                     </button>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
-
             </TableCell>
           </TableBody>
         </>
       ))}
     </>
-  );
+  )
 }
 
-export default AddInventoryData;
+export default AddInventoryData

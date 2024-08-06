@@ -2,34 +2,31 @@ import React from 'react'
 import style from './TableInventory.module.scss'
 import { TableCell, TableRow } from 'src/components/ui/table'
 
-import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import {showModalVideoLinked} from "../../../../redux/modalSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {formatDate} from "../../../../utils/formatterDate";
-import CircularTable from "@/components/Labrery/Circular/CircularTable.jsx";
-import {ThemeContext} from "@/utils/ThemeContext.jsx";
-function OpenTableSentOrderData ({
-                                   data,
-
-                                 }) {
-  const user = localStorage.getItem ('role')
-  const [expandedRows, setExpandedRows] = React.useState ('')
-  const [activeTooltip, setActiveTooltip] = React.useState (null)
-  const [activeTooltipp, setActiveTooltipp] = React.useState (null)
-  const dispatch = useDispatch ()
-  const {showVideoLinked} = useSelector ((state) => state.modal)
-  const [id, setId] = React.useState (null)
-  const { textColor } = React.useContext(ThemeContext);
+import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
+import { showModalVideoLinked } from '../../../../redux/modalSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { formatDate } from '../../../../utils/formatterDate'
+import CircularTable from '@/components/Labrery/Circular/CircularTable.jsx'
+import { ThemeContext } from '@/utils/ThemeContext.jsx'
+function OpenTableSentOrderData({ data }) {
+  const user = localStorage.getItem('role')
+  const [expandedRows, setExpandedRows] = React.useState('')
+  const [activeTooltip, setActiveTooltip] = React.useState(null)
+  const [activeTooltipp, setActiveTooltipp] = React.useState(null)
+  const dispatch = useDispatch()
+  const { showVideoLinked } = useSelector((state) => state.modal)
+  const [id, setId] = React.useState(null)
+  const { textColor } = React.useContext(ThemeContext)
 
   const handleRowClick = (id) => {
-    setExpandedRows (id === expandedRows ? false : id)
+    setExpandedRows(id === expandedRows ? false : id)
   }
   const linkedVideo = (id) => {
-    dispatch (showModalVideoLinked ())
-    inventoryPublish (id)
+    dispatch(showModalVideoLinked())
+    inventoryPublish(id)
   }
   const inventoryPublish = (id) => {
-    setId (id)
+    setId(id)
   }
   return (
     <>
@@ -40,30 +37,33 @@ function OpenTableSentOrderData ({
       {/*    </ModalUI>*/}
       {/*  )}*/}
       {/*</AnimatePresence>*/}
-      {data.map ((inventor, i) => (
+      {data.map((inventor, i) => (
         <>
           <TableRow className={style.table__tr}>
-             <TableCell data-label="ID" className={`font-normal text-${textColor} text-sm `}>
-              <div style={{display: 'flex'}}>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <div style={{ display: 'flex' }}>
                 <div>{i + 1}</div>
                 {user === 'publisher' || user === 'channel' ? (
                   <>
                     {inventor.status === 'pre_booked' ? (
-                      <CircularTable/>
+                      <CircularTable />
                     ) : null}
                   </>
                 ) : null}
 
                 {user === 'admin' ? (
-                  <>{inventor.status === 'open' ? <CircularTable/> : null}</>
+                  <>{inventor.status === 'open' ? <CircularTable /> : null}</>
                 ) : null}
               </div>
             </TableCell>
             <TableCell
-              style={{position: 'relative'}}
+              style={{ position: 'relative' }}
               className={style.table_td}
-              onMouseEnter={() => setActiveTooltip (i)}
-              onMouseLeave={() => setActiveTooltip (null)}
+              onMouseEnter={() => setActiveTooltip(i)}
+              onMouseLeave={() => setActiveTooltip(null)}
             >
               {inventor.channel === null ? '' : inventor.channel.name}
               {user === 'admin' && (
@@ -78,10 +78,10 @@ function OpenTableSentOrderData ({
             </TableCell>
 
             <TableCell
-              style={{position: 'relative'}}
+              style={{ position: 'relative' }}
               className={style.table_td}
-              onMouseEnter={() => setActiveTooltip (i)}
-              onMouseLeave={() => setActiveTooltip (null)}
+              onMouseEnter={() => setActiveTooltip(i)}
+              onMouseLeave={() => setActiveTooltip(null)}
             >
               {inventor.video_content?.name}
               {user === 'admin' && (
@@ -95,7 +95,7 @@ function OpenTableSentOrderData ({
               )}
             </TableCell>
             {/**/}
-            <TableCell className={style.table_td} style={{color: 'blue'}}>
+            <TableCell className={style.table_td} style={{ color: 'blue' }}>
               {(inventor.format === 'preroll' && 'Pre-roll') ||
                 (inventor.format === 'midroll1' && 'Mid-roll 1') ||
                 (inventor.format === 'midroll2' && 'Mid-roll 2') ||
@@ -103,18 +103,29 @@ function OpenTableSentOrderData ({
                 (inventor.format === 'midroll4' && 'Mid-roll 4')}
             </TableCell>
 
-             <TableCell data-label="ID" className={`font-normal text-${textColor} text-sm `}>
-              <FormatterView data={inventor.online_views}/>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <FormatterView data={inventor.online_views} />
             </TableCell>
 
-             <TableCell data-label="ID" className={`font-normal text-${textColor} text-sm `}>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
               {inventor.video_content?.category}
             </TableCell>
-             <TableCell data-label="ID" className={`font-normal text-${textColor} text-sm `}>
-              {formatDate (inventor.video_content?.publication_time)}
-
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {formatDate(inventor.video_content?.publication_time)}
             </TableCell>
-             <TableCell data-label="ID" className={`font-normal text-${textColor} text-sm `}>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
               {inventor.video_content.link_to_video === null ? (
                 <button
                   style={{
@@ -123,10 +134,9 @@ function OpenTableSentOrderData ({
                     justifyContent: 'center',
                   }}
                   className={style.linkVideo}
-                  onClick={() => linkedVideo (inventor.video_content.id)}
+                  onClick={() => linkedVideo(inventor.video_content.id)}
                 >
-                  LinkVideo
-                  Прикрепить Видео
+                  LinkVideo Прикрепить Видео
                 </button>
               ) : (
                 <a
@@ -140,27 +150,19 @@ function OpenTableSentOrderData ({
                   className={style.linkFile}
                   rel="noreferrer"
                 >
-                  Link
-                  Ссылка на Видео
+                  Link Ссылка на Видео
                 </a>
               )}
-
             </TableCell>
             <TableCell>
               {(user === 'admin' ||
                 user === 'advertiser' ||
                 user === 'advertising_agency') &&
               inventor.status === 'open' ? (
-                <button
-
-                >
-                  Edit
-                </button>
+                <button>Edit</button>
               ) : null}
             </TableCell>
           </TableRow>
-
-
         </>
       ))}
     </>

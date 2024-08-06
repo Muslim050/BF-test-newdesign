@@ -1,11 +1,23 @@
 import React from 'react'
 import style from './FilteredTooltip.module.scss'
-import { X } from 'lucide-react';
+import { X } from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ru from 'date-fns/locale/ru' // Импортируйте русскую локаль
 import DownloadReport from '../DownloadReport'
+import { FormatSvg, TvSvg } from 'src/assets/icons-ui.jsx'
+import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import { Button } from 'src/components/ui/button.jsx'
+import { Trash2 } from 'lucide-react'
+import { Label } from '@/components/ui/label'
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectValue,
+} from 'src/components/ui/select.jsx'
 const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
   { value: 'mixroll', text: 'Mix-roll' },
@@ -46,134 +58,11 @@ function FilteredTooltip({
   selectedPublisherName,
 }) {
   const user = localStorage.getItem('role')
-  console.log(selectedPublisher)
-  console.log(selectedChannel)
+
   return (
-    <>
-        <div
-          className={style.profile__wrapper__tooltip}
-          style={{
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            backgroundColor: '#fff',
-            boxShadow: '0 0 5px #bbbbbb',
-            padding: '40px 14px 14px',
-            borderRadius: '10px',
-            zIndex: '2',
-            maxWidth: 'maxWidth',
-            width: '400px',
-          }}
-        >
-          <button
-            className={style.btn_filtered__close}
-            onClick={handleProfileClick}
-          >
-            <X style={{ height: '30px' }} />
-          </button>
-
-          {user === 'admin' && (
-            <div style={{ margin: '10px 0 ' }}>
-              <label
-                style={{
-                  fontSize: '14px',
-                  color: 'var(--text-color)',
-                  fontWeight: '400',
-                }}
-              >
-                Выбрать паблишера
-                <select
-                  value={selectedOptionPublisher} // Используйте ID, а не имя, для value
-                  onChange={handleSelectChangePablisher}
-                  style={{ width: '100%' }}
-                  className={style.input}
-                >
-                  <option value="">Выберите паблишера</option>
-                  {publisher.map((option) => (
-                    <option key={option.id} value={JSON.stringify(option)}>
-                      {option.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-
-          <div>
-            <label
-              style={{
-                fontSize: '14px',
-                color: 'var(--text-color)',
-                fontWeight: '400',
-              }}
-            >
-              Выбрать канал
-              <select
-                value={selectedOptionChannel} // Используйте ID, а не имя, для value
-                onChange={handleSelectChange}
-                style={{ width: '100%' }}
-                className={style.input}
-              >
-                <option value="">Выберите канал</option>
-                {channel.map((option) => (
-                  <option key={option.id} value={JSON.stringify(option)}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div style={{ display: 'flex', gap: '10px', margin: '10px 0 ' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <label
-                style={{
-                  fontSize: '14px',
-                  color: 'var(--text-color)',
-                  fontWeight: '400',
-                }}
-              >
-                Месяц
-              </label>
-              <DatePicker
-                onChange={handleDateChange}
-                selected={selectedMonth}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-                showFullMonthYearPicker
-                className={style.input}
-                disabled={!!dateRange[0] || !!dateRange[1]}
-                locale={ru}
-              />
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <label
-                style={{
-                  fontSize: '14px',
-                  color: 'var(--text-color)',
-                  fontWeight: '400',
-                }}
-              >
-                Дата Конец
-              </label>
-              <DatePicker
-                selected={endDate}
-                onChange={handleEndDateChange}
-                className={style.input}
-                dateFormat="dd-MM-yyyy"
-                disabled={!!startDateMonth || !!endDateMonth} // Здесь используется приведение dateRange к булевому типу
-              />
-            </div>
-          </div>
+    <div className="flex flex-col gap-2">
+      {user === 'admin' && (
+        <div style={{ margin: '10px 0 ' }}>
           <label
             style={{
               fontSize: '14px',
@@ -181,84 +70,168 @@ function FilteredTooltip({
               fontWeight: '400',
             }}
           >
-            Формат размещения
+            Выбрать паблишера
+            <select
+              value={selectedOptionPublisher} // Используйте ID, а не имя, для value
+              onChange={handleSelectChangePablisher}
+              style={{ width: '100%' }}
+              className={style.input}
+            >
+              <option value="">Выберите паблишера</option>
+              {publisher.map((option) => (
+                <option key={option.id} value={JSON.stringify(option)}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
           </label>
-          <select
-            id="countries"
-            value={selectedFormat}
-            className={style.input}
-            onChange={handleSelectFormat}
-          >
-            <option value="">All</option>
+        </div>
+      )}
 
-            {formatV.map((option, index) => (
-              <option key={index} value={option.value}>
-                {option.text}
-              </option>
-            ))}
-          </select>
-          <div
-            style={{
-              display: 'flex',
-              marginTop: '20px',
-              gap: '10px',
-              height: '50px',
-            }}
-          >
-            <div style={{ width: '100%', height: '100%' }}>
-              <button
-                onClick={handleSearch}
-                Customstyle={{
-                  width: '100%',
-                  justifyContent: 'center',
-                  height: '50px',
-                }}
-                disabled={!startDateMonth || !endDateMonth}
-              >
-                {/*<Search style={{ width: '23px', height: '23px' }} />*/}
-                Search
-                <div style={{ marginLeft: '5px' }}>Сортировать</div>
-              </button>
-            </div>
-
-            {(startDateMonth ||
-              endDateMonth ||
-              startDate ||
-              endDate ||
-              selectedChannel) && (
-              <DownloadReport
-                startDate={startDate}
-                endDate={endDate}
-                startDateMonth={startDateMonth}
-                endDateMonth={endDateMonth}
-                channelId={selectedChannel}
-                publisherId={selectedPublisher}
-                selectedChannelsName={selectedChannelName}
-                formatOrder={selectedFormat}
-                selectedPublisherName={selectedPublisherName}
-              />
-            )}
-
-            {(selectedChannel ||
-              startDate ||
-              endDate ||
-              selectedFormat ||
-              startDateMonth ||
-              endDateMonth ||
-              selectedPublisher) && (
-              <div>
-                <button
-                  onClick={handleClear}
-                >
-                  {/*<Delete style={{ width: '23px', height: '23px' }} />*/}
-                  Delete
-                </button>
-              </div>
-            )}
+      <Select onValueChange={handleSelectChange} value={selectedOptionChannel}>
+        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+          <div className="text-xs flex gap-2 text-white">
+            <TvSvg className="text-white" /> Канал
           </div>
+          <SelectTrigger className="rounded-none border-0 p-0 h-auto pl-[25px] text-white">
+            <SelectValue placeholder="Выбрать канал" />
+          </SelectTrigger>
+        </div>
+        <SelectContent className="w-full">
+          <SelectGroup>
+            {channel.map((option) => (
+              <SelectItem
+                className=""
+                key={option.id}
+                value={JSON.stringify(option)}
+              >
+                {option.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <div style={{ display: 'flex', gap: '10px', margin: '10px 0 ' }}>
+        <div
+          className="w-full"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Label htmlFor="terms" className="text-white">
+            Месяц
+          </Label>
+
+          <DatePicker
+            onChange={handleDateChange}
+            selected={selectedMonth}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+            showFullMonthYearPicker
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full"
+            disabled={!!dateRange[0] || !!dateRange[1]}
+            locale={ru}
+          />
         </div>
 
-    </>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+          className="w-full"
+        >
+          <Label htmlFor="terms" className="text-white">
+            Дата Конец
+          </Label>
+
+          <DatePicker
+            selected={endDate}
+            onChange={handleEndDateChange}
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full"
+            dateFormat="dd-MM-yyyy"
+            disabled={!!startDateMonth || !!endDateMonth} // Здесь используется приведение dateRange к булевому типу
+          />
+        </div>
+      </div>
+      {/*Выбрать формат*/}
+      <Select onValueChange={handleSelectFormat} value={selectedFormat}>
+        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+          <div className="text-xs flex gap-2 text-white">
+            <FormatSvg className="text-white" /> Формат
+          </div>
+          <SelectTrigger className="rounded-none border-0 p-0 h-auto pl-[25px] text-white">
+            <SelectValue placeholder="Выбрать формат" />
+          </SelectTrigger>
+        </div>
+        <SelectContent className="w-full">
+          <SelectGroup>
+            {formatV.map((option, index) => (
+              <SelectItem key={index} value={option.value}>
+                {option.text}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      {/*Выбрать формат*/}
+      <div
+        style={{
+          display: 'flex',
+          marginTop: '20px',
+          gap: '10px',
+          height: '50px',
+        }}
+      >
+        <div style={{ width: '100%', height: '100%' }}>
+          <Button
+            variant="ghost"
+            className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
+            onClick={handleSearch}
+            disabled={!startDateMonth || !endDateMonth}
+          >
+            Сортировать
+          </Button>
+        </div>
+
+        {(startDateMonth ||
+          endDateMonth ||
+          startDate ||
+          endDate ||
+          selectedChannel) && (
+          <DownloadReport
+            startDate={startDate}
+            endDate={endDate}
+            startDateMonth={startDateMonth}
+            endDateMonth={endDateMonth}
+            channelId={selectedChannel}
+            publisherId={selectedPublisher}
+            selectedChannelsName={selectedChannelName}
+            formatOrder={selectedFormat}
+            selectedPublisherName={selectedPublisherName}
+          />
+        )}
+
+        {(selectedChannel ||
+          startDate ||
+          endDate ||
+          selectedFormat ||
+          startDateMonth ||
+          endDateMonth ||
+          selectedPublisher) && (
+          <div>
+            <Button
+              onClick={handleClear}
+              className="bg-red-400 rounded-lg hover:bg-red-500 text-white no-underline hover:text-white h-[44px] w-full"
+            >
+              {/*<Delete style={{ width: '23px', height: '23px' }} />*/}
+              <Trash2 />
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
 

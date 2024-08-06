@@ -19,8 +19,8 @@ import Background from 'src/assets/Sidebarcopy/background.png'
 import Logo from 'src/assets/Sidebarcopy/logo.png'
 import NavItem from 'src/components/module/Sidebar/NavItem.jsx'
 // eslint-disable-next-line no-unused-vars
-import {LogoutSvg, ThemeSvg} from 'src/assets/SidebarsIcons-ui.jsx'
-import { Badge } from "@/components/ui/badge"
+import { LogoutSvg, ThemeSvg } from 'src/assets/SidebarsIcons-ui.jsx'
+import { Badge } from '@/components/ui/badge'
 
 import {
   AlertDialog,
@@ -32,15 +32,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from '@/components/ui/alert-dialog'
 import {
-  Tooltip, TooltipContent,
+  Tooltip,
+  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from 'src/components/ui/tooltip'
-import {ThemeContext} from "@/utils/ThemeContext.jsx";
-
-
+import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
 function Sidebar() {
   const [open, setOpen] = React.useState(false)
@@ -56,9 +55,9 @@ function Sidebar() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
+    dispatch(logout())
+    navigate('/login')
+  }
 
   const user = localStorage.getItem('role')
   const filteredMenuItems = menuItems.filter((item) =>
@@ -147,25 +146,25 @@ function Sidebar() {
       window.removeEventListener('scroll', scrollListener, true)
     }
   }, [])
-  const { bgColor, setBgColor } = React.useContext(ThemeContext);
+  const { bgColor, setBgColor } = React.useContext(ThemeContext)
   const baseStyles =
     'flex items-center text-[#838383] text-base font-medium rounded-xl p-3.5 text-white '
   const inactiveStyles = 'hover:bg-red-500  bg-transparent'
 
   const handleColorChange = (color) => {
-    setBgColor(color.hex);
-    localStorage.setItem('selectedBgColor', color.hex);
-  };
+    setBgColor(color.hex)
+    localStorage.setItem('selectedBgColor', color.hex)
+  }
   return (
     <div className=" border_container rounded-xl glass-background ">
-      <div className='border_design rounded-lg '>
+      <div className="border_design rounded-lg ">
         <div
           className={`${
             open ? 'w-[250px] px-[5px] ' : 'w-[55px] px-[0px] '
           }  py-5 relative duration-500  ]`}
         >
           <div
-            onClick={() => setOpen (!open)}
+            onClick={() => setOpen(!open)}
             className={`absolute z-40 cursor-pointer  w-7 text-white
             rounded-full  ${
               !open ? 'right-[-37px] top-3 ' : 'right-[-17px] top-3 '
@@ -197,38 +196,185 @@ function Sidebar() {
               width={49}
               height={49}
             />
+            {open && <div className="font-bold text-[16px]">Brandformance</div>}
           </div>
 
           <div className="flex flex-col 	justify-between">
-
-
             <ul className="pt-[38px] gap-1 flex flex-col relative ">
-              {filteredMenuItems.map ((item, i) => (
+              {filteredMenuItems.map((item, i) => (
                 <TooltipProvider key={i}>
                   <Tooltip>
                     <TooltipTrigger className="relative">
-                      <NavItem item={item} open={open}/>
+                      <NavItem item={item} open={open} setOpen={setOpen} />
                       {/* Рекломадатели */}
-                      {user === 'advertiser' && item.label === 'Заказы' &&  (<>{filteredOrdersAdvertiser.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredOrdersAdvertiser.length}</Badge></div>)}</>)}
-                      {user === 'advertising_agency' && item.label === 'Заказы' &&  (<>{filteredOrdersAdvertiser.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredOrdersAdvertiser.length}</Badge></div>)}</>)}
+                      {user === 'advertiser' && item.label === 'Заказы' && (
+                        <>
+                          {filteredOrdersAdvertiser.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredOrdersAdvertiser.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {user === 'advertising_agency' &&
+                        item.label === 'Заказы' && (
+                          <>
+                            {filteredOrdersAdvertiser.length > 0 && (
+                              <div
+                                className="absolute top-[-8px]
+ right-[-8px]"
+                              >
+                                <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                  {filteredOrdersAdvertiser.length}
+                                </Badge>
+                              </div>
+                            )}
+                          </>
+                        )}
                       {/* Рекломадатели */}
 
                       {/* Паблишер */}
-                      {user === 'publisher' && item.label === 'Заказы' &&  (<>{filteredConfirmedI.length > 0 && filteredComplitedI.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{  filteredComplitedI.length + filteredConfirmedI.length}</Badge></div>)}</>)}
-                      {user === 'publisher' && item.label === 'Видео' &&  (<>{filteredVideo.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredVideo.length}</Badge></div>)}</>)}
-                      {user === 'publisher' && item.label === 'Каналы' &&  (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
+                      {user === 'publisher' && item.label === 'Заказы' && (
+                        <>
+                          {filteredConfirmedI.length > 0 &&
+                            filteredComplitedI.length > 0 && (
+                              <div
+                                className="absolute top-[-8px]
+ right-[-8px]"
+                              >
+                                <Badge className="bg-orange-400 px-1.5 py-[1.4px]">
+                                  {filteredComplitedI.length +
+                                    filteredConfirmedI.length}
+                                </Badge>
+                              </div>
+                            )}
+                        </>
+                      )}
+                      {user === 'publisher' && item.label === 'Видео' && (
+                        <>
+                          {filteredVideo.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-orange-400 px-1.5 py-[1.4px]">
+                                {filteredVideo.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {user === 'publisher' && item.label === 'Каналы' && (
+                        <>
+                          {filteredChannel.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredChannel.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
                       {/* Паблишер */}
 
                       {/*Канал*/}
-                      {user === 'channel' && item.label === 'Заказы' &&  (<>{filteredConfirmedI.length > 0 || filteredComplitedI.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{ filteredComplitedI.length + filteredConfirmedI.length}</Badge></div>)}</>)}
-                      {user === 'channel' && item.label === 'Видео' &&  (<>{filteredVideo.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredVideo.length}</Badge></div>)}</>)}
+                      {user === 'channel' && item.label === 'Заказы' && (
+                        <>
+                          {filteredConfirmedI.length > 0 ||
+                            (filteredComplitedI.length > 0 && (
+                              <div
+                                className="absolute top-[-8px]
+ right-[-8px]"
+                              >
+                                <Badge className="bg-orange-400 px-1.5 py-[1.4px]">
+                                  {filteredComplitedI.length +
+                                    filteredConfirmedI.length}
+                                </Badge>
+                              </div>
+                            ))}
+                        </>
+                      )}
+                      {user === 'channel' && item.label === 'Видео' && (
+                        <>
+                          {filteredVideo.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-orange-400 px-1.5 py-[1.4px]">
+                                {filteredVideo.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
                       {/*Канал*/}
 
                       {/* админ */}
-                      {user === 'admin' && item.label === 'Каналы' &&  (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
-                      {user === 'publisher' && item.label === 'Каналы' && (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
-                      {user === 'channel' && item.label === 'Каналы' && (<>{filteredChannel.length > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-red-500 px-1.5 py-[1.4px]'>{filteredChannel.length}</Badge></div>)}</>)}
-                      {user === 'admin' && item.label === 'Заказы' && (<>{filteredOrders > 0 && (<div className='absolute top-0 right-0'><Badge className='bg-orange-400 px-1.5 py-[1.4px]'>{filteredOrders}</Badge></div>)}</>)}
+                      {user === 'admin' && item.label === 'Каналы' && (
+                        <>
+                          {filteredChannel.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredChannel.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {user === 'publisher' && item.label === 'Каналы' && (
+                        <>
+                          {filteredChannel.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredChannel.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {user === 'channel' && item.label === 'Каналы' && (
+                        <>
+                          {filteredChannel.length > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredChannel.length}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {user === 'admin' && item.label === 'Заказы' && (
+                        <>
+                          {filteredOrders > 0 && (
+                            <div
+                              className="absolute top-[-8px]
+ right-[-8px]"
+                            >
+                              <Badge className="bg-orange-400 px-1.5 py-[1.4px]">
+                                {filteredOrders}
+                              </Badge>
+                            </div>
+                          )}
+                        </>
+                      )}
                       {/* админ */}
                     </TooltipTrigger>
                   </Tooltip>
@@ -236,32 +382,40 @@ function Sidebar() {
               ))}
             </ul>
 
-
             {/*Выход*/}
-            <div className='border-t border-[#e5e7eb66] pt-2'>
+            <div className="border-t border-[#e5e7eb66] pt-2">
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <div
-                    className={`${baseStyles} hover:${inactiveStyles} group hover:text-red-500 hover:bg-red-200 cursor-pointer`}>
+                    className={`${baseStyles} hover:${inactiveStyles} group hover:text-red-500 hover:bg-red-200 cursor-pointer`}
+                  >
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="flex items-center relative">
-                            <LogoutSvg className="text-white w-[26px] h-[26px] group-hover:text-red-500"/>
+                            <LogoutSvg className="text-white w-[26px] h-[26px] group-hover:text-red-500" />
                             {open ? (
                               <span
                                 className={`ml-3.5 transition-opacity duration-500 ease-in-out ${
-                                  open ? 'opacity-100 visible' : 'opacity-0 invisible'
+                                  open
+                                    ? 'opacity-100 visible'
+                                    : 'opacity-0 invisible'
                                 }`}
-                                style={{transitionDelay: open ? '0.3s' : '0s'}}
+                                style={{
+                                  transitionDelay: open ? '0.3s' : '0s',
+                                }}
                               >
-                        Выход
-                      </span>
+                                Выход
+                              </span>
                             ) : null}
                           </div>
                         </TooltipTrigger>
                         {!open && (
-                          <TooltipContent side="right" className="ml-2" sideOffset={0}>
+                          <TooltipContent
+                            side="right"
+                            className="ml-2"
+                            sideOffset={0}
+                          >
                             <p>Выход</p>
                           </TooltipContent>
                         )}
@@ -271,20 +425,28 @@ function Sidebar() {
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle className='text-white'>Выйти из системы</AlertDialogTitle>
-                    <AlertDialogDescription className='text-white'>
+                    <AlertDialogTitle className="text-white">
+                      Выйти из системы
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-white">
                       Вы точно хотите выйти?
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className='text-white w-[100px]'>Нет</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleLogout} className='bg-red-500 hover:bg-red-400 w-[100px]'>Да</AlertDialogAction>
+                    <AlertDialogCancel className="text-white w-[100px]">
+                      Нет
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleLogout}
+                      className="bg-red-500 hover:bg-red-400 w-[100px]"
+                    >
+                      Да
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
             </div>
             {/*Выход*/}
-
           </div>
         </div>
       </div>

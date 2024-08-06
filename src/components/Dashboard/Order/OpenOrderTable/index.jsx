@@ -4,8 +4,13 @@ import axios from 'axios'
 import backendURL from 'src/utils/url'
 import AddInventory from './AddInventory'
 import AddSentPublisher from './AddSentPublisher'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "src/components/ui/tabs.jsx";
-import {hasRole} from "@/utils/roleUtils.js";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from 'src/components/ui/tabs.jsx'
+import { hasRole } from '@/utils/roleUtils.js'
 
 const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
   const dispatch = useDispatch()
@@ -53,15 +58,25 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
         </div>
       ) : (
         <>
-          <Tabs defaultValue="inventory" >
-            <TabsList className="grid grid-cols-2 w-[300px] h-[48px] my-2">
-              <TabsTrigger value="inventory" className='bg-[#225AB3'>Инвентари</TabsTrigger>
-              {
-                hasRole('admin') ?
-                  <TabsTrigger value="sentpublisher">Размещения</TabsTrigger> : null
-              }
+          <Tabs defaultValue="inventory">
+            <TabsList
+              className="grid grid-cols-2 w-[300px] h-[48px] my-2"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.0289) 99.67%)',
+              }}
+            >
+              <TabsTrigger value="inventory" className="bg-[#225AB3">
+                Инвентари
+              </TabsTrigger>
+              {hasRole('admin') ? (
+                <TabsTrigger value="sentpublisher">Размещения</TabsTrigger>
+              ) : null}
             </TabsList>
-            <TabsContent value="inventory" className='bg-[#090e35e0] rounded-lg'>
+            <TabsContent
+              value="inventory"
+              className="bg-[#090e35e0] rounded-lg"
+            >
               <AddInventory
                 getOrder={getOrder}
                 setSelectedRows={setSelectedRows}
@@ -70,7 +85,10 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
                 fetchGetOrder={fetchGetOrder} // Передача функции как пропс
               />
             </TabsContent>
-            <TabsContent value="sentpublisher" className='bg-[#090e35e0] rounded-xl'>
+            <TabsContent
+              value="sentpublisher"
+              className="bg-[#090e35e0] rounded-xl"
+            >
               <AddSentPublisher
                 setSelectedRows={setSelectedRows}
                 selectedRows={selectedRows}
@@ -78,7 +96,6 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
                 setAddInventroyModal={setAddInventroyModal}
                 onceOrder={onceOrder}
               />
-
             </TabsContent>
           </Tabs>
         </>

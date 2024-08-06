@@ -21,7 +21,7 @@ import {
   videoSvg,
 } from 'src/assets/SidebarsIcons-ui.jsx'
 // import {ordersSvg, overviewSvg} from "../../../assets/SidebarsIcons-ui.jsx";
-import { Notebook } from 'lucide-react';
+import { Notebook } from 'lucide-react'
 
 export const menuItems = [
   // {
@@ -40,24 +40,29 @@ export const menuItems = [
   },
   {
     roles: ['channel', 'publisher'],
-    label: 'Заказы Паблишера',
+    label: 'Заказы',
     to: '/sents-order',
     icon: Notebook,
   },
   {
     roles: ['publisher', 'channel', 'admin'],
-    label: 'Отчет-Паблишера',
-    to: '/publisher-report',
+    label: 'Отчет',
     icon: reportsSvg,
     accordion: true,
+    subMenu: [
+      {
+        label: 'Паблишеров',
+        to: '/publisher-report',
+        roles: ['publisher', 'channel', 'admin'],
+      },
+      {
+        label: 'Рекламодателей',
+        to: '/advertiser-report',
+        roles: ['advertiser', 'advertising_agency', 'admin'],
+      },
+    ],
   },
-  {
-    roles: ['advertiser', 'advertising_agency', 'admin'],
-    label: 'Отчет-Рекламодателя',
-    to: '/advertiser-report',
-    icon: reportsSvg,
-    accordion: true,
-  },
+
   {
     roles: ['channel', 'publisher', 'admin'],
     label: 'Инвентарь',

@@ -24,7 +24,7 @@ export default function getTitle(title) {
   } else if (title === 'channel') {
     return 'Канал'
   } else if (title.startsWith('chart-order-table')) {
-    return `Заказы / Аналитика`
+    return `Статистика заказа`
   }
   // } else if (title === 'channel-users') {
   //   return 'Пользователи канала'.replace('-', ' ')
@@ -37,10 +37,9 @@ export default function getTitle(title) {
   // }
   else if (title.startsWith(`publisher-report`)) {
     return `Отчет / Паблишера`
-  }else if (title.startsWith(`sents-order`)) {
+  } else if (title.startsWith(`sents-order`)) {
     return `Заказы - Паблишера / Канала`
   }
-
 
   // } else if (title.startsWith(`advertiser-report`)) {
   //   return `Отчет - Рекламодателя`

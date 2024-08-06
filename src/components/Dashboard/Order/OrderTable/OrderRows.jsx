@@ -38,6 +38,9 @@ function OrderRows({ data, sort, sortKey, changeSort }) {
           if (row.key === 'porog' && !row.visible) {
             return null // Пропускать невидимую колонку "порог"
           }
+          if (row.key === 'deistvia' && showStatusColumn) {
+            return null // Пропускать невидимую колонку "порог"
+          }
 
           return (
             <TableHead key={row.key} className="text-white">

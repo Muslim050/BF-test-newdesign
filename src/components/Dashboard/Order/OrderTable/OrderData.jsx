@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {fetchOrder, setOrderStatus} from '../../../../redux/order/orderSlice'
+import { fetchOrder, setOrderStatus } from '../../../../redux/order/orderSlice'
 import {
   fetchViewStatus,
   finishOrder,
@@ -26,8 +26,9 @@ import { useNavigate } from 'react-router-dom'
 import { ChartSvg, OpenSvg } from '../../../../assets/icons-ui.jsx'
 import { truncate } from '../../../../utils/other.js'
 import PopoverButtons from '../module/PopoverButtons.jsx'
-import {formatDate} from "@/utils/formatterDate.jsx";
-import {ThemeContext} from "@/utils/ThemeContext.jsx";
+import { formatDate } from '@/utils/formatterDate.jsx'
+import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import { hasRole } from '../../../../utils/roleUtils.js'
 
 function OrderData({ sortedData }) {
   const dispatch = useDispatch()
@@ -39,22 +40,22 @@ function OrderData({ sortedData }) {
   const [showKomment, setShowKomment] = React.useState(false)
   const navigate = useNavigate()
   const [activeTooltip, setActiveTooltip] = React.useState(null)
-  const { textColor } = React.useContext(ThemeContext);
+  const { textColor } = React.useContext(ThemeContext)
   const { showPayment } = useSelector((state) => state.modal)
 
   const handleRowClick = (id) => {
-    setExpandedRows (id === expandedRows ? false : id);
-    const item = sortedData ().find ((item) => item.id === id);
-    if (item && item.status === "sent") {
-      dispatch (fetchViewStatus (id)).then ((result) => {
-        if (result.type === fetchViewStatus.fulfilled.toString ()) {
-          dispatch (setOrderStatus ({orderId: id, status: "accepted"}));
+    setExpandedRows(id === expandedRows ? false : id)
+    const item = sortedData().find((item) => item.id === id)
+    if (item && item.status === 'sent') {
+      dispatch(fetchViewStatus(id)).then((result) => {
+        if (result.type === fetchViewStatus.fulfilled.toString()) {
+          dispatch(setOrderStatus({ orderId: id, status: 'accepted' }))
         }
-      });
+      })
     } else {
       // setTimeout (() => fetchGetOrder (id), 2000); // Fetch the specific order directly after 2 seconds if the status is not "sent"
     }
-  };
+  }
 
   const handleFinishOrder = (id) => {
     const confirmFinish = window.confirm(
@@ -179,14 +180,10 @@ function OrderData({ sortedData }) {
                 </div>
               </TableCell>
               <TableCell className={`font-normal text-${textColor} text-sm `}>
-
-                {formatDate (advert.expected_start_date)}
-
+                {formatDate(advert.expected_start_date)}
               </TableCell>
               <TableCell className={`font-normal text-${textColor} text-sm `}>
-
-                {formatDate (advert.expected_end_date)}
-
+                {formatDate(advert.expected_end_date)}
               </TableCell>
               <TableCell className={`font-normal text-${textColor} text-sm `}>
                 {advert.status === 'finished' ? (
@@ -389,16 +386,18 @@ function OrderData({ sortedData }) {
               </TableCell>
 
               {/*POPOVER*/}
-              <TableCell className={`font-normal text-${textColor} text-sm `}>
-                <PopoverButtons
-                  advert={advert}
-                  setShowModalEditAdmin={setShowModalEditAdmin}
-                  setCurrentOrder={setCurrentOrder}
-                  setShowKomment={setShowKomment}
-                  copyToClipboard={copyToClipboard}
-                  handleFinishOrder={handleFinishOrder}
-                />
-              </TableCell>
+              {hasRole === 'admin' ? (
+                <TableCell className={`font-normal text-${textColor} text-sm `}>
+                  <PopoverButtons
+                    advert={advert}
+                    setShowModalEditAdmin={setShowModalEditAdmin}
+                    setCurrentOrder={setCurrentOrder}
+                    setShowKomment={setShowKomment}
+                    copyToClipboard={copyToClipboard}
+                    handleFinishOrder={handleFinishOrder}
+                  />
+                </TableCell>
+              ) : null}
               {/*POPOVER*/}
             </TableRow>
 
@@ -407,7 +406,6 @@ function OrderData({ sortedData }) {
                 <td
                   colSpan="12"
                   className="p-3 rounded-b-lg	 bg-white bg-opacity-30 backdrop-blur-md"
-
                 >
                   <OpenOrderTable
                     expandedRows={expandedRows}
