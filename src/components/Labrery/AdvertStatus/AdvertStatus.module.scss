@@ -9,7 +9,7 @@
 
   &.sent {
     background-color: #fbff2b4d;
-    color: #FCFF78;
+    color: #fcff78;
   }
 
   //Получен
@@ -20,7 +20,7 @@
 
   &.in_review {
     background-color: #c9d4e978;
-    color: #A7CCFF;
+    color: #a7ccff;
   }
 
   &.confirmed {
@@ -34,8 +34,8 @@
   }
 
   &.in_progress {
-    background-color: #2A85FF66;
-    color: #5570f1;
+    background-color: #2a85ff66;
+    color: #8b9df8;
   }
 
   &.unused {
@@ -59,19 +59,18 @@
   }
 
   &.in_use {
-    background-color: #B5E4CA4D;
-    color: #C9FFB5;
+    background-color: #b5e4ca4d;
+    color: #c9ffb5;
   }
 
   &.inactive {
-    background-color: #FF67674D;
+    background-color: #ff67674d;
     color: #ff8080;
   }
 
   //Завершен
   &.finished {
-    background-color: #FF67674D;
+    background-color: #ff67674d;
     color: #ff8080;
   }
 }
-

@@ -1,12 +1,17 @@
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+
 import {
   deleteOrder,
   fetchEditOrder,
   fetchOrder,
 } from '../../../../redux/order/orderSlice'
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog.jsx'
 import { toastConfig } from '../../../../utils/toastConfig'
 import 'react-datepicker/dist/react-datepicker.css'
 import style from './EditOrderModal.module.scss'
@@ -14,16 +19,40 @@ import { X } from 'lucide-react'
 // import {ReactComponent as File} from 'src/assets/Table/file.svg'
 import backendURL from 'src/utils/url'
 import axios from 'axios'
-import ButtonBorder from 'src/components/Labrery/ButtonBorder/ButtonBorder'
 // import {ReactComponent as Delete} from 'src/assets/Table/Delete.svg'
+import { Label } from '@/components/ui/label.jsx'
+import { Textarea } from '@/components/ui/textarea.jsx'
 
-const format = [
+import { Input } from '@/components/ui/input.jsx'
+import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog.jsx'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectValue,
+} from '@/components/ui/select.jsx'
+import { Button } from '../../../ui/button'
+import toast from 'react-hot-toast'
+const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
   { value: 'mixroll', text: 'Mix-roll' },
 ]
 export default function EditOrderModal({
   setShowModalEditAdmin,
   currentOrder,
+  onClose,
 }) {
   const dispatch = useDispatch()
   const [selectedFile, setSelectedFile] = React.useState(null)
@@ -32,6 +61,15 @@ export default function EditOrderModal({
   const role = localStorage.getItem('role')
   const { order } = useSelector((state) => state.order)
   const [isOrderCreated, setIsOrderCreated] = React.useState(false)
+
+  const [selectedFormat, setSelectedFormat] = React.useState(
+    currentOrder.format,
+  )
+
+  const handleFormatChange = (value) => {
+    setSelectedFormat(value)
+    setValue('format', value)
+  }
   const {
     register,
     formState: { errors, isValid },
@@ -58,7 +96,6 @@ export default function EditOrderModal({
 
   const editName = watch('name')
   // const viewValue = watch("view");
-  const selectedFormat = watch('format')
   const expectedView = watch('expectedView')
 
   const calculateBudget = () => {
@@ -115,15 +152,12 @@ export default function EditOrderModal({
       )
 
       if (response && !response.error) {
-        toast.success('Изминения успешно обновлены!', toastConfig)
-        setShowModalEditAdmin(false)
+        toast.success('Изминения успешно обновлены!')
+        onClose()
         dispatch(fetchOrder())
       } else if (response.error.message) {
-        toast.error(
-          'Что-то пошло не так!' + response.error.message,
-          toastConfig,
-        )
-        setShowModalEditAdmin(false)
+        toast.error('Что-то пошло не так!' + response.error.message)
+        onClose()
       }
     } catch (error) {
       setIsOrderCreated(false)
@@ -136,63 +170,77 @@ export default function EditOrderModal({
   }
 
   const handleRemoveInventory = () => {
-    const confirmDelete = window.confirm('Вы уверены, что хотите удалить?')
-    if (confirmDelete) {
-      dispatch(deleteOrder({ id: currentOrder.id }))
-        .then(() => {
-          toast.success('Инвентарь успешно удален', toastConfig)
-          setShowModalEditAdmin(false)
-          dispatch(fetchOrder())
-        })
-        .catch((error) => {
-          toast.error(error.message, toastConfig)
-          dispatch(fetchOrder())
-        })
-    } else {
-      toast.info('Операция отменена', toastConfig)
-    }
+    // const confirmDelete = window.confirm('Вы уверены, что хотите удалить?')
+    // if (confirmDelete) {
+    //   dispatch(deleteOrder({ id: currentOrder.id }))
+    //     .then(() => {
+    //       toast.success('Инвентарь успешно удален', toastConfig)
+    //       setShowModalEditAdmin(false)
+    //       dispatch(fetchOrder())
+    //     })
+    //     .catch((error) => {
+    //       toast.error(error.message, toastConfig)
+    //       dispatch(fetchOrder())
+    //     })
+    // } else {
+    //   toast.info('Операция отменена', toastConfig)
+    // }
+    dispatch(deleteOrder({ id: currentOrder.id }))
+      .unwrap()
+      .then((result) => {
+        toast.success('Заказ успешно завершен')
+        onClose()
+        dispatch(fetchOrder())
+      })
+      .catch((error) => {
+        console.log(error)
+
+        toast.error(`Ошибка завершения заказа: ${error.data.error.detail}`)
+        dispatch(fetchOrder())
+      })
   }
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="modalWindow__title">
-          Редактировать Заказ
-          <X
-            className="modalWindow__title__button"
-            onClick={() => setShowModalEditAdmin(false)}
-          />
-        </div>
-
-        <div className="modalWindow">
-          <div style={{ display: 'grid', marginBottom: '18px' }}>
-            <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-              Название рекламной кампании
-            </label>
-            <input
-              type="text"
-              className={
-                role === 'admin'
-                  ? style.modalWindow__inputU
-                  : style.modalWindow__input
-              }
-              {...register('name', {
-                required: 'Название рекламной кампании обезательно',
-              })}
-              disabled={role !== 'admin'}
-            />
-            <span className={style.modalWindow__input_error}>
-              {errors?.name && <p>{errors?.name?.message}</p>}
-            </span>
+      <DialogContent
+        className="p-4"
+        onInteractOutside={(e) => {
+          e.preventDefault()
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle className="text-lg	font-medium	text-white border-b border-[#F9F9F926] pb-4">
+            Редактировать заказ
+          </DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex gap-4 mb-4">
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
+                Название рекламной кампании
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
+              <Input
+                type="text"
+                autoComplete="off"
+                {...register('name', {
+                  required: 'Поле обезательно к заполнению',
+                })}
+                disabled={!role === 'admin'}
+                placeholder={'Введите имя'}
+                className={`border ${
+                  errors?.name ? 'border-red-500' : 'border-gray-300'
+                }transition-all duration-300 text-sm `}
+              />
+            </div>
           </div>
 
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '18px' }}
-          >
-            <div style={{ display: 'grid', marginRight: '10px' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+          <div className="flex gap-4 mb-4">
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
                 Начало
-              </label>
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
               <Controller
                 name="startdate"
                 control={control}
@@ -202,13 +250,10 @@ export default function EditOrderModal({
                     : ''
                 }
                 render={({ field: { onChange, value } }) => (
-                  <input
-                    // className={style.input}
-                    className={
-                      role === 'admin'
-                        ? style.modalWindow__inputU
-                        : style.modalWindow__input
-                    }
+                  <Input
+                    className={`border ${
+                      errors?.startdate ? 'border-red-500' : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
                     disabled={role !== 'admin'}
                     type="date"
                     onChange={onChange}
@@ -219,15 +264,13 @@ export default function EditOrderModal({
                   />
                 )}
               />
-              <span className={style.modalWindow__input_error}>
-                {errors?.startdate && <p>{errors?.startdate?.message}</p>}
-              </span>
             </div>
 
-            <div style={{ display: 'grid' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
                 Конец
-              </label>
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
               <Controller
                 name="enddate"
                 control={control}
@@ -237,12 +280,10 @@ export default function EditOrderModal({
                     : ''
                 }
                 render={({ field: { onChange, value } }) => (
-                  <input
-                    className={
-                      role === 'admin'
-                        ? style.modalWindow__inputU
-                        : style.modalWindow__input
-                    }
+                  <Input
+                    className={`border ${
+                      errors?.enddate ? 'border-red-500' : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
                     disabled={role !== 'admin'}
                     type="date"
                     onChange={onChange}
@@ -253,54 +294,38 @@ export default function EditOrderModal({
                   />
                 )}
               />
-              <span className={style.modalWindow__input_error}>
-                {errors?.startdate && <p>{errors?.startdate?.message}</p>}
-              </span>
             </div>
           </div>
 
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '15px' }}
-          >
-            <div style={{ width: '175px' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+          {/*  */}
+          <div className="flex gap-4 mb-4">
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
                 Формат
-              </label>
-              <select
-                id="countries"
-                style={{ padding: '12px' }}
-                {...register('format', {
-                  required: 'Поле обязательно',
-                })}
-                className={
-                  role === 'admin'
-                    ? style.modalWindow__inputU
-                    : style.modalWindow__input
-                }
-                disabled={role !== 'admin'}
-              >
-                <option value="">Выбрать Формат</option>
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
+              <Select value={selectedFormat} onValueChange={handleFormatChange}>
+                <SelectTrigger className="!text-white">
+                  <SelectValue placeholder="Выбрать формат" />
+                </SelectTrigger>
 
-                {format.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-              <span className={style.select__error}>
-                {errors?.format && (
-                  <p style={{ lineHeight: '16px' }}>
-                    {errors?.format?.message}
-                  </p>
-                )}
-              </span>
+                <SelectContent className="w-full">
+                  <SelectGroup>
+                    {formatV.map((option, index) => (
+                      <SelectItem key={index} value={option.value}>
+                        {option.text}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
 
-            <div style={{ display: 'grid', marginTop: '5px' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
                 Количество показов
-              </label>
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
               <Controller
                 name="expectedView"
                 control={control}
@@ -309,18 +334,12 @@ export default function EditOrderModal({
                 }}
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <input
-                    // className={style.modalWindow__inputU}
-                    className={
-                      role === 'admin'
-                        ? style.modalWindow__inputU
-                        : style.modalWindow__input
-                    }
+                  <Input
+                    className={`border ${
+                      errors?.enddate ? 'border-red-500' : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
                     type="text"
                     value={value.toLocaleString('en-US')}
-                    style={{
-                      width: '245px',
-                    }}
                     onChange={(e) => {
                       const rawValue = e.target.value.replace(/\D/g, '')
                       const newValue = rawValue ? parseInt(rawValue, 10) : ''
@@ -337,52 +356,37 @@ export default function EditOrderModal({
                   />
                 )}
               />
-              <span className={style.modalWindow__input_error}>
-                {errors?.expectedView && (
-                  <p style={{ width: '240px', lineHeight: '1.4' }}>
-                    {errors?.expectedView?.message}
-                  </p>
-                )}
-              </span>
             </div>
           </div>
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '15px', justifyContent: 'space-between' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div
-                style={{
-                  marginLeft: '10px',
-                }}
+          {/*  */}
+
+          {/*  */}
+          <div className="flex gap-4 mb-4">
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">Тякущий ролик:</Label>
+              <a
+                href={currentOrder.promo_file}
+                target="_blank"
+                className={style.fileWrapper}
+                rel="noreferrer"
               >
-                <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-                  Тякущий ролик:
-                </label>
-                <a
-                  href={currentOrder.promo_file}
-                  target="_blank"
-                  className={style.fileWrapper}
-                  rel="noreferrer"
-                >
-                  Ролик
-                  {/*<File*/}
-                  {/*  style={{width: '18px', height: '18px', marginLeft: '5px'}}*/}
-                  {/*/>*/}
-                </a>
-              </div>
+                Ролик
+                {/*<File*/}
+                {/*  style={{width: '18px', height: '18px', marginLeft: '5px'}}*/}
+                {/*/>*/}
+              </a>
             </div>
 
-            <div style={{ display: 'grid' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
                 Бюджет (сум)
-              </label>
-              <input
-                className={style.modalWindow__input}
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
+              <Input
+                className={`border ${
+                  errors?.enddate ? 'border-red-500' : 'border-gray-300'
+                }   transition-all duration-300 text-sm `}
                 type="text"
-                style={{
-                  width: '150px',
-                }}
                 value={
                   isNaN(budgett)
                     ? currentOrder.budget.toLocaleString('en-US')
@@ -394,6 +398,7 @@ export default function EditOrderModal({
               />
             </div>
           </div>
+          {/*  */}
 
           <div className="modalWindow__wrapper_input">
             <div style={{ marginBottom: '20px' }}>
@@ -411,40 +416,82 @@ export default function EditOrderModal({
               </span>
             </div>
           </div>
-          <textarea
+          {/* <textarea
             placeholder="Комментарий к заказу"
             autoComplete="off"
-            className={style.modalWindow__textarea}
+            className={`border ${
+              errors?.enddate ? 'border-red-500' : 'border-gray-300'
+            }   transition-all duration-300 text-sm `}
             {...register('notes')}
             style={{ width: '100%' }}
-          ></textarea>
-          <div className={style.btn__wrapper}>
+          ></textarea> */}
+
+          <Textarea
+            placeholder="Комментарий к заказу"
+            className="resize-none text-white"
+            // {...field}
+            {...register('notes')}
+          />
+
+          <div className="flex gap-4">
             {role === 'admin' ? (
-              <ButtonBorder
-                onClick={() => {
-                  handleRemoveInventory()
-                }}
-              >
-                {/*<Delete*/}
-                {/*  style={{*/}
-                {/*    width: '16px',*/}
-                {/*    height: '16px',*/}
-                {/*    marginRight: '10px',*/}
-                {/*  }}*/}
-                {/*/>*/}
-                Удалить
-              </ButtonBorder>
+              // <Button
+              //   className={`${
+              //     isValid && !isOrderCreated
+              //       ? 'bg-[#ff000066] hover:bg-red-500 border-2 border-red-500 hover:border-red-400'
+              //       : 'bg-[#616161]'
+              //   } w-full   h-[44px] text-white rounded-lg	mt-6`}
+              //   onClick={() => {
+              //     handleRemoveInventory()
+              //   }}
+              // >
+              //   Удалить
+              // </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    className={`${
+                      isValid && !isOrderCreated
+                        ? 'bg-[#ff000066] hover:bg-red-500 border-2 border-red-500 hover:border-red-400'
+                        : 'bg-[#616161]'
+                    } w-full   h-[44px] text-white rounded-lg	mt-6`}
+                  >
+                    Удалить
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-red-500">
+                      Вы уверены, что хотите удалить заказ?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-white">
+                      Это действие не может быть отменено.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="text-white">
+                      Отмена
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-red-300 hover:bg-red-500 border-2 border-red-500 "
+                      onClick={() => handleRemoveInventory()}
+                    >
+                      Удалить
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             ) : null}
 
-            <button
-              style={{ display: 'flex', alignItems: 'center' }}
-              type="submit"
-              disabled={!isValid || isOrderCreated}
-              className={
+            <Button
+              className={`${
                 isValid && !isOrderCreated
-                  ? style.btn__wrapper__btn
-                  : style.btn__wrapper__disabled
-              }
+                  ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
+                  : 'bg-[#616161]'
+              } w-full   h-[44px] text-white rounded-lg	mt-6`}
+              disabled={!isValid || isOrderCreated}
+              isValid={true}
+              type="submit"
             >
               {isOrderCreated ? (
                 <>
@@ -456,10 +503,31 @@ export default function EditOrderModal({
               ) : (
                 <span>Сохранить</span>
               )}
-            </button>
+            </Button>
+            {/* <button
+              style={{ display: 'flex', alignItems: 'center' }}
+              type="submit"
+              // disabled={!isValid || isOrderCreated}
+              // className={
+              //   isValid && !isOrderCreated
+              //     ? style.btn__wrapper__btn
+              //     : style.btn__wrapper__disabled
+              // }
+            >
+              {isOrderCreated ? (
+                <>
+                  <span>Сохранить</span>
+                  <div className={style.loaderWrapper}>
+                    <div className={style.spinner}></div>
+                  </div>
+                </>
+              ) : (
+                <span>Сохранить</span>
+              )}
+            </button> */}
           </div>
-        </div>
-      </form>
+        </form>
+      </DialogContent>
     </>
   )
 }

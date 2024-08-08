@@ -197,7 +197,7 @@ export const confirmOrder = createAsyncThunk(
 
 export const finishOrder = createAsyncThunk(
   'order/finishOrder',
-  async ({ id }) => {
+  async ({ id }, { rejectWithValue }) => {
     const token = localStorage.getItem('token')
 
     try {
@@ -217,7 +217,7 @@ export const finishOrder = createAsyncThunk(
       )
       return response
     } catch (error) {
-      throw error
+      return rejectWithValue(error.response)
     }
   },
 )

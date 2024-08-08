@@ -2,22 +2,38 @@ import axios from 'axios'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { toast } from 'react-toastify'
+
 import { addOrder } from '../../../../redux/order/orderSlice'
 import { toastConfig } from '../../../../utils/toastConfig'
 import 'react-datepicker/dist/react-datepicker.css'
-import InputUI from '../../../Labrery/InputUI/InputUI'
-import SelectUI from '../../../Labrery/SelectUI/SelectUI'
 import style from './OrderModal.module.scss'
 import backendURL from 'src/utils/url'
 import { hideModalOrder } from 'src/redux/modalSlice'
-import { X } from 'lucide-react'
-
-const format = [
+import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import { Textarea } from '@/components/ui/textarea.jsx'
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog.jsx'
+import { Label } from '@/components/ui/label.jsx'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectValue,
+} from '@/components/ui/select.jsx'
+import { Input } from '@/components/ui/input.jsx'
+import { hasRole } from '../../../../utils/roleUtils'
+import { Button } from '../../../ui/button'
+import toast from 'react-hot-toast'
+const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
   { value: 'mixroll', text: 'Mix-roll' },
 ]
-export default function OrderModal({ setShowModal }) {
+export default function OrderModal({ onClose }) {
   const dispatch = useDispatch()
   const [selectedFile, setSelectedFile] = React.useState(null)
 
@@ -34,6 +50,12 @@ export default function OrderModal({ setShowModal }) {
   advertiser.forEach((item) => {
     advId = item.id // Присваиваем значение свойства name текущего элемента массива
   })
+  const [selectedFormat, setSelectedFormat] = React.useState('')
+
+  const handleFormatChange = (value) => {
+    setSelectedFormat(value)
+    setValue('format', value)
+  }
   const {
     register,
     formState: { errors, isValid },
@@ -45,7 +67,7 @@ export default function OrderModal({ setShowModal }) {
     defaultValues: {
       advertiserID: '',
       name: '',
-      format: '',
+      format: selectedFormat,
       expectedView: '',
       budgett: 0,
       selectedFile: null,
@@ -55,7 +77,6 @@ export default function OrderModal({ setShowModal }) {
 
     mode: 'onBlur',
   })
-  const selectedFormat = watch('format')
   const expectedView = watch('expectedView')
   const agencyAdvId = watch('advertiserID')
   const targetCountry = watch('target_country')
@@ -138,17 +159,14 @@ export default function OrderModal({ setShowModal }) {
       setIsOrderCreated(true)
       const response = await dispatch(addOrder({ data }))
       if (response && !response.error) {
-        toast.success('Заказ успешно создан!', toastConfig)
-        dispatch(hideModalOrder())
+        toast.success('Заказ успешно создан!')
+        onClose()
         setTimeout(() => {
           window.location.reload()
         }, 1500)
       } else if (response.error.message) {
-        toast.error(
-          'Что-то пошло не так!' + response.error.message,
-          toastConfig,
-        )
-        dispatch(hideModalOrder())
+        toast.error('Что-то пошло не так!' + response.error.message)
+        onClose()
       }
     } catch (error) {
       setIsOrderCreated(false)
@@ -177,271 +195,298 @@ export default function OrderModal({ setShowModal }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="modalWindow__title">
-          Cоздать заказ
-          <X
-            className="modalWindow__title__button"
-            onClick={handleButtonClick}
-          />
-        </div>
+      <DialogContent
+        className=" p-4"
+        onInteractOutside={(e) => {
+          e.preventDefault()
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle className="text-lg	font-medium	text-white border-b border-[#F9F9F926] pb-4">
+            Создать заказ
+          </DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="modalWindow">
+            {hasRole('advertising_agency') ? (
+              <div className="flex gap-4 mb-4">
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2">
+                    Формат
+                    <span className="text-red-500 ml-0.5">*</span>
+                  </Label>
+                  <Controller
+                    name="selectedAdvertiserId"
+                    {...register('advertiser', {
+                      required: 'Поле обязательно',
+                    })}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="!text-white">
+                          <SelectValue placeholder="Выбрать рекламное агенство" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>
+                              Выбрать рекламное агенство
+                            </SelectLabel>
+                            {advertiser.map((adv) => (
+                              <SelectItem
+                                key={adv.id}
+                                value={adv.id.toString()}
+                              >
+                                {adv.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
+            <div className="flex gap-4 mb-4">
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
+                  Название кампании
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Input
+                  placeholder=" Название кампании"
+                  className={`border ${
+                    errors?.name ? 'border-red-500' : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
+                  type="text"
+                  {...register('name', {
+                    required: 'Поле обязательно к заполнению',
+                  })}
+                />
+              </div>
+            </div>
 
-        <div className="modalWindow">
-          {user === 'advertising_agency' ? (
-            <SelectUI
-              label="рекламодателя"
-              options={advertiser}
-              register={register('advertiserID', {
-                required: 'Поле обязательно для заполнения',
-              })}
-              error={errors?.publisher?.message}
-              inputWidth
-            />
-          ) : (
-            ''
-          )}
-          <InputUI
-            type="text"
-            placeholder=" Название кампании"
-            autoComplete="off"
-            register={register}
-            name="name"
-            errors={errors.name}
-            inputWidth
-          />
-
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '24px' }}
-          >
-            <div>
-              <div style={{ display: 'grid', marginRight: '10px' }}>
-                <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+            {/*  */}
+            <div className="flex gap-4 mb-4">
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
                   Начало размещения
-                </label>
-                <input
-                  className={style.input}
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Input
+                  className={`border ${
+                    errors?.startdate ? 'border-red-500' : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
                   type="date"
                   // min={getCurrentDate()}
                   {...register('startdate', {
                     required: 'Поле обязательно к заполнению',
                   })}
-                  style={{
-                    width: '210px',
-                  }}
                 />
-                <span className={style.modalWindow__input_error}>
-                  {errors?.startdate && <p>{errors?.startdate?.message}</p>}
-                </span>
               </div>
-            </div>
-            <div>
-              <div style={{ display: 'grid' }}>
-                <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
+
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
                   Конец размещения
-                </label>
-                <input
-                  className={style.input}
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Input
+                  className={`border ${
+                    errors?.enddate ? 'border-red-500' : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
                   type="date"
                   // min={getEndDate(watch("startdate"))} // Use watch to get the value of the "startdate" field
                   {...register('enddate', {
                     required: 'Поле обязательно к заполнению',
                   })}
-                  style={{
-                    width: '210px',
-                  }}
                 />
-                <span className={style.modalWindow__input_error}>
-                  {errors?.enddate && <p>{errors?.enddate?.message}</p>}
-                </span>
               </div>
             </div>
-          </div>
+            {/*  */}
 
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '24px' }}
-          >
-            <div style={{ width: '210px', display: 'grid' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-                Выбрать Формат
-              </label>
-              <select
-                id="countries"
-                className={style.select__select}
-                style={{ padding: '12px' }}
-                {...register('format', {
-                  required: 'Поле обязательно',
-                })}
-              >
-                <option value="">Выбрать Формат</option>
+            {/*  */}
+            <div className="flex gap-4 mb-4">
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
+                  Формат
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Select
+                  value={selectedFormat}
+                  onValueChange={handleFormatChange}
+                >
+                  <SelectTrigger className="!text-white">
+                    <SelectValue placeholder="Выбрать формат" />
+                  </SelectTrigger>
 
-                {format.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-              <span className={style.select__error}>
-                {errors?.format && (
-                  <p style={{ lineHeight: '16px' }}>
-                    {errors?.format?.message}
-                  </p>
-                )}
-              </span>
+                  <SelectContent className="w-full">
+                    <SelectGroup>
+                      {formatV.map((option, index) => (
+                        <SelectItem key={index} value={option.value}>
+                          {option.text}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid w-full">
+                <div className="border-dashed border-2 border-sky-500 rounded-lg p-2 flex flex-col justify-between">
+                  <Label className="text-sm	text-white pb-2">
+                    Target для РУЗ
+                  </Label>
+                  <label
+                    className={`${style.checkboxI} text-sky-400`}
+                    onClick={taretCheckbox}
+                  >
+                    Target UZ
+                    <input type="checkbox" />
+                    <span className={style.checkmark}></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            {/*  */}
+
+            {/*  */}
+            <div className="flex gap-4 mb-4">
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
+                  Количество показов
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="expectedView"
+                  control={control}
+                  rules={{
+                    required: 'Поле обязательно к заполнению',
+                    min: {
+                      value: 1000000,
+                      message: 'Минимальное значение - 1 000 000',
+                    },
+                  }}
+                  defaultValue=""
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => (
+                    <Input
+                      className={`border ${
+                        errors?.startdate ? 'border-red-500' : 'border-gray-300'
+                      }   transition-all duration-300 text-sm `}
+                      type="text"
+                      value={value.toLocaleString('en-US')}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace(/\D/g, '')
+                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
+                        onChange(newValue)
+                      }}
+                      onBlur={onBlur}
+                      name={name}
+                      ref={ref}
+                      placeholder="Количество показов"
+                      autoComplete="off"
+                      step="1000"
+                      disabled={!selectedFormat}
+                    />
+                  )}
+                />
+              </div>
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2">
+                  Бюджет (сум)
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Input
+                  className={`border ${
+                    errors?.startdate ? 'border-red-500' : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
+                  type="text"
+                  style={{
+                    width: '205px',
+                  }}
+                  value={budgett.toLocaleString('en-US')}
+                  placeholder="Бюджет"
+                  autoComplete="off"
+                  disabled={true}
+                />
+              </div>
+            </div>
+            {/*  */}
+
+            <div className="grid w-full mb-4">
+              <Label className="text-sm	text-white pb-2">
+                Файл
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
+              <div className="border-dashed border-2 border-[#A7CCFF] rounded-lg p-2 flex flex-col justify-between h-[76px]">
+                <Input
+                  type="file"
+                  onChange={handleFileChange}
+                  className={`border-none p-0 flex items-center   transition-all duration-300 text-sm h-full`}
+                  {...register('selectedFile', {
+                    required: 'Ролик обезателен',
+                  })}
+                />
+              </div>
+            </div>
+            <div className="grid w-full">
+              <Label className="text-sm	text-white pb-2">
+                Комментарий к заказу
+                <span className="text-red-500 ml-0.5">*</span>
+              </Label>
+              <Textarea
+                placeholder="Добавить текст и ссылки"
+                className="resize-none text-white"
+                // {...field}
+                {...register('notes')}
+                onChange={handleNotesChange} // Обработка изменений
+              />
             </div>
 
             <div
               style={{
-                display: 'flex',
-                border: '1px solid #dedddd',
-                padding: '5px 10px',
-                borderRadius: '10px',
+                fontSize: '12px',
+                marginTop: '3px',
+                color: notes.length === maxChars ? 'red' : 'black',
               }}
             >
-              <div
-                style={{ display: 'grid', marginTop: '5px', fontSize: '12px' }}
+              {notes.length}/{maxChars} символов
+            </div>
+
+            <div className={style.btn__wrapper}>
+              <Button
+                className={`${
+                  isValid && !isOrderCreated
+                    ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
+                    : 'bg-[#616161]'
+                } w-full   h-[44px] text-white rounded-lg	mt-6`}
+                disabled={!isValid || isOrderCreated}
+                isValid={true}
+                type="submit"
               >
-                <div style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-                  Target для РУЗ
-                </div>
-                <label className={style.checkboxI} onClick={taretCheckbox}>
-                  Target UZ
-                  <input type="checkbox" />
-                  <span className={style.checkmark}></span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="modalWindow__wrapper_input"
-            style={{ marginBottom: '24px' }}
-          >
-            <div style={{ display: 'grid' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-                Количество показов
-              </label>
-              <Controller
-                name="expectedView"
-                control={control}
-                rules={{
-                  required: 'Поле обязательно к заполнению',
-                  min: {
-                    value: 1000000,
-                    message: 'Минимальное значение - 1 000 000',
-                  },
-                }}
-                defaultValue=""
-                render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <input
-                    className={style.input}
-                    type="text"
-                    value={value.toLocaleString('en-US')}
-                    style={{
-                      width: '210px',
-                    }}
-                    onChange={(e) => {
-                      const rawValue = e.target.value.replace(/\D/g, '')
-                      const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                      onChange(newValue)
-                    }}
-                    onBlur={onBlur}
-                    name={name}
-                    ref={ref}
-                    placeholder="Количество показов"
-                    autoComplete="off"
-                    step="1000"
-                    disabled={!selectedFormat}
-                  />
-                )}
-              />
-              <span className={style.modalWindow__input_error}>
-                {errors?.expectedView && (
-                  <p style={{ width: '240px', lineHeight: '1.4' }}>
-                    {errors?.expectedView?.message}
-                  </p>
-                )}
-              </span>
-            </div>
-            <div style={{ display: 'grid' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-                Бюджет (сум)
-              </label>
-              <input
-                className={style.input}
-                type="text"
-                style={{
-                  width: '205px',
-                }}
-                value={budgett.toLocaleString('en-US')}
-                placeholder="Бюджет"
-                autoComplete="off"
-                disabled={true}
-              />
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', marginBottom: '30px' }}>
-            <label style={{ fontSize: '12px', color: 'var(--text-color)' }}>
-              Загрузить рекламный ролик
-            </label>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className={style.modalWindow__file}
-              {...register('selectedFile', {
-                required: 'Ролик обезателен',
-              })}
-            />
-            <span className={style.modalWindow__input_error}>
-              {errors?.selectedFile && <p>{errors?.selectedFile?.message}</p>}
-            </span>
-          </div>
-          <textarea
-            placeholder="Добавить текст и ссылки"
-            autoComplete="off"
-            className={style.modalWindow__textarea}
-            {...register('notes')}
-            style={{ width: '100%' }}
-            onChange={handleNotesChange} // Обработка изменений
-            maxLength={maxChars}
-          ></textarea>
-          <div
-            style={{
-              fontSize: '12px',
-              marginTop: '3px',
-              color: notes.length === maxChars ? 'red' : 'black',
-            }}
-          >
-            {notes.length}/{maxChars} символов
-          </div>
-
-          <div className={style.btn__wrapper}>
-            <button
-              style={{ display: 'flex', alignItems: 'center' }}
-              type="submit"
-              disabled={!isValid || isOrderCreated}
-              className={
-                isValid && !isOrderCreated
-                  ? style.btn__wrapper__btn
-                  : style.btn__wrapper__disabled
-              }
-            >
-              {isOrderCreated ? (
-                <>
+                {isOrderCreated ? (
+                  <>
+                    <span>Создать</span>
+                    <div className={style.loaderWrapper}>
+                      <div className={style.spinner}></div>
+                    </div>
+                  </>
+                ) : (
                   <span>Создать</span>
-                  <div className={style.loaderWrapper}>
-                    <div className={style.spinner}></div>
-                  </div>
-                </>
-              ) : (
-                <span>Создать</span>
-              )}
-            </button>
+                )}
+              </Button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </DialogContent>
     </>
   )
 }

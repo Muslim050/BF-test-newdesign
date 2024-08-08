@@ -35,12 +35,13 @@ const OrderPayment = ({ advert }) => {
             <div>
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                  <div className="flex gap-1 cursor-pointer px-2 ">
+                  <div className="flex gap-1 cursor-pointer px-2 items-center">
                     <CircleX className="w-5	h-6" onClick={handleButtonClick} />
+                    Не оплачено
                   </div>
                 </DialogTrigger>
                 {isDialogOpen && (
-                  <PaymentOrderModal onClose={handleClose} id={id} />
+                  <PaymentOrderModal onClose={handleClose} id={advert.id} />
                 )}
               </Dialog>
             </div>

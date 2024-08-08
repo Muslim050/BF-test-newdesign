@@ -1,64 +1,73 @@
-import {useDispatch, useSelector} from "react-redux";
-import React from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import axios from 'axios'
 // import backendURL from "../../../../../../../utils/url";
-import {Controller, useForm} from "react-hook-form";
+import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import style from "./AddSendPublisherModal.module.scss";
+import style from './AddSendPublisherModal.module.scss'
 import 'react-datepicker/dist/react-datepicker.css'
-import {fetchPublisher} from "@/redux/publisher/publisherSlice.js";
-import {fetchOnceListSentToPublisher} from "@/redux/order/SentToPublisher.js";
-import backendURL from "@/utils/url.js";
-import {Label} from "@/components/ui/label.jsx";
-import {Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue} from "@/components/ui/select.jsx";
-import {SelectTrigger} from "@/components/ui/selectTrigger.jsx";
-import {TableCell} from "@/components/ui/table.jsx";
-import {Input} from "@/components/ui/input.jsx";
-import {Button} from "@/components/ui/button.jsx";
-import { PackagePlus } from 'lucide-react';
+import { fetchPublisher } from '@/redux/publisher/publisherSlice.js'
+import { fetchOnceListSentToPublisher } from '@/redux/order/SentToPublisher.js'
+import backendURL from '@/utils/url.js'
+import { Label } from '@/components/ui/label.jsx'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectValue,
+} from '@/components/ui/select.jsx'
+import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import { TableCell } from '@/components/ui/table.jsx'
+import { Input } from '@/components/ui/input.jsx'
+import { Button } from '@/components/ui/button.jsx'
+import { PackagePlus } from 'lucide-react'
 
 const format = [
-  {value: 'preroll', text: 'Pre-roll'},
-  {value: 'mixroll', text: 'Mix-roll'},
+  { value: 'preroll', text: 'Pre-roll' },
+  { value: 'mixroll', text: 'Mix-roll' },
 ]
 
-const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
-  const dispatch = useDispatch ();
-  const [channelModal, setChannelModal] = React.useState ([]);
-  const {publisher} = useSelector ((state) => state.publisher);
-  const [publisherID, setPublisherID] = React.useState ('');
-  const [cpm, setCpm] = React.useState ([])
-  const [budgett, setBudgett] = React.useState (0)
-
+const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
+  const dispatch = useDispatch()
+  const [channelModal, setChannelModal] = React.useState([])
+  const { publisher } = useSelector((state) => state.publisher)
+  const [publisherID, setPublisherID] = React.useState('')
+  const [cpm, setCpm] = React.useState([])
+  const [budgett, setBudgett] = React.useState(0)
+  const [isOrderCreated, setIsOrderCreated] = React.useState(false)
 
   const selectedPublisher = (value) => {
-    setPublisherID(value);
-  };
-  console.log (publisherID)
+    setPublisherID(value)
+  }
+  console.log(publisherID)
   const fetchChannel = async () => {
-    const token = localStorage.getItem ("token");
-    const url = `${backendURL}/publisher/channel${publisherID ? `?publisher_id=${publisherID}` : ''}`;
+    const token = localStorage.getItem('token')
+    const url = `${backendURL}/publisher/channel${
+      publisherID ? `?publisher_id=${publisherID}` : ''
+    }`
 
     try {
-      const response = await axios.get (url, {
+      const response = await axios.get(url, {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
 
-      setChannelModal (response.data.data);
+      setChannelModal(response.data.data)
     } catch (error) {
-      console.error ("Error fetching channel data:", error);
+      console.error('Error fetching channel data:', error)
       // Обработка ошибок
     }
-  };
+  }
 
   const fetchCpm = async () => {
-    const token = localStorage.getItem ('token')
+    const token = localStorage.getItem('token')
 
-    const response = await axios.get (
+    const response = await axios.get(
       `${backendURL}/order/cpm/?advertiser=${onceOrder.advertiser.id}`,
 
       {
@@ -69,22 +78,22 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
         },
       },
     )
-    setCpm (response.data.data)
+    setCpm(response.data.data)
   }
   const {
     register,
-    formState: {errors, isValid},
+    formState: { errors, isValid },
     handleSubmit,
     setValue,
     watch,
-    control
-  } = useForm ({
+    control,
+  } = useForm({
     defaultValues: {
       order: expandedRows,
-      channel: "",
+      channel: '',
       format: onceOrder.format,
-      startdate: "",
-      enddate: "",
+      startdate: '',
+      enddate: '',
       ordered_number_of_views: '',
       budget: budgett,
       age_range: '',
@@ -93,16 +102,18 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
       notes_text: '',
       notes_url: '',
     },
-    mode: "onBlur",
-  });
-  const selectedFormat = watch ('format')
-  const expectedView = watch ('ordered_number_of_views')
+    mode: 'onBlur',
+  })
+  const selectedFormat = watch('format')
+  const expectedView = watch('ordered_number_of_views')
 
   const onSubmit = async (data) => {
-    const token = localStorage.getItem ('token');
+    const token = localStorage.getItem('token')
 
     try {
-      const response = await axios.post (
+      setIsOrderCreated(true)
+
+      const response = await axios.post(
         `${backendURL}/order/assignments/`,
         {
           order: data.order,
@@ -124,40 +135,44 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
+        },
+      )
 
       // Debug log to inspect response
 
       if (response.data) {
-        console.log ('Response:', response);
+        console.log('Response:', response)
 
-        toast.success ("Запись успешно создана!");
-        setViewNote (false);
-        await dispatch (fetchOnceListSentToPublisher ({expandedRows}));
+        toast.success('Запись успешно создана!')
+        setViewNote(false)
+        await dispatch(fetchOnceListSentToPublisher({ expandedRows }))
       } else {
         // Handle case where payload is not as expected
-        throw new Error ('Unexpected response payload');
+        throw new Error('Unexpected response payload')
       }
     } catch (error) {
-      // Debug log to inspect error
-      const errorData = error.response.data.error;
+      setIsOrderCreated(false)
+      const errorData = error.response.data.error
       // Convert array contents to a string and format with index
-      let index = 1;
-      const errorMessages = Object.keys (errorData).map ((key) => {
-        let message = '';
-        if (Array.isArray (errorData[key])) {
-          message = errorData[key].map ((item) => `${index++}: ${item}`).join ('; ');
-        } else {
-          message = `${index++}: ${errorData[key]}`;
-        }
-        return `${key}:    ${message}`;
-      }).join ('\n'); // Use '\n' to add a new line between each error message
+      let index = 1
+      const errorMessages = Object.keys(errorData)
+        .map((key) => {
+          let message = ''
+          if (Array.isArray(errorData[key])) {
+            message = errorData[key]
+              .map((item) => `${index++}: ${item}`)
+              .join('; ')
+          } else {
+            message = `${index++}: ${errorData[key]}`
+          }
+          return `${key}:    ${message}`
+        })
+        .join('\n') // Use '\n' to add a new line between each error message
 
-      console.log (errorMessages);
-      toast.error (errorMessages);
+      console.log(errorMessages)
+      toast.error(errorMessages)
     }
-  };
+  }
   const calculateBudget = () => {
     let newBudget = 0
     if (onceOrder.target_country) {
@@ -168,50 +183,50 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
     } else if (cpm[selectedFormat]) {
       newBudget = (expectedView / 1000) * cpm[selectedFormat]
     }
-    setBudgett (newBudget)
+    setBudgett(newBudget)
   }
-  React.useEffect (() => {
-    calculateBudget ()
+  React.useEffect(() => {
+    calculateBudget()
   }, [selectedFormat, expectedView])
-  React.useEffect (() => {
-    setValue ('budgett', budgett)
+  React.useEffect(() => {
+    setValue('budgett', budgett)
   }, [budgett, setValue, onceOrder])
-  React.useEffect (() => {
-    fetchCpm ()
+  React.useEffect(() => {
+    fetchCpm()
   }, [onceOrder])
-  React.useEffect (() => {
-    dispatch (fetchPublisher ())
+  React.useEffect(() => {
+    dispatch(fetchPublisher())
   }, [dispatch])
-  React.useEffect (() => {
-    fetchChannel ();
-  }, [publisherID]);
-
+  React.useEffect(() => {
+    fetchChannel()
+  }, [publisherID])
 
   return (
-
-    <div className='relative'>
+    <div className="relative">
       <div className="grid grid-cols-6 gap-1">
-        <div className='grid w-full mb-4'>
+        <div className="grid w-full mb-4">
           <Label className="text-sm text-white pb-2">Выбрать Паблишера</Label>
           <Controller
             name="advertiser"
             control={control}
-
-            rules={{required: 'Поле обязательно'}}
-            render={({field}) => (
-              <Select  onValueChange={(value) => {
-                field.onChange(value);
-                selectedPublisher(value); // вызывать вашу функцию для обновления ID
-              }} defaultValue={field.value} value={field.value}>
-                <SelectTrigger className='!text-white'>
-                  <SelectValue placeholder="Выбрать паблишера"/>
+            render={({ field }) => (
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value)
+                  selectedPublisher(value) // вызывать вашу функцию для обновления ID
+                }}
+                defaultValue={field.value}
+                value={field.value}
+              >
+                <SelectTrigger className="!text-white">
+                  <SelectValue placeholder="Выбрать паблишера" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Выбрать паблишера</SelectLabel>
                     {/* Assuming you have a publisher array */}
-                    {publisher.map (pub => (
-                      <SelectItem key={pub.id} value={pub.id.toString ()}>
+                    {publisher.map((pub) => (
+                      <SelectItem key={pub.id} value={pub.id.toString()}>
                         {pub.name}
                       </SelectItem>
                     ))}
@@ -222,23 +237,32 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Выбрать канал<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Выбрать канал<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Controller
             name="channel"
             control={control}
-            rules={{required: 'Поле обязательно'}}
-            render={({field}) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                <SelectTrigger className='!text-white'>
-                  <SelectValue placeholder="Выбрать канал"/>
+            rules={{ required: 'Поле обязательно' }}
+            render={({ field }) => (
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                value={field.value}
+              >
+                <SelectTrigger
+                  className="!text-white"
+                  onClick={() => field.onChange('')} // сброс значения при клике
+                >
+                  <SelectValue placeholder="Выбрать канал" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Выбрать канал</SelectLabel>
                     {/* Assuming you have a channelModal array */}
-                    {channelModal.map (option => (
-                      <SelectItem key={option.id} value={option.id.toString ()}>
+                    {channelModal.map((option) => (
+                      <SelectItem key={option.id} value={option.id.toString()}>
                         {option.name}
                       </SelectItem>
                     ))}
@@ -249,22 +273,27 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Выбрать формат<span
-            className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Выбрать формат<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Controller
             name="format"
             control={control}
-            rules={{required: 'Поле обязательно'}}
-            render={({field}) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                <SelectTrigger className='!text-white'>
-                  <SelectValue placeholder="Выбрать формат"/>
+            rules={{ required: 'Поле обязательно' }}
+            render={({ field }) => (
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                value={field.value}
+              >
+                <SelectTrigger className="!text-white">
+                  <SelectValue placeholder="Выбрать формат" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Выбрать формат</SelectLabel>
-                    {format.map (option => (
+                    {format.map((option) => (
                       <SelectItem key={option.value} value={option.value}>
                         {option.text}
                       </SelectItem>
@@ -276,138 +305,174 @@ const AddSendPublisherModal = ({setViewNote, expandedRows, onceOrder}) => {
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Начало<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Начало<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="date"
-            {...register ('startdate', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.startdate ? "1px solid red" : ""}}
+            {...register('startdate', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.startdate ? '1px solid red' : '' }}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Конец<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Конец<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="date"
-            {...register ('enddate', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.enddate ? "1px solid red" : ""}}
+            {...register('enddate', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.enddate ? '1px solid red' : '' }}
           />
         </div>
 
-
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Количество показов<span
-            className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Количество показов<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Controller
             name="ordered_number_of_views"
             control={control}
-            rules={{required: 'Поле обязательно к заполнению'}}
-            render={({field}) => (
+            rules={{ required: 'Поле обязательно к заполнению' }}
+            render={({ field }) => (
               <Input
                 className={style.input}
                 type="text"
-                value={field.value.toLocaleString ('en-US')}
+                value={field.value.toLocaleString('en-US')}
                 onChange={(e) => {
-                  const rawValue = e.target.value.replace (/\D/g, '');
-                  field.onChange (rawValue ? parseInt (rawValue, 10) : '');
+                  const rawValue = e.target.value.replace(/\D/g, '')
+                  field.onChange(rawValue ? parseInt(rawValue, 10) : '')
                 }}
                 placeholder="Количество показов"
-                style={{border: errors?.ordered_number_of_views ? "1px solid red" : ""}}
+                style={{
+                  border: errors?.ordered_number_of_views
+                    ? '1px solid red'
+                    : '',
+                }}
                 autoComplete="off"
               />
             )}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Бюджет<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Бюджет<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             type="text"
-            value={budgett.toLocaleString ('en-US')}
+            value={budgett.toLocaleString('en-US')}
             placeholder="Бюджет"
             autoComplete="off"
             disabled
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Целевая аудитория<span
-            className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Целевая аудитория<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="text"
             placeholder="Введите аудиторию"
-            {...register ('age_range', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.age_range ? "1px solid red" : ""}}
+            {...register('age_range', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.age_range ? '1px solid red' : '' }}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Язык контента<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Язык контента<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="text"
             placeholder="Введите Язык"
-            {...register ('content_language', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.content_language ? "1px solid red" : ""}}
+            {...register('content_language', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.content_language ? '1px solid red' : '' }}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Текст<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Текст<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="text"
             placeholder="Введите текст"
-            {...register ('notes_text', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.notes_text ? "1px solid red" : ""}}
+            {...register('notes_text', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.notes_text ? '1px solid red' : '' }}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Url<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Url<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="text"
             placeholder="Введите url"
-            {...register ('notes_url', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.notes_url ? "1px solid red" : ""}}
+            {...register('notes_url', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.notes_url ? '1px solid red' : '' }}
           />
         </div>
 
-        <div className='grid w-full mb-4'>
-          <Label className="text-sm text-white pb-2">Country<span className='text-red-500 ml-0.5'>*</span></Label>
+        <div className="grid w-full mb-4">
+          <Label className="text-sm text-white pb-2">
+            Country<span className="text-red-500 ml-0.5">*</span>
+          </Label>
           <Input
             className={style.input}
             type="text"
             placeholder="country"
-            {...register ('country', {required: 'Поле обязательно к заполнению'})}
-            style={{border: errors?.country ? "1px solid red" : ""}}
+            {...register('country', {
+              required: 'Поле обязательно к заполнению',
+            })}
+            style={{ border: errors?.country ? '1px solid red' : '' }}
           />
         </div>
-
       </div>
-       <div className='w-full flex justify-end '>
-         <Button
-           onClick={handleSubmit (onSubmit)}
-           className={`${
-             isValid
-               ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
-               : 'bg-[#616161]'
-           }  w-auto h-[44px] text-white rounded-lg	flex gap-2 mb-4`}
-           disabled={!isValid}
-           isValid={true}
-         >
-           <PackagePlus/>
-           Создать
+      <div className="w-full flex justify-end ">
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          className={`${
+            isValid && !isOrderCreated
+              ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
+              : 'bg-[#616161]'
+          }  w-auto h-[44px] text-white rounded-lg	flex gap-2 mb-4 `}
+          disabled={!isValid || isOrderCreated}
+          isValid={true}
+        >
+          {isOrderCreated ? <div className="loader"></div> : <PackagePlus />}
 
-         </Button>
-       </div>
-
+          {isOrderCreated ? (
+            <>
+              <div className={style.loaderWrapper}></div>
+            </>
+          ) : (
+            <span>Создать</span>
+          )}
+        </Button>
+      </div>
     </div>
   )
-    ;
 }
 export default AddSendPublisherModal

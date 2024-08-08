@@ -40,8 +40,23 @@ export default function AddSentPublisher({ expandedRows, onceOrder }) {
   }, [listsentPublisher])
 
   return (
-    <div className={` rounded-xl p-[5px]  `}>
+    <div className={` rounded-xl p-2  `}>
       {/*Добавление новой записи*/}
+
+      {/* кнопка крестик чтобы закрыть создание записи */}
+      {viewNote ? (
+        <div className="flex justify-end absolute top-5 right-3">
+          <Button
+            variant="outline"
+            onClick={() => setViewNote(false)}
+            className=" px-2  rounded-lg  gap-2 my-1 "
+          >
+            <X />
+          </Button>
+        </div>
+      ) : null}
+      {/* кнопка крестик чтобы закрыть создание записи */}
+
       <div>
         <Table
           className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
@@ -52,17 +67,6 @@ export default function AddSentPublisher({ expandedRows, onceOrder }) {
             </div>
           )}
           <TableBody>
-            {viewNote ? (
-              <div className="flex justify-end">
-                <Button
-                  variant="outline"
-                  onClick={() => setViewNote(false)}
-                  className=" px-2  rounded-lg  gap-2 my-1 "
-                >
-                  <X />
-                </Button>
-              </div>
-            ) : null}
             {viewNote && (
               <motion.tr
                 initial={{ opacity: 0, x: -10, filter: 'blur(10px)' }}

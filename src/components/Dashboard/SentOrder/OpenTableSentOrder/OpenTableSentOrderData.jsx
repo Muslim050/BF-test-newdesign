@@ -1,13 +1,19 @@
 import React from 'react'
 import style from './TableInventory.module.scss'
 import { TableCell, TableRow } from 'src/components/ui/table'
-
+import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
+import LinkedVideoModal from './LinkedVideoModal'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import { showModalVideoLinked } from '../../../../redux/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { formatDate } from '../../../../utils/formatterDate'
 import CircularTable from '@/components/Labrery/Circular/CircularTable.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import { Button } from '../../../ui/button'
+import { Paperclip } from 'lucide-react'
+import { Dialog } from 'src/components/ui/dialog.jsx'
+import { Link } from 'lucide-react'
+
 function OpenTableSentOrderData({ data }) {
   const user = localStorage.getItem('role')
   const [expandedRows, setExpandedRows] = React.useState('')
@@ -28,15 +34,18 @@ function OpenTableSentOrderData({ data }) {
   const inventoryPublish = (id) => {
     setId(id)
   }
+  // Модальное окно LinkedVideo
+  const [open, setOpen] = React.useState(false)
+  const handleClose = () => {
+    setOpen(false)
+  }
+  // Модальное окно LinkedVideo
   return (
     <>
-      {/*<AnimatePresence>*/}
-      {/*  {showVideoLinked && (*/}
-      {/*    <ModalUI>*/}
-      {/*      <LinkedVideo selectedId={id}/>*/}
-      {/*    </ModalUI>*/}
-      {/*  )}*/}
-      {/*</AnimatePresence>*/}
+      <Dialog open={open} onOpenChange={setOpen}>
+        {open && <LinkedVideoModal onClose={handleClose} selectedId={id} />}
+      </Dialog>
+
       {data.map((inventor, i) => (
         <>
           <TableRow className={style.table__tr}>
@@ -94,8 +103,14 @@ function OpenTableSentOrderData({ data }) {
                 </span>
               )}
             </TableCell>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              {inventor.video_content?.category}
+            </TableCell>
             {/**/}
-            <TableCell className={style.table_td} style={{ color: 'blue' }}>
+            <TableCell className="text-blue-300 font-medium">
               {(inventor.format === 'preroll' && 'Pre-roll') ||
                 (inventor.format === 'midroll1' && 'Mid-roll 1') ||
                 (inventor.format === 'midroll2' && 'Mid-roll 2') ||
@@ -107,52 +122,53 @@ function OpenTableSentOrderData({ data }) {
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <FormatterView data={inventor.online_views} />
-            </TableCell>
-
-            <TableCell
-              data-label="ID"
-              className={`font-normal text-${textColor} text-sm `}
-            >
-              {inventor.video_content?.category}
-            </TableCell>
-            <TableCell
-              data-label="ID"
-              className={`font-normal text-${textColor} text-sm `}
-            >
               {formatDate(inventor.video_content?.publication_time)}
             </TableCell>
             <TableCell
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {inventor.video_content.link_to_video === null ? (
-                <button
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  className={style.linkVideo}
-                  onClick={() => linkedVideo(inventor.video_content.id)}
-                >
-                  LinkVideo Прикрепить Видео
-                </button>
+              {inventor.online_views > 0 ? (
+                <FormatterView data={inventor.online_views} />
               ) : (
-                <a
-                  href={inventor.video_content.link_to_video}
-                  target="_blank"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  className={style.linkFile}
-                  rel="noreferrer"
-                >
-                  Link Ссылка на Видео
-                </a>
+                <div>----</div>
               )}
+            </TableCell>
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <AdvertStatus status={inventor.status} />
+            </TableCell>
+
+            <TableCell
+              data-label="ID"
+              className={`font-normal text-${textColor} text-sm `}
+            >
+              <div className="inline-flex">
+                {inventor.video_content.link_to_video === null ? (
+                  <Button
+                    onClick={() => {
+                      linkedVideo(inventor.video_content.id), setOpen(!open)
+                    }}
+                    style={{ backdropFilter: 'blur(10.3049px)' }}
+                    className=" hover:scale-105 transition-all w-full h-auto px-4 py-1 rounded-lg flex items-center gap-1.5  bg-blue-500 hover:bg-blue-400 border border-transparent hover:border-blue-600"
+                  >
+                    <Paperclip className="w-[20px] h-[20px] text-white" />
+                    Прикрепить Видео
+                  </Button>
+                ) : (
+                  <a
+                    href={inventor.video_content.link_to_video}
+                    target="_blank"
+                    className=" hover:scale-105 transition-all w-full h-auto px-4 py-1 rounded-lg flex items-center gap-1.5  bg-green-600 hover:bg-green-400 border border-transparent hover:border-green-600"
+                    rel="noreferrer"
+                  >
+                    <Link className="w-[20px] h-[20px] text-white" />
+                    Ссылка на Видео
+                  </a>
+                )}
+              </div>
             </TableCell>
             <TableCell>
               {(user === 'admin' ||

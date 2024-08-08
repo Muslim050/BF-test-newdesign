@@ -13,6 +13,8 @@ import { toast } from 'react-toastify'
 import { toastConfig } from 'src/utils/toastConfig'
 import { Table, TableBody, TableHeader } from 'src/components/ui/table'
 import { Button } from 'src/components/ui/button.jsx'
+import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
+import OrderModal from '../OrderModal/OrderModal'
 
 function OrderTable() {
   const dispatch = useDispatch()
@@ -20,58 +22,25 @@ function OrderTable() {
   const [sortKey, setSortKey] = React.useState('last_name')
   const [sort, setSort] = React.useState('desc')
   const { order } = useSelector((state) => state)
-  const [loadingbtn, setLoadingbtn] = React.useState(false)
 
   const user = localStorage.getItem('role')
   const data = order?.order
-
+  // Модальное окно AdvertiserModal
+  const [open, setOpen] = React.useState(false)
+  const handleClose = () => {
+    setOpen(false)
+  }
+  // Модальное окно AdvertiserModal
   React.useEffect(() => {
     dispatch(fetchOrder()).then(() => setLoading(false))
   }, [dispatch])
-  const sortedData = React.useCallback(
-    () =>
-      sortData({
-        tableData: data,
-        sortKey,
-        reverse: sort === 'desc',
-      }),
-    [data, sortKey, sort],
-  )
+
   function changeSort(key) {
     setSort(sort === 'ascn' ? 'desc' : 'ascn')
     setSortKey(key)
   }
   const handleButtonClick = () => {
     dispatch(showModalOrder())
-  }
-  const handleReload = async () => {
-    if (loadingbtn) {
-      return // Если запрос уже выполняется, ничего не делаем
-    }
-
-    try {
-      setLoadingbtn(true) // Устанавливаем loadingbtn в true перед началом запроса
-      const token = localStorage.getItem('token')
-      const response = await axios.post(
-        `${backendURL}/inventory/tasks/save-online-views`,
-        null,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      // Обработка успешного запроса
-    } catch (error) {
-      // Обработка ошибки запроса
-    } finally {
-      setLoadingbtn(false) // Устанавливаем loadingbtn в false после завершения запроса (успешного или с ошибкой)
-      toast.info('Данные просмотров успешно обновлены', toastConfig)
-
-      dispatch(fetchOrder()) // Устанавливаем loading в true перед началом запроса
-    }
   }
 
   return (
@@ -84,26 +53,6 @@ function OrderTable() {
       ) : (
         <div className={style.tableWrapper_Order}>
           <div className="py-4 flex justify-end">
-            {/*<div style={{ display: 'flex', alignItems: 'center' }}>*/}
-            {/*  <ButtonTable onClick={() => handleReload()} disabled={loadingbtn}>*/}
-            {/*    {loadingbtn ? (*/}
-            {/*      <div className="loaderWrapper" style={{ height: '25px' }}>*/}
-            {/*        <div*/}
-            {/*          className="spinner"*/}
-            {/*          style={{*/}
-            {/*            width: '25px',*/}
-            {/*            height: '25px',*/}
-            {/*            border: '3px solid #ffffff',*/}
-            {/*            borderTopColor: '#5570f1',*/}
-            {/*          }}*/}
-            {/*        ></div>*/}
-            {/*      </div>*/}
-            {/*    ) : (*/}
-            {/*      // <Reload style={{ width: '25px', height: '25px' }} />*/}
-            {/*      <div>Reload</div>*/}
-            {/*    )}*/}
-            {/*  </ButtonTable>*/}
-            {/*</div>*/}
             {user === 'admin' ? (
               ''
             ) : (
@@ -111,17 +60,25 @@ function OrderTable() {
               //   <Plus style={{ width: '25px', marginRight: '12px' }} />
               //   Создать заказ
               // </ButtonTable>
-              <Button
-                variant="ghost"
-                className="h-auto bg-brandPrimary-1 hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
-                onClick={handleButtonClick}
-              >
-                <Plus className="w-4 h-4 mr-2" /> Создать заказ
-              </Button>
+
+              <Dialog open={open} onOpenChange={setOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="h-auto bg-brandPrimary-1 hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                    onClick={handleButtonClick}
+                  >
+                    <Plus className="w-4 h-4 mr-2" /> Создать заказ
+                  </Button>
+                </DialogTrigger>
+                {open && <OrderModal onClose={handleClose} />}
+              </Dialog>
             )}
           </div>
 
-          <div className={`border_container rounded-xl p-[3px]  glass-background`}>
+          <div
+            className={`border_container rounded-xl p-[3px]  glass-background`}
+          >
             {data.length && data ? (
               <Table
                 className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
@@ -135,7 +92,7 @@ function OrderTable() {
                   />
                 </TableHeader>
                 <TableBody>
-                  <OrderData sortedData={sortedData} />
+                  <OrderData data={data} />
                 </TableBody>
               </Table>
             ) : (

@@ -4,11 +4,11 @@ import TableVideoList from './TableVideoList'
 import style from 'src/components/Dashboard/Video/TableVideo/TableVideo.module.scss'
 import { Table, TableBody, TableHeader } from 'src/components/ui/table'
 import TableVideoRows from 'src/components/Dashboard/Video/TableVideo/TableVideoRows.jsx'
-import {fetchVideos} from "@/redux/video/videoSlice.js";
+import { fetchVideos } from '@/redux/video/videoSlice.js'
 
 function TableVideo() {
   const dispatch = useDispatch()
-  const {videos, status} = useSelector((state) => state.video)
+  const { videos, status } = useSelector((state) => state.video)
   const [setId] = React.useState(null)
   const [currentOrder, setCurrentOrder] = React.useState(null)
 
@@ -18,7 +18,6 @@ function TableVideo() {
   React.useEffect(() => {
     dispatch(fetchVideos())
   }, [dispatch])
-
 
   return (
     <>
@@ -31,7 +30,9 @@ function TableVideo() {
         </div>
       ) : (
         <div className="pt-6">
-          <div className={`border_container rounded-xl p-[3px]  glass-background`}>
+          <div
+            className={`border_container rounded-xl p-[3px]  glass-background`}
+          >
             {videos.length ? (
               <Table
                 className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
@@ -43,7 +44,6 @@ function TableVideo() {
                   <TableVideoList
                     inventoryPublish={inventoryPublish}
                     videos={videos}
-
                     currentOrder={currentOrder}
                     setCurrentOrder={setCurrentOrder}
                   />

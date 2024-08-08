@@ -1,21 +1,25 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { inventoryVerify } from '../../../../../redux/inventoryStatus/inventoryStatusSlice'
+import { inventoryVerify } from '../../../../../../redux/inventoryStatus/inventoryStatusSlice'
 import { toast } from 'react-hot-toast'
-import { fetchOrder } from '../../../../../redux/order/orderSlice'
+import { fetchOrder } from '../../../../../../redux/order/orderSlice'
 
 import style from './VerifyModal.module.scss'
-import {DialogHeader, DialogTitle, DialogContent} from "@/components/ui/dialog.jsx";
-import {Input} from "@/components/ui/input.jsx";
-import {Label} from "@/components/ui/label.jsx";
-import {Button} from "@/components/ui/button.jsx";
+import {
+  DialogHeader,
+  DialogTitle,
+  DialogContent,
+} from '@/components/ui/dialog.jsx'
+import { Input } from '@/components/ui/input.jsx'
+import { Label } from '@/components/ui/label.jsx'
+import { Button } from '@/components/ui/button.jsx'
 function VerifyModal({
   setShowModalSelectingVerify,
   expandedRows,
   selectedInventoryId,
   videoLink,
-                       onClose
+  onClose,
 }) {
   const dispatch = useDispatch()
 
@@ -57,8 +61,6 @@ function VerifyModal({
     }
   }
 
-
-
   return (
     <>
       <DialogContent
@@ -71,9 +73,8 @@ function VerifyModal({
           <DialogTitle className="text-lg	font-medium	text-white border-b border-[#F9F9F926] pb-4">
             Модерация рекламы
           </DialogTitle>
-        </DialogHeader>        <form onSubmit={handleSubmit(onSubmit)}>
-
-
+        </DialogHeader>{' '}
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="modalWindow">
             <div style={{ marginBottom: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'baseline' }}>
@@ -119,9 +120,11 @@ function VerifyModal({
               </div>
 
               <div style={{ marginTop: '20px', marginBottom: '30px' }}>
-                <div className='grid w-full'>
-                  <Label className="text-sm	text-white pb-2">Ссылка на Видео<span
-                    className='text-red-500 ml-0.5'>*</span></Label>
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2">
+                    Ссылка на Видео
+                    <span className="text-red-500 ml-0.5">*</span>
+                  </Label>
                   <Input
                     type="text"
                     placeholder="Ссылка на Видео"
@@ -129,12 +132,11 @@ function VerifyModal({
                     {...register('linkvideo', {
                       required: 'Поле обезательно к заполнению',
                     })}
-                    className={`border ${errors?.linkvideo ? 'border-red-500' : 'border-gray-300'}   transition-all duration-300 text-sm `}
-
+                    className={`border ${
+                      errors?.linkvideo ? 'border-red-500' : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
                   />
                 </div>
-
-
               </div>
             </div>
 
@@ -148,13 +150,11 @@ function VerifyModal({
               isValid={true}
             >
               Прикрепить
-
             </Button>
           </div>
         </form>
       </DialogContent>
-
-</>
+    </>
   )
 }
 

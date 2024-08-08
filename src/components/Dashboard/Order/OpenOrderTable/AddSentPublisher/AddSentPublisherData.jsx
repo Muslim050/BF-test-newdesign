@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaEdit } from 'react-icons/fa'
-
 import EditSendPublisherModal from './EditSendPublisherModal'
 import { toast } from 'react-hot-toast'
 import { TableCell, TableRow } from 'src/components/ui/table'
@@ -10,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import PopoverEditView from './PopoverEditView'
+import PopoverEditView from '../module/PopoverEditView'
 import { useDispatch } from 'react-redux'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet.jsx'
@@ -24,9 +22,19 @@ import { BookmarkCheck } from 'lucide-react'
 import { EditSvg, LinkSvg } from '@/assets/icons-ui.jsx'
 import { Send } from 'lucide-react'
 import { Plus } from 'lucide-react'
-
+import { Button } from '../../../../ui/button'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog.jsx'
 function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
-  const [editOpen, setEditOpen] = React.useState(false)
   const [currentOrder, setCurrentOrder] = React.useState(null)
   const [iD, setID] = React.useState('')
   const dispatch = useDispatch()
@@ -34,20 +42,16 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
   const { textColor } = React.useContext(ThemeContext)
 
   const clickSentPublisher = (itemID) => {
-    const confirmDelete = window.confirm('Данный заказ отправляется паблишеру?')
-    if (confirmDelete) {
-      dispatch(sentToPublisherButton({ id: itemID }))
-        .then(() => {
-          toast.success('Запись успешно отправлен')
-          dispatch(fetchOnceListSentToPublisher({ expandedRows }))
-        })
-        .catch((error) => {
-          toast.error(error.message)
-          dispatch(fetchOnceListSentToPublisher({ expandedRows }))
-        })
-    } else {
-      toast.info('Операция отменена')
-    }
+    dispatch(sentToPublisherButton({ id: itemID }))
+      .unwrap()
+      .then(() => {
+        toast.success('Запись успешно отправлена')
+        dispatch(fetchOnceListSentToPublisher({ expandedRows }))
+      })
+      .catch((error) => {
+        toast.error(error.message)
+        dispatch(fetchOnceListSentToPublisher({ expandedRows }))
+      })
   }
 
   return (
@@ -107,15 +111,15 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
                 data-label="ID"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                <div className="flex gap-4">
+                <div className="flex gap-2 items-center">
                   <FormatterView data={item.ordered_number_of_views} />
                   <Popover>
                     <PopoverTrigger asChild>
                       <button
-                        className="bg-[#5670f1] rounded-full"
+                        className="bg-[#5670f1] rounded-full hover:scale-125 transition-all "
                         onClick={() => setOpenPopoverIndex(i)}
                       >
-                        <Plus />
+                        <Plus className="w-5 h-5" />
                       </button>
                     </PopoverTrigger>
                     {openPopoverIndex === i && (
@@ -135,7 +139,11 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
                 data-label="ID"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                <FormatterView data={item.online_views} />
+                {item.online_views > 0 ? (
+                  <FormatterView data={item.online_views} />
+                ) : (
+                  <div>----</div>
+                )}
               </TableCell>
               <TableCell
                 data-label="ID"
@@ -149,6 +157,7 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
               >
                 {item.age_range}
               </TableCell>
+
               <TableCell
                 data-label="ID"
                 className={`font-normal text-${textColor} text-sm `}
@@ -176,8 +185,11 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
               </TableCell>
               <TableCell className="flex gap-4">
                 {item.is_sent_to_publisher ? null : (
-                  <button onClick={() => setCurrentOrder(item)}>
-                    <EditSvg className="text-white w-6 h-6 hover:text-brandPrimary-1" />
+                  <button
+                    onClick={() => setCurrentOrder(item)}
+                    className="hover:scale-125 transition-all"
+                  >
+                    <EditSvg className="text-white w-6 h-6 hover:text-orange-500" />
                   </button>
                 )}
                 {item.is_sent_to_publisher ? (
@@ -185,9 +197,34 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
                     <BookmarkCheck className="w-6 h-6 text-[#8EB67B]" />
                   </div>
                 ) : (
-                  <button onClick={() => clickSentPublisher(item.id)}>
-                    <Send className="text-white w-6 h-6 hover:text-brandPrimary-1" />
-                  </button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <button className="hover:scale-125 transition-all">
+                        <Send className="text-white w-6 h-6 hover:text-brandPrimary-1" />
+                      </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-green-600">
+                          Данное размещение отправится паблишеру
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-white">
+                          Это действие не может быть отменено.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className="text-white">
+                          Отмена
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          className="bg-green-400 hover:bg-green-500 border-2 border-green-500 "
+                          onClick={() => clickSentPublisher(item.id)}
+                        >
+                          Отправить
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 )}
               </TableCell>
             </TableRow>

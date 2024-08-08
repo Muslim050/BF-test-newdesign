@@ -1,6 +1,5 @@
 import React from 'react'
 import { TableCell, TableRow } from 'src/components/ui/table'
-
 import ModalSentOrder from './ModalSentOrder'
 import OpenTableSentOrder from '../OpenTableSentOrder/OpenTableSentOrder'
 import { formatDate } from '../../../../utils/formatterDate'
@@ -17,13 +16,11 @@ import { Button } from '@/components/ui/button.jsx'
 import { Copy } from 'lucide-react'
 import { toast } from 'sonner'
 import { PackagePlus } from 'lucide-react'
+import { hasRole } from '../../../../utils/roleUtils'
 
 function SentOrderList({ listsentPublisher }) {
   const { textColor } = React.useContext(ThemeContext)
-
-  const [openPopoverIndex, setOpenPopoverIndex] = React.useState(null)
   const [expandedRows, setExpandedRows] = React.useState('')
-  const [showKomment, setShowKomment] = React.useState(false)
   const [currentOrder, setCurrentOrder] = React.useState(null)
 
   const copyToClipboard = () => {
@@ -44,30 +41,12 @@ function SentOrderList({ listsentPublisher }) {
   const handleRowClick = (id) => {
     setExpandedRows(id === expandedRows ? false : id)
   }
-
   // Модальное окно AdvertiserModal
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
-
-  const closePopover = () => {
-    console.log('Closing Popover') // Отладка
-
-    setIsPopoverOpen(false)
-  }
-
   // Модальное окно AdvertiserModal
 
   return (
     <>
-      {/*<AnimatePresence>*/}
-      {/*  {showKomment && (*/}
-      {/*    <ModalUI>*/}
-      {/*      <CommentSentOrderModal*/}
-      {/*        setShowKomment={setShowKomment}*/}
-      {/*        currentOrder={currentOrder}*/}
-      {/*      />*/}
-      {/*    </ModalUI>*/}
-      {/*  )}*/}
-      {/*</AnimatePresence>*/}
       {listsentPublisher.map((item, i) => (
         <>
           <TableRow>
@@ -136,7 +115,7 @@ function SentOrderList({ listsentPublisher }) {
             >
               <button
                 onClick={() => handleRowClick(item.id)}
-                className="relative "
+                className="relative hover:scale-125 transition-all"
               >
                 <OpenSvg className="text-white hover:text-brandPrimary-1" />
               </button>
@@ -149,25 +128,24 @@ function SentOrderList({ listsentPublisher }) {
                           onClick={() => {
                             setCurrentOrder(item)
                           }}
+                          className="hover:scale-125 transition-all"
                         >
-                          <CommentSvg className="w-[24px] h-[24px] text-white hover:text-brandPrimary-1" />
+                          <CommentSvg className="w-[24px] h-[24px] text-white hover:text-green-500" />
                         </button>
                       </PopoverTrigger>
-                      <PopoverContent
-                        className="w-80"
-                        style={{
-                          background:
-                            'linear-gradient(90deg, rgba(255, 255, 255, 0.364) 0%, rgba(255, 255, 255, 0.119) 99.67%)',
-                          backdropFilter: 'blur(5px)',
-                        }}
-                      >
-                        <div className="grid gap-4">
-                          <div className="space-y-2">
-                            <h4 className="font-medium leading-none text-white">
+                      <PopoverContent className="w-full  bg-white bg-opacity-30 backdrop-blur-md rounded-xl">
+                        <div className="grid gap-4 ">
+                          <div className="w-80">
+                            <h4 className="pb-4 font-medium leading-none text-white border-b-[#F9F9F926] border-b">
                               Комментарий
                             </h4>
-                            <p className="text-sm text-white">{item.notes}</p>
-                            <div className="flex ">
+                            <p className="text-sm text-white break-words pt-4">
+                              {item.notes_text}
+                            </p>
+                            <p className="text-sm text-white break-words pt-4">
+                              {item.notes_url}
+                            </p>
+                            <div className="flex mt-10 float-right">
                               <Button
                                 variant="link"
                                 className="text-black hover:text-[#2A85FF] "
@@ -188,8 +166,22 @@ function SentOrderList({ listsentPublisher }) {
               item.order_status === 'finished' ? null : (
                 <Popover isOpen={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
                   <PopoverTrigger asChild>
-                    <button onClick={() => setIsPopoverOpen(true)}>
-                      <PackagePlus className="hover:text-brandPrimary-1" />
+                    <button
+                      onClick={() => setIsPopoverOpen(true)}
+                      className="hover:scale-125 transition-all relative"
+                    >
+                      <PackagePlus className="hover:text-orange-500" />
+                      {hasRole('channel') || hasRole('publisher') ? (
+                        <div className="absolute top-0 right-0">
+                          {item.order_status === 'in_review' ||
+                          item.order_status === 'confirmed' ? (
+                            <span className="relative flex h-3 w-3">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </button>
                   </PopoverTrigger>
                   {isPopoverOpen && (

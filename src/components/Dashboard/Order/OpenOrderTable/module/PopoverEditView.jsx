@@ -1,25 +1,28 @@
-import {Controller, useForm} from "react-hook-form";
-import style from "./AddSendPublisherModal/AddSendPublisherModal.module.scss";
-import React from "react";
-import axios from "axios";
-
+import { Controller, useForm } from 'react-hook-form'
+import React from 'react'
+import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import {useDispatch} from "react-redux";
-import backendURL from "@/utils/url.js";
-import {fetchOnceListSentToPublisher} from "@/redux/order/SentToPublisher.js";
-import {Input} from "@/components/ui/input.jsx";
-import {Label} from "@/components/ui/label.jsx";
-import {Button} from "@/components/ui/button.jsx";
+import { useDispatch } from 'react-redux'
+import backendURL from '@/utils/url.js'
+import { fetchOnceListSentToPublisher } from '@/redux/order/SentToPublisher.js'
+import { Input } from '@/components/ui/input.jsx'
+import { Label } from '@/components/ui/label.jsx'
+import { Button } from '@/components/ui/button.jsx'
 
-const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) => {
-  const [cpm, setCpm] = React.useState ([])
-  const dispatch = useDispatch ();
-  const [budgett, setBudgett] = React.useState (0)
+const PopoverEditView = ({
+  setOpenPopoverIndex,
+  item,
+  expandedRows,
+  onceOrder,
+}) => {
+  const [cpm, setCpm] = React.useState([])
+  const dispatch = useDispatch()
+  const [budgett, setBudgett] = React.useState(0)
 
   const fetchCpm = async () => {
-    const token = localStorage.getItem ('token')
+    const token = localStorage.getItem('token')
 
-    const response = await axios.get (
+    const response = await axios.get(
       `${backendURL}/order/cpm/?advertiser=${onceOrder.advertiser.id}`,
 
       {
@@ -30,21 +33,21 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
         },
       },
     )
-    setCpm (response.data.data)
+    setCpm(response.data.data)
   }
   const {
-    formState: {errors, isValid},
+    formState: { errors, isValid },
     handleSubmit,
     setValue,
     watch,
     control,
-  } = useForm ({
+  } = useForm({
     defaultValues: {
       order: expandedRows,
       channel: item.channel?.id,
       format: item.format,
-      startdate: item.start_date ? item.start_date.substring (0, 10) : "",
-      enddate: item.end_date ? item.end_date.substring (0, 10) : "",
+      startdate: item.start_date ? item.start_date.substring(0, 10) : '',
+      enddate: item.end_date ? item.end_date.substring(0, 10) : '',
       ordered_number_of_views: '',
       budget: budgett,
       age_range: item.age_range,
@@ -52,18 +55,15 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
       country: item.country,
       notes_text: item.notes_text,
       notes_url: item.notes_url,
-
     },
-    mode: "onChange",
-  });
-  const selectedFormat = watch ('format')
-  const expectedView = watch ('ordered_number_of_views')
-
+    mode: 'onChange',
+  })
+  const selectedFormat = watch('format')
+  const expectedView = watch('ordered_number_of_views')
 
   const onSubmit = async (data) => {
-    const token = localStorage.getItem ('token');
-    const requestData = {};
-
+    const token = localStorage.getItem('token')
+    const requestData = {}
 
     // Проверьте, что data.selectedFile не равен null, прежде чем добавить promo_file
     if (data.order && data.order !== null) {
@@ -103,7 +103,7 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
       requestData.notes_url = data.notes_url
     }
     try {
-      const response = await axios.patch (
+      const response = await axios.patch(
         `${backendURL}/order/assignments/${item.id}/`,
         requestData,
         {
@@ -112,22 +112,21 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
+        },
+      )
 
       // Debug log to inspect response
 
       if (response.data) {
-
-        toast.success ("Данные успешно обновлены!");
-        setOpenPopoverIndex (null);
-        await dispatch (fetchOnceListSentToPublisher ({expandedRows}));
+        toast.success('Данные успешно обновлены!')
+        setOpenPopoverIndex(null)
+        await dispatch(fetchOnceListSentToPublisher({ expandedRows }))
       } else {
       }
     } catch (error) {
       toast.error(error?.data?.error?.message)
     }
-  };
+  }
   const calculateBudget = () => {
     let newBudget = 0
     if (onceOrder.target_country) {
@@ -138,68 +137,73 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
     } else if (cpm[selectedFormat]) {
       newBudget = (expectedView / 1000) * cpm[selectedFormat]
     }
-    setBudgett (newBudget)
+    setBudgett(newBudget)
   }
-  React.useEffect (() => {
-    calculateBudget ()
+  React.useEffect(() => {
+    calculateBudget()
   }, [selectedFormat, expectedView])
 
-  React.useEffect (() => {
-    setValue ('budgett', budgett)
+  React.useEffect(() => {
+    setValue('budgett', budgett)
   }, [budgett, setValue, onceOrder])
-  React.useEffect (() => {
-    fetchCpm ()
+  React.useEffect(() => {
+    fetchCpm()
   }, [onceOrder])
   return (
-    <div >
-      <div className='text-lg	text-white border-b border-[#ffffff63]'>Редактировать показы</div>
-
-      <div className='grid w-full relative mt-2'>
-        <Label className="text-sm	text-white pb-1">Количество показов</Label>
-      <Controller
-        name="ordered_number_of_views"
-        control={control}
-        rules={{
-          required: 'Поле обязательно к заполнению',
-        }}
-        defaultValue=""
-        render={({field: {onChange, onBlur, value, name, ref}}) => (
-          <Input
-            type="text"
-            value={value.toLocaleString ('en-US')}
-            className={`border ${errors?.ordered_number_of_views ? 'border-red-500' : 'border-gray-300'} transition-all duration-300 text-sm `}
-            onChange={(e) => {
-              const rawValue = e.target.value.replace (/\D/g, '')
-              const newValue = rawValue ? parseInt (rawValue, 10) : ''
-              onChange (newValue)
-            }}
-            onBlur={onBlur}
-            name={name}
-            ref={ref}
-            placeholder="Количество показов"
-            autoComplete="off"
-            step="1000"
-            disabled={!selectedFormat}
-          />
-        )}
-      />
+    <div>
+      <div className="text-lg	text-white border-b border-[#ffffff63]">
+        Редактировать показы
       </div>
 
+      <div className="grid w-full relative mt-2">
+        <Label className="text-sm	text-white pb-1">Количество показов</Label>
+        <Controller
+          name="ordered_number_of_views"
+          control={control}
+          rules={{
+            required: 'Поле обязательно к заполнению',
+          }}
+          defaultValue=""
+          render={({ field: { onChange, onBlur, value, name, ref } }) => (
+            <Input
+              type="text"
+              value={value.toLocaleString('en-US')}
+              className={`border ${
+                errors?.ordered_number_of_views
+                  ? 'border-red-500'
+                  : 'border-gray-300'
+              } transition-all duration-300 text-sm `}
+              onChange={(e) => {
+                const rawValue = e.target.value.replace(/\D/g, '')
+                const newValue = rawValue ? parseInt(rawValue, 10) : ''
+                onChange(newValue)
+              }}
+              onBlur={onBlur}
+              name={name}
+              ref={ref}
+              placeholder="Количество показов"
+              autoComplete="off"
+              step="1000"
+              disabled={!selectedFormat}
+            />
+          )}
+        />
+      </div>
 
-      <div className='grid w-full relative mt-3'>
+      <div className="grid w-full relative mt-3">
         <Label className="text-sm	text-white pb-1">Бюджет</Label>
-      <Input
-        className={style.input}
-        type="text"
-        value={budgett.toLocaleString ('en-US')}
-        placeholder="Бюджет"
-        autoComplete="off"
-        disabled={true}
-      />
+        <Input
+          // className={style.input}
+          type="text"
+          value={budgett.toLocaleString('en-US')}
+          placeholder="Бюджет"
+          autoComplete="off"
+          disabled={true}
+        />
       </div>
 
       <Button
-        onClick={handleSubmit (onSubmit)}
+        onClick={handleSubmit(onSubmit)}
         className={`${
           isValid
             ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
@@ -209,12 +213,7 @@ const PopoverEditView = ({ setOpenPopoverIndex, item, expandedRows, onceOrder}) 
         isValid={true}
       >
         Обновить
-
       </Button>
-      {/*<button disabled={!isValid} onClick={handleSubmit (onSubmit)}*/}
-      {/*        className={`${isValid ? style.ok_btn : style.ok_btndis}`}>*/}
-      {/*  Обновить*/}
-      {/*</button>*/}
     </div>
   )
 }

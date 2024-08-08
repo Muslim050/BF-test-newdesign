@@ -1,75 +1,79 @@
-import axios from "axios";
-import React from "react";
-import {useDispatch} from "react-redux";
-import {Controller, useForm} from "react-hook-form";
-import { toast } from 'react-hot-toast'
-import backendURL from "src/utils/url";
-import {Label} from "@/components/ui/label.jsx";
-import {Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue} from "@/components/ui/select.jsx";
-import {SelectTrigger} from "@/components/ui/selectTrigger.jsx";
-import {hasRole} from "@/utils/roleUtils.js";
-import {Input} from "@/components/ui/input.jsx";
-import {Button} from "@/components/ui/button.jsx";
+import axios from 'axios'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { Controller, useForm } from 'react-hook-form'
 
+import backendURL from 'src/utils/url'
+import { Label } from '@/components/ui/label.jsx'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectValue,
+} from '@/components/ui/select.jsx'
+import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import { hasRole } from '@/utils/roleUtils.js'
+import { Input } from '@/components/ui/input.jsx'
+import { Button } from '@/components/ui/button.jsx'
+import toast from 'react-hot-toast'
 
 const categoryC = [
   { id: 1, value: 'Шоу', text: 'Шоу' },
   { id: 2, value: 'Драмма', text: 'Драмма' },
   { id: 3, value: 'Клип', text: 'Клип' },
-];
+]
 const format = [
-  {value: 'preroll', text: 'Pre-roll'},
-  {value: 'mixroll', text: 'Mix-roll'},
+  { value: 'preroll', text: 'Pre-roll' },
+  { value: 'mixroll', text: 'Mix-roll' },
 ]
 
-export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverOpen}) {
-
-  const dispatch = useDispatch ();
-  const [channelModal, setChannelModal] = React.useState ([]);
-  const [selectedTimer, setSelectedTimer] = React.useState ("");
-  const channelid = Number (localStorage.getItem ("channelId"));
-  const [videoModal, setVideoModal] = React.useState ([])
-  console.log (item)
+export default function SelectedVideo({ item, setIsPopoverOpen }) {
+  const dispatch = useDispatch()
+  const [channelModal, setChannelModal] = React.useState([])
+  const [selectedTimer, setSelectedTimer] = React.useState('')
+  const channelid = Number(localStorage.getItem('channelId'))
+  const [videoModal, setVideoModal] = React.useState([])
+  console.log(item)
   const timeC = (event) => {
-    const time = event.target.value;
-    if (time === "") {
-      setSelectedTimer ("00:00:00");
-      setValue ("promo_start_at", 0);
+    const time = event.target.value
+    if (time === '') {
+      setSelectedTimer('00:00:00')
+      setValue('promo_start_at', 0)
     } else {
-      setSelectedTimer (time);
-      const [hours, minutes, seconds] = time.split (":").map (Number);
-      const timeInSeconds = hours * 3600 + minutes * 60 + seconds;
-      setValue ("promo_start_at", timeInSeconds);
+      setSelectedTimer(time)
+      const [hours, minutes, seconds] = time.split(':').map(Number)
+      const timeInSeconds = hours * 3600 + minutes * 60 + seconds
+      setValue('promo_start_at', timeInSeconds)
     }
-  };
-
+  }
 
   const {
     register,
-    formState: {errors, isValid},
+    formState: { errors, isValid },
     handleSubmit,
     setValue,
     control,
-    watch
-  } = useForm ({
+    watch,
+  } = useForm({
     defaultValues: {
       expected_number_of_views: '',
       format: item.format,
       promo_start_at: 0,
-      promo_duration: "",
+      promo_duration: '',
       order_id: item.id,
       video_id: '',
-      channel_id: ""
+      channel_id: '',
     },
-    mode: "onBlur",
-  });
-  const cId = watch ('channel_id')
-  console.log (cId)
+    mode: 'onBlur',
+  })
+  const cId = watch('channel_id')
   const onSubmit = async (data) => {
-    const token = localStorage.getItem ('token');
+    const token = localStorage.getItem('token')
 
     try {
-      const response = await axios.post (
+      const response = await axios.post(
         `${backendURL}/inventory/assign-to-order-with-existing-video`,
         {
           expected_number_of_views: data.expected_number_of_views,
@@ -78,7 +82,6 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
           promo_duration: data.promo_duration,
           order_assignment_id: data.order_id,
           video_id: data.video_id,
-
         },
         {
           headers: {
@@ -86,72 +89,74 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
-
-      // Debug log to inspect response
+        },
+      )
 
       if (response.data) {
-        toast.success ("Видео успешно создано!");
-        setIsPopoverOpen(false);
+        toast.success('Видео успешно создано!')
+        setIsPopoverOpen(false)
       } else {
-        throw new Error ('Unexpected response payload');
+        throw new Error('Unexpected response payload')
       }
     } catch (error) {
-      const errorData = error.response.data.error;
-      let index = 1;
-      const errorMessages = Object.keys (errorData).map ((key) => {
-        let message = '';
-        if (Array.isArray (errorData[key])) {
-          message = errorData[key].map ((item) => `${index++}: ${item}`).join ('; ');
-        } else {
-          message = `${index++}: ${errorData[key]}`;
-        }
-        return `${key}:    ${message}`;
-      }).join ('\n'); // Use '\n' to add a new line between each error message
-      toast.error (errorMessages);
-      setIsPopoverOpen(false);
+      const errorData = error.response.data.error
+      let index = 1
+      const errorMessages = Object.keys(errorData)
+        .map((key) => {
+          let message = ''
+          if (Array.isArray(errorData[key])) {
+            message = errorData[key]
+              .map((item) => `${index++}: ${item}`)
+              .join('; ')
+          } else {
+            message = `${index++}: ${errorData[key]}`
+          }
+          return `${key}:    ${message}`
+        })
+        .join('\n') // Use '\n' to add a new line between each error message
+      toast.error(errorMessages)
+      setIsPopoverOpen(false)
     }
-  };
+  }
 
   const getCurrentDate = () => {
-    const today = new Date ();
-    const year = today.getFullYear ();
-    let month = today.getMonth () + 1;
-    let day = today.getDate ();
+    const today = new Date()
+    const year = today.getFullYear()
+    let month = today.getMonth() + 1
+    let day = today.getDate()
 
     if (month < 10) {
-      month = `0${month}`;
+      month = `0${month}`
     }
 
     if (day < 10) {
-      day = `0${day}`;
+      day = `0${day}`
     }
 
-    return `${year}-${month}-${day}`;
-  };
+    return `${year}-${month}-${day}`
+  }
 
   const getThreeDaysAgo = () => {
-    const today = new Date ();
-    today.setDate (today.getDate () - 3);
-    const year = today.getFullYear ();
-    let month = today.getMonth () + 1;
-    let day = today.getDate ();
+    const today = new Date()
+    today.setDate(today.getDate() - 3)
+    const year = today.getFullYear()
+    let month = today.getMonth() + 1
+    let day = today.getDate()
 
     if (month < 10) {
-      month = `0${month}`;
+      month = `0${month}`
     }
 
     if (day < 10) {
-      day = `0${day}`;
+      day = `0${day}`
     }
 
-    return `${year}-${month}-${day}`;
-  };
+    return `${year}-${month}-${day}`
+  }
 
   const fetchChannel = async () => {
-    const token = localStorage.getItem ('token')
-    const response = await axios.get (
+    const token = localStorage.getItem('token')
+    const response = await axios.get(
       `${backendURL}/publisher/channel/`,
 
       {
@@ -162,29 +167,27 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
         },
       },
     )
-    setChannelModal (response.data.data)
+    setChannelModal(response.data.data)
   }
 
-  React.useEffect (() => {
+  React.useEffect(() => {
     // if (user === 'channel') {
     //   fetchVideo ()
     // }
     if (cId) {
-      fetchVideo ()
-
+      fetchVideo()
     }
-    fetchVideo ()
+    fetchVideo()
   }, [dispatch])
 
-  React.useEffect (() => {
-    fetchChannel ()
+  React.useEffect(() => {
+    fetchChannel()
   }, [dispatch])
-
 
   const fetchVideo = async () => {
     try {
-      const token = localStorage.getItem ('token')
-      const response = await axios.get (
+      const token = localStorage.getItem('token')
+      const response = await axios.get(
         `${backendURL}/inventory/video/?channel_id=${cId}`,
         {
           headers: {
@@ -194,52 +197,49 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
           },
         },
       )
-      console.log (response.data.data)
-      setVideoModal (
+      console.log(response.data.data)
+      setVideoModal(
         // response.data.data
         response.data.data,
       )
     } catch (error) {
-      console.error ('Error fetching video:', error)
+      console.error('Error fetching video:', error)
     }
   }
-
 
   return (
     <>
       <div>
-
-
         {/*body*/}
         <div className="modalWindow">
-
-          <form onSubmit={handleSubmit (onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/**/}
-            {hasRole ("publisher") ? (
-              <div className='grid w-full mb-4'>
-                <Label className="text-sm	text-white pb-2">Выбрать Канал<span
-                  className='text-red-500 ml-0.5'>*</span></Label>
+            {hasRole('publisher') ? (
+              <div className="grid w-full mb-4">
+                <Label className="text-sm	text-white pb-2">
+                  Выбрать Канал<span className="text-red-500 ml-0.5">*</span>
+                </Label>
                 <Controller
                   name="publisher"
-                  {...register ('channel_id', {
+                  {...register('channel_id', {
                     required: 'Поле обязательно',
                   })}
                   control={control}
                   defaultValue=""
-                  render={({field}) => (
+                  render={({ field }) => (
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       value={field.value}
                     >
-                      <SelectTrigger className='!text-white'>
-                        <SelectValue placeholder="Выбрать Канал"/>
+                      <SelectTrigger className="!text-white">
+                        <SelectValue placeholder="Выбрать Канал" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Выбрать канал</SelectLabel>
-                          {channelModal.map ((adv) => (
-                            <SelectItem key={adv.id} value={adv.id.toString ()}>
+                          {channelModal.map((adv) => (
+                            <SelectItem key={adv.id} value={adv.id.toString()}>
                               {adv.name}
                             </SelectItem>
                           ))}
@@ -250,35 +250,36 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
                 />
               </div>
             ) : (
-              ""
+              ''
             )}
             {/**/}
 
             {/**/}
-            <div className='grid w-full mb-4'>
-              <Label className="text-sm	text-white pb-2">Выбрать Канал<span
-                className='text-red-500 ml-0.5'>*</span></Label>
+            <div className="grid w-full mb-4">
+              <Label className="text-sm	text-white pb-2">
+                Выбрать Канал<span className="text-red-500 ml-0.5">*</span>
+              </Label>
               <Controller
                 name="publisher"
-                {...register ('video_id', {
+                {...register('video_id', {
                   required: 'Поле обязательно',
                 })}
                 control={control}
                 defaultValue=""
-                render={({field}) => (
+                render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                     value={field.value}
                   >
-                    <SelectTrigger className='!text-white'>
-                      <SelectValue placeholder="Выбрать Видео"/>
+                    <SelectTrigger className="!text-white">
+                      <SelectValue placeholder="Выбрать Видео" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Выбрать Видео</SelectLabel>
-                        {videoModal.map ((adv) => (
-                          <SelectItem key={adv.id} value={adv.id.toString ()}>
+                        {videoModal.map((adv) => (
+                          <SelectItem key={adv.id} value={adv.id.toString()}>
                             {adv.name}
                           </SelectItem>
                         ))}
@@ -290,33 +291,32 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
             </div>
             {/**/}
 
-
-            <div className='flex gap-4'>
-              <div className='grid w-full mb-4'>
-                <Label className="text-sm	text-white pb-2">Выбрать формат<span
-                  className='text-red-500 ml-0.5'>*</span></Label>
+            <div className="flex gap-4">
+              <div className="grid w-full mb-4">
+                <Label className="text-sm	text-white pb-2">
+                  Выбрать формат<span className="text-red-500 ml-0.5">*</span>
+                </Label>
                 <Controller
                   name="publisher"
-                  {...register ('format', {
+                  {...register('format', {
                     required: 'Поле обязательно',
                   })}
                   control={control}
                   defaultValue=""
-                  render={({field}) => (
+                  render={({ field }) => (
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       value={field.value}
                       disabled={item.format === 'preroll'}
-
                     >
-                      <SelectTrigger className='!text-white'>
-                        <SelectValue placeholder="Выбрать формат"/>
+                      <SelectTrigger className="!text-white">
+                        <SelectValue placeholder="Выбрать формат" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Выбрать формат</SelectLabel>
-                          {format.map ((adv) => (
+                          {format.map((adv) => (
                             <SelectItem key={adv.id} value={adv.value}>
                               {adv.text}
                             </SelectItem>
@@ -328,12 +328,14 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
                 />
               </div>
 
-
-              <div className='grid w-full mb-4'>
-                <Label className="text-sm	text-white pb-2">Тайм код рекламы<span
-                  className='text-red-500 ml-0.5'>*</span></Label>
+              <div className="grid w-full mb-4">
+                <Label className="text-sm	text-white pb-2">
+                  Тайм код рекламы<span className="text-red-500 ml-0.5">*</span>
+                </Label>
                 <Input
-                  className={`border ${errors?.timecod ? 'border-red-500' : 'border-gray-300'}   transition-all duration-300 text-sm `}
+                  className={`border ${
+                    errors?.timecod ? 'border-red-500' : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
                   type="time"
                   step="1"
                   inputMode="numeric"
@@ -343,25 +345,31 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
               </div>
             </div>
 
-
-            <div className='flex gap-4'>
-              <div className='grid w-full mb-4'>
-                <Label className="text-sm	text-white pb-2">Прогноз показов<span
-                  className='text-red-500 ml-0.5'>*</span></Label>
+            <div className="flex gap-4">
+              <div className="grid w-full mb-4">
+                <Label className="text-sm	text-white pb-2">
+                  Прогноз показов<span className="text-red-500 ml-0.5">*</span>
+                </Label>
                 <Controller
                   name="expected_number_of_views"
                   control={control}
-                  rules={{required: 'Поле обязательно к заполнению'}}
+                  rules={{ required: 'Поле обязательно к заполнению' }}
                   defaultValue=""
-                  render={({field: {onChange, onBlur, value, name, ref}}) => (
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => (
                     <Input
-                      className={`border ${errors?.expected_number_of_views ? 'border-red-500' : 'border-gray-300'}   transition-all duration-300 text-sm `}
+                      className={`border ${
+                        errors?.expected_number_of_views
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }   transition-all duration-300 text-sm `}
                       type="text"
-                      value={value.toLocaleString ('en-US')}
+                      value={value.toLocaleString('en-US')}
                       onChange={(e) => {
-                        const rawValue = e.target.value.replace (/\D/g, '')
-                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
-                        onChange (newValue)
+                        const rawValue = e.target.value.replace(/\D/g, '')
+                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
+                        onChange(newValue)
                       }}
                       onBlur={onBlur}
                       name={name}
@@ -374,20 +382,25 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
                 />
               </div>
 
-              <div className='grid w-full mb-4'>
-                <Label className="text-sm	text-white pb-2">Хрон рекламы (сек)<span
-                  className='text-red-500 ml-0.5'>*</span></Label>
+              <div className="grid w-full mb-4">
+                <Label className="text-sm	text-white pb-2">
+                  Хрон рекламы (сек)
+                  <span className="text-red-500 ml-0.5">*</span>
+                </Label>
 
-                  <Input
-                    className={`border ${errors?.promo_duration ? 'border-red-500' : 'border-gray-300'}   transition-all duration-300 text-sm `}
-                    type="number"
-                    {...register ('promo_duration', {
-                      required: 'Поле обязательно для заполнения',
-                    })}
-                  />
+                <Input
+                  className={`border ${
+                    errors?.promo_duration
+                      ? 'border-red-500'
+                      : 'border-gray-300'
+                  }   transition-all duration-300 text-sm `}
+                  type="number"
+                  {...register('promo_duration', {
+                    required: 'Поле обязательно для заполнения',
+                  })}
+                />
               </div>
             </div>
-
 
             <Button
               className={`${
@@ -398,13 +411,10 @@ export default function SelectedVideo ({setOpenPopoverIndex, item, setIsPopoverO
               disabled={!isValid}
             >
               Создать
-
             </Button>
           </form>
-
-
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TableBody, TableCell } from '@/components/ui/table.jsx'
 import { Star } from 'lucide-react'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
-import CircularBadge from '@/components/Labrery/Circular/CircularBadge.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
-import VerifyModal from '@/components/Dashboard/Order/BindingOrder/VerifyModal/VerifyModal.jsx'
+// import VerifyModal from '@/components/Dashboard/Order/BindingOrder/VerifyModal/VerifyModal.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { LinkSvg } from '@/assets/icons-ui.jsx'
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Dialog } from '@/components/ui/dialog.jsx'
+import { CheckCompletedSvg } from '../../../../../assets/icons-ui'
+import VerifyModal from './VerifyModal/VerifyModal'
 
 function AddInventoryData({
   inventor,
@@ -47,8 +48,6 @@ function AddInventoryData({
   }
   // Модальное окно OrderModal
 
-  {
-  }
   return (
     <>
       {open && (
@@ -182,20 +181,12 @@ function AddInventoryData({
                         setOpen(true)
                         setSelectedInventoryId(() => advert.id)
                       }}
-                      className="flex gap-1 relative"
+                      style={{ backdropFilter: 'blur(10.3049px)' }}
+                      className="hover:scale-105 transition-all w-full h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5  bg-[#ffffff4d] hover:bg-violet-400 border border-transparent hover:border-violet-700"
                     >
                       <Star />
                       {advert.video_content.link_to_video ? (
-                        <CircularBadge
-                          style={{
-                            backgroundColor: '#4833d0',
-                            width: '15px',
-                            height: '15px',
-                            top: '-5px',
-                            right: '-5px',
-                            position: 'absolute',
-                          }}
-                        />
+                        <div className="bg-violet-500 w-4 h-4 rounded-full absolute -right-2 -top-2"></div>
                       ) : (
                         ''
                       )}
@@ -206,18 +197,14 @@ function AddInventoryData({
 
                 {advert.status === 'in_use' ? (
                   <div>
-                    <button
+                    <Button
                       onClick={() => handleDeactivateInventory(advert.id)}
+                      style={{ backdropFilter: 'blur(10.3049px)' }}
+                      className="hover:scale-105 transition-all w-full h-auto px-2 py-1 rounded-lg flex items-center gap-1.5  bg-[#ffffff4d] hover:bg-red-400 border border-transparent hover:border-red-500"
                     >
-                      {/*<Deactivate*/}
-                      {/*  style={{*/}
-                      {/*    width: "16px",*/}
-                      {/*    height: "16px",*/}
-                      {/*    marginRight: "5px",*/}
-                      {/*  }}*/}
-                      {/*/>*/}
+                      <CheckCompletedSvg className="w-[20px] h-[20px] text-white" />
                       Завершить
-                    </button>
+                    </Button>
                   </div>
                 ) : (
                   ''

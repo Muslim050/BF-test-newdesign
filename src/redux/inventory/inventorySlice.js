@@ -16,7 +16,7 @@ const initialState = {
 
 export const fetchInventory = createAsyncThunk(
   'inventory/fetchInventory',
-  async ({ id, format, status }) => {
+  async ({ id, format, status, orderAssignmentId }) => {
     const token = localStorage.getItem('token')
     let url = new URL(`${backendURL}/inventory/`)
     const params = new URLSearchParams()
@@ -28,6 +28,9 @@ export const fetchInventory = createAsyncThunk(
     }
     if (status) {
       params.append('status', status)
+    }
+    if (orderAssignmentId) {
+      params.append('order_assignment_id', orderAssignmentId)
     }
 
     url.search = params.toString()
@@ -100,9 +103,9 @@ export const addInventory = createAsyncThunk(
 )
 export const inventoryPublish = createAsyncThunk(
   'inventory/inventoryPublish',
-  async ({ data }, {rejectWithValue}) => {
+  async ({ data }, { rejectWithValue }) => {
     const token = localStorage.getItem('token')
-    console.log ("rejectWithValue", rejectWithValue)
+    console.log('rejectWithValue', rejectWithValue)
     try {
       const response = await axios.post(
         `${backendURL}/inventory/publish/`,
@@ -120,7 +123,7 @@ export const inventoryPublish = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response);
+      return rejectWithValue(error.response)
     }
   },
 )
@@ -174,7 +177,6 @@ export const fetchConfirmedIInventory = createAsyncThunk(
   },
 )
 //Удалить
-
 
 export const fetchEditInventory = createAsyncThunk(
   'inventory/fetchEditInventory',

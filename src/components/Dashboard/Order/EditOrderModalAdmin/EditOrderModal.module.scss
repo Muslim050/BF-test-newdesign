@@ -225,31 +225,6 @@ input::placeholder {
   color: white;
 }
 
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid grey;
-
-  // border-bottom: 2px solid grey;
-
-  &__title {
-    font-size: 20px;
-    line-height: 28px;
-    font-weight: 600;
-    color: var(--text-color);
-  }
-
-  &__btn {
-    background: inherit;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    border: 0;
-    cursor: pointer;
-  }
-}
-
 .modal__btn svg path {
   stroke: #646464;
   /* Задайте желаемый цвет */

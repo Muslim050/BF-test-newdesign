@@ -17,8 +17,7 @@ import {
   TooltipTrigger,
 } from 'src/components/ui/tooltip'
 import AdvertStatus from 'src/components/Labrery/AdvertStatus/AdvertStatus'
-import { toastConfig } from 'src/utils/toastConfig'
-import { toast } from 'sonner'
+
 import FormatterView from 'src/components/Labrery/formatter/FormatterView'
 import CircularTable from 'src/components/Labrery/Circular/CircularTable'
 import CircularBadge from 'src/components/Labrery/Circular/CircularBadge'
@@ -29,23 +28,24 @@ import PopoverButtons from '../module/PopoverButtons.jsx'
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { hasRole } from '../../../../utils/roleUtils.js'
+import toast from 'react-hot-toast'
+import { Badge } from '@/components/ui/badge'
 
-function OrderData({ sortedData }) {
+function OrderData({ data }) {
   const dispatch = useDispatch()
   const [expandedRows, setExpandedRows] = React.useState('')
   const role = localStorage.getItem('role')
-  const [currentOrder, setCurrentOrder] = React.useState(null)
   const [showModalEdit, setShowModalEdit] = React.useState(false)
   const [showModalEditAdmin, setShowModalEditAdmin] = React.useState(false)
-  const [showKomment, setShowKomment] = React.useState(false)
   const navigate = useNavigate()
   const [activeTooltip, setActiveTooltip] = React.useState(null)
   const { textColor } = React.useContext(ThemeContext)
   const { showPayment } = useSelector((state) => state.modal)
 
+  //Смена статуса заказа
   const handleRowClick = (id) => {
     setExpandedRows(id === expandedRows ? false : id)
-    const item = sortedData().find((item) => item.id === id)
+    const item = data.find((item) => item.id === id)
     if (item && item.status === 'sent') {
       dispatch(fetchViewStatus(id)).then((result) => {
         if (result.type === fetchViewStatus.fulfilled.toString()) {
@@ -56,32 +56,21 @@ function OrderData({ sortedData }) {
       // setTimeout (() => fetchGetOrder (id), 2000); // Fetch the specific order directly after 2 seconds if the status is not "sent"
     }
   }
+  //Смена статуса заказа
 
   const handleFinishOrder = (id) => {
-    const confirmFinish = window.confirm(
-      'Вы уверены, что хотите финишировать заказ?',
-    )
-    if (confirmFinish) {
-      dispatch(finishOrder({ id })).then(() => {
+    dispatch(finishOrder({ id }))
+      .unwrap()
+      .then((result) => {
+        toast.success('Заказ успешно завершен')
+        // onClose() - если необходимо
         dispatch(fetchOrder())
       })
-    } else {
-      toast.info('Операция отменена', toastConfig)
-      dispatch(fetchOrder())
-    }
-  }
-  const copyToClipboard = () => {
-    navigator.clipboard
-      .writeText(currentOrder.notes)
-      .then(() => {
-        toast.success('Комментарий скопирован в буфер обмена', {
-          duration: 3000,
-        })
-      })
-      .catch((err) => {
-        toast.error('Не удалось скопировать комментарий', {
-          duration: 3000,
-        })
+      .catch((error) => {
+        console.log(error)
+
+        toast.error(`Ошибка завершения заказа: ${error.data.error.detail}`)
+        dispatch(fetchOrder())
       })
   }
 
@@ -115,7 +104,7 @@ function OrderData({ sortedData }) {
       {/*    </MyModal>*/}
       {/*  )}*/}
       {/*</AnimatePresence>*/}
-      {sortedData().map((advert, i) => {
+      {data.map((advert, i) => {
         return (
           <>
             <TableRow key={i}>
@@ -300,38 +289,30 @@ function OrderData({ sortedData }) {
                   {role === 'admin' ? (
                     <button
                       onClick={() => handleRowClick(advert.id)}
-                      className="relative"
+                      className="relative hover:scale-125 transition-all "
                     >
-                      <OpenSvg />
+                      <OpenSvg className="hover:text-brandPrimary-1" />
 
                       <span className={style.arrow}>
-                        {/*<Arrow*/}
-                        {/*  className={`${style.arrow__icon} ${*/}
-                        {/*    expandedRows === advert.id*/}
-                        {/*      ? style.arrow__rotate*/}
-                        {/*      : ''*/}
-                        {/*  }`}*/}
-                        {/*/>*/}
                         {advert.inventories.filter(
                           (item) =>
                             item.video_content.link_to_video &&
                             item.status === 'booked',
                         ).length > 0 ? (
-                          <CircularBadge
-                            style={{
-                              backgroundColor: '#d0c9fa',
-                              color: '#4833d0',
-                              width: '20px',
-                              height: '20px',
-                            }}
-                            count={
-                              advert.inventories.filter(
-                                (item) =>
-                                  item.video_content.link_to_video &&
-                                  item.status === 'booked',
-                              ).length
-                            }
-                          />
+                          <div className="absolute -top-3 -right-3">
+                            <span className="relative flex h-[17px] w-[17px]">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-[17px] w-[17px] bg-violet-500 justify-center text-[12px]">
+                                {
+                                  advert.inventories.filter(
+                                    (item) =>
+                                      item.video_content.link_to_video &&
+                                      item.status === 'booked',
+                                  ).length
+                                }
+                              </span>
+                            </span>
+                          </div>
                         ) : (
                           <>
                             {advert.status === 'in_review' &&
@@ -371,8 +352,11 @@ function OrderData({ sortedData }) {
                   {/*Статистика заказа*/}
                   {advert.status === 'in_progress' ||
                   advert.status === 'finished' ? (
-                    <button onClick={() => redirectToTariffDetails(advert)}>
-                      <ChartSvg />
+                    <button
+                      onClick={() => redirectToTariffDetails(advert)}
+                      className="hover:scale-125 transition-all"
+                    >
+                      <ChartSvg className="hover:text-green-400" />
                     </button>
                   ) : (
                     <>
@@ -386,14 +370,11 @@ function OrderData({ sortedData }) {
               </TableCell>
 
               {/*POPOVER*/}
-              {hasRole === 'admin' ? (
+              {hasRole('admin') ? (
                 <TableCell className={`font-normal text-${textColor} text-sm `}>
                   <PopoverButtons
                     advert={advert}
                     setShowModalEditAdmin={setShowModalEditAdmin}
-                    setCurrentOrder={setCurrentOrder}
-                    setShowKomment={setShowKomment}
-                    copyToClipboard={copyToClipboard}
                     handleFinishOrder={handleFinishOrder}
                   />
                 </TableCell>
