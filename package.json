@@ -29,7 +29,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "embla-carousel-react": "^8.1.6",
+    "embla-carousel-react": "^8.1.8",
     "framer-motion": "^11.2.10",
     "gsap": "^3.12.5",
     "gsap-trial": "^3.12.5",

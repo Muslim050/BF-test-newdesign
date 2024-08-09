@@ -39,11 +39,9 @@ export default function getTitle(title) {
     return `Отчет / Паблишера`
   } else if (title.startsWith(`sents-order`)) {
     return `Заказы - Паблишера / Канала`
+  } else if (title.startsWith(`advertiser-report`)) {
+    return `Отчет / Рекламодателя`
   }
-
-  // } else if (title.startsWith(`advertiser-report`)) {
-  //   return `Отчет - Рекламодателя`
-  // }
 
   return ''
 }

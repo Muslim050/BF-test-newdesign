@@ -3,6 +3,8 @@ import React from 'react'
 import axios from 'axios'
 import backendURL from 'src/utils/url'
 import { format } from 'date-fns'
+import { Button } from 'src/components/ui/button.jsx'
+import { Download } from 'lucide-react'
 
 function DownloadReport({
   selectedAdv,
@@ -10,7 +12,6 @@ function DownloadReport({
   startDate,
   endDate,
   setIsTooltip,
-  tableData,
   fetchGetOrder,
   endDateMonth,
   startDateMonth,
@@ -71,7 +72,11 @@ function DownloadReport({
 
   return (
     <>
-      <button onClick={() => exportExcel(selectedAdv)} disabled={loading}>
+      <Button
+        onClick={() => exportExcel()}
+        disabled={loading}
+        className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
+      >
         {loading ? (
           <div className="loaderWrapper" style={{ height: '30px' }}>
             <div
@@ -85,10 +90,9 @@ function DownloadReport({
             ></div>
           </div>
         ) : (
-          // <Download style={{width: '25px', height: '30px'}}/>
-          <div>Download</div>
+          <Download />
         )}
-      </button>
+      </Button>
     </>
   )
 }

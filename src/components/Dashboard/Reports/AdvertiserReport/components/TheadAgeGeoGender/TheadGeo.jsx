@@ -1,5 +1,6 @@
 import React from 'react'
 import style from '../../AdvChartTable.module.scss'
+import { TableCell, TableRow } from 'src/components/ui/table'
 
 function TheadGeo({ statistic }) {
   function findVideoWithThreeGenders(data) {
@@ -21,19 +22,18 @@ function TheadGeo({ statistic }) {
             (geo, index) => (
               console.log(geo),
               (
-                <td
+                <TableCell
                   key={index}
-                  className={style.tableChart__tdd}
+                  className="border-transparent text-white"
                   style={{
                     fontSize: '12px',
                     padding: '6px',
                     width: '60px',
                     fontWeight: '600',
-                    color: '#6e7079',
                   }}
                 >
                   {geo}
-                </td>
+                </TableCell>
               )
             ),
           )

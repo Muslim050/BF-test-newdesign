@@ -9,7 +9,13 @@ import { login } from 'src/redux/auth/authSlice.js'
 import { toast } from 'react-hot-toast'
 import { gsap } from 'gsap'
 import { Card, CardContent } from '@/components/ui/card'
-
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import m from './Login.module.scss'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 import {
   Carousel,
   CarouselContent,
@@ -17,6 +23,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { sliderData } from './sliderData'
 // import Cookies from 'js-cookie'
 
 function Login() {
@@ -99,12 +106,12 @@ function Login() {
   const mainSubtitleRef = useRef(null)
 
   useEffect(() => {
-    gsap.from(sectionRef.current, { duration: 1, opacity: 0, y: -50 })
+    gsap.from(sectionRef.current, { duration: 1, opacity: 0, y: 100 })
     gsap.from(titleRef.current, { duration: 1, opacity: 0, y: 50, delay: 0.5 })
     gsap.from(firstRef.current, { duration: 1, opacity: 0, y: 50, delay: 0.8 })
     gsap.from(secondRef.current, { duration: 1, opacity: 0, y: 50, delay: 1 })
     gsap.from(buttonRef.current, { duration: 1, opacity: 0, y: 50, delay: 1.5 })
-    gsap.from(leftRef.current, { duration: 1, opacity: 0, x: -30 })
+    gsap.from(leftRef.current, { duration: 1, opacity: 0, y: -100 })
   }, [])
 
   const carouselItemsRef = useRef([])
@@ -117,6 +124,19 @@ function Login() {
     )
     gsap.from(mainTitleRef.current, { duration: 1, opacity: 0, y: 50 })
     gsap.from(mainSubtitleRef.current, { duration: 1, opacity: 0, y: 50 })
+  }, [])
+  const intervalRef = useRef(null)
+
+  useEffect(() => {
+    // Устанавливаем интервал для автопрокрутки
+    intervalRef.current = setInterval(() => {
+      document.querySelector('button[aria-label="Next"]').click()
+    }, 3000) // Автопрокрутка каждые 3 секунды
+
+    // Очищаем интервал при размонтировании компонента
+    return () => {
+      clearInterval(intervalRef.current)
+    }
   }, [])
 
   return (
@@ -131,7 +151,7 @@ function Login() {
               <div className=" xl:px-[110px]  lg:px-[50px]	flex flex-col gap-6">
                 <div
                   ref={mainTitleRef}
-                  className="font-normal	text-6xl	text-white 2xl:text-6xl xl:text-5xl  lg:text-4xl"
+                  className="font-normal	text-6xl	text-white 2xl:text-5xl xl:text-4xl  lg:text-3xl"
                 >
                   Увеличьте охваты вашего бренда с помощью брендированной
                   рекламы
@@ -144,33 +164,41 @@ function Login() {
                   увеличения показателей вашего бренда через видео контент.
                 </div>
               </div>
-              <div className="pl-[110px] flex  gap-2 w-full relative">
-                <Carousel className="w-full" opts={{ loop: true }}>
-                  <div className="absolute -top-16 right-16 z-10">
-                    <CarouselPrevious type="button" />
-                    <CarouselNext type="button" />
-                  </div>
-                  <CarouselContent className="-ml-1">
-                    {Array.from({ length: 4 }).map((_, index) => (
-                      <CarouselItem
-                        key={index}
-                        className="pl-1 mr-1 md:basis-80 h-[210px]"
-                        ref={(el) => (carouselItemsRef.current[index] = el)}
-                      >
-                        <div className="">
-                          <Card>
-                            <CardContent className="flex aspect-square items-center justify-center p-6 h-[210px] w-[308px]">
-                              <span className="text-2xl font-semibold">
-                                {index + 1}
-                              </span>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-              </div>
+              {/* <div className=" flex  gap-2 w-full relative"> */}
+
+              <Carousel className="w-full" opts={{ loop: true }}>
+                <div className="absolute -top-16 right-16 z-10">
+                  <CarouselPrevious type="button" />
+                  <CarouselNext
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.17)',
+                    }}
+                    className="text-white"
+                    type="button"
+                  />
+                </div>
+                <CarouselContent className="-ml-1">
+                  {sliderData.map((item, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="pl-1 mr-1 md:basis-80 h-[210px]"
+                      ref={(el) => (carouselItemsRef.current[index] = el)}
+                    >
+                      <div className="flex items-center justify-center  h-[210px] w-[308px]">
+                        <video
+                          src={item.image}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="rounded-[20px]"
+                        ></video>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              {/* </div> */}
             </div>
           </div>
           <div

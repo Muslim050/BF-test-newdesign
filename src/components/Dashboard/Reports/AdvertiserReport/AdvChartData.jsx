@@ -1,80 +1,113 @@
 import React from 'react'
 import style from './AdvChartTable.module.scss'
-
+import { TableCell, TableRow } from 'src/components/ui/table'
 import FormatterView from 'src/components/Labrery/formatter/FormatterView'
 import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet'
+import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from 'src/components/ui/tooltip.jsx'
+import { truncate } from 'src/utils/other.js'
 
 function AdvChartData({ statistic, index, isExpanded }) {
-  const [activeTooltip, setActiveTooltip] = React.useState(null)
   const uniqueGendersss = statistic.gender_percentages
   const uniqueAge = statistic.age_group_percentages
   const uniqueGeo =
     statistic.budget === 11899087.5 //YangiKulgu Official
       ? [{ country: 'UZ', percentage: 100 }]
       : statistic.geo_percentages
+  const { textColor } = React.useContext(ThemeContext)
 
   return (
     <>
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
+        {' '}
         {index + 1}
-      </td>
-      <td
-        className={style.table_td}
-        style={{ display: 'table-cell', width: '250px', padding: '10px 10px' }}
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
       >
         {statistic.channel_name}
-      </td>
-      <td
-        onMouseEnter={() => setActiveTooltip(statistic.id)}
-        onMouseLeave={() => setActiveTooltip(null)}
-        style={{
-          position: 'relative',
-          zIndex: '3',
-          display: 'table-cell',
-          width: '300px',
-          color: 'blue',
-          padding: '10px 10px',
-        }}
-        className={style.table_td}
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
       >
-        {statistic.video_name.length > 25
-          ? statistic.video_name.substring(0, 25) + '...'
-          : statistic.video_name}
-        <span
-          className={
-            activeTooltip === statistic.id ? style.tooltiptext : style.hidden
-          }
-        >
-          {statistic.video_name}
-        </span>
-      </td>
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="hover:text-[#4793ff] hover:underline text-[#A7CCFF]">
+                {truncate(
+                  statistic.video_name === null ? '' : statistic.video_name,
+                  20,
+                )}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{statistic.video_name}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
         {(statistic.order_format === 'preroll' && 'Pre-roll') ||
           ('mixroll' && 'Mix-roll')}
-      </td>
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
         <div>
           <div style={{ display: 'flex', width: '100px' }}>
-            {new Date(statistic.publication_date).toLocaleDateString('ru-RU', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-            })}
+            {statistic.publication_date === null ? (
+              <div>----</div>
+            ) : (
+              <>
+                {new Date(statistic.publication_date).toLocaleDateString(
+                  'ru-RU',
+                  {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                  },
+                )}
+              </>
+            )}
           </div>
         </div>
-      </td>
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
-        <div>
-          <div style={{ display: 'flex', width: '100px' }}>
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
+        {' '}
+        {statistic.deactivation_date === null ? (
+          <div>----</div>
+        ) : (
+          <>
             {new Date(statistic.deactivation_date).toLocaleDateString('ru-RU', {
               day: '2-digit',
               month: '2-digit',
               year: 'numeric',
             })}
-          </div>
-        </div>
-      </td>
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
+          </>
+        )}
+      </TableCell>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
+        {' '}
         {statistic.online_view_count === 0 ? (
           <div
             style={{
@@ -97,9 +130,13 @@ function AdvChartData({ statistic, index, isExpanded }) {
             )}
           </>
         )}
-      </td>
+      </TableCell>
 
-      <td className={style.table_td} style={{ padding: '10px 10px' }}>
+      <TableCell
+        data-label="ID"
+        className={`font-normal text-${textColor} text-sm `}
+      >
+        {' '}
         <div
           style={{
             display: 'flex',
@@ -119,24 +156,20 @@ function AdvChartData({ statistic, index, isExpanded }) {
             </div>
           ) : (
             <>
-              {statistic.budget === 11899087.5 ? ( //YangiKulgu Official
-                <div>2 248 912 сум</div>
-              ) : (
-                <FormatterBudjet
-                  budget={statistic.budget}
-                  data={statistic.publication_date}
-                />
-              )}
+              <FormatterBudjet
+                budget={statistic.budget}
+                data={statistic.publication_date}
+              />
             </>
           )}
         </div>
-      </td>
+      </TableCell>
 
       {uniqueGendersss.length && uniqueAge.length && uniqueGeo.length ? (
         <>
-          <td
-            className={style.table_td}
-            style={{ padding: '0px', borderLeft: '1px solid #f3f0f0' }}
+          <TableCell
+            data-label="ID"
+            className={`font-normal text-${textColor} text-sm `}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               {uniqueGendersss.length > 0
@@ -144,25 +177,17 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <td
                       key={`gender-${index}`}
                       data-label="Пол"
-                      style={{
-                        textAlign: 'center',
-                        padding: '5px',
-                        width: '60px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        color: 'blue',
-                      }}
+                      className="w-[60px] text-[13px] font-bold text-green-500"
                     >
                       {gender.percentage}%
                     </td>
                   ))
                 : null}
             </div>
-          </td>
-
-          <td
-            className={style.table_td}
-            style={{ padding: '0px', borderLeft: '1px solid #f3f0f0' }}
+          </TableCell>
+          <TableCell
+            data-label="ID"
+            className={`font-normal text-${textColor} text-sm `}
           >
             <div style={{ display: 'flex', justifyContent: 'start' }}>
               {uniqueAge.length > 0
@@ -170,25 +195,18 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <td
                       key={`age-${index}`}
                       data-label="Возраст"
-                      style={{
-                        textAlign: 'center',
-                        padding: '7px',
-                        width: '60px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        color: 'blue',
-                      }}
+                      className="w-[60px] text-[13px] font-bold text-green-500"
                     >
                       {age.percentage}%
                     </td>
                   ))
                 : null}
             </div>
-          </td>
+          </TableCell>
 
-          <td
-            className={style.table_td}
-            style={{ padding: '0px', borderLeft: '1px solid #f3f0f0' }}
+          <TableCell
+            data-label="ID"
+            className={`font-normal text-${textColor} text-sm `}
           >
             <div style={{ display: 'flex', justifyContent: 'start' }}>
               {uniqueGeo.length > 0
@@ -196,21 +214,14 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <div
                       key={`geo-${index}`}
                       data-label="Гео"
-                      style={{
-                        textAlign: 'center',
-                        padding: '5px',
-                        width: '60px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        color: 'blue',
-                      }}
+                      className="w-[60px] text-[13px] font-bold text-green-500"
                     >
                       {geo.percentage}%
                     </div>
                   ))
                 : null}
             </div>
-          </td>
+          </TableCell>
         </>
       ) : (
         <div style={{ position: 'relative' }}>

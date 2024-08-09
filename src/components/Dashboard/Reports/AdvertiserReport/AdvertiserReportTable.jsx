@@ -11,7 +11,20 @@ import FilteredTooltipMain from './components/FilteredTooltip/FilteredTooltipMai
 import { fetchShortList } from 'src/redux/order/orderSlice'
 import { format } from 'date-fns'
 import { clearStatistics, fetchStatistics } from 'src/redux/statisticsSlice.js'
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover.jsx'
+import { FilterSvg } from '@/assets/icons-ui.jsx'
+import { Button } from '@/components/ui/button.jsx'
+import {
+  TableRow,
+  TableHeader,
+  Table,
+  TableHead,
+  TableBody,
+} from 'src/components/ui/table'
 function AdvertiserReportTable() {
   const dispatch = useDispatch()
   const [expandedRows, setExpandedRows] = React.useState('')
@@ -41,8 +54,7 @@ function AdvertiserReportTable() {
     setEndDateMonth(dateRange[1])
   }, [dateRange])
   //Выбор рекламадателя
-  const handleSelectChangeADV = (event) => {
-    const value = event.target.value
+  const handleSelectChangeADV = (value) => {
     setSelectedOptionAdv(value)
 
     if (value) {
@@ -161,191 +173,166 @@ function AdvertiserReportTable() {
       ) : (
         <div className="tableWrapper" style={{ overflow: 'visible' }}>
           <div className="tableWrapper__table_title">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              Отчет-Рекламодателя &nbsp;
-            </div>
-            <div className={style.profile}>
-              {(startDate || endDate) && (
-                <div
-                  style={{
-                    padding: '10px',
-                    borderRadius: '8px',
-                    background: '#FEF5EA',
-                    border: '1px solid #ffd8a9',
-                    marginRight: '5px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
+            <div className="flex justify-end items-center gap-2">
+              {selectedAdvName && (
+                <Button
+                  variant="link"
+                  onClick={handleClear}
+                  className="text-[#A7CCFF] px-0"
                 >
-                  <div
-                    style={{
-                      fontSize: '13px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    Выбранный период
-                    <div style={{ marginTop: '4px' }}>
-                      {startDate && (
-                        <>
-                          {startDate
-                            .toLocaleDateString('en-GB')
-                            .replaceAll('/', '-')}
-                        </>
-                      )}
-                      &nbsp;
-                      {endDate && (
-                        <>
-                          {endDate
-                            .toLocaleDateString('en-GB')
-                            .replaceAll('/', '-')}
-                        </>
-                      )}
-                    </div>
+                  Очистить
+                </Button>
+              )}
+              {(startDate || endDate) && (
+                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
+                  <div>
+                    {' '}
+                    {startDate && (
+                      <>
+                        {startDate
+                          .toLocaleDateString('en-GB')
+                          .replaceAll('/', '-')}
+                      </>
+                    )}
+                    &nbsp;
+                    {endDate && (
+                      <>
+                        {endDate
+                          .toLocaleDateString('en-GB')
+                          .replaceAll('/', '-')}
+                      </>
+                    )}
                   </div>
                 </div>
               )}
               {(startDateMonth || endDateMonth) && (
-                <div
-                  style={{
-                    padding: '10px',
-                    borderRadius: '8px',
-                    background: '#FEF5EA',
-                    border: '1px solid #ffd8a9',
-                    marginRight: '5px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: '13px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    Месяц
-                    <div style={{ marginTop: '4px' }}>
-                      {selectedMonth
-                        ? selectedMonth
-                            .toLocaleString('ru-RU', { month: 'long' })
-                            .toLowerCase()
-                        : 'All'}
-                    </div>
+                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
+                  <div>
+                    {' '}
+                    {selectedMonth
+                      ? selectedMonth
+                          .toLocaleString('ru-RU', { month: 'long' })
+                          .toLowerCase()
+                      : 'All'}
                   </div>
                 </div>
               )}
               {selectedAdvName && (
-                <div
-                  style={{
-                    padding: '10px',
-                    borderRadius: '8px',
-                    background: '#FEF5EA',
-                    border: '1px solid #ffd8a9',
-                    marginRight: '5px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: '13px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    Выбранный Рекламадатель
-                    <div style={{ marginTop: '4px' }}>{selectedAdvName}</div>
-                  </div>
+                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
+                  <div>{selectedAdvName}</div>
                 </div>
               )}
 
-              <FilteredTooltipMain handleProfileClick={handleProfileClick}>
-                <FilteredTooltip
-                  isTooltip={isTooltip}
-                  handleDateStatictick={handleDateStatictick}
-                  startDate={startDate}
-                  setStartDate={setStartDate}
-                  endDate={endDate}
-                  setEndDate={setEndDate}
-                  closeH={closeH}
-                  advdata={advdata}
-                  selectedOptionAdv={selectedOptionAdv}
-                  handleSelectChangeADV={handleSelectChangeADV}
-                  ShortListdata={ShortListdata}
-                  //
-                  setSelectedOptionOrder={setSelectedOptionOrder}
-                  selectedOptionOrder={selectedOptionOrder}
-                  selectedAdv={selectedAdv}
-                  handleClear={handleClear}
-                  selectedAdvName={selectedAdvName}
-                  selectedOrderName={selectedOrderName}
-                  //
-                  handleStartDateChange={handleStartDateChange}
-                  handleEndDateChange={handleEndDateChange}
-                  handleDateChange={handleDateChange}
-                  setStartDateMonth={setStartDateMonth}
-                  setEndDateMonth={setEndDateMonth}
-                  startDateMonth={startDateMonth}
-                  endDateMonth={endDateMonth}
-                  selectedMonth={selectedMonth}
-                  setIsTooltip={setIsTooltip}
-                  tableData={tableData}
-                />
-              </FilteredTooltipMain>
+              <Popover>
+                <PopoverTrigger asChild className="">
+                  <Button
+                    variant="ghost"
+                    className=" flex justify-end my-4 bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[48px]"
+                  >
+                    <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-xl">
+                  <div className="">
+                    <div className="flex items-center gap-2 pb-4">
+                      <div className="w-2.5	h-6	bg-[#B5E4CA] rounded-[4px]"></div>
+                      <h4 className="font-medium text-white">Фильтры</h4>
+                    </div>
+                    <p className="text-xs	  py-3 border-t border-[#F9F9F9] text-white">
+                      Выберите необходимые параметры
+                    </p>
+
+                    <FilteredTooltip
+                      isTooltip={isTooltip}
+                      handleDateStatictick={handleDateStatictick}
+                      startDate={startDate}
+                      setStartDate={setStartDate}
+                      endDate={endDate}
+                      setEndDate={setEndDate}
+                      closeH={closeH}
+                      advdata={advdata}
+                      selectedOptionAdv={selectedOptionAdv}
+                      handleSelectChangeADV={handleSelectChangeADV}
+                      ShortListdata={ShortListdata}
+                      //
+                      setSelectedOptionOrder={setSelectedOptionOrder}
+                      selectedOptionOrder={selectedOptionOrder}
+                      selectedAdv={selectedAdv}
+                      handleClear={handleClear}
+                      selectedAdvName={selectedAdvName}
+                      selectedOrderName={selectedOrderName}
+                      //
+                      handleStartDateChange={handleStartDateChange}
+                      handleEndDateChange={handleEndDateChange}
+                      handleDateChange={handleDateChange}
+                      setStartDateMonth={setStartDateMonth}
+                      setEndDateMonth={setEndDateMonth}
+                      startDateMonth={startDateMonth}
+                      endDateMonth={endDateMonth}
+                      selectedMonth={selectedMonth}
+                      setIsTooltip={setIsTooltip}
+                      tableData={tableData}
+                    />
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
-          {data && data.length ? (
-            <table className="tableWrapper" style={{ overflow: 'visible' }}>
-              {/* Колонки основной таблица  */}
-              <thead>
-                <OrderChartThead statistic={tableData} />
-              </thead>
-              {/* Колонки основной таблица  */}
-              <tbody>
-                {data &&
-                  data.length &&
-                  data.map((statistic, index) => {
-                    totalBudget += statistic.budget
-                    totalAnalitickView += statistic.online_view_count
-                    totalViews += statistic.online_view_count
-                    tableData.push(statistic)
-                    return (
-                      <React.Fragment key={statistic.video_link}>
-                        {/* Данные таблицы  */}
-                        <tr
-                          key={index}
-                          style={{ borderBottom: '1px solid #dad9d9' }}
-                        >
-                          <AdvChartData
-                            statistic={statistic}
-                            index={index}
-                            isExpanded={expandedRows === statistic.video_link}
-                          />
-                        </tr>
-                      </React.Fragment>
-                    )
-                  })}
-              </tbody>
-              <thead style={{ border: 0 }}>
-                {/* Ячейки с инфо Итого:	 */}
-                <InfoCardsBottom
-                  totalViews={totalViews}
-                  totalBudget={totalBudget}
-                  totalAnalitickView={totalAnalitickView}
-                  tableData={data}
-                />
-                {/* Ячейки с инфо Итого:	 */}
-              </thead>
-            </table>
-          ) : (
-            <div className="empty_list">
-              Установите фильтр для отображение данных!
-            </div>
-          )}
+          <div
+            className={`border_container rounded-xl p-[3px] glass-background`}
+          >
+            {data && data.length ? (
+              <Table
+                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
+              >
+                {' '}
+                {/* Колонки основной таблица  */}
+                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                  <OrderChartThead statistic={tableData} />
+                </TableHeader>
+                {/* Колонки основной таблица  */}
+                <TableBody>
+                  {data &&
+                    data.length &&
+                    data.map((statistic, index) => {
+                      totalBudget += statistic.budget
+                      totalAnalitickView += statistic.online_view_count
+                      totalViews += statistic.online_view_count
+                      tableData.push(statistic)
+                      return (
+                        <React.Fragment key={statistic.video_link}>
+                          {/* Данные таблицы  */}
+                          <tr
+                            key={index}
+                            style={{ borderBottom: '1px solid #f9f9f92b' }}
+                          >
+                            <AdvChartData
+                              statistic={statistic}
+                              index={index}
+                              isExpanded={expandedRows === statistic.video_link}
+                            />
+                          </tr>
+                        </React.Fragment>
+                      )
+                    })}
+                </TableBody>
+                <thead style={{ border: 0 }}>
+                  {/* Ячейки с инфо Итого:	 */}
+                  <InfoCardsBottom
+                    totalViews={totalViews}
+                    totalBudget={totalBudget}
+                    totalAnalitickView={totalAnalitickView}
+                    tableData={data}
+                  />
+                  {/* Ячейки с инфо Итого:	 */}
+                </thead>
+              </Table>
+            ) : (
+              <div className="flex items-center gap-2 justify-center h-[200px] 	">
+                Установите фильтр для отображения данных!
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>
