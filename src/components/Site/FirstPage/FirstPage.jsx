@@ -21,6 +21,7 @@ import {
 import { sliderData } from './sliderData'
 import PhoneButtonBottom from './ButtonBottom/PhoneButtonBottom'
 import style from './FirstPage.module.scss'
+import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
 
 //
 import Phone from '@/assets/Site/FirstPage/Phone.png'
@@ -313,11 +314,14 @@ const FirstPage = () => {
                 <div>
                   <div className="flex justify-end flex-col w-full">
                     <div className="relative">
-                      <img
-                        src={CardLeft}
+                      <video
+                        src={video1}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
                         className="w-full bg-black rounded-t-[20px] h-[192px]"
-                        alt=""
-                      />
+                      ></video>
                     </div>
 
                     <div className="absolute w-[342px]">
@@ -326,10 +330,10 @@ const FirstPage = () => {
                   </div>
                   <div className="text-white bg-black h-[86px] rounded-b-[20px] p-5">
                     <div className="text-[13px]">
-                      Chery: Embrace Comfort in Every Drive
+                      Встречайте обновленый BYD Champion
                     </div>
                     <div className="text-[10px] text-[#ffffff85] mt-2">
-                      Chery · 777K views · 3 days ago
+                      Подробнее С 13:22. www.byd.uz
                     </div>
                   </div>
                 </div>
@@ -371,21 +375,28 @@ const FirstPage = () => {
                 <div>
                   <div className="flex justify-end flex-col w-full">
                     <div className="relative">
-                      <img
+                      {/* <img
                         src={CardRight}
                         className="w-full bg-black rounded-t-[20px] h-[192px]"
                         alt=""
-                      />
+                      /> */}
+                      <video
+                        src={video1}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full bg-black rounded-t-[20px] h-[192px]"
+                      ></video>
                     </div>
-
                     <div className="absolute w-[342px]">
                       <img src={mixrollImage} alt="" className="w-full " />
                     </div>
                   </div>
                   <div className="text-white bg-black h-[86px] rounded-b-[20px] p-5">
-                    <div>Chery: Embrace Comfort in Every Drive</div>
+                    <div>BYD Song Pro - для тех, кто ценит прогресс.</div>
                     <div className="text-[10px] text-[#ffffff85] mt-2">
-                      Chery · 777K views · 3 days ago
+                      Подробнее 13:22. www.byd.uz
                     </div>
                   </div>
                 </div>
@@ -464,7 +475,7 @@ const FirstPage = () => {
                   <SwiperSlide key={slide.id}>
                     <div
                       className={`relative md:w-[205px] w-[180px]  h-[230px]   ${
-                        index === activeSlide ? 'h-[320px]' : ''
+                        index === activeSlide ? 'h-[250px]' : ''
                       }`}
                     >
                       <div
@@ -520,11 +531,11 @@ const FirstPage = () => {
                               <div className=" leading-3	 text-[8px] text-white">
                                 {slide.title}
                               </div>
-                              <div className="leading-3 text-[6px] text-[#ffffff70]">
-                                {slide.title}
-                              </div>
+                              {/* <div className="leading-3 text-[6px] text-[#ffffff70]">
+                                {slide.subtitle}
+                              </div> */}
 
-                              <div className="flex gap-1 mt-2 mb-2">
+                              <div className="flex gap-1 mt-2 mb-2 justify-between">
                                 <div
                                   className="w-fit "
                                   style={{
@@ -538,45 +549,8 @@ const FirstPage = () => {
                                     borderRadius: '500px',
                                   }}
                                 >
-                                  <div className="text-[6px] leading-[9px]		 text-[#ffffff70] flex items-center gap-1 p-1">
-                                    <svg
-                                      width="8"
-                                      height="9"
-                                      viewBox="0 0 8 9"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        opacity="0.4"
-                                        d="M7.21695 3.84324C7.08695 3.65658 6.85695 3.54991 6.59362 3.54991H5.22695C5.13695 3.54991 5.05362 3.51324 4.99695 3.44658C4.93695 3.37991 4.91362 3.28658 4.92695 3.18991L5.09695 2.09658C5.17029 1.76991 4.95362 1.40324 4.62695 1.29324C4.32362 1.17991 3.96695 1.33324 3.82362 1.54991L2.41695 3.63991L2.37695 3.70658V6.65324L2.42695 6.70324L3.48362 7.51991C3.62362 7.65991 3.94029 7.73658 4.16362 7.73658H5.46362C5.91029 7.73658 6.36029 7.39991 6.46029 6.98991L7.28029 4.49324C7.36695 4.25658 7.34362 4.02658 7.21695 3.84324Z"
-                                        fill="white"
-                                      />
-                                      <path
-                                        d="M1.73602 2.62695H1.39268C0.876016 2.62695 0.666016 2.82695 0.666016 3.32029V6.67362C0.666016 7.16695 0.876016 7.36695 1.39268 7.36695H1.73602C2.25268 7.36695 2.46268 7.16695 2.46268 6.67362V3.32029C2.46268 2.82695 2.25268 2.62695 1.73602 2.62695Z"
-                                        fill="white"
-                                      />
-                                    </svg>
-                                    {slide.likeCount}
-
-                                    <div className="border-r border-[#2B2D33] h-[8px]"></div>
-                                    {slide.disLikeCount}
-                                    <svg
-                                      width="8"
-                                      height="9"
-                                      viewBox="0 0 8 9"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        opacity="0.4"
-                                        d="M0.783664 5.1531C0.913664 5.33977 1.14366 5.44643 1.407 5.44643H2.77366C2.86366 5.44643 2.947 5.4831 3.00366 5.54977C3.06366 5.61643 3.087 5.70977 3.07366 5.80643L2.90366 6.89977C2.83033 7.22643 3.047 7.5931 3.37366 7.7031C3.677 7.81643 4.03366 7.6631 4.177 7.44643L5.58033 5.35643L5.62033 5.28977V2.3431L5.57033 2.2931L4.51366 1.47643C4.37366 1.33643 4.057 1.25977 3.83366 1.25977H2.53366C2.087 1.25977 1.637 1.59643 1.537 2.00643L0.716997 4.5031C0.633664 4.73977 0.656997 4.9731 0.783664 5.1531Z"
-                                        fill="white"
-                                      />
-                                      <path
-                                        d="M6.26378 6.37046H6.60711C7.12378 6.37046 7.33378 6.17046 7.33378 5.67712V2.32712C7.33378 1.83379 7.12378 1.63379 6.60711 1.63379H6.26378C5.74711 1.63379 5.53711 1.83379 5.53711 2.32712V5.68046C5.53711 6.17046 5.74711 6.37046 6.26378 6.37046Z"
-                                        fill="white"
-                                      />
-                                    </svg>
+                                  <div className="text-[6px] leading-[9px]		 text-white flex items-center gap-1 p-1">
+                                    {slide.view}
                                   </div>
                                 </div>
 
@@ -767,11 +741,6 @@ const FirstPage = () => {
                         <SwiperSlide key={slide.id}>
                           <div className="relative md:w-[205px] w-[180px]  h-[300px]">
                             <div className="flex items-center justify-center flex-col slide border-0 mx-auto">
-                              {/* <video
-                                src={slide.image}
-                                alt={slide.title}
-                                className="w-[185px] h-[100px]"
-                              /> */}
                               <video
                                 src={slide.image}
                                 autoPlay
@@ -782,10 +751,7 @@ const FirstPage = () => {
                               ></video>
                             </div>
                             <div
-                              className={`absolute bottom-0 w-full
-                      flex items-center justify-center slide
-                     
-                    `}
+                              className={`absolute bottom-0 w-full flex items-center justify-center slide`}
                             >
                               <div
                                 className={`relative  h-full w-full top-[-60px]`}
@@ -805,11 +771,11 @@ const FirstPage = () => {
                                   <div className=" leading-3	 text-[8px] text-white">
                                     {slide.title}
                                   </div>
-                                  <div className="leading-3 text-[6px] text-[#ffffff70]">
+                                  {/* <div className="leading-3 text-[6px] text-[#ffffff70]">
                                     {slide.title}
-                                  </div>
+                                  </div> */}
 
-                                  <div className="flex gap-1 mt-2 mb-4">
+                                  <div className="flex gap-1 mt-2 mb-2 justify-between">
                                     <div
                                       className="w-fit "
                                       style={{
@@ -823,45 +789,8 @@ const FirstPage = () => {
                                         borderRadius: '500px',
                                       }}
                                     >
-                                      <div className="text-[6px] leading-[9px]		 text-[#ffffff70] flex items-center gap-1 p-1">
-                                        <svg
-                                          width="8"
-                                          height="9"
-                                          viewBox="0 0 8 9"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            opacity="0.4"
-                                            d="M7.21695 3.84324C7.08695 3.65658 6.85695 3.54991 6.59362 3.54991H5.22695C5.13695 3.54991 5.05362 3.51324 4.99695 3.44658C4.93695 3.37991 4.91362 3.28658 4.92695 3.18991L5.09695 2.09658C5.17029 1.76991 4.95362 1.40324 4.62695 1.29324C4.32362 1.17991 3.96695 1.33324 3.82362 1.54991L2.41695 3.63991L2.37695 3.70658V6.65324L2.42695 6.70324L3.48362 7.51991C3.62362 7.65991 3.94029 7.73658 4.16362 7.73658H5.46362C5.91029 7.73658 6.36029 7.39991 6.46029 6.98991L7.28029 4.49324C7.36695 4.25658 7.34362 4.02658 7.21695 3.84324Z"
-                                            fill="white"
-                                          />
-                                          <path
-                                            d="M1.73602 2.62695H1.39268C0.876016 2.62695 0.666016 2.82695 0.666016 3.32029V6.67362C0.666016 7.16695 0.876016 7.36695 1.39268 7.36695H1.73602C2.25268 7.36695 2.46268 7.16695 2.46268 6.67362V3.32029C2.46268 2.82695 2.25268 2.62695 1.73602 2.62695Z"
-                                            fill="white"
-                                          />
-                                        </svg>
-                                        {slide.likeCount}
-
-                                        <div className="border-r border-[#2B2D33] h-[8px]"></div>
-                                        {slide.disLikeCount}
-                                        <svg
-                                          width="8"
-                                          height="9"
-                                          viewBox="0 0 8 9"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            opacity="0.4"
-                                            d="M0.783664 5.1531C0.913664 5.33977 1.14366 5.44643 1.407 5.44643H2.77366C2.86366 5.44643 2.947 5.4831 3.00366 5.54977C3.06366 5.61643 3.087 5.70977 3.07366 5.80643L2.90366 6.89977C2.83033 7.22643 3.047 7.5931 3.37366 7.7031C3.677 7.81643 4.03366 7.6631 4.177 7.44643L5.58033 5.35643L5.62033 5.28977V2.3431L5.57033 2.2931L4.51366 1.47643C4.37366 1.33643 4.057 1.25977 3.83366 1.25977H2.53366C2.087 1.25977 1.637 1.59643 1.537 2.00643L0.716997 4.5031C0.633664 4.73977 0.656997 4.9731 0.783664 5.1531Z"
-                                            fill="white"
-                                          />
-                                          <path
-                                            d="M6.26378 6.37046H6.60711C7.12378 6.37046 7.33378 6.17046 7.33378 5.67712V2.32712C7.33378 1.83379 7.12378 1.63379 6.60711 1.63379H6.26378C5.74711 1.63379 5.53711 1.83379 5.53711 2.32712V5.68046C5.53711 6.17046 5.74711 6.37046 6.26378 6.37046Z"
-                                            fill="white"
-                                          />
-                                        </svg>
+                                      <div className="text-[6px] leading-[9px]		 text-white flex items-center gap-1 p-1">
+                                        {slide.view}
                                       </div>
                                     </div>
 

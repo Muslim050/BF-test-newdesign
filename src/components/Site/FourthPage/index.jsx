@@ -64,7 +64,6 @@ const FourthPage = () => {
           end: 'bottom+=500%',
           scrub: true,
           pin: true,
-          markers: true,
         },
       })
 
@@ -80,7 +79,6 @@ const FourthPage = () => {
               start: `top bottom+=${index * 100}`,
               end: `bottom+=${(imagesData.length - index) * 100}`,
               scrub: true,
-              markers: true,
             },
           },
         )

@@ -472,26 +472,27 @@ slick-slider .scroll-section h3 {
   height: 100%;
 }
 
-.custom-swiper-button-next,
-.custom-swiper-button-prev {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px;
-  border-radius: 50%;
-}
+// .custom-swiper-button-next,
+// .custom-swiper-button-prev {
+//   position: absolute;
+//   display: none;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   z-index: 10;
+//   cursor: pointer;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   color: white;
+//   padding: 10px;
+//   border-radius: 50%;
+// }
 
-.custom-swiper-button-next {
-  right: 10px;
-}
+// .custom-swiper-button-next {
+//   right: 10px;
+// }
 
-.custom-swiper-button-prev {
-  left: 10px;
-}
+// .custom-swiper-button-prev {
+//   left: 10px;
+// }
 .slide {
   //border: 1px magenta solid;
   text-align: center;

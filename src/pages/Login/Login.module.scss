@@ -39,29 +39,6 @@
   [class='swiper-wrapper'] {
     height: 500px;
   }
-  [class^='swiper-button-'] {
-    top: -50%;
-    margin-top: 25px;
-    width: auto;
-  }
-
-  [class='swiper-button-prev']::after {
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    background: #652d86;
-    padding: 15px 19.5px;
-    border-radius: 50%;
-  }
-
-  [class='swiper-button-next']::after {
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    background: #652d86;
-    padding: 15px 19.5px;
-    border-radius: 50%;
-  }
 }
 
 .swiperSlide {

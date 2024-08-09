@@ -21,6 +21,7 @@ import bg2 from './222.png'
 import bg3 from './333.png'
 import bgLayer from './bgLayer.png'
 import PageTitle from '../module/PageTitle'
+import { verticalSliderData } from '../FirstPage/sliderData'
 
 gsap.registerPlugin(ScrollTrigger)
 const sliderData = [
@@ -154,21 +155,29 @@ function FifthPage() {
                   })
                 }}
               >
-                {sliderData.map((slide) => (
+                {verticalSliderData.map((slide) => (
                   <SwiperSlide key={slide.id}>
                     <div className="relative rounded-[35px] lg:rounded-[60px] left-0 ">
                       <div className="w-[550px] lg:w-[750px] h-[250px] lg:h-[360px]  flex items-center justify-center flex-col slideFifth border-0 mx-auto">
-                        <img
+                        {/* <img
                           src={slide.image}
                           alt={slide.title}
                           className="rounded-[35px] lg:rounded-[60px]"
-                        />
+                        /> */}
+                        <video
+                          src={slide.image}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="rounded-[35px] lg:rounded-[60px] w-[550px] lg:w-[750px] h-[250px] lg:h-[360px]"
+                        ></video>
                       </div>
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-              {/* <div className="absolute z-10 block gap-1 top-1/2 w-[190px] right-0">
+              <div className="absolute z-10 block gap-1 top-1/2 w-[190px] right-0">
                 <button
                   style={{
                     background:
@@ -188,7 +197,7 @@ function FifthPage() {
                 >
                   <ArrowDown className="text-white" />
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
 

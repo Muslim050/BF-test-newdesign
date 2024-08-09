@@ -12,7 +12,7 @@ const PhoneButtonBottom = ({
       className={`
                 ${
                   isSecondPage && windowWidth < 1100 ? 'hidden' : ''
-                } absolute z-40 flex gap-1 bottom-[-88%] w-[190px] left-[26%]`}
+                } absolute z-50 flex gap-1 bottom-[-88%] w-[190px] left-[26%]`}
     >
       <button
         onClick={() => swiperRef.current?.slidePrev()}
