@@ -371,7 +371,10 @@ function OrderData({ data }) {
 
               {/*POPOVER*/}
               {hasRole('admin') ? (
-                <TableCell className={`font-normal text-${textColor} text-sm `}>
+                <TableCell
+                  className={`font-normal text-${textColor} text-sm `}
+                  style={{ width: '0' }}
+                >
                   <PopoverButtons
                     advert={advert}
                     setShowModalEditAdmin={setShowModalEditAdmin}

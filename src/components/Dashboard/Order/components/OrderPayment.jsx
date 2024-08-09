@@ -35,9 +35,9 @@ const OrderPayment = ({ advert }) => {
             <div>
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                  <div className="flex gap-1 cursor-pointer px-2 items-center">
+                  <div className="flex gap-1 cursor-pointer items-center">
                     <CircleX className="w-5	h-6" onClick={handleButtonClick} />
-                    Не оплачено
+                    {/* Не оплачено */}
                   </div>
                 </DialogTrigger>
                 {isDialogOpen && (
@@ -51,9 +51,11 @@ const OrderPayment = ({ advert }) => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="flex gap-1 cursor-pointer px-2 ">
+                    <div className="flex gap-1 cursor-pointer ">
                       <CircleCheck className="w-5	h-5" />
-                      <div className="text-sm font-medium">Оплачено</div>
+                      <div className="text-sm font-medium">
+                        {/* Оплачено */}
+                      </div>
                     </div>
                   </TooltipTrigger>
 
@@ -77,10 +79,10 @@ const OrderPayment = ({ advert }) => {
       ) : (
         <Button
           variant="link"
-          className="flex items-center cursor-not-allowed gap-1 px-2 "
+          className="flex items-center cursor-not-allowed gap-1 p-0"
         >
           <CircleX className="w-5	h-5" />
-          <div className="text-sm font-medium">Не оплачено</div>
+          <div className="text-sm font-medium">{/* Не оплачено */}</div>
         </Button>
       )}
     </>

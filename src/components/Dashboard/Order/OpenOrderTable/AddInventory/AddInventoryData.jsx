@@ -184,7 +184,7 @@ function AddInventoryData({
                       style={{ backdropFilter: 'blur(10.3049px)' }}
                       className="hover:scale-105 transition-all w-full h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5  bg-[#ffffff4d] hover:bg-violet-400 border border-transparent hover:border-violet-700"
                     >
-                      <Star />
+                      <Star className="w-[20px] h-[20px] text-white" />
                       {advert.video_content.link_to_video ? (
                         <div className="bg-violet-500 w-4 h-4 rounded-full absolute -right-2 -top-2"></div>
                       ) : (
