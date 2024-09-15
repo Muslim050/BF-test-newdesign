@@ -1,0 +1,201 @@
+import React, { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import m from './FifthPage.module.scss'
+gsap.registerPlugin(ScrollTrigger)
+import PageTitle from '../module/PageTitle'
+
+gsap.registerPlugin(ScrollTrigger)
+function FifthPage2() {
+  const sectionRef = useRef(null)
+  const triggerRef = useRef(null)
+
+  //section2
+  const sectionMainTitle = useRef(null)
+
+  //section2
+
+  useEffect(() => {
+    const pin = gsap.fromTo(
+      sectionRef.current,
+      {
+        translateX: 0,
+      },
+      {
+        translateX: '-100vw',
+        ease: 'none',
+        duration: 1,
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: 'top top',
+          end: '1000 top',
+          scrub: 0.6,
+          pin: true,
+        },
+      },
+    )
+    return () => {
+      {
+        /* A return function for killing the animation on component unmount */
+      }
+      pin.kill()
+    }
+  }, [])
+
+  //section2
+  useEffect(() => {
+    gsap.from(sectionMainTitle.current, {
+      scrollTrigger: {
+        trigger: sectionMainTitle.current,
+        start: 'left center', // Начало анимации, когда элемент достигнет середины экрана по горизонтали
+        end: 'right center', // Конец анимации
+        scrub: true,
+      },
+      duration: 1,
+      opacity: 0,
+      x: -50, // Смещение по горизонтали
+    })
+  }, [])
+
+  return (
+    <section className="relative h-full">
+      <div className="">
+        <GradientBGSvg className="absolute top-0 w-[100%] -z-[5px]" />
+        <StarsSSSvg className="absolute top-0 w-[100%] h-auto -z-[5px]" />
+        <SetkaSvg className="absolute top-0 w-[100%] -z-[5px]" />
+
+        <div className=" relative	max-w-[1240px] w-full m-auto pt-20 px-5">
+          <div
+            ref={sectionMainTitle}
+            className="text-center flex flex-col w-full justify-center "
+          >
+            <PageTitle
+              topTitle={'Статистика'}
+              title={'300 миллионов пользователей каждый месяц'}
+            />
+          </div>
+
+          <div
+            className={` h-full flex-wrap flex  gap-5 justify-center max-w-[1240px] w-full m-auto px-5`}
+          >
+            <div className="flex flex-col  justify-between gap-5">
+              <CardFifthPage
+                gifSrc="/FifthPage/1.gif"
+                title="15 миллионов"
+                customClass={'h-[400px]'}
+                text="Уникальные зрители"
+                customGifClass={'text-center'}
+              />
+
+              <CardFifthPage
+                title="... которые фактически видят вашу рекламу"
+                customClass={'h-[200px]'}
+              />
+            </div>
+
+            <div className="flex flex-col gap-5 justify-between">
+              <CardFifthPage
+                gifSrc="/FifthPage/3.gif"
+                title="300 миллионов"
+                text="Ежемесячные зрители"
+                customGifClass={'text-center'}
+              />
+
+              <CardFifthPage
+                gifSrc="/FifthPage/4.gif"
+                title="18-44"
+                text="Возраст зрителей"
+                customGifClass={'text-center'}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const CardFifthPage = ({
+  title,
+  text,
+  gifSrc,
+  customClass,
+  bgSetka,
+  gifcustomClass,
+  customGifClass,
+}) => {
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      const cardRect = card.getBoundingClientRect()
+      const x = clientX - cardRect.left
+      const y = clientY - cardRect.top
+
+      // Обновляем положение и видимость свечения
+      gsap.to(sparkles, {
+        x: x - sparkles.offsetWidth / 2, // Центрируем по оси X
+        y: y - sparkles.offsetHeight / 2, // Центрируем по оси Y
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0, // Скроем свечение при уходе
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    // Навешиваем обработчики событий
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={cardRef}
+      style={{
+        background:
+          ' linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
+        boxShadow:
+          'inset 0px 1px 1px rgba(216, 236, 248, 0.3), inset 0px 24px 48px rgba(168, 216, 245, 0.06)',
+        borderRadius: '20px',
+      }}
+      className={`${m.cardWrapper} ${customClass}  hover:scale-105 	transition delay-150 duration-300 ease-in-out bg-[#BACFF7] bg-opacity-20 p-6 rounded-[20px] shadow-lg  w-[400px]`}
+    >
+      <div className="flex flex-col items-center justify-between h-full">
+        {gifSrc && (
+          <div className={`w-full h-[180px] relative `}>
+            <img
+              src={gifSrc}
+              alt="Example GIF"
+              className={`absolute top-0 h-auto w-full `}
+            />
+          </div>
+        )}
+
+        <div className={customGifClass}>
+          <h2 className="text-white text-[40px] font-medium mb-2">{title}</h2>
+          <p className="text-[#6D768F] text-sm	">{text}</p>
+        </div>
+      </div>
+      <div ref={sparkleRef} className={m.sparkles} />
+    </div>
+  )
+}
+export default FifthPage2

@@ -1,0 +1,32 @@
+.custom_grid {
+  display: grid;
+  grid-template-columns: auto; /* Фиксированная ширина столбцов */
+  grid-template-rows: repeat(2, auto); /* Автоматическая высота строк */
+  grid-column-gap: 20px; /* Разрыв между столбцами, если нужно */
+  grid-row-gap: 20px; /* Разрыв между строками, если нужно */
+  justify-content: center;
+}
+.div1,
+.div2,
+.div3,
+.div4 {
+  width: 400px; /* Фиксированная ширина карточек */
+  background: #bacff7;
+  background-opacity: 20%;
+  padding: 24px; /* Общий padding для всех карточек */
+  border-radius: 8px; /* Скругленные углы */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.div2 {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.div3 {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.div4 {
+  grid-area: 2 / 2 / 3 / 3;
+}
