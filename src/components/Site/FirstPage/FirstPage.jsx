@@ -562,6 +562,7 @@ import Socials from './module/Socials'
 import CartUnderVideo from './module/CartUnderVideo'
 import FirstTitleContainer from './module/FirstTitleContainer'
 import LeftRightCart from './module/LeftRightCart'
+import LazyVideo from './module/LazyVideo'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -581,24 +582,23 @@ const FirstPage = () => {
   const firstRef = useRef(null)
 
   useEffect(() => {
-    // Условие для мобильных устройств
-    if (window.innerWidth > 768) {
-      gsap.from(firstRef.current, {
-        y: 100,
-        opacity: 0,
-        scrollTrigger: {
-          trigger: firstRef.current,
-          start: 'top bottom',
-          end: 'top center',
-          scrub: true,
-        },
-      })
-    }
+    gsap.from(firstRef.current, {
+      y: 100,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: firstRef.current,
+        start: 'top bottom',
+        end: 'top center',
+        scrub: true,
+      },
+    })
   }, [])
 
   const secondPageTextRef = useRef(null)
   useEffect(() => {
     const secondPageText = secondPageTextRef.current
+
+    // Разбиваем текст на слова и оборачиваем каждое слово в span
     const words = secondPageText.innerText.split(' ')
     secondPageText.innerHTML = words
       .map((word) => `<span class="word">${word}</span>`)
@@ -606,25 +606,31 @@ const FirstPage = () => {
 
     const wordSpans = secondPageText.querySelectorAll('.word')
 
-    if (window.innerWidth > 768) {
-      // Отключение анимаций на мобильных
-      gsap.set(wordSpans, { opacity: 0, y: 20 })
+    gsap.set(wordSpans, { opacity: 0, y: 20 })
 
-      gsap.to(wordSpans, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: secondPageText,
-          start: 'top 70%',
-          end: 'top 50%',
-          scrub: true,
-        },
-      })
-    }
+    gsap.to(wordSpans, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: secondPageText,
+        start: 'top 70%',
+        end: 'top 50%',
+        scrub: true,
+      },
+    })
 
+    gsap.from(secondPageTextRef.current, {
+      opacity: 0,
+      transform: 'translateY(70px)',
+      ease: 'back',
+      x: 50,
+
+      duration: 1,
+      delay: 1,
+    })
     gsap.to([phoneRightCart.current, phoneLeftCart.current], {
       opacity: 1,
       y: 0,
@@ -639,74 +645,76 @@ const FirstPage = () => {
     })
   }, [])
 
+  //Анимация телефона
   useEffect(() => {
-    if (window.innerWidth > 768) {
-      // Отключение сложных анимаций для мобильных
-      gsap.to(phoneRef.current, {
-        y: window.innerHeight - 10,
-        scale: 1,
-        opacity: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#second-page',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: true,
-          onEnter: () => {
-            setSlidesToShow(4.95)
-            setIsSecondPage(true)
-          },
-          onLeaveBack: () => {
-            setSlidesToShow(4.95)
-            setIsSecondPage(false)
-          },
+    // if (windowWidth >= 1100) {
+    gsap.to(phoneRef.current, {
+      y: window.innerHeight - 10,
+      scale: 1,
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#second-page',
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: true,
+        onEnter: () => {
+          setSlidesToShow(4.95)
+          setIsSecondPage(true)
         },
-      })
-    }
+        onLeaveBack: () => {
+          setSlidesToShow(4.95)
+          setIsSecondPage(false)
+        },
+      },
+    })
+    // } else {
+    //   gsap.killTweensOf(phoneRef.current)
+    // }
   }, [])
 
   //Анимация появления телефона и слайдера
   useEffect(() => {
-    if (window.innerWidth > 768) {
-      gsap.from([phoneRef.current], {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'back',
-        delay: 1.5,
-      })
-      gsap.from([swiperWRef.current], {
-        opacity: 0,
-        y: -20,
-        duration: 1,
-        ease: 'back',
-        delay: 1.5,
-      })
-    }
+    gsap.from([phoneRef.current], {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: 'back',
+
+      delay: 1.5,
+    })
+    gsap.from([swiperWRef.current], {
+      opacity: 0,
+      y: -20,
+      duration: 1,
+      ease: 'back',
+
+      delay: 1.5,
+    })
   }, [])
   //Анимация появления телефона и слайдера
 
-  // useEffect(() => {
-  //   gsap.fromTo(
-  //     [phoneRightCart.current, phoneLeftCart.current],
-  //     {
-  //       y: 200,
-  //       opacity: 0,
-  //     },
-  //     {
-  //       y: 0,
-  //       opacity: 1,
-  //       duration: 1,
-  //       ease: 'easeOut',
-  //       scrollTrigger: {
-  //         trigger: phoneRightCart.current, // Один общий триггер для обеих анимаций
-  //         start: 'top bottom',
-  //         end: 'top center',
-  //         scrub: true,
-  //       },
-  //     },
-  //   )
-  // }, [])
+  useEffect(() => {
+    gsap.fromTo(
+      [phoneRightCart.current, phoneLeftCart.current],
+      {
+        y: 200,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'easeOut',
+        scrollTrigger: {
+          trigger: phoneRightCart.current, // Один общий триггер для обеих анимаций
+          start: 'top bottom',
+          end: 'top center',
+          scrub: true,
+        },
+      },
+    )
+  }, [])
 
   useEffect(() => {
     if (isSecondPage) {
@@ -717,40 +725,6 @@ const FirstPage = () => {
       )
     }
   }, [isSecondPage])
-
-  const LazyVideo = ({ src, ...props }) => {
-    const videoRef = useRef(null)
-
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              videoRef.current.play()
-            } else {
-              videoRef.current.pause()
-            }
-          })
-        },
-        { threshold: 0.5 },
-      )
-
-      observer.observe(videoRef.current)
-      return () => observer.disconnect()
-    }, [])
-
-    return (
-      <video
-        ref={videoRef}
-        src={src}
-        muted
-        loop
-        playsInline
-        {...props}
-        className="rounded-[12px]"
-      ></video>
-    )
-  }
 
   return (
     <div
@@ -972,14 +946,7 @@ const FirstPage = () => {
                         <SwiperSlide key={slide.id}>
                           <div className="relative md:w-[205px] w-[180px]  h-[300px]">
                             <div className="flex items-center justify-center flex-col slide border-0 mx-auto">
-                              <video
-                                src={slide.image}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="rounded-[12px]"
-                              ></video>
+                              <LazyVideo src={slide.image} />
                             </div>
                             <div
                               className={`absolute bottom-0 w-full
