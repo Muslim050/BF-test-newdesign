@@ -4,12 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { ArrowUp } from 'lucide-react'
-import { ArrowDown } from 'lucide-react'
-import { Navigation, Autoplay } from 'swiper/modules'
 gsap.registerPlugin(ScrollTrigger)
-import { verticalSliderData } from '../FirstPage/module/sliderData'
 import HeadeYouTube from './HeadeYouTube.png'
 import video2 from 'src/assets/Site/FirstPage/Video/22.mp4'
 import video9 from 'src/assets/Site/FirstPage/Video/99.mp4'
@@ -18,7 +13,6 @@ import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
 import video3 from 'src/assets/Site/FirstPage/Video/33.mp4'
 import video11 from 'src/assets/Site/FirstPage/Video/1011.mp4'
 import video4 from 'src/assets/Site/FirstPage/Video/44.mp4'
-import video7 from 'src/assets/Site/FirstPage/Video/77.mp4'
 
 gsap.registerPlugin(ScrollTrigger)
 function FifthPage() {

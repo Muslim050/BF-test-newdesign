@@ -23,7 +23,7 @@ const FirstTitleContainer = ({
           }}
           className="FirstTitle text-[6vw] sm:text-[40px]  md:text-[50px] lg:text-[65px] text-center"
         >
-          <span>Онлайн</span> <span>платформа</span> <span>Видеорекламы</span>
+          Онлайн Платформа Видеорекламы
         </div>
         <p
           ref={paragraphRef}

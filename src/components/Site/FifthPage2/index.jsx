@@ -81,7 +81,7 @@ function FifthPage2() {
           >
             <div className="flex flex-col  justify-between gap-5">
               <CardFifthPage
-                gifSrc="/FifthPage/1.gif"
+                gifSrc="/FifthPage/1.webp"
                 title="15 миллионов"
                 customClass={'h-[400px]'}
                 text="Уникальные зрители"
@@ -96,14 +96,14 @@ function FifthPage2() {
 
             <div className="flex flex-col gap-5 justify-between">
               <CardFifthPage
-                gifSrc="/FifthPage/3.gif"
+                gifSrc="/FifthPage/3.webp"
                 title="300 миллионов"
                 text="Ежемесячные зрители"
                 customGifClass={'text-center'}
               />
 
               <CardFifthPage
-                gifSrc="/FifthPage/4.gif"
+                gifSrc="/FifthPage/4.webp"
                 title="18-44"
                 text="Возраст зрителей"
                 customGifClass={'text-center'}

@@ -3,6 +3,7 @@ import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
 import video2 from 'src/assets/Site/FirstPage/Video/122.mp4'
 import prerollImage from '@/assets/Site/FirstPage/preroll.png'
 import mixrollImage from '@/assets/Site/FirstPage/mixroll.png'
+import LazyVideo from './LazyVideo'
 const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
   return (
     <div
@@ -32,14 +33,7 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
             <div className=" flex justify-end flex-col w-full">
               <img className="" src={YouTubeCart} alt="" />
               <div className="absolute top-11">
-                <video
-                  src={video1}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="rounded-[12px]"
-                ></video>
+                <LazyVideo src={video1} />
               </div>
 
               <div className="absolute top-11 w-full">
@@ -87,14 +81,7 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
             <div className=" flex justify-end flex-col w-full">
               <img className="" src={YouTubeCart} alt="" />
               <div className="absolute top-11">
-                <video
-                  src={video2}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="rounded-[12px]"
-                ></video>
+                <LazyVideo src={video2} />
               </div>
 
               <div className="absolute top-11 w-full">

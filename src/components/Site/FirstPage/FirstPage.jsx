@@ -571,6 +571,7 @@ const FirstPage = () => {
   const swiperWRef = useRef(null)
   const phoneWRef = useRef(null)
   const swiperRef = useRef()
+  const secondPageTextRef = useRef(null)
 
   const phoneRightCart = useRef(null)
   const phoneLeftCart = useRef(null)
@@ -594,52 +595,21 @@ const FirstPage = () => {
     })
   }, [])
 
-  const secondPageTextRef = useRef(null)
   useEffect(() => {
-    const secondPageText = secondPageTextRef.current
-
-    // Разбиваем текст на слова и оборачиваем каждое слово в span
-    const words = secondPageText.innerText.split(' ')
-    secondPageText.innerHTML = words
-      .map((word) => `<span class="word">${word}</span>`)
-      .join(' ')
-
-    const wordSpans = secondPageText.querySelectorAll('.word')
-
-    gsap.set(wordSpans, { opacity: 0, y: 20 })
-
-    gsap.to(wordSpans, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: secondPageText,
-        start: 'top 70%',
-        end: 'top 50%',
-        scrub: true,
-      },
-    })
-
     gsap.from(secondPageTextRef.current, {
-      opacity: 0,
-      transform: 'translateY(70px)',
-      ease: 'back',
-      x: 50,
-
-      duration: 1,
-      delay: 1,
+      opacity: 0, // Начальная прозрачность
+      y: 50, // Начальная позиция (снизу)
+      duration: 1.5, // Длительность анимации
+      ease: 'power3.out', // Тип анимации
     })
+
     gsap.to([phoneRightCart.current, phoneLeftCart.current], {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'power3.out',
+      y: 100,
+      opacity: 0,
       scrollTrigger: {
-        start: 'center',
-        end: 'bottom',
+        trigger: firstRef.current,
+        start: 'top bottom',
+        end: 'top center',
         scrub: true,
       },
     })
@@ -647,30 +617,31 @@ const FirstPage = () => {
 
   //Анимация телефона
   useEffect(() => {
-    // if (windowWidth >= 1100) {
-    gsap.to(phoneRef.current, {
-      y: window.innerHeight - 10,
-      scale: 1,
-      opacity: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#second-page',
-        start: 'top bottom',
-        end: 'bottom bottom',
-        scrub: true,
-        onEnter: () => {
-          setSlidesToShow(4.95)
-          setIsSecondPage(true)
+    if (window.innerWidth > 768) {
+      // Отключение сложных анимаций для мобильных
+      gsap.to(phoneRef.current, {
+        y: window.innerHeight - 10,
+        scale: 1,
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#second-page',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: true,
+          onEnter: () => {
+            setSlidesToShow(4.95)
+            setIsSecondPage(true)
+          },
+          onLeaveBack: () => {
+            setSlidesToShow(4.95)
+            setIsSecondPage(false)
+          },
         },
-        onLeaveBack: () => {
-          setSlidesToShow(4.95)
-          setIsSecondPage(false)
-        },
-      },
-    })
-    // } else {
-    //   gsap.killTweensOf(phoneRef.current)
-    // }
+      })
+    } else {
+      gsap.killTweensOf(phoneRef.current)
+    }
   }, [])
 
   //Анимация появления телефона и слайдера
@@ -681,7 +652,7 @@ const FirstPage = () => {
       duration: 1,
       ease: 'back',
 
-      delay: 1.5,
+      delay: 1,
     })
     gsap.from([swiperWRef.current], {
       opacity: 0,
@@ -689,7 +660,7 @@ const FirstPage = () => {
       duration: 1,
       ease: 'back',
 
-      delay: 1.5,
+      delay: 1,
     })
   }, [])
   //Анимация появления телефона и слайдера
@@ -986,59 +957,25 @@ export const FirstSection = () => {
   const socials2 = useRef(null)
 
   useEffect(() => {
-    gsap.from(button1Ref.current, {
+    gsap.from([button1Ref.current, button2Ref.current], {
       opacity: 0,
-      transform: 'translateY(80px)',
+      y: 50,
+      duration: 1.5,
       ease: 'back',
-
-      duration: 1,
-      delay: 1,
     })
 
-    gsap.from(button2Ref.current, {
+    gsap.from([headerRef.current, paragraphRef.current], {
       opacity: 0,
-      transform: 'translateY(80px)',
-      ease: 'back',
-
-      duration: 1,
-      delay: 1,
+      y: 50,
+      duration: 1.5,
+      ease: 'power3.out',
     })
 
-    gsap.from(headerRef.current, {
+    gsap.from([socials1.current, socials2.current], {
       opacity: 0,
-      transform: 'translateY(60px)',
-      ease: 'back',
-
-      duration: 1,
-      delay: 1,
-    })
-
-    gsap.from(paragraphRef.current, {
-      opacity: 0,
-      transform: 'translateY(70px)',
-      ease: 'back',
-
-      duration: 1,
-      delay: 1,
-    })
-
-    gsap.from(socials1.current, {
-      opacity: 0,
-      transform: 'translateY(70px)',
-      ease: 'back',
-      x: 50,
-
-      duration: 1,
-      delay: 1,
-    })
-    gsap.from(socials2.current, {
-      opacity: 0,
-      transform: 'translateY(70px)',
-      ease: 'back',
-      x: 50,
-
-      duration: 1,
-      delay: 1,
+      y: 50,
+      duration: 1.5,
+      ease: 'power3.out',
     })
   }, [])
 

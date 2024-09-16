@@ -91,13 +91,13 @@ function ThirdPage() {
               <Card
                 title="Аналитика производительности"
                 text="Отслеживайте производительность своей рекламы с помощью подробной аналитики и идей для оптимизации ваших кампаний."
-                gifSrc="/ThirdPage/1.gif"
+                gifSrc="/ThirdPage/1.webp"
                 bgSetka
               />
               <Card
                 title="Оптимизация размещения рекламы"
                 text="Максимизируйте свою аудиторию и воздействие с помощью стратегий размещения рекламы, основанных на данных, на различных платформах."
-                gifSrc="/ThirdPage/2.gif"
+                gifSrc="/ThirdPage/2.webp"
                 bgSetka
               />
             </div>
@@ -105,7 +105,7 @@ function ThirdPage() {
             <Card
               title="Видеопроизводство высокого качества"
               text="Создавайте профессиональные видеоролики высокого качества, которые завораживают и превращают зрителей."
-              gifSrc="/ThirdPage/3.gif"
+              gifSrc="/ThirdPage/3.webp"
               gifcustomClass={'h-full w-full'}
               customClass={'custom-845:h-full h-[400px] justify-between '}
             />
@@ -114,7 +114,7 @@ function ThirdPage() {
               <Card
                 title="A/B-тестирование"
                 text="Тестируйте различные версии рекламы, чтобы найти то, что работает лучше всего."
-                gifSrc="/ThirdPage/4.gif"
+                gifSrc="/ThirdPage/4.webp"
                 bgSetka
                 customClass={'h-full justify-between  '}
                 customGifClass={'h-[280px] w-full flex'}
@@ -122,7 +122,7 @@ function ThirdPage() {
               <Card
                 title="Целевая реклама"
                 text="Достигайте правильной аудитории с помощью точно настроенных видеореклам, основанных на демографии, интересах и онлайн-поведении."
-                gifSrc="/ThirdPage/5.gif"
+                gifSrc="/ThirdPage/5.webp"
                 bgSetka
                 customClass={'h-full justify-between '}
               />
