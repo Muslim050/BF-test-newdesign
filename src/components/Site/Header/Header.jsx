@@ -22,16 +22,17 @@ const Header = () => {
   rightMenuRef.current = []
 
   useEffect(() => {
-    // if (window.innerWidth > 768) {
+    // Только для десктопов
     let ctx = gsap.context(() => {
       const tl = gsap.timeline()
-      // Появление логотипа и рамки
+      // Анимации только на экранах шире 768px
       tl.from(logoRef.current, {
         opacity: 0,
         stagger: 0.2,
         scale: 0,
         duration: 1,
         ease: 'power4.out',
+        delay: 0.2,
       })
         .to(
           borderRef.current,
@@ -45,10 +46,10 @@ const Header = () => {
         )
         .to(borderRef.current, {
           width: '100%',
+
           duration: 1.5,
           ease: 'power4.inOut',
         })
-        // Появление элементов меню слева и справа
         .from(
           leftMenuRef.current,
           {
@@ -72,10 +73,8 @@ const Header = () => {
           '-=0.5',
         )
     })
-    return () => ctx.revert() // Очищаем контекст при размонтировании компонента
-    // }
+    return () => ctx.revert() // Очистка контекста при размонтировании
   }, [])
-
   const addToLeftMenuRefs = (el) => {
     if (el && !leftMenuRef.current.includes(el)) {
       leftMenuRef.current.push(el)
@@ -116,11 +115,13 @@ const Header = () => {
           style={{
             background: 'rgba(2, 3, 8, 0.25)',
             boxShadow:
-              'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
+              window.innerWidth > 768
+                ? 'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)'
+                : 'none',
             backdropFilter: ' blur(6px)',
             borderRadius: '500px',
           }}
-          className="px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
+          className="animated-element px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
         >
           <div className="headerTextLeft  items-center gap-2 w-1/2">
             <div
@@ -150,7 +151,7 @@ const Header = () => {
           </div>
           <div
             ref={logoRef}
-            className="flex items-center justify-center w-10 h-10"
+            className=" animated-element flex items-center justify-center w-10 h-10"
             onClick={() => {
               window.location.reload()
             }}

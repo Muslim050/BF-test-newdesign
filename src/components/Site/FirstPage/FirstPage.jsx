@@ -677,7 +677,7 @@ const FirstPage = () => {
         ease: 'easeOut',
         scrollTrigger: {
           trigger: phoneRightCart.current,
-          start: 'top bottom',
+          start: 'top center+=1000',
           end: 'top center',
           scrub: true,
         },
@@ -717,7 +717,7 @@ const FirstPage = () => {
         <div
           className={`flex  max-w-[1240px] w-full m-auto flex-col h-full justify-between`}
         >
-          <div className="text-center">
+          <div className="text-center relative z-40">
             <h2
               ref={secondPageTextRef}
               style={{
@@ -731,7 +731,7 @@ const FirstPage = () => {
 
                 textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
               }}
-              className={`animated-element text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pb-20 `}
+              className={`animated-element text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pt-20 custom-845:pb-1  `}
             >
               Развивайте свой бизнес с нами{' '}
             </h2>
