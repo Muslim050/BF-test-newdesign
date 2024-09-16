@@ -40,62 +40,46 @@ const items = [
 
 const SixthPage = () => {
   const containerRef = useRef(null)
-
   useEffect(() => {
     const container = containerRef.current
     const elements = container.querySelectorAll('.containerCart')
 
     gsap.set(elements, { opacity: 0, y: 50 })
 
-    elements.forEach((element, index) => {
+    elements.forEach((element) => {
       const description = element.querySelector('.description')
       const progressBar = element.querySelector('.progress-bar')
 
       gsap.set(progressBar, { height: 0 })
 
-      gsap.to(element, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-          end: 'top 30%',
-          scrub: true,
-        },
-      })
-
-      gsap.to(description, {
-        opacity: 1,
-        height: 'auto',
-        duration: 1,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 65%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-
-      gsap.to(description, {
-        opacity: 1,
-        height: 'auto',
-        duration: 1,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 65%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-      gsap.to(progressBar, {
-        height: '100%',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-          end: 'top 10%',
-          scrub: true,
-        },
-      })
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 80%',
+            end: 'top 30%',
+            scrub: true,
+          },
+        })
+        .to(element, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+        })
+        .to(description, {
+          opacity: 1,
+          height: 'auto',
+          duration: 1,
+        })
+        .to(progressBar, {
+          height: '100%',
+          duration: 1,
+        })
     })
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
   }, [])
 
   return (
