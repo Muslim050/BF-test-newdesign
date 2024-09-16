@@ -27,7 +27,7 @@ const FirstTitleContainer = ({
         </div>
         <p
           ref={paragraphRef}
-          className="text-slate-500  font-normal !w-[600px]  md-w-full mt-3 text-center text-[12px] md:text-[1.5vw] "
+          className="text-slate-500  font-normal !w-[600px]  md-w-full mt-3 text-center text-[12px] md:text-[1vw] "
         >
           Разработанная для улучшения результатов бренда через привлекательный
           видеоконтент.

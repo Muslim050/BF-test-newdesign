@@ -8,20 +8,13 @@ import { useForm } from 'react-hook-form'
 import { login } from 'src/redux/auth/authSlice.js'
 import { toast } from 'react-hot-toast'
 import { gsap } from 'gsap'
-import { Card, CardContent } from '@/components/ui/card'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import m from './Login.module.scss'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
+
 import { sliderData } from './sliderData'
 // import Cookies from 'js-cookie'
 import Cookies from 'js-cookie'
@@ -218,45 +211,6 @@ function Login() {
                   ))}
                 </>
               </Swiper>
-              {/* <Carousel className="w-full" opts={{ loop: true }}>
-                <div className="absolute -top-16 right-16 z-10">
-                  <CarouselPrevious
-                    type="button"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.17)',
-                    }}
-                    className="text-white"
-                  />
-                  <CarouselNext
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.17)',
-                    }}
-                    className="text-white"
-                    type="button"
-                  />
-                </div>
-                <CarouselContent className="-ml-1">
-                  {sliderData.map((item, index) => (
-                    <CarouselItem
-                      key={index}
-                      className="pl-1 mr-1 md:basis-80 h-[210px]"
-                      ref={(el) => (carouselItemsRef.current[index] = el)}
-                    >
-                      <div className="flex items-center justify-center  h-[210px] w-[308px]">
-                        <video
-                          src={item.image}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          className="rounded-[20px]"
-                        ></video>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel> */}
-              {/* </div> */}
             </div>
           </div>
           <div

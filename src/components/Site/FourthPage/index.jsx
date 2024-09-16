@@ -50,42 +50,43 @@ const FourthPage = () => {
         { opacity: 1, scale: 1 },
       ).to('.dog-2', { opacity: 1, duration: 1 })
 
-      // gsap.to(container, {
-      //   yPercent: -150,
-      //   ease: 'none',
-      //   scrollTrigger: {
-      //     trigger: container,
-      //     start: 'top bottom',
-      //     end: 'bottom+=500%',
-      //     scrub: 0.5,
-      //     pin: true,
+      // gsap.fromTo(
+      //   container,
+      //   { opacity: 1, y: 300 },
+      //   {
+      //     opacity: 1,
+      //     y: 0,
+      //     duration: 2,
+      //     scrollTrigger: {
+      //       trigger: container, // Элемент, который будет запускать анимацию
+      //       start: 'top bottom+=400', // Когда контейнер появится в центре экрана, анимация начнется
+      //       end: 'bottom+=300%', // Когда контейнер выйдет из центра экрана, анимация завершится
+      //       scrub: 1, // Анимация будет синхронизирована с прокруткой
+      //       pin: false, // Закрепляем элемент на экране во время анимации
+      //       onUpdate: (self) => {
+      //         gsap.to(container, {
+      //           yPercent: -200 * self.progress, // Двигаем элемент вверх по мере прокрутки
+      //           ease: 'none',
+      //         })
+      //       },
+      //     },
       //   },
-      // })
-      gsap.fromTo(
-        container,
-        { opacity: 0, y: 300 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 2,
-          scrollTrigger: {
-            trigger: container, // Элемент, который будет запускать анимацию
-            start: 'top bottom+=400', // Когда контейнер появится в центре экрана, анимация начнется
-            end: 'bottom+=300%', // Когда контейнер выйдет из центра экрана, анимация завершится
-            scrub: 1, // Анимация будет синхронизирована с прокруткой
-            pin: true, // Закрепляем элемент на экране во время анимации
-            onUpdate: (self) => {
-              gsap.to(container, {
-                yPercent: -200 * self.progress, // Двигаем элемент вверх по мере прокрутки
-                ease: 'none',
-              })
-            },
-          },
+      // )
+      tl.to(container, {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        scrollTrigger: {
+          trigger: container,
+          start: 'top top', // Появление карточек после завершения анимации слова
+          end: 'bottom+=100%',
+          scrub: 1,
+          pin: false,
         },
-      )
+      })
 
       imagesData.forEach((_, index) => {
-        const cardClass = `.card-${index + 1}`
+        const cardClass = `.card-${index}`
         if (document.querySelector(cardClass)) {
           gsap.fromTo(
             cardClass,
@@ -95,7 +96,7 @@ const FourthPage = () => {
               y: 0,
               scrollTrigger: {
                 trigger: container,
-                start: `top bottom+=${index * 100}`,
+                start: 'top top+=200', // Карточки появляются позже после завершения анимации
                 end: `bottom+=${(imagesData.length - index) * 100}`,
                 scrub: 0.5,
                 toggleActions: 'play none none reverse',
@@ -115,7 +116,7 @@ const FourthPage = () => {
           stagger: 0.1,
           scrollTrigger: {
             trigger: container,
-            start: 'top bottom+=400', // Когда контейнер появится в центре экрана, анимация начнется
+            start: 'top bottom+=00', // Когда контейнер появится в центре экрана, анимация начнется
             end: 'bottom center',
             scrub: 0.5,
             toggleActions: 'play none none reverse',
@@ -170,7 +171,7 @@ const FourthPage = () => {
               playsInline
               className="absolute top-0 left-0 w-full h-full object-cover	"
             ></video>
-            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[10vw] flex justify-center flex-col items-center ">
+            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[6vw] flex justify-center flex-col items-center ">
               Brandformance
             </div>
           </div>
@@ -190,9 +191,7 @@ const FourthPage = () => {
           {imagesData.map((item, index) => (
             <div
               key={index}
-              className={`card card-${
-                index + 1
-              } flex items-center justify-center`}
+              className={`card card-${index} flex items-center justify-center`}
               style={{
                 background:
                   'linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
