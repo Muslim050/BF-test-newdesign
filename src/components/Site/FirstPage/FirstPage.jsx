@@ -581,6 +581,7 @@ const FirstPage = () => {
   const [isSecondPage, setIsSecondPage] = useState(false)
 
   const firstRef = useRef(null)
+  const mediaQuery = window.matchMedia('(min-width: 768px)')
 
   useEffect(() => {
     gsap.from(firstRef.current, {
@@ -617,7 +618,7 @@ const FirstPage = () => {
 
   //Анимация телефона
   useEffect(() => {
-    if (window.innerWidth > 768) {
+    if (mediaQuery.matches) {
       // Отключение сложных анимаций для мобильных
       gsap.to(phoneRef.current, {
         y: window.innerHeight - 10,
@@ -660,7 +661,7 @@ const FirstPage = () => {
       duration: 1,
       ease: 'back',
 
-      delay: 1,
+      delay: 1.5,
     })
   }, [])
   //Анимация появления телефона и слайдера
@@ -668,17 +669,14 @@ const FirstPage = () => {
   useEffect(() => {
     gsap.fromTo(
       [phoneRightCart.current, phoneLeftCart.current],
-      {
-        y: 200,
-        opacity: 0,
-      },
+      { y: 200, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 1,
         ease: 'easeOut',
         scrollTrigger: {
-          trigger: phoneRightCart.current, // Один общий триггер для обеих анимаций
+          trigger: phoneRightCart.current,
           start: 'top bottom',
           end: 'top center',
           scrub: true,
@@ -770,6 +768,8 @@ const FirstPage = () => {
                 }}
               ></div>
               <Swiper
+                lazy={true}
+                preloadImages={false}
                 slidesPerView={8} // по умолчанию для разрешений выше 1150px
                 spaceBetween={0}
                 centeredSlides={true}
@@ -894,8 +894,10 @@ const FirstPage = () => {
                   isSecondPage && 'custom-1100:hidden'
                 }`}
               >
-                {isSecondPage ? (
+                {isSecondPage && (
                   <Swiper
+                    lazy={true}
+                    preloadImages={false}
                     slidesPerView={1}
                     spaceBetween={20}
                     centeredSlides={true}
@@ -935,7 +937,7 @@ const FirstPage = () => {
                         </SwiperSlide>
                       ))}
                   </Swiper>
-                ) : null}
+                )}
               </div>
             </div>
           </div>
