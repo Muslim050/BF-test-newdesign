@@ -50,7 +50,7 @@ function RightForm() {
         </div>
         <div className="flex flex-col justify-center items-center mt-4 gap-3">
           <p className="text-[24px] text-white font-medium">Заказать рекламу</p>
-          <p className="text-[#6D768F] text-[14px]">Если вы рекламодатель</p>
+          <p className="text-[#6D768F] text-[14px]">Если вы канал</p>
         </div>
         <div className="pt-6 flex flex-col gap-4">
           <input

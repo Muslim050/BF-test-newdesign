@@ -8,6 +8,7 @@ import React, { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
+
 function SeventhPage() {
   const phoneRightCart = useRef(null)
   const phoneLeftCart = useRef(null)

@@ -8,32 +8,27 @@ gsap.registerPlugin(ScrollTrigger)
 const items = [
   {
     title: 'Какие услуги предлагает Brandformance?',
-    description:
-      'Подробное описание предоставляемых услуг в области маркетинга и брендинга. 1',
+
     image: '/SixthPage/1.png',
   },
   {
     title: 'Как Brandformance может помочь моему бизнесу вырасти?',
-    description:
-      'Подробное описание предоставляемых услуг в области маркетинга и брендинга. 2',
+
     image: '/SixthPage/2.png',
   },
   {
     title: 'В каких отраслях вы специализируетесь?',
-    description:
-      'Подробное описание предоставляемых услуг в области маркетинга и брендинга. 3',
+
     image: '/SixthPage/3.png',
   },
   {
     title: 'Как начать работу с Brandformance?',
-    description:
-      'Подробное описание предоставляемых услуг в области маркетинга и брендинга. 4',
+
     image: '/SixthPage/4.png',
   },
   {
     title: 'Каков типичный график проекта?',
-    description:
-      'Подробное описание предоставляемых услуг в области маркетинга и брендинга. 5',
+
     image: '/SixthPage/5.png',
   },
 ]
@@ -47,7 +42,6 @@ const SixthPage = () => {
     gsap.set(elements, { opacity: 0, y: 50 })
 
     elements.forEach((element) => {
-      const description = element.querySelector('.description')
       const progressBar = element.querySelector('.progress-bar')
 
       gsap.set(progressBar, { height: 0 })
@@ -66,11 +60,6 @@ const SixthPage = () => {
           y: 0,
           duration: 1,
         })
-        .to(description, {
-          opacity: 1,
-          height: 'auto',
-          duration: 1,
-        })
         .to(progressBar, {
           height: '100%',
           duration: 1,
@@ -87,10 +76,7 @@ const SixthPage = () => {
       <GradientBGSvg className="absolute top-0 w-full h-full -z-10" />
       <StarsSSSvg className="absolute top-0 w-full  h-auto -z-10" />
       <SetkaSvg className="absolute top-0 w-full h-full -z-10" />
-      <div
-        className="max-w-[1240px] w-full mx-auto px-4 flex  justify-center xl:justify-between flex-wrap xl:flex-nowrap  py-28 
-"
-      >
+      <div className="max-w-[1240px] w-full mx-auto px-4 flex  justify-center xl:justify-between flex-wrap xl:flex-nowrap  py-28 ">
         <div className="text-center xl:text-start w-full xl:w-1/2 ">
           <p className="text-white text-base font-normal">FAQ</p>
 
@@ -137,9 +123,6 @@ const SixthPage = () => {
                 />
                 <div className="flex flex-col justify-between   md:w-[330px] w-full ">
                   <h2 className="text-xl ">{item.title}</h2>
-                  <p className="description opacity-0 h-0 overflow-hidden ">
-                    {item.description}
-                  </p>
                 </div>
                 <div
                   className="md:w-[190px] w-full h-[100px]  flex items-center rounded-[10px] justify-center"

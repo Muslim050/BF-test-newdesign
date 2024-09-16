@@ -46,15 +46,9 @@ function FifthPage2() {
   //section2
   useEffect(() => {
     gsap.from(sectionMainTitle.current, {
-      scrollTrigger: {
-        trigger: sectionMainTitle.current,
-        start: 'left center', // Начало анимации, когда элемент достигнет середины экрана по горизонтали
-        end: 'right center', // Конец анимации
-        scrub: true,
-      },
       duration: 1,
-      opacity: 0,
-      x: -50, // Смещение по горизонтали
+      opacity: 1,
+      y: -50, // Смещение по горизонтали
     })
   }, [])
 

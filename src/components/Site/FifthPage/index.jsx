@@ -13,6 +13,7 @@ import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
 import video3 from 'src/assets/Site/FirstPage/Video/33.mp4'
 import video11 from 'src/assets/Site/FirstPage/Video/1011.mp4'
 import video4 from 'src/assets/Site/FirstPage/Video/44.mp4'
+import PageTitle from '../module/PageTitle'
 
 gsap.registerPlugin(ScrollTrigger)
 function FifthPage() {
@@ -77,10 +78,10 @@ function FifthPage() {
           <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto -z-[5px]" />
           <SetkaSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
           <div className="text-center  max-w-[900px] w-full m-auto">
-            <p className="text-white text-base font-normal">Особенности</p>
-            <h2 className="text-white text-[35px] md:text-[40px] lg:text-[60px]  pt-5">
-              Реклама которую Увидели Миллионы Людей
-            </h2>
+            <PageTitle
+              topTitle={'Особенности'}
+              title={'Реклама которую Увидели Миллионы Людей'}
+            />
           </div>
           <div
             style={{
