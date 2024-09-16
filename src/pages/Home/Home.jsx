@@ -14,12 +14,14 @@ function Home() {
   const contentRef = React.useRef(null)
 
   React.useEffect(() => {
-    // Анимация изменения фона и текста для контента
-    gsap.to(contentRef.current, {
-      backgroundColor: bgColor,
-      color: textColor,
-      duration: 1.5,
-    })
+    if (contentRef.current) {
+      gsap.to(contentRef.current, {
+        backgroundColor: bgColor,
+        color: textColor,
+        duration: 1.5,
+      })
+    }
+
     // Анимация изменения фона для боковой панели (если нужно)
   }, [bgColor, textColor])
 

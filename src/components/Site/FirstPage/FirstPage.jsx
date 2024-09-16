@@ -698,7 +698,7 @@ const FirstPage = () => {
   return (
     <div
       ref={firstRef}
-      className="relative min-h-screen  flex flex-col justify-between "
+      className="animated-element relative min-h-screen  flex flex-col justify-between "
     >
       <div className="overflow-hidden relative">
         {' '}
@@ -731,7 +731,7 @@ const FirstPage = () => {
 
                 textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
               }}
-              className={`text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pb-20 `}
+              className={`animated-element text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pb-20 `}
             >
               Развивайте свой бизнес с нами{' '}
             </h2>
@@ -754,6 +754,7 @@ const FirstPage = () => {
           <div
             ref={swiperWRef} // добавляем ref здесь
             className={`
+              animated-element
               fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[25%] max-w-[1400px]`}
           >
             {' '}
@@ -858,13 +859,15 @@ const FirstPage = () => {
 
           <div
             ref={phoneRef}
-            className={`relative flex ${isSecondPage && 'custom-1100:hidden'}`}
+            className={`animated-element relative flex ${
+              isSecondPage && 'custom-1100:hidden'
+            }`}
             id="second-page"
           >
             <div
               ref={phoneWRef}
               className={`
-              
+              animated-element
               isSecondPagePhone relative  flex  bottom-[-120%] justify-between w-full md:left-[-38px] left-[-35px]`}
             >
               <img
@@ -958,27 +961,41 @@ export const FirstSection = () => {
   const socials1 = useRef(null)
   const socials2 = useRef(null)
 
+  // useEffect(() => {
+  //   gsap.from([button1Ref.current, button2Ref.current], {
+  //     opacity: 0,
+  //     y: 50,
+  //     duration: 1.5,
+  //     ease: 'back',
+  //   })
+
+  //   gsap.from([headerRef.current, paragraphRef.current], {
+  //     opacity: 0,
+  //     y: 50,
+  //     duration: 1.5,
+  //     ease: 'power3.out',
+  //   })
+
+  //   gsap.from([socials1.current, socials2.current], {
+  //     opacity: 0,
+  //     y: 50,
+  //     duration: 1.5,
+  //     ease: 'power3.out',
+  //   })
+  // }, [])
   useEffect(() => {
-    gsap.from([button1Ref.current, button2Ref.current], {
-      opacity: 0,
-      y: 50,
-      duration: 1.5,
-      ease: 'back',
-    })
-
-    gsap.from([headerRef.current, paragraphRef.current], {
-      opacity: 0,
-      y: 50,
-      duration: 1.5,
-      ease: 'power3.out',
-    })
-
-    gsap.from([socials1.current, socials2.current], {
-      opacity: 0,
-      y: 50,
-      duration: 1.5,
-      ease: 'power3.out',
-    })
+    const timeline = gsap.timeline()
+    timeline
+      .from([button1Ref.current, button2Ref.current], {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+      })
+      .from(
+        [headerRef.current, paragraphRef.current],
+        { opacity: 0, y: 50, duration: 1 },
+        '-=0.5',
+      )
   }, [])
 
   return (

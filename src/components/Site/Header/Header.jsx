@@ -22,36 +22,58 @@ const Header = () => {
   rightMenuRef.current = []
 
   useEffect(() => {
-    const tl = gsap.timeline()
-    // Появление логотипа и рамки
-    tl.from(logoRef.current, {
-      opacity: 0,
-      stagger: 0.2,
-      scale: 0,
-      duration: 1,
-      ease: 'power4.out',
-    })
-      .to(
-        borderRef.current,
-        { width: '80px', height: '80px', duration: 1.5, ease: 'power4.inOut' },
-        '-=1.5',
-      )
-      .to(borderRef.current, {
-        width: '100%',
-        duration: 1.5,
-        ease: 'power4.inOut',
+    // if (window.innerWidth > 768) {
+    let ctx = gsap.context(() => {
+      const tl = gsap.timeline()
+      // Появление логотипа и рамки
+      tl.from(logoRef.current, {
+        opacity: 0,
+        stagger: 0.2,
+        scale: 0,
+        duration: 1,
+        ease: 'power4.out',
       })
-      // Появление элементов меню слева и справа
-      .from(
-        leftMenuRef.current,
-        { opacity: 0, x: -20, stagger: 0.2, duration: 1, ease: 'power4.out' },
-        '-=0.5',
-      )
-      .from(
-        rightMenuRef.current,
-        { opacity: 0, x: 30, stagger: 0.1, duration: 1, ease: 'power4.out' },
-        '-=0.5',
-      )
+        .to(
+          borderRef.current,
+          {
+            width: '80px',
+            height: '80px',
+            duration: 1.5,
+            ease: 'power4.inOut',
+          },
+          '-=1.5',
+        )
+        .to(borderRef.current, {
+          width: '100%',
+          duration: 1.5,
+          ease: 'power4.inOut',
+        })
+        // Появление элементов меню слева и справа
+        .from(
+          leftMenuRef.current,
+          {
+            opacity: 0,
+            x: -20,
+            stagger: 0.2,
+            duration: 1,
+            ease: 'power4.out',
+          },
+          '-=0.5',
+        )
+        .from(
+          rightMenuRef.current,
+          {
+            opacity: 0,
+            x: 30,
+            stagger: 0.1,
+            duration: 1,
+            ease: 'power4.out',
+          },
+          '-=0.5',
+        )
+    })
+    return () => ctx.revert() // Очищаем контекст при размонтировании компонента
+    // }
   }, [])
 
   const addToLeftMenuRefs = (el) => {
