@@ -23,7 +23,7 @@ function SeventhPage() {
           opacity: 1,
           y: 0,
           duration: 2,
-          ease: 'elastic',
+          ease: 'bounce.out',
         },
       )
     }

@@ -106,10 +106,46 @@ const Header = () => {
       }, 0)
     }
   }
+  const sparkleRef = useRef(null)
 
+  useEffect(() => {
+    const card = borderRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
   return (
     <section className="flex items-center justify-center">
-      <div className="w-full max-w-[1240px] px-4 h-[60px] m-auto fixed z-50 top-[15px] flex flex-col items-center rounded-[40px]">
+      <div className="sparklesWrapper w-full max-w-[1240px] px-4 h-[60px] m-auto fixed z-50 top-[15px] flex flex-col items-center rounded-[40px]">
+        <div ref={sparkleRef} className="sparkles" />
+
         <div
           ref={borderRef}
           style={{
@@ -121,7 +157,7 @@ const Header = () => {
             backdropFilter: ' blur(6px)',
             borderRadius: '500px',
           }}
-          className="animated-element px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
+          className=" animated-element px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
         >
           <div className="headerTextLeft  items-center gap-2 w-1/2">
             <div

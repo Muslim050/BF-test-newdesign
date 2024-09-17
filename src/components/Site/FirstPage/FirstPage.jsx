@@ -554,7 +554,7 @@ import 'swiper/css/pagination'
 import 'tailwindcss/tailwind.css'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import { sliderData } from './module/sliderData'
-
+import m from './FirstPage.module.scss'
 import Phone from '@/assets/Site/FirstPage/Phone.png'
 import Phonebg from '@/assets/Site/FirstPage/HandWithPhone.svg'
 import Gradient from '@/assets/Site/FirstPage/Gradient.png'
@@ -695,6 +695,43 @@ const FirstPage = () => {
     }
   }, [isSecondPage])
 
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+
   return (
     <div
       ref={firstRef}
@@ -758,14 +795,15 @@ const FirstPage = () => {
               fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[25%] max-w-[1400px]`}
           >
             {' '}
-            <div className="w-auto slider-container">
+            <div className="w-auto slider-container" ref={cardRef}>
+              <div ref={sparkleRef} className={m.sparkles} />
+
               <div
                 className=" w-10 h-44 absolute -left-4 top-[-10%] z-10"
                 style={{
-                  background:
-                    'linear-gradient(351.63deg, #020308 6.87%, rgba(2, 3, 8, 0.55) 353.23%)',
-                  filter: ' blur(13.6px)',
+                  filter: 'blur(9.6px)',
                   transform: 'rotate(0deg)',
+                  background: '#000000',
                 }}
               ></div>
               <Swiper
@@ -806,8 +844,10 @@ const FirstPage = () => {
                 {sliderData.map((slide, index) => (
                   <SwiperSlide key={slide.id}>
                     <div
-                      className={`relative md:w-[205px] w-[180px]  h-[230px]   ${
-                        index === activeSlide ? 'h-[250px]' : ''
+                      className={` relative md:w-[205px] w-[180px]  h-[230px]   ${
+                        index === activeSlide
+                          ? ` h-[250px]`
+                          : `${m.cardWrapper}`
                       }`}
                     >
                       <div
@@ -848,10 +888,9 @@ const FirstPage = () => {
               <div
                 className=" w-10 h-44 absolute -right-4 top-[-10%] z-10"
                 style={{
-                  background:
-                    'linear-gradient(351.63deg, #020308 6.87%, rgba(2, 3, 8, 0.55) 353.23%)',
-                  filter: ' blur(13.6px)',
+                  filter: 'blur(9.6px)',
                   transform: 'rotate(0deg)',
+                  background: '#000000',
                 }}
               ></div>
             </div>

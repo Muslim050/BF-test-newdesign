@@ -125,18 +125,14 @@ function Footer() {
           </div>
         </div>
 
-        <div ref={cardRef}>
-          <div ref={sparkleRef}>
-            <div
-              className="flex justify-center pb-10 pt-28"
-              ref={phoneRightCart}
-            >
-              <img src={imageBranformance} alt="" />
-            </div>
+        <div ref={cardRef} className={m.sparklesWrapper}>
+          <div ref={sparkleRef} className={m.sparkles} />
+
+          <div className="flex justify-center pb-10 pt-28" ref={phoneRightCart}>
+            <img src={imageBranformance} alt="" />
           </div>
         </div>
 
-        <div ref={sparkleRef} className={m.sparkles} />
         <div className="flex justify-center md:justify-between">
           <div className="text-base text-[#ffffff78] ">2024 Brandformance</div>
           <div className="text-base text-[#ffffff78] hidden md:block">

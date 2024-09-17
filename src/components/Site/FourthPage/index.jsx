@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Video from './VideoBG.mp4'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import PageTitle from '../module/PageTitle'
 
 const imagesData = [
   { id: 1, image: '/FourthPage/1.png' },
@@ -24,12 +25,16 @@ const imagesData = [
   { id: 17, image: '/FourthPage/17.png' },
   { id: 18, image: '/FourthPage/18.png' },
 ]
-
+import LazyVideo from '../FirstPage/module/LazyVideo'
 gsap.registerPlugin(ScrollTrigger)
 
 const FourthPage = () => {
   const containerRefImageData = useRef(null)
-
+  const cardOrder = [
+    [0, 3], // Первая строка
+    [1, 4], // Вторая строка
+    [2, 5, 6], // Третья строка
+  ]
   useEffect(() => {
     const container = containerRefImageData.current
 
@@ -38,7 +43,7 @@ const FourthPage = () => {
         scrollTrigger: {
           trigger: '.sectionFourthBlue',
           start: 'top top',
-          end: '+=300%',
+          end: '+=250%',
           scrub: 0.5,
           pin: true,
         },
@@ -50,60 +55,50 @@ const FourthPage = () => {
         { opacity: 1, scale: 1 },
       ).to('.dog-2', { opacity: 1, duration: 1 })
 
-      // gsap.fromTo(
-      //   container,
-      //   { opacity: 1, y: 300 },
-      //   {
-      //     opacity: 1,
-      //     y: 0,
-      //     duration: 2,
-      //     scrollTrigger: {
-      //       trigger: container, // Элемент, который будет запускать анимацию
-      //       start: 'top bottom+=400', // Когда контейнер появится в центре экрана, анимация начнется
-      //       end: 'bottom+=300%', // Когда контейнер выйдет из центра экрана, анимация завершится
-      //       scrub: 1, // Анимация будет синхронизирована с прокруткой
-      //       pin: false, // Закрепляем элемент на экране во время анимации
-      //       onUpdate: (self) => {
-      //         gsap.to(container, {
-      //           yPercent: -200 * self.progress, // Двигаем элемент вверх по мере прокрутки
-      //           ease: 'none',
-      //         })
-      //       },
-      //     },
-      //   },
-      // )
-      tl.to(container, {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        scrollTrigger: {
-          trigger: container,
-          start: 'top top', // Появление карточек после завершения анимации слова
-          end: 'bottom+=100%',
-          scrub: 1,
-          pin: false,
-        },
-      })
-
-      imagesData.forEach((_, index) => {
-        const cardClass = `.card-${index}`
-        if (document.querySelector(cardClass)) {
-          gsap.fromTo(
-            cardClass,
-            { opacity: 0, y: 100 },
-            {
-              opacity: 1,
-              y: 0,
-              scrollTrigger: {
-                trigger: container,
-                start: 'top top+=200', // Карточки появляются позже после завершения анимации
-                end: `bottom+=${(imagesData.length - index) * 100}`,
-                scrub: 0.5,
-                toggleActions: 'play none none reverse',
-              },
+      gsap.fromTo(
+        container,
+        { opacity: 1, y: 1500 }, // Initial state: invisible, with downward offset
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2, // Duration for the animation
+          scrollTrigger: {
+            trigger: container, // Element that triggers the animation
+            start: 'top bottom', // Начать анимацию на 200px раньше, чем верх контейнера достигнет нижней части экрана
+            end: 'bottom+=300%', // Когда контейнер выйдет из центра экрана, анимация завершится
+            scrub: 1, // Sync the animation with scrolling
+            pin: false, // Don't pin the element
+            onUpdate: (self) => {
+              gsap.to(container, {
+                yPercent: -200 * self.progress, // Move the container upward based on scroll progress
+                ease: 'none', // No easing, makes the animation linear
+              })
             },
-          )
-        }
+          },
+        },
+      )
+      cardOrder.forEach((row, rowIndex) => {
+        row.forEach((cardIndex, index) => {
+          const cardClass = `.card-${cardIndex}`
+          if (document.querySelector(cardClass)) {
+            gsap.fromTo(
+              cardClass,
+              { opacity: 0, y: 100 }, // Initial state: invisible, with downward offset
+              {
+                opacity: 1,
+                y: 0,
+                delay: rowIndex * 0.5 + index * 0.2, // Delay per row and card
+                duration: 1,
+                scrollTrigger: {
+                  trigger: container,
+                  start: 'top top+=200', // Start the animation after the container appears
+                  end: 'bottom bottom',
+                  scrub: 0.5, // Sync with scroll
+                },
+              },
+            )
+          }
+        })
       })
 
       gsap.fromTo(
@@ -116,7 +111,7 @@ const FourthPage = () => {
           stagger: 0.1,
           scrollTrigger: {
             trigger: container,
-            start: 'top bottom+=00', // Когда контейнер появится в центре экрана, анимация начнется
+            start: 'top bottom+=200', // Когда контейнер появится в центре экрана, анимация начнется
             end: 'bottom center',
             scrub: 0.5,
             toggleActions: 'play none none reverse',
@@ -141,27 +136,14 @@ const FourthPage = () => {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover	"
         ></video>
-        <div className="absolute text-[35px] text-center md:text-[40px] lg:text-[60px] text-white bottom-40">
+        {/* <div className="absolute text-[35px] text-center md:text-[40px] lg:text-[60px] text-white bottom-40">
           По рекламе для успеха на YouTube
-        </div>
+        </div> */}
+        <PageTitle title={'По рекламе для успеха на YouTube'} />
         <div alt="" className="dog-1 absolute w-full h-full bg-[#020308]  ">
           <GradientBGSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
           {/* <StarsSSSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" /> */}
           <SetkaSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
-
-          {/* <div className="absolute bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2 text-[35px] md:text-[40px] lg:text-[141px] font-extrabold text-[#808080]">
-            Brandformance
-          </div> */}
-          {/* <div className={`${style.text_overlay}`}>Brandformance</div> */}
-          {/* <video
-            src={Video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover	"
-          ></video> */}
-
           <div alt="" className="absolute w-full h-full bg-[#020308]  ">
             <video
               src={Video}
@@ -171,6 +153,7 @@ const FourthPage = () => {
               playsInline
               className="absolute top-0 left-0 w-full h-full object-cover	"
             ></video>
+
             <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[6vw] flex justify-center flex-col items-center ">
               Brandformance
             </div>
@@ -184,7 +167,8 @@ const FourthPage = () => {
             height: 'auto',
             opacity: 0,
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: 'repeat(3, 1fr)', // 3 колонки
+            gridTemplateRows: 'repeat(3, auto)', // Авторазмер для строк
             gap: '16px',
           }}
         >

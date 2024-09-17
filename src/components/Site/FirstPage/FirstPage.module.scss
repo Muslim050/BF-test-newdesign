@@ -69,3 +69,36 @@
 .hover_with_before:hover::before {
   opacity: 1;
 }
+
+.sparkles {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(50px);
+  opacity: 0;
+  left: -100px;
+  top: -100px;
+}
+
+.cardWrapper {
+  transition: all 0.5s ease;
+
+  &:hover {
+    &::before {
+      transition: all 0.5s ease;
+
+      content: url('../SeventhPage/Blestki.svg');
+      width: 135px;
+      height: 122%;
+      position: absolute;
+      top: -10px;
+
+      left: 50%;
+      transform: translate(-50%, 0); /* Центрирование элемента */
+    }
+  }
+}
