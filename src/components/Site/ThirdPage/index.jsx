@@ -69,9 +69,9 @@ function ThirdPage() {
   return (
     <div ref={sectionRef} className="relative" id="ThirdPage">
       <div id="second-page" className="relative">
-        <GradientBGSvg className="absolute top-0 w-full -z-10" />
-        <StarsSSSvg className="absolute top-0 w-full h-auto  -z-10" />
-        <SetkaSvg className="absolute top-0 w-full -z-10" />
+        <GradientBGSvg className="absolute top-0 w-full h-full -z-10" />
+        <StarsSSSvg className="absolute top-0 w-full h-full -z-10" />
+        <SetkaSvg className="absolute top-0 w-full h-full -z-10" />
 
         <div className="max-w-[1240px] w-full mx-auto px-4 py-20">
           <div className="text-center">

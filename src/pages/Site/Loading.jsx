@@ -54,26 +54,38 @@ const Loading = ({ onComplete }) => {
   }, [onComplete])
 
   return (
-    <div ref={containerRef}>
-      <GradientBGSvg className="absolute top-0 w-[100%] -z-[5px]" />
-      <div className="absolute top-1/2 transform -translate-y-1/2 w-[100%]">
-        <div ref={circleRef} className="relative">
-          <EllipseSvg className="absolute top-1/2 transform -translate-y-1/2 w-[100%] -z-[5px]" />
+    <div ref={containerRef} className="overflow-hidden">
+      <GradientBGSvg className="absolute top-0 w-[100%] -z-[5px] overflow-hidden" />
+      <div className="absolute top-1/2 transform -translate-y-1/2 w-[100%] ">
+        <div ref={circleRef} className="relative ">
+          <EllipseSvg className="absolute top-1/2 transform -translate-y-1/2 w-full -z-[5px]" />
         </div>
         <div ref={circleRef2} className="relative" style={{ opacity: 0 }}>
-          <EllipseSvg2 className="absolute top-1/2 transform -translate-y-1/2 w-[100%] -з-[5px]" />
+          <EllipseSvg2 className="absolute top-1/2 transform -translate-y-1/2 w-[100%] -z-[5px]" />
         </div>
 
         <div
           ref={textRef}
-          className="absolute left-0 w-full flex justify-center"
+          className="relative left-0 -top-12 w-full  flex flex-col justify-center "
         >
-          <div className="text-white text-[32px] font-bold">
-            <img
-              src={Logo}
-              alt=""
-              className="w-[54px] h-[60px] absolute -top-20 left-[49%]"
-            />
+          <div className="flex justify-center">
+            <img src={Logo} alt="" className="w-[54px] h-[60px] " />
+          </div>
+          <div
+            style={{
+              background:
+                'linear-gradient(360deg, #FFFFFF 16.15%, rgba(255, 255, 255, 0.3) 140.1%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              textFillColor: 'transparent',
+              letterSpacing: '-0.03em',
+
+              textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
+            }}
+            className={` animated-element  text-[32px] font-bold pt-3  text-center `}
+            // className="text-white text-[32px] font-bold"
+          >
             Brandformance
           </div>
         </div>

@@ -70,13 +70,13 @@ function FifthPage() {
   //section2
 
   return (
-    <section className="overflow-hidden   " id="FifthPage">
+    <section className="overflow-hidden" id="FifthPage">
       <div className=" ">
         {/* max-w-[900px] w-full m-auto */}
         <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
-          <GradientBGSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
-          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto -z-[5px]" />
-          <SetkaSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
+          <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+          <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
           <div className="text-center  max-w-[900px] w-full m-auto">
             <PageTitle
               topTitle={'Особенности'}

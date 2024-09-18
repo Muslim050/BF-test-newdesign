@@ -55,9 +55,9 @@ function FifthPage2() {
   return (
     <section className="relative h-full">
       <div className="">
-        <GradientBGSvg className="absolute top-0 w-[100%] -z-[5px]" />
-        <StarsSSSvg className="absolute top-0 w-[100%] h-auto -z-[5px]" />
-        <SetkaSvg className="absolute top-0 w-[100%] -z-[5px]" />
+        <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+        <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+        <SetkaSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
 
         <div className=" relative	max-w-[1240px] w-full m-auto pt-20 px-5">
           <div

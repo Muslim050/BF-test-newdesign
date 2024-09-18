@@ -144,21 +144,19 @@ const Header = () => {
   return (
     <section className="flex items-center justify-center">
       <div className="sparklesWrapper w-full max-w-[1240px] px-4 h-[60px] m-auto fixed z-50 top-[15px] flex flex-col items-center rounded-[40px]">
-        <div ref={sparkleRef} className="sparkles" />
-
         <div
           ref={borderRef}
           style={{
             background: 'rgba(2, 3, 8, 0.25)',
             boxShadow:
-              window.innerWidth > 768
-                ? 'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)'
-                : 'none',
+              'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
             backdropFilter: ' blur(6px)',
             borderRadius: '500px',
           }}
-          className=" animated-element px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
+          className="animated-element px-7 w-0 h-0 flex items-center justify-between rounded-[40px] overflow-hidden bg-[#02030840] bg-opacity-30 backdrop-blur-md"
         >
+          <div ref={sparkleRef} className="sparkles" />
+
           <div className="headerTextLeft  items-center gap-2 w-1/2">
             <div
               ref={addToLeftMenuRefs}

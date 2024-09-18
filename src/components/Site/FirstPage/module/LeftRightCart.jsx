@@ -40,10 +40,9 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
                 <img src={prerollImage} alt="" className="w-full " />
               </div>
             </div>
+
             <div className="text-white bg-black h-[86px] rounded-b-[20px] p-5 absolute -bottom-12 w-full">
-              <div className="text-[13px]">
-                Встречайте обновленый BYD Champion
-              </div>
+              <div>Встречайте обновленый BYD Champion</div>
               <div className="text-[10px] text-[#ffffff85] mt-2">
                 Подробнее С 13:22. www.byd.uz
               </div>

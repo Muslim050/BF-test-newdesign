@@ -25,7 +25,6 @@ const imagesData = [
   { id: 17, image: '/FourthPage/17.png' },
   { id: 18, image: '/FourthPage/18.png' },
 ]
-import LazyVideo from '../FirstPage/module/LazyVideo'
 gsap.registerPlugin(ScrollTrigger)
 
 const FourthPage = () => {
@@ -57,7 +56,7 @@ const FourthPage = () => {
 
       gsap.fromTo(
         container,
-        { opacity: 1, y: 1500 }, // Initial state: invisible, with downward offset
+        { opacity: 1, y: 1300 }, // Initial state: invisible, with downward offset
         {
           opacity: 1,
           y: 0,
@@ -65,12 +64,12 @@ const FourthPage = () => {
           scrollTrigger: {
             trigger: container, // Element that triggers the animation
             start: 'top bottom', // Начать анимацию на 200px раньше, чем верх контейнера достигнет нижней части экрана
-            end: 'bottom+=300%', // Когда контейнер выйдет из центра экрана, анимация завершится
+            end: 'bottom+=100%', // Когда контейнер выйдет из центра экрана, анимация завершится
             scrub: 1, // Sync the animation with scrolling
             pin: false, // Don't pin the element
             onUpdate: (self) => {
               gsap.to(container, {
-                yPercent: -200 * self.progress, // Move the container upward based on scroll progress
+                yPercent: -150 * self.progress, // Move the container upward based on scroll progress
                 ease: 'none', // No easing, makes the animation linear
               })
             },
@@ -140,11 +139,11 @@ const FourthPage = () => {
           По рекламе для успеха на YouTube
         </div> */}
         <PageTitle title={'По рекламе для успеха на YouTube'} />
-        <div alt="" className="dog-1 absolute w-full h-full bg-[#020308]  ">
-          <GradientBGSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
-          {/* <StarsSSSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" /> */}
-          <SetkaSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
-          <div alt="" className="absolute w-full h-full bg-[#020308]  ">
+        <div alt="" className="dog-1 absolute w-full h-full bg-[#05060b]  ">
+          <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
+          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10" />
+          {/* <SetkaSvg className="absolute top-0 left-0 w-[100%] z-10" /> */}
+          <div alt="" className="absolute w-full h-full bg-[#05060b]  ">
             <video
               src={Video}
               autoPlay

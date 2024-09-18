@@ -748,9 +748,9 @@ const FirstPage = () => {
         id="second-page"
         className={`relative -z-20 h-full min-h-screen py-24 custom-845:pt-0 `}
       >
-        <GradientBGSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
-        <StarsSSSvg className="absolute top-0 left-0  h-auto w-[100%] -z-[5px]" />
-        <SetkaSvg className="absolute top-0 left-0 w-[100%] -z-[5px]" />
+        <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full  -z-[5px]" />
+        <StarsSSSvg className="absolute top-0 left-0  h-full w-[100%] -z-[5px]" />
+        <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full  -z-[5px]" />
         <div
           className={`flex  max-w-[1240px] w-full m-auto flex-col h-full justify-between`}
         >
@@ -1039,9 +1039,9 @@ export const FirstSection = () => {
 
   return (
     <>
-      <GradientBGSvg className="absolute top-0 left-0  w-[100%] -z-[5px]" />
-      <StarsSSSvg className="absolute top-0 left-0 w-full h-auto -z-[5px]" />
-      <SetkaSvg className="absolute top-0 left-0 h-auto w-[100%] -z-[5px]" />
+      <GradientBGSvg className="absolute top-0 left-0  w-[100%] h-full -z-[5px]" />
+      <StarsSSSvg className="absolute top-0 left-0 w-full h-full -z-[5px]" />
+      <SetkaSvg className="absolute top-0 left-0 h-auto w-full -z-[5px]" />
       <section id="first-page" className="h-screen min-h-screen   ">
         <div className=" max-w-[1240px] w-full m-auto">
           {/*  */}

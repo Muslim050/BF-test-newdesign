@@ -18,12 +18,16 @@ function SeventhPage() {
     if (contentRef.current) {
       gsap.fromTo(
         contentRef.current,
-        { opacity: 0, y: 10 },
+        // { opacity: 0, y: 10 },
+        { opacity: 0, scale: 0.9, y: -50 },
+
         {
           opacity: 1,
+          scale: 1,
+
           y: 0,
           duration: 2,
-          ease: 'bounce.out',
+          ease: 'power4.out',
         },
       )
     }
@@ -67,52 +71,58 @@ function SeventhPage() {
   }, [])
 
   return (
-    <div className="relative" id="Монетизировать">
-      <GradientBGSvg className="absolute top-0 w-full -z-10" />
-      <StarsSSSvg className="absolute top-0 w-full h-auto -z-10" />
-      <SetkaSvg className="absolute top-0 w-full -z-10" />
-      <div className="max-w-[1240px] w-full mx-auto px-4 py-28">
-        <div ref={phoneLeftCart}>
-          <PageTitle
-            topTitle={'Свяжитесь с нами'}
-            title={'Развивайте свой бизнес с нами'}
-          />
-        </div>
-        <div className="flex justify-center" ref={phoneRightCart}>
-          <Tabs
-            value={tabValue}
-            className="w-[400px]"
-            onValueChange={handleTabChange}
-          >
-            <TabsList
-              className="grid w-full grid-cols-2 p-0  h-[50px] rounded-full"
-              style={{
-                background: 'rgba(2, 3, 8, 0.5)',
-                boxShadow:
-                  'inset 0px 0.3px 0px rgba(255, 255, 255, 0.1), inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset -0.6px 0px 0px rgba(255, 255, 255, 0.04), inset 0.6px 0px 0px rgba(255, 255, 255, 0.04)',
-                backdropFilter: 'blur(6px)',
-              }}
-            >
-              <TabsTrigger value="adv" className={m.tabs_trigger}>
-                Для рекламодателей
-              </TabsTrigger>
-              <TabsTrigger value="channel" className={m.tabs_trigger}>
-                Для каналов
-              </TabsTrigger>
-            </TabsList>
-            <div ref={contentRef}>
-              <TabsContent value="adv">
-                {tabValue === 'adv' && <LeftForm />}
-              </TabsContent>
-
-              <TabsContent value="channel">
-                {tabValue === 'channel' && <RightForm />}
-              </TabsContent>
+    // <section className="relative h-full" id="Монетизировать">
+    <section className="overflow-hidden" id="Монетизировать">
+      <div className=" ">
+        {/* max-w-[900px] w-full m-auto */}
+        <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
+          <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+          <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+          <div className="max-w-[1240px] w-full mx-auto px-4 py-28">
+            <div ref={phoneLeftCart}>
+              <PageTitle
+                topTitle={'Свяжитесь с нами'}
+                title={'Развивайте свой бизнес с нами'}
+              />
             </div>
-          </Tabs>
+            <div className="flex justify-center" ref={phoneRightCart}>
+              <Tabs
+                value={tabValue}
+                className="w-[400px]"
+                onValueChange={handleTabChange}
+              >
+                <TabsList
+                  className="grid w-full grid-cols-2 p-0  h-[50px] rounded-full"
+                  style={{
+                    background: 'rgba(2, 3, 8, 0.5)',
+                    boxShadow:
+                      'inset 0px 0.3px 0px rgba(255, 255, 255, 0.1), inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset -0.6px 0px 0px rgba(255, 255, 255, 0.04), inset 0.6px 0px 0px rgba(255, 255, 255, 0.04)',
+                    backdropFilter: 'blur(6px)',
+                  }}
+                >
+                  <TabsTrigger value="adv" className={m.tabs_trigger}>
+                    Для рекламодателей
+                  </TabsTrigger>
+                  <TabsTrigger value="channel" className={m.tabs_trigger}>
+                    Для каналов
+                  </TabsTrigger>
+                </TabsList>
+                <div ref={contentRef}>
+                  <TabsContent value="adv">
+                    {tabValue === 'adv' && <LeftForm />}
+                  </TabsContent>
+
+                  <TabsContent value="channel">
+                    {tabValue === 'channel' && <RightForm />}
+                  </TabsContent>
+                </div>
+              </Tabs>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

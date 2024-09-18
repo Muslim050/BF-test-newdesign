@@ -8,23 +8,7 @@ const FirstTitleContainer = ({
 }) => {
   return (
     <div className="w-full justify-center">
-      <div className="w-full justify-center items-center flex-col flex my-5">
-        {/* <div
-          ref={headerRef}
-          style={{
-            background:
-              'linear-gradient(360deg, #FFFFFF 16.15%, rgba(255, 255, 255, 0.3) 140.1%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            textFillColor: 'transparent',
-            letterSpacing: '-0.03em',
-            textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
-          }}
-          className="FirstTitle text-[6vw] sm:text-[40px]  md:text-[50px] lg:text-[65px] text-center"
-        >
-          Онлайн Платформа Видеорекламы
-        </div> */}
+      <div className="w-full justify-center items-center flex-col flex md:my-5 my-1">
         <h2
           ref={headerRef}
           style={{
@@ -42,12 +26,13 @@ const FirstTitleContainer = ({
         >
           Онлайн Платформа Видеорекламы{' '}
         </h2>
+
         <p
           ref={paragraphRef}
-          className="text-slate-500  font-normal !w-[600px]  md-w-full mt-3 text-center text-[12px] md:text-[1vw] "
+          className={`text-slate-500 text-[12px] md:text-[15px] lg:text-[18px] py-3 text-center`}
         >
           Разработанная для улучшения результатов бренда через привлекательный
-          видеоконтент.
+          видеоконтент.{' '}
         </p>
       </div>
       <div className="flex gap-5 items-center justify-center">
