@@ -4,6 +4,7 @@ import video2 from 'src/assets/Site/FirstPage/Video/122.mp4'
 import prerollImage from '@/assets/Site/FirstPage/preroll.png'
 import mixrollImage from '@/assets/Site/FirstPage/mixroll.png'
 import LazyVideo from './LazyVideo'
+
 const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
   return (
     <div

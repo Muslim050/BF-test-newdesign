@@ -72,84 +72,95 @@ const SixthPage = () => {
   }, [])
 
   return (
-    <section ref={containerRef} className="overflow-hidden" id="Монетизировать">
-      <div className=" ">
-        {/* max-w-[900px] w-full m-auto */}
-        <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
-          <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
-          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
-          <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
-          <div className="max-w-[1240px] w-full mx-auto px-4 flex  justify-center xl:justify-between flex-wrap xl:flex-nowrap  py-28 ">
-            <div className="text-center xl:text-start w-full xl:w-1/2 ">
-              <p className="text-white text-base font-normal">FAQ</p>
+    // <section ref={containerRef} className="overflow-hidden" id="Монетизировать">
+    //   <div className=" ">
+    //     {/* max-w-[900px] w-full m-auto */}
+    //     <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
+    //       <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+    //       <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+    //       <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
 
-              <h2
-                style={{
-                  background:
-                    'linear-gradient(360deg, #FFFFFF 16.15%, rgba(255, 255, 255, 0.3) 140.1%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  textFillColor: 'transparent',
-                  letterSpacing: '-0.03em',
+    <section
+      ref={containerRef}
+      className="relative h-full w-full"
+      id="Монетизировать"
+    >
+      <div className="">
+        <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+        <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+        <SetkaSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
 
-                  textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
-                }}
-                className={`text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pb-20 `}
+        <div className="max-w-[1240px] w-full mx-auto px-4 flex  justify-center xl:justify-between flex-wrap xl:flex-nowrap  py-28 ">
+          <div className="text-center xl:text-start w-full xl:w-1/2 ">
+            <p className="text-white text-base font-normal">FAQ</p>
+
+            <h2
+              style={{
+                background:
+                  'linear-gradient(360deg, #FFFFFF 16.15%, rgba(255, 255, 255, 0.3) 140.1%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textFillColor: 'transparent',
+                letterSpacing: '-0.03em',
+
+                textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
+              }}
+              className={`text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pb-20 `}
+            >
+              Часто задаваемые вопросы?{' '}
+            </h2>
+          </div>
+          <div className="flex flex-col justify-center  items-center gap-12  w-auto lg:w-[600px]   pt-10 xl:pt-0 ">
+            {items.map((item, index) => (
+              <div
+                key={index}
+                className="item flex flex-col items-center text-white containerCart relative md:w-full w-auto "
               >
-                Часто задаваемые вопросы?{' '}
-              </h2>
-            </div>
-            <div className="flex flex-col justify-center  items-center gap-12  w-auto lg:w-[600px]   pt-10 xl:pt-0 ">
-              {items.map((item, index) => (
-                <div
-                  key={index}
-                  className="item flex flex-col items-center text-white containerCart relative md:w-full w-auto "
-                >
-                  <div className=" flex gap-5 w-full ">
-                    {' '}
-                    <div className="relative bg-[#ffffff26] h-[105px] border border-[#ffffff24]   w-1.5 rounded-md">
-                      <div
-                        className=" progress-bar absolute top-0 left-0 w-1.5 rounded-md "
-                        style={{
-                          background:
-                            'linear-gradient(0deg, #BACFF7, #BACFF7), rgba(2, 3, 8, 0.8)',
-                        }}
-                      >
-                        {' '}
-                      </div>
-                    </div>
-                    <img
-                      src={Blestki}
-                      alt=""
-                      className="absolute h-auto w-auto z-20 -top-4 -left-[10.5px]"
-                    />
-                    <div className="flex flex-col justify-between   md:w-[330px] w-full ">
-                      <h2 className="text-xl ">{item.title}</h2>
-                    </div>
+                <div className=" flex gap-5 w-full ">
+                  {' '}
+                  <div className="relative bg-[#ffffff26] h-[105px] border border-[#ffffff24]   w-1.5 rounded-md">
                     <div
-                      className="md:w-[190px] w-full h-[100px]  flex items-center rounded-[10px] justify-center"
+                      className=" progress-bar absolute top-0 left-0 w-1.5 rounded-md "
                       style={{
                         background:
-                          'linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
-                        boxShadow:
-                          'inset 0px 1.65868px 1.65868px rgba(216, 236, 248, 0.3), inset 0px 39.8082px 79.6164px rgba(168, 216, 245, 0.06)',
-                        borderRadius: '10px',
+                          'linear-gradient(0deg, #BACFF7, #BACFF7), rgba(2, 3, 8, 0.8)',
                       }}
                     >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="image md:w-[180px] w-full h-[90px] object-cover"
-                      />
+                      {' '}
                     </div>
                   </div>
+                  <img
+                    src={Blestki}
+                    alt=""
+                    className="absolute h-auto w-auto z-20 -top-4 -left-[10.5px]"
+                  />
+                  <div className="flex flex-col justify-between   md:w-[330px] w-full ">
+                    <h2 className="text-xl ">{item.title}</h2>
+                  </div>
+                  <div
+                    className="md:w-[190px] w-full h-[100px]  flex items-center rounded-[10px] justify-center"
+                    style={{
+                      background:
+                        'linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
+                      boxShadow:
+                        'inset 0px 1.65868px 1.65868px rgba(216, 236, 248, 0.3), inset 0px 39.8082px 79.6164px rgba(168, 216, 245, 0.06)',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="image md:w-[180px] w-full h-[90px] object-cover"
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
+      {/* </div> */}
     </section>
   )
 }

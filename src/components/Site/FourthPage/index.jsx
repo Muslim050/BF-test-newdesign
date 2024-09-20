@@ -76,28 +76,48 @@ const FourthPage = () => {
           },
         },
       )
-      cardOrder.forEach((row, rowIndex) => {
-        row.forEach((cardIndex, index) => {
-          const cardClass = `.card-${cardIndex}`
-          if (document.querySelector(cardClass)) {
-            gsap.fromTo(
-              cardClass,
-              { opacity: 0, y: 100 }, // Initial state: invisible, with downward offset
-              {
-                opacity: 1,
-                y: 0,
-                delay: rowIndex * 0.5 + index * 0.2, // Delay per row and card
-                duration: 1,
-                scrollTrigger: {
-                  trigger: container,
-                  start: 'top top+=200', // Start the animation after the container appears
-                  end: 'bottom bottom',
-                  scrub: 0.5, // Sync with scroll
-                },
+      // imagesData.forEach((_, index) => {
+      //   const cardClass = `.card`
+      //   if (document.querySelector(cardClass)) {
+      //     gsap.fromTo(
+      //       cardClass,
+      //       { opacity: 0, y: 100 }, // Initial state: invisible, with downward offset
+      //       {
+      //         opacity: 1,
+      //         y: 0,
+      //         delay: rowIndex * 0.5 + index * 0.2, // Delay per row and card
+      //         duration: 1,
+      //         scrollTrigger: {
+      //           trigger: container,
+      //           start: 'top top+=200', // Start the animation after the container appears
+      //           end: 'bottom bottom',
+      //           scrub: 0.5, // Sync with scroll
+      //         },
+      //       },
+      //     )
+      //   }
+      // })
+      imagesData.forEach((_, index) => {
+        const cardClass = `.card`
+        if (document.querySelector(cardClass)) {
+          gsap.fromTo(
+            cardClass,
+            { opacity: 0, y: 100 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+
+              scrollTrigger: {
+                trigger: container,
+                start: 'top top+=200', // Start the animation after the container appears
+                end: `bottom bottom`,
+                scrub: 0.5,
+                toggleActions: 'play none none reverse',
               },
-            )
-          }
-        })
+            },
+          )
+        }
       })
 
       gsap.fromTo(
@@ -122,10 +142,6 @@ const FourthPage = () => {
 
   return (
     <>
-      {/* <section
-        className="sectionFourth sectionFourthGgreen "
-        id="FourthPageP"
-      ></section> */}
       <section className="sectionFourth sectionFourthBlue ">
         <video
           src={Video}
@@ -135,9 +151,7 @@ const FourthPage = () => {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover	"
         ></video>
-        {/* <div className="absolute text-[35px] text-center md:text-[40px] lg:text-[60px] text-white bottom-40">
-          По рекламе для успеха на YouTube
-        </div> */}
+
         <PageTitle title={'По рекламе для успеха на YouTube'} />
         <div alt="" className="dog-1 absolute w-full h-full bg-[#05060b]  ">
           <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
@@ -153,7 +167,7 @@ const FourthPage = () => {
               className="absolute top-0 left-0 w-full h-full object-cover	"
             ></video>
 
-            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[6vw] flex justify-center flex-col items-center ">
+            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[80px] flex justify-center flex-col items-center ">
               Brandformance
             </div>
           </div>
