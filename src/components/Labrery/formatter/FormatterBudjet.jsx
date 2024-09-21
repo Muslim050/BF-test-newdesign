@@ -10,12 +10,19 @@ function FormatterBudjet(props) {
   return (
     <div>
       {formattedNumber ? (
-        <div className='flex items-center'>
-          {formattedNumber} {isPastDate ? '$' :
-          <div className={`${props.className ? props.className : 'text-xs'} leading-[9px] ml-1`}>
-            сум
-          </div>
-          }
+        <div className="flex items-center">
+          {formattedNumber}{' '}
+          {isPastDate ? (
+            '$'
+          ) : (
+            <div
+              className={`${
+                props.className ? props.className : 'text-base'
+              } leading-[9px] ml-1`}
+            >
+              сум
+            </div>
+          )}
         </div>
       ) : (
         '---'

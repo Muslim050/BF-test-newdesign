@@ -22,7 +22,15 @@ export const useOrderChart = () => {
 
   //Получение отчета
   React.useEffect(() => {
-    dispatch(fetchStatistics({ order_id: id })).then(() => setLoading(false))
+    dispatch(fetchStatistics({ order_id: id }))
+      .unwrap()
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.log(error)
+
+        setLoading(false)
+        toast.error(error?.data?.error?.detail)
+      })
   }, [dispatch])
   //Получение отчета
 

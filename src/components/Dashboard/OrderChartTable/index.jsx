@@ -152,19 +152,23 @@ function OrderChart() {
             <div>
               {/* Ячейки с инфо Бюджет,План показов, План бюджета */}
               <div
-                className={`${style.whitegrad} bg-[#0A0F36] w-full  rounded-[22px] mt-4 p-3.5`}
+                style={{ background: 'var(--bg-color)' }}
+                className={`${style.whitegrad}  w-full  rounded-[22px] mt-4 p-3.5`}
               >
                 <div className="flex items-center gap-2">
                   <div className="w-2.5	h-6	bg-[#D1C5FF] rounded-[4px]"></div>
                   <h4 className="font-medium text-white">Отчет</h4>
-                  <div className="bg-[#ffffff3d] rounded-[25px]	p-2">
+                  <div className="bg-[#ffffff3d] rounded-[22px]	p-2">
                     <InfoCardsTop getOrder={getOrder} />
                   </div>
                 </div>
               </div>
               {/* Ячейки с инфо Бюджет,План показов, План бюджета */}
             </div>
-            <div className=" rounded-[22px]  p-[3px]  bg-[#0a0f3673] ">
+            <div
+              className=" rounded-[22px]  p-[3px]  "
+              style={{ background: 'var(--bg-color)' }}
+            >
               <Table className="rounded-lg">
                 {/* Колонки основной таблица  */}
                 <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">

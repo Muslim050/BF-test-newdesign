@@ -77,7 +77,7 @@ function FifthPage() {
           <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
           <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
           <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
-          <div className="text-center  max-w-[900px] w-full m-auto">
+          <div className="text-center max-w-[1240px] w-full m-auto">
             <PageTitle
               topTitle={'Особенности'}
               title={'Реклама которую Увидели Миллионы Людей'}

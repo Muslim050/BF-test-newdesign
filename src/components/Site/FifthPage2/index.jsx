@@ -53,17 +53,30 @@ function FifthPage2() {
   }, [])
 
   return (
-    <section className="relative h-full">
-      <div className="">
-        <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
-        <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
-        <SetkaSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+    // <section className="relative h-full">
+    //   <div className="">
+    //     <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+    //     <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+    //     <SetkaSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
 
-        <div className=" 	max-w-[1240px] w-full m-auto pt-20 px-5">
-          <div
-            ref={sectionMainTitle}
-            className="text-center flex flex-col w-full justify-center "
-          >
+    //     <div className=" 	max-w-[1240px] w-full m-auto pt-20 px-5">
+    //       <div
+    //         ref={sectionMainTitle}
+    //         className="text-center flex flex-col w-full justify-center "
+    //       >
+    //         <PageTitle
+    //           topTitle={'Статистика'}
+    //           title={'300 миллионов пользователей каждый месяц'}
+    //         />
+    //       </div>
+    <section className="overflow-hidden">
+      <div className=" relative">
+        {/* max-w-[900px] w-full m-auto */}
+        <GradientBGSvg className="absolute top-0 left-0 w-full h-full -z-[5px]" />
+        <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+        <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+        <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
+          <div className="text-center max-w-[1240px] w-full m-auto">
             <PageTitle
               topTitle={'Статистика'}
               title={'300 миллионов пользователей каждый месяц'}

@@ -95,6 +95,10 @@ function OrderData({ data }) {
     },
     [navigate],
   )
+  // const redirectToTariffDetails = React.useCallback((advert) => {
+  //   const url = `/chart-order-table/${advert.id}`
+  //   window.open(url, '_blank', 'noopener,noreferrer') // Открыть в новом окне
+  // }, [])
 
   return (
     <>
@@ -397,6 +401,7 @@ function OrderData({ data }) {
                   advert.status === 'finished' ? (
                     <button
                       onClick={() => redirectToTariffDetails(advert)}
+                      // onClick={() => redirectToTariffDetails(advert)}
                       className="hover:scale-125 transition-all"
                     >
                       <ChartSvg className="hover:text-green-400" />

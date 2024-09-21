@@ -14,13 +14,13 @@ export function InfoCardsTop({ getOrder }) {
 
   return (
     <div className="flex ">
-      <div className="text-base h-[70px] gap-5	text-white flex rounded-[22px]	bg-[#b5e4ca80] items-center px-6	">
+      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	bg-[#b5e4ca80] items-center px-6	">
         Номер Заказа
-        <div className="text-[35px] text-white">{id}</div>
+        <div className="text-base text-white">{id}</div>
       </div>
-      <div className="text-base h-[70px] gap-5	text-white flex rounded-[22px]	 items-center px-6	">
+      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	 items-center px-6	">
         План
-        <div className="text-[35px] text-white">
+        <div className="text-base text-white">
           {getOrder.status === 'in_progress' ? (
             <div className={style.infoCart__text}>
               <FormatterView data={getOrder.expected_number_of_views} />
@@ -33,9 +33,9 @@ export function InfoCardsTop({ getOrder }) {
         </div>
       </div>
 
-      <div className="text-base h-[70px] gap-5	text-white flex rounded-[22px]	bg-[#2a85ff75] items-center px-6	">
+      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	bg-[#2a85ff75] items-center px-6	">
         Бюджет
-        <div className="text-[35px] text-white">
+        <div className="text-base text-white ">
           <FormatterBudjet
             budget={getOrder.budget}
             data={getOrder.expected_start_date}

@@ -21,19 +21,12 @@ const imagesData = [
   { id: 13, image: '/FourthPage/13.png' },
   { id: 14, image: '/FourthPage/14.png' },
   { id: 15, image: '/FourthPage/15.png' },
-  { id: 16, image: '/FourthPage/16.png' },
-  { id: 17, image: '/FourthPage/17.png' },
-  { id: 18, image: '/FourthPage/18.png' },
 ]
 gsap.registerPlugin(ScrollTrigger)
 
 const FourthPage = () => {
   const containerRefImageData = useRef(null)
-  const cardOrder = [
-    [0, 3], // Первая строка
-    [1, 4], // Вторая строка
-    [2, 5, 6], // Третья строка
-  ]
+
   useEffect(() => {
     const container = containerRefImageData.current
 
@@ -64,15 +57,15 @@ const FourthPage = () => {
           scrollTrigger: {
             trigger: container, // Element that triggers the animation
             start: 'top bottom', // Начать анимацию на 200px раньше, чем верх контейнера достигнет нижней части экрана
-            end: 'bottom+=100%', // Когда контейнер выйдет из центра экрана, анимация завершится
+            end: 'bottom', // Когда контейнер выйдет из центра экрана, анимация завершится
             scrub: 1, // Sync the animation with scrolling
             pin: false, // Don't pin the element
-            onUpdate: (self) => {
-              gsap.to(container, {
-                yPercent: -150 * self.progress, // Move the container upward based on scroll progress
-                ease: 'none', // No easing, makes the animation linear
-              })
-            },
+            // onUpdate: (self) => {
+            //   gsap.to(container, {
+            //     yPercent: -50 * self.progress, // Move the container upward based on scroll progress
+            //     ease: 'none', // No easing, makes the animation linear
+            //   })
+            // },
           },
         },
       )
@@ -110,8 +103,8 @@ const FourthPage = () => {
 
               scrollTrigger: {
                 trigger: container,
-                start: 'top top+=200', // Start the animation after the container appears
-                end: `bottom bottom`,
+                start: 'top top+=100', // Start the animation after the container appears
+                end: `bottom `,
                 scrub: 0.5,
                 toggleActions: 'play none none reverse',
               },
@@ -202,7 +195,7 @@ const FourthPage = () => {
             >
               <img
                 src={item.image}
-                className="w-auto h-auto object-cover"
+                className="w-auto h-auto max-w-[150px] object-cover"
               ></img>
             </div>
           ))}
