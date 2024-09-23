@@ -188,6 +188,7 @@ function Sidebar() {
             <div className="flex items-center">
               <div className="relative w-[56px] h-[56px] rounded-full bg-slate-950"></div>
               <img
+                loading="lazy"
                 src={Logo}
                 className={`absolute ${!open ? ' left-[6px]' : ' left-[12px]'}`}
                 alt="adsad"

@@ -23,7 +23,7 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/"
+          path="/*"
           element={
             <Protected
               allowedRoles={[
@@ -39,7 +39,7 @@ function App() {
           }
         >
           <Route
-            path="/order"
+            path="order"
             index
             element={
               <Protected
@@ -51,7 +51,7 @@ function App() {
           />
 
           <Route
-            path="/inventory"
+            path="inventory"
             element={
               <Protected allowedRoles={['channel', 'publisher', 'admin']}>
                 <Inventory />
@@ -67,7 +67,7 @@ function App() {
             }
           /> */}
           <Route
-            path="/publisher"
+            path="publisher"
             element={
               <Protected allowedRoles={['publisher', 'admin']}>
                 <Publisher />
@@ -76,7 +76,7 @@ function App() {
           />
 
           <Route
-            path="/video"
+            path="video"
             element={
               <Protected allowedRoles={['channel', 'publisher', 'admin']}>
                 <Video />
@@ -84,7 +84,7 @@ function App() {
             }
           />
           <Route
-            path="/advertiser"
+            path="advertiser"
             element={
               <Protected allowedRoles={['admin', 'advertising_agency']}>
                 <AdvertiserAndUsers />
@@ -93,7 +93,7 @@ function App() {
           ></Route>
 
           <Route
-            path="/advertiser-agency"
+            path="advertiser-agency"
             element={
               <Protected allowedRoles={['admin']}>
                 <AdvertiserAgencyAndUsers />
@@ -101,7 +101,7 @@ function App() {
             }
           />
           <Route
-            path="/sents-order"
+            path="sents-order"
             index
             element={
               <Protected allowedRoles={['publisher', 'channel']}>
@@ -110,7 +110,7 @@ function App() {
             }
           />
           <Route
-            path="/channel"
+            path="channel"
             element={
               <Protected allowedRoles={['publisher', 'admin', 'channel']}>
                 <ChannelMain />
@@ -119,7 +119,7 @@ function App() {
           />
 
           <Route
-            path="/chart-order-table/:id"
+            path="chart-order-table/:id"
             element={
               <Protected
                 allowedRoles={[
@@ -135,7 +135,7 @@ function App() {
             }
           />
           <Route
-            path="/statistics-channel/:id"
+            path="statistics-channel/:id"
             element={
               <Protected
                 allowedRoles={[
@@ -152,7 +152,7 @@ function App() {
           />
 
           <Route
-            path="/publisher-report"
+            path="publisher-report"
             element={
               <Protected allowedRoles={['publisher', 'channel', 'admin']}>
                 <PublisherReport />
@@ -160,7 +160,7 @@ function App() {
             }
           />
           <Route
-            path="/advertiser-report"
+            path="advertiser-report"
             element={
               <Protected
                 allowedRoles={['advertiser', 'advertising_agency', 'admin']}

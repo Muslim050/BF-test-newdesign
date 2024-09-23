@@ -190,7 +190,7 @@ const Header = () => {
               window.location.reload()
             }}
           >
-            <img src={Logo} alt="Logo" className="w-7 h-8" />
+            <img loading="lazy" src={Logo} alt="Logo" className="w-7 h-8" />
           </div>
 
           <div className="headerTextRight justify-end gap-2 w-1/2">

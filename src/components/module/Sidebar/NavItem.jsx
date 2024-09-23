@@ -14,7 +14,8 @@ const NavItem = ({ item, open, setOpen }) => {
 
   const baseStyles =
     'flex items-center text-[#838383] text-base font-medium rounded-[14px] p-3.5 text-white '
-  const activeStyles = 'bg-[#FFFFFF0D] border-[1px]'
+  const activeStyles =
+    'bg-[var(--bg-color)] border-[1px] border-[var(--bg-color)] '
   const inactiveStyles = 'hover:bg-[#FFFFFF0D] bg-transparent'
 
   const [isSubMenuOpen, setIsSubMenuOpen] = React.useState(false)

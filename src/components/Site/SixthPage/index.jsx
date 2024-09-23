@@ -5,31 +5,37 @@ import 'tailwindcss/tailwind.css'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import Blestki from './Blestki.svg'
 gsap.registerPlugin(ScrollTrigger)
+
+import image1 from '../../../assets/Site/SixthPage/1.png'
+import image2 from '../../../assets/Site/SixthPage/2.png'
+import image3 from '../../../assets/Site/SixthPage/3.png'
+import image4 from '../../../assets/Site/SixthPage/4.png'
+import image5 from '../../../assets/Site/SixthPage/5.png'
+
 const items = [
   {
-    title: 'Какие услуги предлагает Brandformance?',
-
-    image: '/SixthPage/1.png',
+    title: 'Какие услуги предоставляет Brandformance?',
+    image: image1,
   },
   {
-    title: 'Как Brandformance может помочь моему бизнесу вырасти?',
+    title: 'Brandformance поможет моему бизнесу вырасти?',
 
-    image: '/SixthPage/2.png',
+    image: image2,
   },
   {
     title: 'В каких отраслях вы специализируетесь?',
 
-    image: '/SixthPage/3.png',
+    image: image3,
   },
   {
     title: 'Как начать работу с Brandformance?',
 
-    image: '/SixthPage/4.png',
+    image: image4,
   },
   {
-    title: 'Каков типичный график проекта?',
+    title: 'На каких Youtube каналах будет размещена реклама моего бренда?',
 
-    image: '/SixthPage/5.png',
+    image: image5,
   },
 ]
 
@@ -80,11 +86,7 @@ const SixthPage = () => {
     //       <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
     //       <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
 
-    <section
-      ref={containerRef}
-      className="relative h-full w-full"
-      id="Монетизировать"
-    >
+    <section ref={containerRef} className="relative h-full w-full" id="">
       <div className="">
         <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
         <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
@@ -131,6 +133,7 @@ const SixthPage = () => {
                     </div>
                   </div>
                   <img
+                    loading="lazy"
                     src={Blestki}
                     alt=""
                     className="absolute h-auto w-auto z-20 -top-4 -left-[10.5px]"
@@ -149,6 +152,7 @@ const SixthPage = () => {
                     }}
                   >
                     <img
+                      loading="lazy"
                       src={item.image}
                       alt={item.title}
                       className="image md:w-[180px] w-full h-[90px] object-cover"

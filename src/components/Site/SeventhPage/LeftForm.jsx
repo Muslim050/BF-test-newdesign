@@ -51,7 +51,12 @@ const ContactForm = () => {
           >
             {' '}
             <div className="text-lg	font-bold flex gap-3 items-center flex-col text-white">
-              <img src={Logo} className="w-[27px] h-[30px]" alt="" />{' '}
+              <img
+                loading="lazy"
+                src={Logo}
+                className="w-[27px] h-[30px]"
+                alt=""
+              />{' '}
               Brandformance
             </div>
             <div className="flex flex-col justify-center items-center mt-4 gap-3">

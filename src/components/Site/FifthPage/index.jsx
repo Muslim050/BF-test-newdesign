@@ -96,6 +96,7 @@ function FifthPage() {
           >
             <div className="">
               <img
+                loading="lazy"
                 src={HeadeYouTube}
                 alt=""
                 className="w-full rounded-t-[32px]"
@@ -105,6 +106,7 @@ function FifthPage() {
               <div className="flex gap-4 justify-around flex-wrap">
                 <div className="w-[400px]">
                   <video
+                    preload="none"
                     src={video2}
                     autoPlay
                     muted
@@ -123,6 +125,7 @@ function FifthPage() {
                 </div>
                 <div className="w-[400px]">
                   <video
+                    preload="none"
                     src={video9}
                     autoPlay
                     muted
@@ -143,6 +146,7 @@ function FifthPage() {
               <div className="flex gap-4 justify-around flex-wrap">
                 <div className="w-[400px]">
                   <video
+                    preload="none"
                     src={video1}
                     autoPlay
                     muted
@@ -161,6 +165,7 @@ function FifthPage() {
                 </div>
                 <div className="w-[400px] ">
                   <video
+                    preload="none"
                     src={video3}
                     autoPlay
                     muted
@@ -182,6 +187,7 @@ function FifthPage() {
               <div className="flex gap-4 justify-around flex-wrap">
                 <div className="w-[400px] ">
                   <video
+                    preload="none"
                     src={video11}
                     autoPlay
                     muted
@@ -200,6 +206,7 @@ function FifthPage() {
                 </div>{' '}
                 <div className="w-[400px]">
                   <video
+                    preload="none"
                     src={video4}
                     autoPlay
                     muted

@@ -30,7 +30,7 @@ function DownloadReport({
     ? format(endDateMonth, 'yyyy-MM-dd')
     : undefined
 
-  const exportExcel = async (selectedAdv) => {
+  const exportExcel = async () => {
     try {
       setLoading(true)
       const token = Cookies.get('token')
@@ -59,11 +59,6 @@ function DownloadReport({
       link.setAttribute('download', `${selectedAdvName}.xlsx`)
       link.click()
       setIsTooltip(false)
-      // fetchGetOrder()
-      //   .then(() => {})
-      //   .catch((error) => {
-      //     console.error('Ошибка при получении данных заказа:', error)
-      //   })
     } catch (error) {
       console.error(error)
     } finally {

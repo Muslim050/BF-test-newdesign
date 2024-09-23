@@ -5,7 +5,9 @@ import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import m from './FifthPage.module.scss'
 gsap.registerPlugin(ScrollTrigger)
 import PageTitle from '../module/PageTitle'
-
+import svg1 from '../../../assets/Site/FifthPage/1.webp'
+import svg2 from '../../../assets/Site/FifthPage/3.webp'
+import svg3 from '../../../assets/Site/FifthPage/4.webp'
 gsap.registerPlugin(ScrollTrigger)
 function FifthPage2() {
   const sectionRef = useRef(null)
@@ -36,9 +38,8 @@ function FifthPage2() {
       },
     )
     return () => {
-      {
-        /* A return function for killing the animation on component unmount */
-      }
+      ScrollTrigger.kill() // Clean up ScrollTriggers
+
       pin.kill()
     }
   }, [])
@@ -79,7 +80,7 @@ function FifthPage2() {
           <div className="text-center max-w-[1240px] w-full m-auto">
             <PageTitle
               topTitle={'Статистика'}
-              title={'300 миллионов пользователей каждый месяц'}
+              title={'300 миллионов показов каждый месяц'}
             />
           </div>
 
@@ -88,31 +89,31 @@ function FifthPage2() {
           >
             <div className="flex flex-col  justify-between gap-5">
               <CardFifthPage
-                gifSrc="/FifthPage/1.webp"
+                gifSrc={svg1}
                 title="15 миллионов"
                 customClass={'h-[400px]'}
-                text="Уникальные зрители"
+                text="Охват уникальных зрителей"
                 customGifClass={'text-center'}
               />
 
               <CardFifthPage
-                title="... которые фактически видят вашу рекламу"
+                title="... максимально гарантированный уровень brand safety"
                 customClass={'h-[200px]'}
               />
             </div>
 
             <div className="flex flex-col gap-5 justify-between">
               <CardFifthPage
-                gifSrc="/FifthPage/3.webp"
+                gifSrc={svg2}
                 title="300 миллионов"
-                text="Ежемесячные зрители"
+                text="Показов рекламы ежемесячно"
                 customGifClass={'text-center'}
               />
 
               <CardFifthPage
-                gifSrc="/FifthPage/4.webp"
+                gifSrc={svg3}
                 title="18-44"
-                text="Возраст зрителей"
+                text="Ядро возраста зрителей"
                 customGifClass={'text-center'}
               />
             </div>
@@ -189,6 +190,7 @@ const CardFifthPage = ({
         {gifSrc && (
           <div className={`w-full h-[180px] relative `}>
             <img
+              loading="lazy"
               src={gifSrc}
               alt="Example GIF"
               className={`absolute top-0 h-auto w-full `}

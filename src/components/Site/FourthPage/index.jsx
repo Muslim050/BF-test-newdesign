@@ -59,8 +59,8 @@ const FourthPage = () => {
 
       tl.fromTo(
         '.dog-1',
-        { opacity: 0, scale: 6 },
-        { opacity: 1, scale: 1 },
+        { opacity: 0, scale: 6, duration: 1 },
+        { opacity: 1, scale: 1, duration: 1 },
       ).to('.dog-2', { opacity: 1, duration: 1 })
 
       gsap.fromTo(
@@ -76,18 +76,18 @@ const FourthPage = () => {
             end: 'bottom', // Когда контейнер выйдет из центра экрана, анимация завершится
             scrub: 1, // Sync the animation with scrolling
             pin: false, // Don't pin the element
-            // onUpdate: (self) => {
-            //   gsap.to(container, {
-            //     yPercent: -50 * self.progress, // Move the container upward based on scroll progress
-            //     ease: 'none', // No easing, makes the animation linear
-            //   })
-            // },
+            onUpdate: (self) => {
+              gsap.to(container, {
+                yPercent: -50 * self.progress, // Move the container upward based on scroll progress
+                ease: 'none', // No easing, makes the animation linear
+              })
+            },
           },
         },
       )
 
       imagesData.forEach((_, index) => {
-        const cardClass = `.card`
+        const cardClass = `.card .dog-2`
         if (document.querySelector(cardClass)) {
           gsap.fromTo(
             cardClass,
@@ -107,6 +107,23 @@ const FourthPage = () => {
           )
         }
       })
+
+      // gsap.fromTo(
+      //   '.dog-2 .card',
+      //   { opacity: 0, y: -10 },
+      //   {
+      //     opacity: 1,
+      //     y: 0,
+      //     duration: 1,
+      //     stagger: 0.1,
+      //     scrollTrigger: {
+      //       trigger: container,
+      //       start: 'top bottom+=200', // Когда контейнер появится в центре экрана, анимация начнется
+      //       end: 'bottom center',
+      //       scrub: 0.5,
+      //     },
+      //   },
+      // )
     }
   }, [])
 
@@ -171,6 +188,7 @@ const FourthPage = () => {
               }}
             >
               <img
+                loading="lazy"
                 src={item.image}
                 className="w-auto h-auto max-w-[150px] object-cover"
               ></img>

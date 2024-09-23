@@ -1,9 +1,3 @@
-import { ArrowDownToDot } from 'lucide-react'
-import {
-  FacebookSvg,
-  InstagramSvg,
-  YoutubeSvg,
-} from '@/assets/Site/site-svg.jsx'
 const CartUnderVideo = ({ slide }) => {
   return (
     <div

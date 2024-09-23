@@ -32,13 +32,18 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
         >
           <div className="rounded-[12px]">
             <div className=" flex justify-end flex-col w-full">
-              <img className="" src={YouTubeCart} alt="" />
+              <img className="" src={YouTubeCart} loading="lazy" alt="" />
               <div className="absolute top-11">
                 <LazyVideo src={video1} />
               </div>
 
               <div className="absolute top-11 w-full">
-                <img src={prerollImage} alt="" className="w-full " />
+                <img
+                  src={prerollImage}
+                  loading="lazy"
+                  alt=""
+                  className="w-full "
+                />
               </div>
             </div>
 
@@ -79,13 +84,18 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
         >
           <div className="rounded-[12px]">
             <div className=" flex justify-end flex-col w-full">
-              <img className="" src={YouTubeCart} alt="" />
+              <img className="" loading="lazy" src={YouTubeCart} alt="" />
               <div className="absolute top-11">
                 <LazyVideo src={video2} />
               </div>
 
               <div className="absolute top-11 w-full">
-                <img src={mixrollImage} alt="" className="w-full " />
+                <img
+                  src={mixrollImage}
+                  alt=""
+                  loading="lazy"
+                  className="w-full "
+                />
               </div>
             </div>
             <div className="text-white bg-black h-[86px] rounded-b-[20px] p-5 absolute -bottom-12 w-full">

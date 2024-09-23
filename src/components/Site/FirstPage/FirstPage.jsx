@@ -558,6 +558,7 @@ import m from './FirstPage.module.scss'
 import Phone from '@/assets/Site/FirstPage/Phone.png'
 import Phonebg from '@/assets/Site/FirstPage/HandWithPhone.svg'
 import Gradient from '@/assets/Site/FirstPage/Gradient.png'
+
 import Socials from './module/Socials'
 import CartUnderVideo from './module/CartUnderVideo'
 import FirstTitleContainer from './module/FirstTitleContainer'
@@ -910,18 +911,21 @@ const FirstPage = () => {
               isSecondPagePhone relative  flex  bottom-[-120%] justify-between w-full md:left-[-38px] left-[-35px]`}
             >
               <img
+                loading="lazy"
                 src={Phone}
                 alt="Phone"
                 draggable="false"
                 className="md:w-auto h-auto w-[330px]"
               />
               <img
+                loading="lazy"
                 src={Phonebg}
                 alt="Phone Background"
                 className="absolute -z-10 top-[0px] right-[1px] w"
                 draggable="false"
               />
               <img
+                loading="lazy"
                 src={Gradient}
                 className="absolute -bottom-10 w-full z-10"
                 alt=""

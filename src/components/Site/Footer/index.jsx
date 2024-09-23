@@ -94,7 +94,12 @@ function Footer() {
         >
           <div className="text-base text-[#ffffffbf] w-[250px]">
             <div className="text-lg	font-bold flex gap-3 items-center">
-              <img src={Logo} className="w-[27px] h-[30px]" alt="" />{' '}
+              <img
+                src={Logo}
+                loading="lazy"
+                className="w-[27px] h-[30px]"
+                alt=""
+              />{' '}
               Brandformance
             </div>
             <div className="mt-5">
@@ -129,7 +134,7 @@ function Footer() {
           <div ref={sparkleRef} className={m.sparkles} />
 
           <div className="flex justify-center pb-10 pt-28" ref={phoneRightCart}>
-            <img src={imageBranformance} alt="" />
+            <img loading="lazy" src={imageBranformance} alt="" />
           </div>
         </div>
 
