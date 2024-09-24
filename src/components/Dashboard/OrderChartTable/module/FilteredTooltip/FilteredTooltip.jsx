@@ -22,11 +22,11 @@ function FilteredTooltip({
   handleClear,
 }) {
   const handleStartDateChange = (date) => {
-    setStartDate(date.toISOString().slice(0, 10)) // Преобразование даты в строку формата YYYY-MM-DD
+    setStartDate(date?.toISOString().slice(0, 10)) // Преобразование даты в строку формата YYYY-MM-DD
   }
 
   const handleEndDateChange = (date) => {
-    setEndDate(date.toISOString().slice(0, 10)) // Аналогично для конечной даты
+    setEndDate(date?.toISOString().slice(0, 10)) // Аналогично для конечной даты
   }
 
   return (

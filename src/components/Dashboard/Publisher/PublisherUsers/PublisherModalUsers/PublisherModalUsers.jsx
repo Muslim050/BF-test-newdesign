@@ -268,7 +268,7 @@ export default function PublisherModalUsers({ onClose }) {
                 </Label>
                 <Controller
                   name="selectedAdvertiserId"
-                  {...register('advertiser', {
+                  {...register('publisher', {
                     required: 'Поле обязательно',
                   })}
                   control={control}

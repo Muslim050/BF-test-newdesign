@@ -41,8 +41,8 @@ export const useOrderChart = () => {
       ? new Date(orderData.actual_end_date)
       : new Date(orderData.expected_end_date)
 
-    const minDate = startDateObj.toISOString().split('T')[0]
-    const maxDate = endDateObj.toISOString().split('T')[0]
+    const minDate = startDateObj?.toISOString().split('T')[0]
+    const maxDate = endDateObj?.toISOString().split('T')[0]
 
     setStartDate(minDate)
     setEndDate(maxDate)
