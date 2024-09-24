@@ -24,7 +24,12 @@ import { Input } from '@/components/ui/input.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { PackagePlus } from 'lucide-react'
 import Cookies from 'js-cookie'
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 const format = [
   { value: 'preroll', text: 'Pre-roll' },
   { value: 'mixroll', text: 'Mix-roll' },
@@ -38,6 +43,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
   const [cpm, setCpm] = React.useState([])
   const [budgett, setBudgett] = React.useState(0)
   const [isOrderCreated, setIsOrderCreated] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   const selectedPublisher = (value) => {
     setPublisherID(value)
@@ -46,7 +52,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     const token = Cookies.get('token')
     const url = `${backendURL}/publisher/channel${
       publisherID ? `?publisher_id=${publisherID}` : ''
-    }`
+    }/`
 
     try {
       const response = await axios.get(url, {
@@ -195,7 +201,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     dispatch(fetchPublisher())
   }, [dispatch])
   React.useEffect(() => {
-    fetchChannel()
+    fetchChannel().then(() => setLoading(false))
   }, [publisherID])
 
   return (
@@ -256,11 +262,36 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Выбрать канал</SelectLabel>
+                    <SelectLabel>
+                      <div className="flex items-center justify-between">
+                        Выбрать канал{' '}
+                        {loading && (
+                          <div
+                            className="loaderWrapper"
+                            style={{ height: '2vh' }}
+                          >
+                            <div
+                              className="spinner"
+                              style={{ width: '25px', height: '25px' }}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
+                    </SelectLabel>
                     {/* Assuming you have a channelModal array */}
                     {channelModal.map((option) => (
-                      <SelectItem key={option.id} value={option.id.toString()}>
-                        {option.name}
+                      <SelectItem
+                        key={option.id}
+                        value={option.id.toString()}
+                        className="flex"
+                        disabled={!option.is_active}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <div className="relative">{option.name}</div>
+                          {!option.is_active && (
+                            <div className="absolute left-0 bg-red-500 w-3 h-full rounded-[3px]"></div>
+                          )}
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectGroup>

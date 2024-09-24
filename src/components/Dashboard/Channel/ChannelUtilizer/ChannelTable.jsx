@@ -101,10 +101,28 @@ function ChannelTable() {
                       <TableRow key={channel.id}>
                         <TableCell
                           data-label="ID"
-                          className={`font-normal text-${textColor} text-sm `}
+                          className={`font-normal relative text-${textColor} text-sm `}
                         >
                           <div style={{ display: 'flex' }}>
-                            <div>{i + 1}</div>
+                            {!channel.is_active && (
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <div className="w-2	cursor-pointer hover:scale-110 h-6 bg-red-500 rounded-[2px] top-[17px]  absolute left-0"></div>
+                                  </TooltipTrigger>
+                                  <TooltipContent className="bg-red-400 text-white font-medium">
+                                    <p>Нужно переподключить канал</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
+                            <div
+                              className={`${
+                                !channel.is_active ? 'ml-2' : 'ml-0'
+                              }`}
+                            >
+                              {i + 1}
+                            </div>
                             {user === 'publisher' ||
                             user === 'admin' ||
                             user === 'channel' ? (

@@ -61,6 +61,7 @@ export function InfoCardsButton({ totalComisyAdtech }) {
           {totalComisyAdtech > 0 ? (
             <div className="text-base text-white">
               <FormatterBudjet budget={totalComisyAdtech + ndc} />
+              <div className="text-base 	">Итого с НДС</div>
             </div>
           ) : (
             <div

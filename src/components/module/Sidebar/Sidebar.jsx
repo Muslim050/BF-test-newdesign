@@ -118,8 +118,11 @@ function Sidebar() {
   )
   const filteredConfirmedI = сonfirmedInventories.filter((i) => i)
   const filteredChannel = channel.filter((i) => i.is_connected === false)
+
   const filteredVideo = videos.filter((i) => i.link_to_video === null)
   // Паблишер
+
+  const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
 
   const handleScroll = () => {
     setIsTooltipOpen({})
@@ -215,7 +218,6 @@ function Sidebar() {
                   <Tooltip>
                     <TooltipTrigger className="relative">
                       <NavItem item={item} open={open} setOpen={setOpen} />
-
                       {/* Рекломадатели */}
                       {user === 'advertiser' && item.label === 'Заказы' && (
                         <>
@@ -247,7 +249,6 @@ function Sidebar() {
                           </>
                         )}
                       {/* Рекломадатели */}
-
                       {/* Паблишер */}
                       {user === 'publisher' && item.label === 'Заказы' && (
                         <>
@@ -295,7 +296,6 @@ function Sidebar() {
                         </>
                       )}
                       {/* Паблишер */}
-
                       {/*Канал*/}
                       {user === 'channel' && item.label === 'Заказы' && (
                         <>
@@ -328,7 +328,6 @@ function Sidebar() {
                         </>
                       )}
                       {/*Канал*/}
-
                       {/* админ */}
                       {user === 'admin' && item.label === 'Каналы' && (
                         <>
@@ -339,6 +338,13 @@ function Sidebar() {
                             >
                               <Badge className="bg-red-500 px-1.5 py-[1.4px]">
                                 {filteredChannel.length}
+                              </Badge>
+                            </div>
+                          )}
+                          {filteredChannelIsActive.length > 0 && (
+                            <div className="absolute top-[-8px] right-[-8px]">
+                              <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                                {filteredChannelIsActive.length}
                               </Badge>
                             </div>
                           )}
@@ -386,6 +392,7 @@ function Sidebar() {
                           )}
                         </>
                       )}
+
                       {/* админ */}
                     </TooltipTrigger>
                   </Tooltip>

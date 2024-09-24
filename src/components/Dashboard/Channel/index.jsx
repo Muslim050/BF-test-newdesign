@@ -32,28 +32,31 @@ const ChannelAndUsers = () => {
     <div className="mb-4 mt-2">
       <Tabs defaultValue="channel">
         <div className="flex justify-between items-center flex-wrap gap-2">
-          <TabsList
-            className="grid grid-cols-2 w-[300px] h-auto rounded-[14px] mt-2 border_container"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.0289) 99.67%)',
-            }}
-          >
-            <TabsTrigger
-              onClick={() => setSelectedTab('channel')}
-              value="channel"
-              className={`text-[12px] relative h-[25px] rounded-[12px] data-[state=active]:bg-brandPrimary-1`}
+          {user === 'admin' && (
+            <TabsList
+              className="grid grid-cols-2 w-[300px] h-auto rounded-[14px] mt-2 border_container"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.0289) 99.67%)',
+              }}
             >
-              Каналы
-            </TabsTrigger>
-            <TabsTrigger
-              onClick={() => setSelectedTab('channel-users')}
-              value="channel-users"
-              className={`text-[12px] relative h-[25px] rounded-[12px] data-[state=active]:bg-brandPrimary-1`}
-            >
-              Пользователи
-            </TabsTrigger>
-          </TabsList>
+              <TabsTrigger
+                onClick={() => setSelectedTab('channel')}
+                value="channel"
+                className={`text-[12px] relative h-[25px] rounded-[12px] data-[state=active]:bg-brandPrimary-1`}
+              >
+                Каналы
+              </TabsTrigger>
+
+              <TabsTrigger
+                onClick={() => setSelectedTab('channel-users')}
+                value="channel-users"
+                className={`text-[12px] relative h-[25px] rounded-[12px] data-[state=active]:bg-brandPrimary-1`}
+              >
+                Пользователи
+              </TabsTrigger>
+            </TabsList>
+          )}
 
           {selectedTab === 'channel' && (
             <div className="flex justify-end ">

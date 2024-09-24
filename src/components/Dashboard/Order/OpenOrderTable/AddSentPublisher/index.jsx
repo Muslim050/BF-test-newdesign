@@ -9,7 +9,6 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableHead,
   TableRow,
 } from 'src/components/ui/table'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
