@@ -318,10 +318,7 @@ export default function AdvertiserModal({ onClose }) {
                 <span className="text-red-500 ml-0.5">*</span>
               </Label>
               <Controller
-                name="selectedAdvertiserId"
-                {...register('agency', {
-                  required: 'Поле обязательно',
-                })}
+                name="agency"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (

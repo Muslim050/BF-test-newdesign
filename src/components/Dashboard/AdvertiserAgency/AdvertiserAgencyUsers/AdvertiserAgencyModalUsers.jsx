@@ -273,7 +273,7 @@ export default function AdvertiserAgencyModalUsers({ onClose }) {
                   <span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
-                  name="selectedAdvertiserId"
+                  name="advertiserA"
                   {...register('advertiserA', {
                     required: 'Поле обязательно',
                   })}
