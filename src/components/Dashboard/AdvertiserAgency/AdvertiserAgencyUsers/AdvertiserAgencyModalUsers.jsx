@@ -274,9 +274,7 @@ export default function AdvertiserAgencyModalUsers({ onClose }) {
                 </Label>
                 <Controller
                   name="advertiserA"
-                  {...register('advertiserA', {
-                    required: 'Поле обязательно',
-                  })}
+                  rules={{ required: 'Поле обязательно' }} // Use rules instead of register
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
