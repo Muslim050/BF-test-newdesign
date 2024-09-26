@@ -102,3 +102,56 @@
     }
   }
 }
+
+.sparkles {
+  position: absolute;
+  z-index: 100;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(50px);
+  opacity: 0;
+  left: -100px;
+  top: -100px;
+}
+
+.sparklesBTN {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(50px);
+  opacity: 0;
+  left: -50px;
+  top: 0;
+}
+
+.wrapperCard {
+  background: transparent;
+  &:hover {
+    box-shadow: inset 0px 1.65868px 1.65868px rgba(216, 236, 248, 0.3),
+      inset 0px 39.8082px 79.6164px rgba(168, 216, 245, 0.06);
+
+    border-radius: 10px;
+    &::before {
+      transition: all 0.5s ease;
+
+      content: url('../SeventhPage/Blestki.svg');
+      width: 135px;
+      height: 122%;
+      position: absolute;
+      top: -5px;
+
+      right: 50%;
+      left: 50%;
+
+      transform: translate(-50%, 0); /* Центрирование элемента */
+    }
+  }
+}

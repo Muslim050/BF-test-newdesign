@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Video from './VideoBG.mp4'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import PageTitle from '../module/PageTitle'
-
+import m from './FourthPage.module.scss'
 import image1 from 'src/assets/FourthPage/1.png'
 import image2 from 'src/assets/FourthPage/2.png'
 import image3 from 'src/assets/FourthPage/3.png'
@@ -51,82 +51,99 @@ const FourthPage = () => {
         scrollTrigger: {
           trigger: '.sectionFourthBlue',
           start: 'top top',
-          end: '+=250%',
-          scrub: 0.5,
+          end: '+=180%', // Увеличь пространство, чтобы плавно завершить анимацию
+          // Увеличь продолжительность анимации
+          scrub: 1, // slower scrub might make it smoother
+          pinSpacing: true, // Отключаем дополнительное пространство
           pin: true,
         },
       })
 
       tl.fromTo(
         '.dog-1',
-        { opacity: 0, scale: 6, duration: 1 },
-        { opacity: 1, scale: 1, duration: 1 },
-      ).to('.dog-2', { opacity: 1, duration: 1 })
+        { opacity: 0, scale: 6 },
+        { opacity: 1, scale: 1, duration: 2, ease: 'power1.out' },
+      ).to('.dog-2', { opacity: 1, duration: 2, ease: 'power1.out' })
 
       gsap.fromTo(
         container,
-        { opacity: 1, y: 1300 }, // Initial state: invisible, with downward offset
+        { opacity: 1, y: 1300 },
         {
           opacity: 1,
           y: 0,
-          duration: 2, // Duration for the animation
+          duration: 2,
           scrollTrigger: {
-            trigger: container, // Element that triggers the animation
-            start: 'top bottom', // Начать анимацию на 200px раньше, чем верх контейнера достигнет нижней части экрана
-            end: 'bottom', // Когда контейнер выйдет из центра экрана, анимация завершится
-            scrub: 1, // Sync the animation with scrolling
-            pin: false, // Don't pin the element
-            onUpdate: (self) => {
-              gsap.to(container, {
-                yPercent: -50 * self.progress, // Move the container upward based on scroll progress
-                ease: 'none', // No easing, makes the animation linear
-              })
-            },
+            trigger: container,
+            start: 'top bottom',
+            end: 'bottom',
+            scrub: 1, // slower scrub might make it smoother
+            ease: 'power1.out', // Добавляем easing для плавности
           },
         },
       )
-
-      imagesData.forEach((_, index) => {
-        const cardClass = `.card .dog-2`
-        if (document.querySelector(cardClass)) {
-          gsap.fromTo(
-            cardClass,
-            { opacity: 0, y: 100 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1,
-
-              scrollTrigger: {
-                trigger: container,
-                start: 'top top+=100', // Start the animation after the container appears
-                // end: `bottom `,
-                scrub: 0.5,
-              },
-            },
-          )
-        }
-      })
-
-      // gsap.fromTo(
-      //   '.dog-2 .card',
-      //   { opacity: 0, y: -10 },
-      //   {
-      //     opacity: 1,
-      //     y: 0,
-      //     duration: 1,
-      //     stagger: 0.1,
-      //     scrollTrigger: {
-      //       trigger: container,
-      //       start: 'top bottom+=200', // Когда контейнер появится в центре экрана, анимация начнется
-      //       end: 'bottom center',
-      //       scrub: 0.5,
-      //     },
-      //   },
-      // )
     }
   }, [])
+  useEffect(() => {
+    const container = containerRefImageData.current
 
+    if (container) {
+      const rows = gsap.utils.toArray('.card') // Получаем массив всех строк
+
+      gsap.fromTo(
+        rows,
+        { opacity: 0, y: 100 }, // Начальное состояние
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1, // Длительность анимации для каждого ряда
+          stagger: 1, // Задержка между анимациями строк
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1, // Плавное течение анимации во время скролла
+          },
+        },
+      )
+    }
+  }, [])
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
   return (
     <>
       <section className="sectionFourth sectionFourthBlue ">
@@ -136,13 +153,13 @@ const FourthPage = () => {
           muted
           loop
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover	"
+          className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
         ></video>
 
         <PageTitle title={'По рекламе для успеха на YouTube'} />
         <div alt="" className="dog-1 absolute w-full h-full bg-[#05060b]  ">
           <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
-          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10" />
+          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10 " />
           {/* <SetkaSvg className="absolute top-0 left-0 w-[100%] z-10" /> */}
           <div alt="" className="absolute w-full h-full bg-[#05060b]  ">
             <video
@@ -151,9 +168,8 @@ const FourthPage = () => {
               muted
               loop
               playsInline
-              className="absolute top-0 left-0 w-full h-full object-cover	"
+              className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
             ></video>
-
             <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[80px] flex justify-center flex-col items-center ">
               Brandformance
             </div>
@@ -172,10 +188,13 @@ const FourthPage = () => {
             gap: '16px',
           }}
         >
+          <div ref={sparkleRef} className={m.sparkles} />
+
           {imagesData.map((item, index) => (
             <div
               key={index}
-              className={`card card-${index} flex items-center justify-center`}
+              ref={cardRef}
+              className={`card card-${index} ${m.cardWrapper} flex items-center justify-center`}
               style={{
                 background:
                   'linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
@@ -196,10 +215,47 @@ const FourthPage = () => {
           ))}
         </div>
       </section>
-
-      {/* <section className="sectionFourth sectionFourthGgreen"></section> */}
     </>
   )
 }
 
 export default FourthPage
+
+// imagesData.forEach((_, index) => {
+//   const cardClass = `.card .dog-2`
+//   if (document.querySelector(cardClass)) {
+//     gsap.fromTo(
+//       cardClass,
+//       { opacity: 0, y: 100 },
+//       {
+//         opacity: 1,
+//         y: 0,
+//         duration: 1,
+
+//         scrollTrigger: {
+//           trigger: container,
+//           start: 'top top+=100', // Start the animation after the container appears
+//           // end: `bottom `,
+//           scrub: 0.5,
+//         },
+//       },
+//     )
+//   }
+// })
+
+// gsap.fromTo(
+//   '.dog-2 .card',
+//   { opacity: 0, y: -10 },
+//   {
+//     opacity: 1,
+//     y: 0,
+//     duration: 1,
+//     stagger: 0.1,
+//     scrollTrigger: {
+//       trigger: container,
+//       start: 'top bottom+=200', // Когда контейнер появится в центре экрана, анимация начнется
+//       end: 'bottom center',
+//       scrub: 0.5,
+//     },
+//   },
+// )

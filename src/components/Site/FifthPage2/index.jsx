@@ -39,7 +39,6 @@ function FifthPage2() {
     )
     return () => {
       ScrollTrigger.kill() // Clean up ScrollTriggers
-
       pin.kill()
     }
   }, [])

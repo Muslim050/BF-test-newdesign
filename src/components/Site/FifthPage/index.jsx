@@ -9,7 +9,7 @@ import HeadeYouTube from './HeadeYouTube.png'
 import video2 from 'src/assets/Site/FirstPage/Video/22.mp4'
 import video9 from 'src/assets/Site/FirstPage/Video/99.mp4'
 import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
-
+import m from './FifthPage.module.scss'
 import video3 from 'src/assets/Site/FirstPage/Video/33.mp4'
 import video11 from 'src/assets/Site/FirstPage/Video/1011.mp4'
 import video4 from 'src/assets/Site/FirstPage/Video/44.mp4'
@@ -69,6 +69,42 @@ function FifthPage() {
   }, [])
   //section2
 
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
   return (
     <section className="overflow-hidden" id="FifthPage">
       <div className=" ">
@@ -92,8 +128,11 @@ function FifthPage() {
                 'inset 0px 1px 1px rgba(216, 236, 248, 0.3), inset 0px 24px 48px rgba(168, 216, 245, 0.06)',
               borderRadius: '32px',
             }}
+            ref={cardRef}
             className="max-w-[1000px] w-full m-auto rounded-[32px] p-3 relative z-20 "
           >
+            <div ref={sparkleRef} className={m.sparkles} />
+
             <div className="">
               <img
                 loading="lazy"
@@ -102,9 +141,9 @@ function FifthPage() {
                 className="w-full rounded-t-[32px]"
               />
             </div>
-            <div className="py-5 flex flex-col gap-4 bg-black rounded-b-[32px] ">
+            <div className="py-5 flex flex-col gap-8 bg-black rounded-b-[32px] ">
               <div className="flex gap-4 justify-around flex-wrap">
-                <div className="w-[400px]">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video2}
@@ -123,7 +162,7 @@ function FifthPage() {
                     </div>
                   </div>
                 </div>
-                <div className="w-[400px]">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video9}
@@ -135,7 +174,7 @@ function FifthPage() {
                   ></video>{' '}
                   <div className="pt-4">
                     <div className="text-white text-[16px]">
-                      Honor 200 Рго инновации и стиль в каждом устройстве.
+                      Honor 200 Рго инновации в каждом устройстве.
                     </div>
                     <div className="text-[#909090] text-[14px]">
                       3м просмотров
@@ -144,7 +183,7 @@ function FifthPage() {
                 </div>
               </div>
               <div className="flex gap-4 justify-around flex-wrap">
-                <div className="w-[400px]">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video1}
@@ -163,7 +202,7 @@ function FifthPage() {
                     </div>
                   </div>
                 </div>
-                <div className="w-[400px] ">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video3}
@@ -185,7 +224,7 @@ function FifthPage() {
                 </div>{' '}
               </div>
               <div className="flex gap-4 justify-around flex-wrap">
-                <div className="w-[400px] ">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video11}
@@ -204,7 +243,7 @@ function FifthPage() {
                     </div>
                   </div>
                 </div>{' '}
-                <div className="w-[400px]">
+                <div className={`w-[400px] p-2 ${m.wrapperCard}`}>
                   <video
                     preload="none"
                     src={video4}

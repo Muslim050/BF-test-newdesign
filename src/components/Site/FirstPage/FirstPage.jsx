@@ -250,7 +250,7 @@ const FirstPage = () => {
             ref={swiperWRef} // добавляем ref здесь
             className={`
               animated-element
-              fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[25%] max-w-[1400px]`}
+              fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[23%] max-w-[1400px]`}
           >
             {' '}
             <div className="w-auto slider-container" ref={cardRef}>

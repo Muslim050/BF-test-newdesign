@@ -4,7 +4,7 @@ import m from './BuisnessModel.module.scss'
 import PageTitle from '../module/PageTitle'
 import RightForm from './RightForm'
 import LeftForm from './LeftForm'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
@@ -69,6 +69,42 @@ function SeventhPage() {
       )
     }
   }, [])
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
 
   return (
     // <section className="relative h-full" id="Монетизировать">
@@ -93,6 +129,7 @@ function SeventhPage() {
                 onValueChange={handleTabChange}
               >
                 <TabsList
+                  ref={cardRef}
                   className="grid w-full grid-cols-2 p-0  h-[50px] rounded-full"
                   style={{
                     background: 'rgba(2, 3, 8, 0.5)',
@@ -101,6 +138,8 @@ function SeventhPage() {
                     backdropFilter: 'blur(6px)',
                   }}
                 >
+                  <div ref={sparkleRef} className={m.sparkles} />
+
                   <TabsTrigger value="adv" className={m.tabs_trigger}>
                     Для рекламодателей
                   </TabsTrigger>

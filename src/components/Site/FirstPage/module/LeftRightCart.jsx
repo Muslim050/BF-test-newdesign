@@ -4,15 +4,87 @@ import video2 from 'src/assets/Site/FirstPage/Video/122.mp4'
 import prerollImage from '@/assets/Site/FirstPage/preroll.png'
 import mixrollImage from '@/assets/Site/FirstPage/mixroll.png'
 import LazyVideo from './LazyVideo'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import m from '../FirstPage.module.scss'
 
 const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
+  const sparkleRef = useRef(null)
+  const sparkleRef2 = useRef(null)
+
+  useEffect(() => {
+    const card = phoneLeftCart.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+  useEffect(() => {
+    const card = phoneRightCart.current
+    const sparkles = sparkleRef2.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
   return (
     <div
       className={`flex justify-between custom-845:justify-center items-center flex-wrap px-4 gap-4`}
     >
       <div
         ref={phoneLeftCart}
-        className={`
+        className={`${m.wrapperCard}
               custom-1100:bottom-0 bottom-52
               w-[400px] h-[500px]  z-10 p-7 flex flex-col justify-between`}
         style={{
@@ -24,6 +96,8 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
           borderRadius: '20px',
         }}
       >
+        <div ref={sparkleRef} className={m.sparkles} />
+
         <div
           style={{
             borderRadius: '20px',
@@ -66,7 +140,7 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
 
       <div
         ref={phoneRightCart}
-        className={`w-[400px] h-[500px] right-0 z-10 p-7 flex flex-col justify-between bottom-52 custom-1100:bottom-0`}
+        className={`${m.wrapperCard} w-[400px] h-[500px] right-0 z-10 p-7 flex flex-col justify-between bottom-52 custom-1100:bottom-0`}
         style={{
           background:
             'linear-gradient(0deg, rgba(186, 207, 247, 0.04), rgba(186, 207, 247, 0.04)), rgba(2, 3, 8, 0.8)',
@@ -76,6 +150,8 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
           borderRadius: '20px',
         }}
       >
+        <div ref={sparkleRef2} className={m.sparkles} />
+
         <div
           style={{
             borderRadius: '20px',

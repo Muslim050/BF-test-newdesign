@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import style from './BuisnessModel.module.scss'
 import { useForm } from 'react-hook-form'
 import Logo from '@/assets/Logo.png'
 import emailjs from 'emailjs-com'
+import { gsap } from 'gsap'
 
 function RightForm() {
   const [formData, setFormData] = useState({
@@ -39,11 +40,48 @@ function RightForm() {
         alert('Что то пошло не так!')
       })
   }
+  const cardRef = useRef(null)
+  const sparkleRef = useRef(null)
 
+  useEffect(() => {
+    const card = cardRef.current
+    const sparkles = sparkleRef.current
+
+    // Анимация при наведении
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e
+
+      gsap.to(sparkles, {
+        x: clientX - card.getBoundingClientRect().left,
+        y: clientY - card.getBoundingClientRect().top,
+        duration: 0.3,
+        ease: 'power3.out',
+        opacity: 1,
+      })
+    }
+
+    const handleMouseLeave = () => {
+      gsap.to(sparkles, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      })
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
   return (
     <div>
       <form id="contact-form" onSubmit={handleSubmit}>
-        <div>
+        <div ref={cardRef}>
+          <div ref={sparkleRef} className={style.sparkles} />
+
           <div
             className=" w-[400px] h-[550px] p-10	rounded-[20px] mt-6 "
             style={{

@@ -351,3 +351,17 @@
   border-radius: 500px;
   position: relative;
 }
+
+.sparkles {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(50px);
+  opacity: 0;
+  left: -100px;
+  top: -100px;
+}
