@@ -30,28 +30,31 @@ const PublisherAndUsers = () => {
     <div className="mb-4 mt-2">
       <Tabs defaultValue="pablisher">
         <div className="flex justify-between items-center flex-wrap gap-2">
-          <TabsList
-            className="grid grid-cols-2 w-[300px] h-auto rounded-[14px] mt-2 border_container"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.0289) 99.67%)',
-            }}
-          >
-            <TabsTrigger
-              onClick={() => setSelectedTab('pablisher')}
-              value="pablisher"
-              className="data-[state=active]:bg-brandPrimary-1 text-[12px] relative h-[25px] rounded-[12px]"
+          {user === 'admin' && (
+            <TabsList
+              className="grid grid-cols-2 w-[300px] h-auto rounded-[14px] mt-2 border_container"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.0289) 99.67%)',
+              }}
             >
-              Паблишеры
-            </TabsTrigger>
-            <TabsTrigger
-              onClick={() => setSelectedTab('pablisher-users')}
-              value="pablisher-users"
-              className=" data-[state=active]:bg-brandPrimary-1 text-[12px] relative h-[25px] rounded-[12px]"
-            >
-              Пользователи
-            </TabsTrigger>
-          </TabsList>
+              <TabsTrigger
+                onClick={() => setSelectedTab('pablisher')}
+                value="pablisher"
+                className="data-[state=active]:bg-brandPrimary-1 text-[12px] relative h-[25px] rounded-[12px]"
+              >
+                Паблишеры
+              </TabsTrigger>
+              <TabsTrigger
+                onClick={() => setSelectedTab('pablisher-users')}
+                value="pablisher-users"
+                className=" data-[state=active]:bg-brandPrimary-1 text-[12px] relative h-[25px] rounded-[12px]"
+              >
+                Пользователи
+              </TabsTrigger>
+            </TabsList>
+          )}
+
           {selectedTab === 'pablisher' && (
             <div className="flex justify-end ">
               {user === 'publisher' ? (
