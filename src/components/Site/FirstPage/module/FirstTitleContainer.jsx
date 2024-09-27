@@ -72,7 +72,7 @@ const FirstTitleContainer = ({
           видеоконтент.{' '}
         </p>
       </div>
-      <div className="relative inline-block gap-5 items-center ">
+      <div className="relative sm:inline-block flex justify-center  gap-5 items-center ">
         <div ref={sparkleRef} className={m.sparklesBTN} />
         <div ref={cardRef}>
           <a
@@ -86,11 +86,11 @@ const FirstTitleContainer = ({
                 'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
               backdropFilter: 'blur(6px)',
             }}
-            className={`${m.hover_with_before} mr-5 w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex `}
+            className={`${m.hover_with_before} mr-5 sm:w-[230px] w-auto h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex `}
           >
             <div
               // ref={cardRef}
-              className="text-white text-sm sm:text-base  font-normal leading-relaxed"
+              className="text-white text-xs sm:text-base  font-normal leading-relaxed"
             >
               Заказать рекламу
             </div>
@@ -106,9 +106,9 @@ const FirstTitleContainer = ({
                 'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
               backdropFilter: 'blur(6px)',
             }}
-            className={`${m.hover_with_before}  w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex`}
+            className={`${m.hover_with_before}  sm:w-[230px] w-auto h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex`}
           >
-            <div className="text-white text-sm sm:text-base  font-normal leading-relaxed">
+            <div className="text-white text-xs sm:text-base  font-normal leading-relaxed">
               Монетизировать
             </div>
           </a>

@@ -74,10 +74,11 @@ const ContactForm = () => {
   return (
     <div>
       <form id="contact-form" onSubmit={handleSubmit}>
-        <div ref={cardRef}>
+        <div className="relative">
           <div ref={sparkleRef} className={style.sparkles} />
 
           <div
+            ref={cardRef}
             className=" w-[400px] h-[550px] p-10	rounded-[20px] mt-6 "
             style={{
               background:

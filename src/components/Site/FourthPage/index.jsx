@@ -157,11 +157,11 @@ const FourthPage = () => {
         ></video>
 
         <PageTitle title={'По рекламе для успеха на YouTube'} />
-        <div alt="" className="dog-1 absolute w-full h-full bg-[#05060b]  ">
-          <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
-          <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10 " />
+        <div alt="" className="dog-1 absolute w-full h-full  ">
           {/* <SetkaSvg className="absolute top-0 left-0 w-[100%] z-10" /> */}
-          <div alt="" className="absolute w-full h-full bg-[#05060b]  ">
+          <div alt="" className="absolute w-full h-full    ">
+            <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
+            <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10 " />
             <video
               src={Video}
               autoPlay
@@ -170,7 +170,7 @@ const FourthPage = () => {
               playsInline
               className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
             ></video>
-            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#020308] text-[80px] flex justify-center flex-col items-center ">
+            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#05060a] text-[80px] flex justify-center flex-col items-center ">
               Brandformance
             </div>
           </div>
