@@ -52,7 +52,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     const token = Cookies.get('token')
     const url = `${backendURL}/publisher/channel${
       publisherID ? `?publisher_id=${publisherID}` : ''
-    }/`
+    }`
 
     try {
       const response = await axios.get(url, {
@@ -62,9 +62,10 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-
       setChannelModal(response.data.data)
     } catch (error) {
+      console.log(error)
+
       console.error('Error fetching channel data:', error)
       // Обработка ошибок
     }

@@ -53,8 +53,7 @@ const PopoverButtons = ({
     setOpen(false)
   }
   // Модальное окно OrderModal
-  const { textColor } = React.useContext(ThemeContext)
-  console.log(textColor)
+  // const { textColor } = React.useContext(ThemeContext)
 
   return (
     <div
