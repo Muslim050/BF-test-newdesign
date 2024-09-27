@@ -72,43 +72,47 @@ const FirstTitleContainer = ({
           видеоконтент.{' '}
         </p>
       </div>
-      <div ref={cardRef} className="block gap-5 items-center ">
+      <div className="relative inline-block gap-5 items-center ">
         <div ref={sparkleRef} className={m.sparklesBTN} />
-
-        <a
-          href="#Монетизировать"
-          ref={button1Ref}
-          style={{
-            background:
-              'linear-gradient(177.96deg, rgba(2, 3, 8, 0) -16.56%, rgba(255, 255, 255, 0.1) 108%)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow:
-              'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
-            backdropFilter: 'blur(6px)',
-          }}
-          className={`${m.hover_with_before} mr-5 w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex `}
-        >
-          <div className="text-white text-sm sm:text-base  font-normal font-['Helvetica Neue'] leading-relaxed">
-            Заказать рекламу
-          </div>
-        </a>
-        <a
-          href="#Монетизировать"
-          ref={button2Ref}
-          style={{
-            background:
-              'linear-gradient(177.96deg, rgba(2, 3, 8, 0) -16.56%, rgba(255, 255, 255, 0.1) 108%)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow:
-              'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
-            backdropFilter: 'blur(6px)',
-          }}
-          className={`${m.hover_with_before}  w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex`}
-        >
-          <div className="text-white text-sm sm:text-base  font-normal font-['Helvetica Neue'] leading-relaxed">
-            Монетизировать
-          </div>
-        </a>
+        <div ref={cardRef}>
+          <a
+            href="#Монетизировать"
+            ref={button1Ref}
+            style={{
+              background:
+                'linear-gradient(177.96deg, rgba(2, 3, 8, 0) -16.56%, rgba(255, 255, 255, 0.1) 108%)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow:
+                'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(6px)',
+            }}
+            className={`${m.hover_with_before} mr-5 w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex `}
+          >
+            <div
+              // ref={cardRef}
+              className="text-white text-sm sm:text-base  font-normal leading-relaxed"
+            >
+              Заказать рекламу
+            </div>
+          </a>
+          <a
+            href="#Монетизировать"
+            ref={button2Ref}
+            style={{
+              background:
+                'linear-gradient(177.96deg, rgba(2, 3, 8, 0) -16.56%, rgba(255, 255, 255, 0.1) 108%)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow:
+                'inset 0px 0.6px 0px rgba(255, 255, 255, 0.1), inset 0px 1.2px 0px rgba(255, 255, 255, 0.1), inset -1.2px 0px 0px rgba(255, 255, 255, 0.04), inset 1.2px 0px 0px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(6px)',
+            }}
+            className={`${m.hover_with_before}  w-[230px] h-[50px] sm:px-[30px] px-[10px] py-[15px]  rounded-[500px]  justify-center items-center gap-2.5 inline-flex`}
+          >
+            <div className="text-white text-sm sm:text-base  font-normal leading-relaxed">
+              Монетизировать
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   )
