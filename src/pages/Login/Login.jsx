@@ -37,7 +37,7 @@ function Login() {
       login: '',
       password: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const handleTogglePasswordOld = () => {

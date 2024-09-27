@@ -64,8 +64,6 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
       })
       setChannelModal(response.data.data)
     } catch (error) {
-      console.log(error)
-
       console.error('Error fetching channel data:', error)
       // Обработка ошибок
     }
