@@ -24,22 +24,24 @@ const AdvertiserTable = () => {
       ) : (
         <div>
           <div
-            className={`border_container rounded-[22px] p-[3px]  glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {advertisers.length ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-              >
-                {/*Столбцы таблицы*/}
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <AdvertiserTableRows />
-                </TableHeader>
-                {/*Столбцы таблицы*/}
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  {/*Столбцы таблицы*/}
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <AdvertiserTableRows />
+                  </TableHeader>
+                  {/*Столбцы таблицы*/}
 
-                <TableBody>
-                  <AdvertiserTableData advertisers={advertisers} />
-                </TableBody>
-              </Table>
+                  <TableBody>
+                    <AdvertiserTableData advertisers={advertisers} />
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
               <div className="empty_list">
                 Список пустой. Добавьте Рекламодателя!

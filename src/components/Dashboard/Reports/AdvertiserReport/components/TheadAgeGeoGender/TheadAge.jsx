@@ -9,7 +9,7 @@ function TheadAge({ statistic }) {
 
   const result = findVideoWithThreeGenders(statistic)
   const uniqueAge = Array.from(
-    new Set(result.age_group_percentages.map((gen) => gen.age_group)),
+    new Set(result?.age_group_percentages.map((gen) => gen.age_group)),
   )
 
   return (

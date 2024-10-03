@@ -5,12 +5,12 @@ import FormatterView from 'src/components/Labrery/formatter/FormatterView'
 import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet'
 import Cookies from 'js-cookie'
 
-export function InfoCardsTop({ getOrder }) {
+export function InfoCardsTop({ orderData }) {
   const { id } = useParams()
   const user = Cookies.get('role')
 
   let adasdas = 0
-  adasdas += getOrder.budget
+  adasdas += orderData.budget
 
   return (
     <div className="flex ">
@@ -21,13 +21,13 @@ export function InfoCardsTop({ getOrder }) {
       <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	 items-center px-6	">
         План
         <div className="text-base text-white">
-          {getOrder.status === 'in_progress' ? (
+          {orderData.status === 'in_progress' ? (
             <div className={style.infoCart__text}>
-              <FormatterView data={getOrder.expected_number_of_views} />
+              <FormatterView data={orderData.expected_number_of_views} />
             </div>
           ) : (
             <div className={style.infoCart__text}>
-              <FormatterView data={getOrder.online_views} />
+              <FormatterView data={orderData.online_views} />
             </div>
           )}
         </div>
@@ -37,8 +37,8 @@ export function InfoCardsTop({ getOrder }) {
         Бюджет
         <div className="text-base text-white ">
           <FormatterBudjet
-            budget={getOrder.budget}
-            data={getOrder.expected_start_date}
+            budget={orderData.budget}
+            data={orderData.expected_start_date}
           />
         </div>
       </div>
@@ -50,7 +50,7 @@ export function InfoCardsBottom({
   totalViews,
   totalBudget,
   totalAnalitickView,
-  getOrder,
+  orderData,
   totalData,
 }) {
   const LorealBudjet = totalData.find((item) => item.budget === 11899087.5)
@@ -78,7 +78,7 @@ export function InfoCardsBottom({
       {/*  <div className={style.infoCards_bottom_th__toptext}>*/}
       {/*    Остаток*/}
       {/*    <div className={style.infoCards_bottom_th__bottomtext}>*/}
-      {/*      {getOrder.status === 'in_progress' ? (*/}
+      {/*      {orderData.status === 'in_progress' ? (*/}
       {/*        <FormatterView*/}
       {/*          data={getOrder.expected_number_of_views - getOrder.online_views}*/}
       {/*        />*/}

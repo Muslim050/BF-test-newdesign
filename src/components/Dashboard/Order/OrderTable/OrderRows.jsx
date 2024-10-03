@@ -3,7 +3,7 @@ import { TableHead, TableRow } from 'src/components/ui/table'
 import Cookies from 'js-cookie'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
-function OrderRows({ data, sort, sortKey, changeSort }) {
+function OrderRows({ data }) {
   const user = Cookies.get('role')
   const { textColor } = React.useContext(ThemeContext)
 
@@ -32,19 +32,19 @@ function OrderRows({ data, sort, sortKey, changeSort }) {
     <>
       <TableRow>
         {headers.map((row) => {
-          const showStatusColumn = user !== 'admin'
-          const showAdvColumn = user !== 'advertising_agency' || 'advertiser'
+          // const showStatusColumn = user !== 'admin'
+          // const showAdvColumn = user !== 'advertising_agency' || 'advertiser'
 
-          if (row.key === 'is_connected' && !showStatusColumn) {
-            return null
-          }
+          // if (row.key === 'is_connected' && !showStatusColumn) {
+          //   return null
+          // }
 
-          if (row.key === 'porog' && !row.visible) {
-            return null // Пропускать невидимую колонку "порог"
-          }
-          if (row.key === 'deistvia' && !showAdvColumn) {
-            return null // Пропускать невидимую колонку "порог"
-          }
+          // if (row.key === 'porog' && !row.visible) {
+          //   return null // Пропускать невидимую колонку "порог"
+          // }
+          // if (row.key === 'deistvia' && !showAdvColumn) {
+          //   return null // Пропускать невидимую колонку "порог"
+          // }
 
           return (
             <TableHead key={row.key} className={`text-${textColor}`}>

@@ -189,7 +189,7 @@ function Sidebar() {
           </div>
           <div className="flex gap-x-4 items-center">
             <div className="flex items-center">
-              <div className="relative w-[56px] h-[56px] rounded-full bg-slate-950"></div>
+              <div className="relative w-[56px] h-[56px] rounded-full bg-[var(--bg-color)]"></div>
               <img
                 loading="lazy"
                 src={Logo}

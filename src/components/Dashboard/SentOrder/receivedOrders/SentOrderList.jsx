@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/popover.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Copy } from 'lucide-react'
+import backendURL from 'src/utils/url'
 
 import { PackagePlus } from 'lucide-react'
 import { hasRole } from '../../../../utils/roleUtils'
@@ -90,7 +91,7 @@ function SentOrderList({ listsentPublisher }) {
               className={`font-normal text-${textColor} text-sm `}
             >
               <a
-                href={item.promo_file}
+                href={`${backendURL}/media/${item.promo_file}`}
                 target="_blank"
                 className='text-[#A7CCFF] underline hover:text-[#3e8bf4]"'
                 rel="noreferrer"

@@ -286,10 +286,10 @@ function AdvertiserReportTable() {
             </div>
           </div>
           <div
-            className={`border_container rounded-[22px] p-[3px] glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {data && data.length ? (
-              <>
+              <div className="h-full overflow-y-auto">
                 <Table
                   className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
                 >
@@ -337,7 +337,7 @@ function AdvertiserReportTable() {
                   />
                 </div>
                 {/* Ячейки с инфо Итого:	 */}
-              </>
+              </div>
             ) : (
               <div className="flex items-center gap-2 justify-center h-[200px] 	">
                 Установите фильтр для отображения данных!

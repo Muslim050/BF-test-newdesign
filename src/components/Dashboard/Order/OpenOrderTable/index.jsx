@@ -85,7 +85,7 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
             <TabsContent
               value="inventory"
               style={{ background: 'var(--bg-color)' }}
-              className="rounded-[22px]"
+              className="rounded-[22px] "
             >
               <AddInventory
                 getOrder={getOrder}

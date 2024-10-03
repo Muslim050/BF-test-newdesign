@@ -57,31 +57,36 @@ const ReceivedOrders = () => {
         <div className="tableWrapper" style={{ overflow: 'visible' }}>
           <div
             // style={{ background: ' var(--bg-color)' }}
-            className={`border_container rounded-[22px] p-[3px] glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
-            <Table
-              className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-            >
-              <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                <TableRow>
-                  {headers.map((row) => {
-                    const user = Cookies.get('role')
-                    const showStatusColumn = user !== 'admin'
-                    if (row.key === 'is_connected' && !showStatusColumn) {
-                      return null
-                    }
-                    return (
-                      <TableHead key={row.key} className={`text-${textColor} `}>
-                        {row.label}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <SentOrderList listsentPublisher={listsentPublisher} />
-              </TableBody>
-            </Table>
+            <div className="h-full overflow-y-auto">
+              <Table
+                className={`${style.responsive_table} border_design rounded-lg h-full`}
+              >
+                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                  <TableRow>
+                    {headers.map((row) => {
+                      const user = Cookies.get('role')
+                      const showStatusColumn = user !== 'admin'
+                      if (row.key === 'is_connected' && !showStatusColumn) {
+                        return null
+                      }
+                      return (
+                        <TableHead
+                          key={row.key}
+                          className={`text-${textColor} `}
+                        >
+                          {row.label}
+                        </TableHead>
+                      )
+                    })}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <SentOrderList listsentPublisher={listsentPublisher} />
+                </TableBody>
+              </Table>
+            </div>
           </div>
         </div>
       )}

@@ -32,7 +32,6 @@ function OrderChart() {
     handleClear,
     dataFiltered,
     orderData,
-    getOrder,
     setStartDate,
     setEndDate,
     loading,
@@ -81,19 +80,19 @@ function OrderChart() {
                 </Link>
                 {/* </Button> */}
                 <div className="text-lg	text-white flex">
-                  <div>{getOrder.name}</div>
+                  <div>{orderData?.name}</div>
                   &nbsp; / &nbsp;
-                  <div>{getOrder.advertiser.name}</div>
+                  <div>{orderData?.advertiser?.name}</div>
                 </div>
-                {getOrder.target_country && (
+                {orderData.target_country && (
                   <div
                     className={`rounded-[6px] px-1 py-1 text-[16px]  ${
-                      getOrder.target_country
+                      orderData.target_country
                         ? 'bg-[#606afc]'
                         : 'bg-transparent'
                     }`}
                   >
-                    {getOrder.target_country}
+                    {orderData.target_country}
                   </div>
                 )}
               </div>
@@ -136,7 +135,7 @@ function OrderChart() {
                         Выберите необходимые параметры
                       </p>
                       <FilteredTooltip
-                        getOrder={getOrder}
+                        orderData={orderData}
                         handleDateStatictick={handleDateStatictick}
                         startDate={startDate}
                         setStartDate={setStartDate}
@@ -159,7 +158,7 @@ function OrderChart() {
                   <div className="w-2.5	h-6	bg-[#D1C5FF] rounded-[4px]"></div>
                   <h4 className="font-medium text-white">Отчет</h4>
                   <div className="bg-[#ffffff3d] rounded-[22px]	p-2">
-                    <InfoCardsTop getOrder={getOrder} />
+                    <InfoCardsTop orderData={orderData} />
                   </div>
                 </div>
               </div>
@@ -218,7 +217,6 @@ function OrderChart() {
 
             {/* Ячейки с инфо Итого:*/}
             <InfoCartButton
-              getOrder={getOrder}
               orderData={orderData}
               totalViews={totalViews}
               totalBudget={totalBudget}

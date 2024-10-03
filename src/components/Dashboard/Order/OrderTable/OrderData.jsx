@@ -8,7 +8,7 @@ import {
 import OpenOrderTable from '../OpenOrderTable/index.jsx'
 import FormatterBudjet from '../../../Labrery/formatter/FormatterBudjet'
 import { TableCell, TableRow } from 'src/components/ui/table'
-
+import m from './OrderTable.module.scss'
 import {
   Tooltip,
   TooltipContent,
@@ -89,20 +89,20 @@ function OrderData({ data }) {
   React.useEffect(() => {
     fetchOrder()
   }, [dispatch])
-  const redirectToTariffDetails = React.useCallback(
-    (advert) => {
-      navigate(`/chart-order-table/${advert.id}`, { state: { advert } })
-    },
-    [navigate],
-  )
-  // const redirectToTariffDetails = React.useCallback((advert) => {
-  //   const url = `/chart-order-table/${advert.id}`
-  //   window.open(url, '_blank', 'noopener,noreferrer') // Открыть в новом окне
-  // }, [])
+  // const redirectToTariffDetails = React.useCallback(
+  //   (advert) => {
+  //     navigate(`/chart-order-table/${advert.id}`, { state: { advert } })
+  //   },
+  //   [navigate],
+  // )
+  const redirectToTariffDetails = React.useCallback((advert) => {
+    const url = `/chart-order-table/${advert.id}`
+    window.open(url, '_blank', 'noopener,noreferrer') // Открыть в новом окне
+  }, [])
 
   return (
     <>
-      {data.map((advert, i) => {
+      {data?.map((advert, i) => {
         const isFinishing = finishingOrderId === advert.id // Проверяем, завершение или загрузка
 
         return (
@@ -114,7 +114,7 @@ function OrderData({ data }) {
                 </span>
               </div>
             )}
-            <TableRow key={i} className="relative">
+            <TableRow key={advert.id} className="relative">
               <TableCell
                 data-label="ID"
                 className={`font-normal text-${textColor} text-sm `}
@@ -135,7 +135,7 @@ function OrderData({ data }) {
                 </div>
               </TableCell>
               <TableCell
-                className={`font-normal text-${textColor} text-sm `}
+                className={`${m.table_td}font-normal text-${textColor} text-sm `}
                 data-label="Кампания"
               >
                 {role === 'admin' ? (
@@ -423,7 +423,7 @@ function OrderData({ data }) {
               hasRole('advertising_agency') ? (
                 <TableCell
                   className={`font-normal text-${textColor} text-sm `}
-                  style={{ width: '0' }}
+                  data-label="Действия"
                 >
                   <PopoverButtons
                     advert={advert}
@@ -439,7 +439,7 @@ function OrderData({ data }) {
               <TableRow>
                 <TableCell
                   colSpan="12"
-                  className="p-3 rounded-b-[22px]	 bg-white bg-opacity-30 backdrop-blur-md"
+                  className={`${m.dopTable} p-3 rounded-b-[22px] !h-auto	 bg-white bg-opacity-30 backdrop-blur-md`}
                 >
                   <OpenOrderTable
                     expandedRows={expandedRows}

@@ -3,7 +3,7 @@ import AdvertStatus from 'src/components/Labrery/AdvertStatus/AdvertStatus.jsx'
 import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet.jsx'
 import React from 'react'
 
-const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
+const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
   return (
     <div className="flex  justify-center h-[80px]">
       <div
@@ -27,7 +27,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
               <div className="text-base">
                 <FormatterView
                   data={
-                    getOrder.expected_number_of_views - getOrder.online_views
+                    orderData.expected_number_of_views - orderData.online_views
                   }
                 />
               </div>
@@ -45,7 +45,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
                 endDate={orderData.actual_end_date}
                 className="h-full rounded-[22px]"
               >
-                {getOrder.status === 'in_progress' ? (
+                {orderData.status === 'in_progress' ? (
                   <div
                     style={{
                       display: 'flex',
@@ -55,8 +55,8 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
                       borderRadius: '7px',
                       background: (() => {
                         const ratie = Math.floor(
-                          (getOrder.online_views /
-                            getOrder.expected_number_of_views) *
+                          (orderData.online_views /
+                            orderData.expected_number_of_views) *
                             100,
                         )
 
@@ -74,8 +74,8 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
 
                       color: (() => {
                         const ratio = Math.floor(
-                          (getOrder.online_views /
-                            getOrder.expected_number_of_views) *
+                          (orderData.online_views /
+                            orderData.expected_number_of_views) *
                             100,
                         )
                         if (ratio >= 100) {
@@ -91,10 +91,10 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
                       })(),
                     }}
                   >
-                    {getOrder.online_views > 0 &&
+                    {orderData.online_views > 0 &&
                       Math.floor(
-                        (getOrder.online_views /
-                          getOrder.expected_number_of_views) *
+                        (orderData.online_views /
+                          orderData.expected_number_of_views) *
                           100,
                       ) +
                         ' ' +
@@ -109,7 +109,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
                 //     borderRadius: '7px',
                 //     background: (() => {
                 //       const ratie = Math.floor(
-                //         (totalViews / getOrder.online_views) * 100,
+                //         (totalViews / orderData.online_views) * 100,
                 //       )
 
                 //       if (ratie >= 100) {
@@ -126,7 +126,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
 
                 //     color: (() => {
                 //       const ratio = Math.floor(
-                //         (totalViews / getOrder.online_views) * 100,
+                //         (totalViews / orderData.online_views) * 100,
                 //       )
                 //       if (ratio >= 100) {
                 //         return '#f8f8f8'
@@ -142,7 +142,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
                 //   }}
                 // >
                 //   {totalViews > 0 &&
-                //     Math.floor((totalViews / getOrder.online_views) * 100) +
+                //     Math.floor((totalViews / orderData.online_views) * 100) +
                 //       ' ' +
                 //       '%'}
                 // </div>
@@ -176,7 +176,7 @@ const InfoCartButton = ({ getOrder, orderData, totalBudget, totalViews }) => {
               <div className="text-base">
                 <FormatterBudjet
                   budget={totalBudget}
-                  // data={getOrder.expected_start_date}
+                  // data={orderData.expected_start_date}
                 />
               </div>
             </div>

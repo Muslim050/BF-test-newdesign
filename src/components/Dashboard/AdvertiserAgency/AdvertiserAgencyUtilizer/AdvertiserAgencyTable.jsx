@@ -71,88 +71,92 @@ function AdvertiserAgencyTable() {
       ) : (
         <div className="tableWrapper">
           <div
-            className={`border_container rounded-[22px] p-[3px]  glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {advertiserAgency.length ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <TableRow>
-                    {headers.map((row) => {
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <TableRow>
+                      {headers.map((row) => {
+                        return (
+                          <TableHead
+                            key={row.key}
+                            className={`text-${textColor}`}
+                          >
+                            {row.label}
+                          </TableHead>
+                        )
+                      })}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {advertiserAgency.map((advert, i) => {
                       return (
-                        <TableHead
-                          key={row.key}
-                          className={`text-${textColor}`}
-                        >
-                          {row.label}
-                        </TableHead>
+                        <>
+                          <TableRow key={advert.id}>
+                            <TableCell
+                              data-label="ID"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              {i + 1}
+                            </TableCell>
+                            <TableCell
+                              data-label="Наименование Компании"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              {advert.name}
+                            </TableCell>
+                            <TableCell
+                              data-label="Email"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              {advert.email}
+                            </TableCell>
+                            <TableCell
+                              data-label="Номер телефона	"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              <FormatterPhone
+                                phoneNumber={advert.phone_number}
+                              />
+                            </TableCell>
+                            <TableCell
+                              data-label="ID"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              {advert.commission_rate === 0 ? (
+                                'Нет комиссии'
+                              ) : (
+                                <>{advert.commission_rate} %</>
+                              )}
+                            </TableCell>
+                            <TableCell
+                              data-label="Комиссия %	"
+                              className={`font-normal text-${textColor} text-sm `}
+                            >
+                              {role === 'admin' ? (
+                                <Button
+                                  variant="link"
+                                  onClick={() => {
+                                    setCurrentAdv(advert)
+                                    setEditOpen(!editOpen)
+                                  }}
+                                  className={`hover:scale-125 transition-all p-0 text-${textColor}`}
+                                >
+                                  <EditSvg className="w-[24px] h-[24px]  hover:text-orange-500" />
+                                </Button>
+                              ) : null}
+                            </TableCell>
+                          </TableRow>
+                        </>
                       )
                     })}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {advertiserAgency.map((advert, i) => {
-                    return (
-                      <>
-                        <TableRow key={advert.id}>
-                          <TableCell
-                            data-label="ID"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            {i + 1}
-                          </TableCell>
-                          <TableCell
-                            data-label="Наименование Компании"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            {advert.name}
-                          </TableCell>
-                          <TableCell
-                            data-label="Email"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            {advert.email}
-                          </TableCell>
-                          <TableCell
-                            data-label="Номер телефона	"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            <FormatterPhone phoneNumber={advert.phone_number} />
-                          </TableCell>
-                          <TableCell
-                            data-label="ID"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            {advert.commission_rate === 0 ? (
-                              'Нет комиссии'
-                            ) : (
-                              <>{advert.commission_rate} %</>
-                            )}
-                          </TableCell>
-                          <TableCell
-                            data-label="Комиссия %	"
-                            className={`font-normal text-${textColor} text-sm `}
-                          >
-                            {role === 'admin' ? (
-                              <Button
-                                variant="link"
-                                onClick={() => {
-                                  setCurrentAdv(advert)
-                                  setEditOpen(!editOpen)
-                                }}
-                                className={`hover:scale-125 transition-all p-0 text-${textColor}`}
-                              >
-                                <EditSvg className="w-[24px] h-[24px]  hover:text-orange-500" />
-                              </Button>
-                            ) : null}
-                          </TableCell>
-                        </TableRow>
-                      </>
-                    )
-                  })}
-                </TableBody>
-              </Table>
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
               <div className="empty_list">
                 Список пустой. Добавьте рекламное агентство!

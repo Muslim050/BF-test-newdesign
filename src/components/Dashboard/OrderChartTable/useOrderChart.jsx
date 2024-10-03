@@ -3,11 +3,16 @@ import { toast } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { fetchStatistics } from '../../../redux/statisticsSlice'
 import { useLocation, useParams } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import backendURL from '@/utils/url.js'
+import axios from 'axios'
 
 export const useOrderChart = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const { id } = useParams()
+  console.log('asdasdasd', id)
+
   const [open, setOpen] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
 
@@ -17,8 +22,30 @@ export const useOrderChart = () => {
   const [dataFiltered, setDataFiltered] = React.useState(false)
   //фильтрация по дате
 
-  const orderData = location.state?.advert || {}
-  const [getOrder] = React.useState(orderData)
+  // const orderData = location.state?.advert || {}
+  const [orderData, setOrderData] = React.useState([])
+  console.log(orderData)
+
+  React.useEffect(() => {
+    const fetchOrderId = async () => {
+      const token = Cookies.get('token')
+      const response = await axios.get(
+        `${backendURL}/order/${id}/`,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      console.log(response)
+
+      setOrderData(response.data.data)
+    }
+    fetchOrderId()
+  }, [id])
 
   //Получение отчета
   React.useEffect(() => {
@@ -31,25 +58,38 @@ export const useOrderChart = () => {
         setLoading(false)
         toast.error(error?.data?.error?.detail)
       })
-  }, [dispatch])
+  }, [dispatch, id])
   //Получение отчета
 
   //Дата
   React.useEffect(() => {
-    const startDateObj = new Date(orderData.expected_start_date)
-    const endDateObj = orderData.actual_end_date
-      ? new Date(orderData.actual_end_date)
-      : new Date(orderData.expected_end_date)
+    const startDateObj = orderData?.expected_start_date
+      ? new Date(orderData.expected_start_date)
+      : null
 
-    const minDate = startDateObj?.toISOString().split('T')[0]
-    const maxDate = endDateObj?.toISOString().split('T')[0]
+    const endDateObj = orderData?.actual_end_date
+      ? new Date(orderData.actual_end_date)
+      : orderData?.expected_end_date
+      ? new Date(orderData.expected_end_date)
+      : null
+
+    const minDate =
+      startDateObj && !isNaN(startDateObj.getTime())
+        ? startDateObj.toISOString().split('T')[0]
+        : ''
+
+    const maxDate =
+      endDateObj && !isNaN(endDateObj.getTime())
+        ? endDateObj.toISOString().split('T')[0]
+        : ''
 
     setStartDate(minDate)
     setEndDate(maxDate)
   }, [
-    orderData.expected_start_date,
-    orderData.expected_end_date,
-    orderData.actual_end_date,
+    id,
+    orderData?.expected_start_date,
+    orderData?.expected_end_date,
+    orderData?.actual_end_date,
   ])
   //Дата
 
@@ -77,10 +117,10 @@ export const useOrderChart = () => {
   const handleClear = () => {
     setDataFiltered(false)
 
-    const startDateObj = new Date(orderData.expected_start_date)
-    const endDateObj = orderData.actual_end_date
-      ? new Date(orderData.actual_end_date)
-      : new Date(orderData.expected_end_date)
+    const startDateObj = new Date(orderData?.expected_start_date)
+    const endDateObj = orderData?.actual_end_date
+      ? new Date(orderData?.actual_end_date)
+      : new Date(orderData?.expected_end_date)
 
     const minDate = startDateObj.toISOString().split('T')[0]
     const maxDate = endDateObj.toISOString().split('T')[0]
@@ -132,7 +172,6 @@ export const useOrderChart = () => {
     handleClear,
     dataFiltered,
     orderData,
-    getOrder,
     setStartDate,
     startDate,
     setEndDate,

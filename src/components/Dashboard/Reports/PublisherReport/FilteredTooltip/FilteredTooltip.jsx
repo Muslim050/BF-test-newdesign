@@ -76,7 +76,7 @@ function FilteredTooltip({
               value={selectedOptionPublisher} // Используйте ID, а не имя, для value
               onChange={handleSelectChangePablisher}
               style={{ width: '100%' }}
-              className={style.input}
+              className={`${style.input} bg-white bg-opacity-30 backdrop-blur-md`}
             >
               <option value="">Выберите паблишера</option>
               {publisher.map((option) => (
@@ -124,6 +124,7 @@ function FilteredTooltip({
           style={{
             display: 'flex',
             flexDirection: 'column',
+            color: 'var(--text-color )',
           }}
         >
           <Label htmlFor="terms" style={{ color: 'var(--text-color )' }}>
@@ -136,7 +137,7 @@ function FilteredTooltip({
             dateFormat="MM/yyyy"
             showMonthYearPicker
             showFullMonthYearPicker
-            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full text-white"
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full text-sm"
             // disabled={!!dateRange[0] || !!dateRange[1]}
             locale={ru}
           />
@@ -146,6 +147,7 @@ function FilteredTooltip({
           style={{
             display: 'flex',
             flexDirection: 'column',
+            color: 'var(--text-color )',
           }}
           className="w-full"
         >
@@ -156,7 +158,7 @@ function FilteredTooltip({
           <DatePicker
             selected={endDate}
             onChange={handleEndDateChange}
-            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full"
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full text-sm"
             dateFormat="dd-MM-yyyy"
             disabled={!!startDateMonth || !!endDateMonth} // Здесь используется приведение dateRange к булевому типу
           />

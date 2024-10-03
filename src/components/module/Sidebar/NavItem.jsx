@@ -33,47 +33,90 @@ const NavItem = ({ item, open, setOpen }) => {
 
   return (
     <div>
-      <Link
-        to={item.to}
-        className={`justify-between hover:scale-105 transition-all ${baseStyles} ${
-          isActive ? activeStyles : inactiveStyles
-        }`}
-        onClick={item.accordion ? toggleSubMenu : null}
-      >
-        <div className="flex items-center relative ">
-          {/*<item.icon className="text-white w-[26px] h-[26px]" />*/}
-          <item.icon
-            style={{ color: textColor }}
-            className={` w-[26px] h-[26px]`}
-          />
+      {item.to ? (
+        <Link
+          to={item.to}
+          className={`justify-between hover:scale-105 transition-all ${baseStyles} ${
+            isActive ? activeStyles : inactiveStyles
+          }`}
+          onClick={item.accordion ? toggleSubMenu : null}
+        >
+          <div className="flex items-center relative ">
+            {/*<item.icon className="text-white w-[26px] h-[26px]" />*/}
+            <item.icon
+              style={{ color: textColor }}
+              className={` w-[26px] h-[26px]`}
+            />
 
-          {open ? (
-            <span
-              className={` ml-3.5 transition-opacity duration-500 ease-in-out ${
-                open ? 'opacity-100 visible' : 'opacity-0 invisible '
-              }`}
-              style={{
-                transitionDelay: open ? '0.3s' : '0s',
-                color: textColor,
-              }}
-            >
-              {item.label}
-            </span>
-          ) : null}
+            {open ? (
+              <span
+                className={` ml-3.5 transition-opacity duration-500 ease-in-out ${
+                  open ? 'opacity-100 visible' : 'opacity-0 invisible '
+                }`}
+                style={{
+                  transitionDelay: open ? '0.3s' : '0s',
+                  color: textColor,
+                }}
+              >
+                {item.label}
+              </span>
+            ) : null}
+          </div>
+          {item.accordion &&
+            (isSubMenuOpen ? (
+              <ChevronUp style={{ color: textColor }} />
+            ) : (
+              <ChevronDown style={{ color: textColor }} />
+            ))}
+
+          {!open && (
+            <TooltipContent side={'right'} className="ml-2" sideOffset={0}>
+              <p className={`text-${textColor}`}>{item.label}</p>
+            </TooltipContent>
+          )}
+        </Link>
+      ) : (
+        <div
+          className={`justify-between hover:scale-105 transition-all ${baseStyles} ${
+            isActive ? activeStyles : inactiveStyles
+          }`}
+          onClick={item.accordion ? toggleSubMenu : null}
+        >
+          <div className="flex items-center relative ">
+            {/*<item.icon className="text-white w-[26px] h-[26px]" />*/}
+            <item.icon
+              style={{ color: textColor }}
+              className={` w-[26px] h-[26px]`}
+            />
+
+            {open ? (
+              <span
+                className={` ml-3.5 transition-opacity duration-500 ease-in-out ${
+                  open ? 'opacity-100 visible' : 'opacity-0 invisible '
+                }`}
+                style={{
+                  transitionDelay: open ? '0.3s' : '0s',
+                  color: textColor,
+                }}
+              >
+                {item.label}
+              </span>
+            ) : null}
+          </div>
+          {item.accordion &&
+            (isSubMenuOpen ? (
+              <ChevronUp style={{ color: textColor }} />
+            ) : (
+              <ChevronDown style={{ color: textColor }} />
+            ))}
+
+          {!open && (
+            <TooltipContent side={'right'} className="ml-2" sideOffset={0}>
+              <p className={`text-${textColor}`}>{item.label}</p>
+            </TooltipContent>
+          )}
         </div>
-        {item.accordion &&
-          (isSubMenuOpen ? (
-            <ChevronUp style={{ color: textColor }} />
-          ) : (
-            <ChevronDown style={{ color: textColor }} />
-          ))}
-
-        {!open && (
-          <TooltipContent side={'right'} className="ml-2" sideOffset={0}>
-            <p className={`text-${textColor}`}>{item.label}</p>
-          </TooltipContent>
-        )}
-      </Link>
+      )}
 
       {item.accordion && isSubMenuOpen && open && hasSubMenuAccess && (
         <div className="ml-8 mt-2">

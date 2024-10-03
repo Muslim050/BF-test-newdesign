@@ -335,7 +335,7 @@ function PublisherReportTable() {
                     <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-xl">
+                <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-[20px]">
                   <div className="">
                     <div className="flex items-center gap-2 pb-4">
                       <div className="w-2.5	h-6	bg-[#B5E4CA] rounded-[4px]"></div>
@@ -418,27 +418,34 @@ function PublisherReportTable() {
           ) : null}
 
           <div
-            className={`border_container rounded-[22px] p-[3px] glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {publisherReport && publisherReport.length ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <TableRow>
-                    {headers.map((row) => (
-                      <TableHead key={row.key} className={`text-${textColor} `}>
-                        {row.label}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <PublisherReportTableData publisherReport={publisherReport} />
-                </TableBody>
-              </Table>
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <TableRow>
+                      {headers.map((row) => (
+                        <TableHead
+                          key={row.key}
+                          className={`text-${textColor} `}
+                        >
+                          {row.label}
+                        </TableHead>
+                      ))}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <PublisherReportTableData
+                      publisherReport={publisherReport}
+                    />
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
-              <div className="flex items-center gap-2 justify-center h-[200px] 	">
+              <div className="flex items-center gap-2 justify-center h-full 	">
                 Установите фильтр для отображения данных!
               </div>
             )}

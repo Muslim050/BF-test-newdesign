@@ -34,7 +34,7 @@ function Home() {
       ) : (
         <>
           <div
-            className="p-[14px] h-screen"
+            className="p-[14px] h-screen overflow-hidden"
             style={{
               display: 'flex',
               backgroundColor: bgColor,
@@ -48,7 +48,7 @@ function Home() {
               style={{
                 width: '100%',
                 // height: '100vh',
-                overflow: 'auto',
+                // overflow: 'auto',
               }}
               className="ml-7"
             >
@@ -66,13 +66,6 @@ function Home() {
               </div>
             </div>
           </div>
-          {/*<AnimatePresence>*/}
-          {/*  {showChangePassword && (*/}
-          {/*    <ModalUI>*/}
-          {/*      <ChangePasswordModal/>*/}
-          {/*    </ModalUI>*/}
-          {/*  )}*/}
-          {/*</AnimatePresence>*/}
         </>
       )}
     </>

@@ -50,9 +50,7 @@ function OrderTable() {
       ) : (
         <div>
           <div className="py-4 flex justify-end">
-            {user === 'admin' ? (
-              ''
-            ) : (
+            {user === 'admin' ? null : (
               <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -69,24 +67,21 @@ function OrderTable() {
           </div>
 
           <div
-            className={`border_container rounded-[22px] p-[3px]  glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {data.length && data ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto `}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <OrderRows
-                    data={data}
-                    sortKey={sortKey}
-                    sort={sort}
-                    changeSort={changeSort}
-                  />
-                </TableHeader>
-                <TableBody>
-                  <OrderData data={data} />
-                </TableBody>
-              </Table>
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <OrderRows data={data} />
+                  </TableHeader>
+                  <TableBody className="">
+                    <OrderData data={data} />
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
               <div className="flex items-center gap-2 justify-center h-[200px] 	">
                 Список пустой. Добавьте заказ!

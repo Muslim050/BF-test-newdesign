@@ -43,28 +43,30 @@ function AdvertiserTableUsers() {
       ) : (
         <div>
           <div
-            className={`border_container rounded-[22px] p-[3px]  glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {advertiserUsers.length ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <TableRow>
-                    {headers.map((row) => {
-                      return (
-                        <TableHead
-                          key={row.key}
-                          className={`text-${textColor}`}
-                        >
-                          {row.label}
-                        </TableHead>
-                      )
-                    })}
-                  </TableRow>
-                </TableHeader>
-                <AdvertiserTableUsersData advertiserUsers={advertiserUsers} />
-              </Table>
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <TableRow>
+                      {headers.map((row) => {
+                        return (
+                          <TableHead
+                            key={row.key}
+                            className={`text-${textColor}`}
+                          >
+                            {row.label}
+                          </TableHead>
+                        )
+                      })}
+                    </TableRow>
+                  </TableHeader>
+                  <AdvertiserTableUsersData advertiserUsers={advertiserUsers} />
+                </Table>
+              </div>
             ) : (
               <div className="empty_list">
                 Список пустой. Добавьте Пользователя!

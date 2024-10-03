@@ -52,61 +52,63 @@ function PublisherTable() {
       ) : (
         <div>
           <div
-            className={`border_container rounded-[22px] p-[3px]  glass-background`}
+            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
           >
             {publisher && publisher ? (
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <TableRow>
-                    {headers.map((row) => {
+              <div className="h-full overflow-y-auto">
+                <Table
+                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                >
+                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                    <TableRow>
+                      {headers.map((row) => {
+                        return (
+                          <TableHead
+                            key={row.key}
+                            className={`text-${textColor}`}
+                          >
+                            {row.label}
+                          </TableHead>
+                        )
+                      })}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {publisher.map((pablisher, i) => {
                       return (
-                        <TableHead
-                          key={row.key}
-                          className={`text-${textColor}`}
-                        >
-                          {row.label}
-                        </TableHead>
+                        <TableRow key={pablisher.id}>
+                          <TableCell
+                            data-label="№"
+                            className={`font-normal text-${textColor} text-sm `}
+                          >
+                            {i + 1}
+                          </TableCell>
+                          <TableCell
+                            data-label="Имя"
+                            className={`font-normal text-${textColor} text-sm `}
+                          >
+                            {pablisher.name}
+                          </TableCell>
+                          <TableCell
+                            data-label="Email"
+                            className={`font-normal text-${textColor} text-sm `}
+                          >
+                            {pablisher.email}
+                          </TableCell>
+                          <TableCell
+                            data-label="Номер телефона"
+                            className={`font-normal text-${textColor} text-sm `}
+                          >
+                            <FormatterPhone
+                              phoneNumber={pablisher.phone_number}
+                            />
+                          </TableCell>
+                        </TableRow>
                       )
                     })}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {publisher.map((pablisher, i) => {
-                    return (
-                      <TableRow key={pablisher.id}>
-                        <TableCell
-                          data-label="№"
-                          className={`font-normal text-${textColor} text-sm `}
-                        >
-                          {i + 1}
-                        </TableCell>
-                        <TableCell
-                          data-label="Имя"
-                          className={`font-normal text-${textColor} text-sm `}
-                        >
-                          {pablisher.name}
-                        </TableCell>
-                        <TableCell
-                          data-label="Email"
-                          className={`font-normal text-${textColor} text-sm `}
-                        >
-                          {pablisher.email}
-                        </TableCell>
-                        <TableCell
-                          data-label="Номер телефона"
-                          className={`font-normal text-${textColor} text-sm `}
-                        >
-                          <FormatterPhone
-                            phoneNumber={pablisher.phone_number}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
               <div className="empty_list">
                 Список пустой. Добавьте Рекламодателя!

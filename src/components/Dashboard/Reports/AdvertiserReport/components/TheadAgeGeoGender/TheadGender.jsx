@@ -9,7 +9,7 @@ function TheadGender({ statistic }) {
 
   const result = findVideoWithThreeGenders(statistic)
   const uniqueGenders = Array.from(
-    new Set(result.gender_percentages.map((gen) => gen.gender)),
+    new Set(result?.gender_percentages.map((gen) => gen.gender)),
   )
   return (
     <div className="">

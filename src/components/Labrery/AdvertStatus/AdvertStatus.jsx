@@ -33,7 +33,7 @@ const AdvertStatus = ({ status, children, endDate, className }) => {
       className={`${style.wrapper__status} ${style[status]} ${className}`}
       style={wrapperStyles}
     >
-      {status === 'finished' || endDate ? (
+      {status === 'finished' ? (
         <div>
           {statusText}
           &nbsp;

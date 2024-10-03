@@ -87,13 +87,13 @@ function AddInventoryData({
               {i + 1}
             </TableCell>
             <TableCell
-              data-label="№"
+              data-label="Канал"
               className={`font-normal text-${textColor} text-sm `}
             >
               {advert.channel?.name}
             </TableCell>
             <TableCell
-              data-label="№"
+              data-label="Название Видео	"
               className={`font-normal text-${textColor} text-sm `}
             >
               <TooltipProvider>
@@ -109,13 +109,13 @@ function AddInventoryData({
               </TooltipProvider>
             </TableCell>
             <TableCell
-              data-label="№"
+              data-label="Категория"
               className={`font-normal text-${textColor} text-sm `}
             >
               {advert.video_content?.category}
             </TableCell>
             <TableCell
-              data-label="№"
+              data-label="Формат"
               className={`font-normal text-${textColor} text-sm `}
             >
               {(advert.format === 'preroll' && 'Pre-roll') ||
@@ -125,14 +125,14 @@ function AddInventoryData({
                 ('midroll4' && 'Mid-roll 4')}
             </TableCell>
             <TableCell
-              data-label="№"
+              data-label="Прогноз показов"
               className={`font-normal text-${textColor} text-sm `}
             >
               <FormatterView data={advert.expected_number_of_views} />
             </TableCell>
 
             <TableCell
-              data-label="№"
+              data-label="Ссылка"
               className={`font-normal text-${textColor} text-sm `}
             >
               <a
@@ -168,23 +168,20 @@ function AddInventoryData({
             </TableCell>
 
             <TableCell
-              data-label="№"
+              data-label="Время публикаций"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(advert.video_content?.publication_time)}
+              {advert.video_content?.publication_time
+                ?.slice(0, 10)
+                ?.split('-')
+                ?.reverse()
+                ?.join('.')}
+
+              {/* {formatDate(advert.video_content?.publication_time)} */}
             </TableCell>
-            {/* <TableCell
-              data-label="№"
-              className={`font-normal text-${textColor} text-sm `}
-            > */}
-            {/* {advert.online_views ? (
-                <FormatterView data={advert.online_views} />
-              ) : (
-                <div>-----</div>
-              )} */}
 
             {advert.online_views || advert.total_online_views ? (
-              <TableCell>
+              <TableCell data-label="Показы">
                 <div
                   style={{
                     display: 'flex',
@@ -218,7 +215,7 @@ function AddInventoryData({
             )}
             {/* </TableCell> */}
             <TableCell
-              data-label="№"
+              data-label="Действия/Статус"
               className={`font-normal text-${textColor} text-sm `}
             >
               <div className="flex gap-2 items-center">
