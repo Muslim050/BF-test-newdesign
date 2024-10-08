@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../../../StatictickChannelTable.module.scss'
-import { TableCell } from 'src/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 import { ShieldQuestion } from 'lucide-react'
 
 function StatictickGender({ dataChannel }) {

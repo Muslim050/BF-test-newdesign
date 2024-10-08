@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 import { Label } from '@/components/ui/label.jsx'
 import {
   Select,

@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './InfoCards.module.scss'
-import FormatterView from 'src/components/Labrery/formatter/FormatterView'
-import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet'
+import FormatterView from '@/components/Labrery/formatter/FormatterView'
+import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
 export function InfoCardsBottom({ totalViews, totalBudget, tableData }) {

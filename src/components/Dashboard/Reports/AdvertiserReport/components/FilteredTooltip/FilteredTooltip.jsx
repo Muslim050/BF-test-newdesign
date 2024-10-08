@@ -3,7 +3,7 @@ import style from './FilteredTooltip.module.scss'
 import { X } from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-// import {ReactComponent as Delete} from 'src/assets/Delete.svg'
+// import {ReactComponent as Delete} from '@/assets/Delete.svg'
 import ru from 'date-fns/locale/ru'
 import DownloadReport from '../DownloadReport'
 import {
@@ -12,11 +12,11 @@ import {
   SelectGroup,
   SelectItem,
   SelectValue,
-} from 'src/components/ui/select.jsx'
+} from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import { FormatSvg, TvSvg } from 'src/assets/icons-ui.jsx'
+import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
 import { Label } from '@/components/ui/label'
-import { Button } from 'src/components/ui/button.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
 
 function FilteredTooltip({

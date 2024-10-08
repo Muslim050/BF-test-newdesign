@@ -6,23 +6,27 @@ import {
   publishersSvg,
   reportsSvg,
   videoSvg,
-} from 'src/assets/SidebarsIcons-ui.jsx'
+} from '@/assets/SidebarsIcons-ui.jsx'
 // import {ordersSvg, overviewSvg} from "../../../assets/SidebarsIcons-ui.jsx";
 import { Notebook } from 'lucide-react'
 
 export const menuItems = [
   {
     roles: ['advertising_agency', 'advertiser', 'admin'],
-    label: 'Заказы',
+    title: 'Заказы',
     to: '/order',
     icon: ordersSvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
   },
   {
     roles: ['channel', 'publisher'],
-    label: 'Заказы',
+    title: 'Заказы',
     to: '/sents-order',
     icon: Notebook,
+    label: '',
+    variant: 'ghost',
   },
   {
     roles: [
@@ -32,17 +36,18 @@ export const menuItems = [
       'advertiser',
       'advertising_agency',
     ],
-    label: 'Отчет',
+    title: 'Отчет',
     icon: reportsSvg,
     accordion: true,
+    variant: 'ghost',
     subMenu: [
       {
-        label: 'Паблишеров',
+        title: 'Паблишеров',
         to: '/publisher-report',
         roles: ['publisher', 'channel', 'admin'],
       },
       {
-        label: 'Рекламодателей',
+        title: 'Рекламодателей',
         to: '/advertiser-report',
         roles: ['advertiser', 'advertising_agency', 'admin'],
       },
@@ -51,44 +56,131 @@ export const menuItems = [
 
   {
     roles: ['admin'],
-    label: 'Инвентарь',
+    title: 'Инвентарь',
     to: '/inventory',
     icon: inventorySvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
   {
     roles: ['admin'],
-    label: 'Видео',
+    title: 'Видео',
     to: '/video',
     icon: videoSvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
   {
     roles: ['channel', 'publisher', 'admin'],
-    label: 'Каналы',
+    title: 'Каналы',
     to: '/channel',
     icon: channelsSvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
   {
     roles: ['publisher', 'admin'],
-    label: 'Паблишеры',
+    title: 'Паблишеры',
     to: '/publisher',
     icon: publishersSvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
   {
     roles: ['admin', 'advertising_agency'],
-    label: 'Рекламодатели',
+    title: 'Рекламодатели',
     to: '/advertiser',
     icon: publishersSvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
   {
     roles: ['admin'],
-    label: 'Агентства',
+    title: 'Агентства',
     to: '/advertiser-agency',
     icon: agencySvg,
     accordion: false,
+    variant: 'ghost',
+    label: '',
+
   },
 ]
+
+export const SecondMenuItems = [
+  {
+    roles: [
+      'advertising_agency',
+      'advertiser',
+      'admin',
+      'publisher',
+      'channel',
+    ],
+    title: 'Заказы',
+    to: '/order',
+    icon: ordersSvg,
+    accordion: false,
+    variant: 'ghost',
+    label: '128',
+  },
+
+  {
+    roles: ['admin'],
+    title: 'Агентства',
+    to: '/advertiser-agency',
+    icon: agencySvg,
+    accordion: false,
+    variant: 'ghost',
+  },
+]
+
+
+
+
+export default function getTitle(title) {
+  if (title === 'inventory') {
+    return 'Инвентарь'
+  } else if (title === 'order') {
+    return 'Заказы'
+  } else if (title === 'confirmed-order') {
+    return 'Потвержденные  заказы'
+  } else if (title === 'complited-order') {
+    return 'Завершенные заказы'
+  } else if (title === 'publisher') {
+    return 'Паблишер'
+  } else if (title === 'publisher-users') {
+    return 'Пользователи паблишера'
+  } else if (title === 'video') {
+    return 'Видео'
+  } else if (title === 'advertiser') {
+    return 'Рекламодатели'
+  } else if (title === 'advertiser-users') {
+    return 'Пользователи рекламодателей'
+  } else if (title === 'advertiser-agency') {
+    return 'Рекламное агентство'
+  } else if (title === 'advertiser-agency-users') {
+    return 'Пользователи рекламного агентства'
+  } else if (title === 'channel') {
+    return 'Канал'
+  } else if (title.startsWith('chart-order-table')) {
+    return `Статистика заказа`
+  } else if (title.startsWith(`publisher-report`)) {
+    return `Отчет / Паблишера`
+  } else if (title.startsWith(`sents-order`)) {
+    return `Заказы - Паблишера / Канала`
+  } else if (title.startsWith(`advertiser-report`)) {
+    return `Отчет / Рекламодателя`
+  } else if (title.startsWith(`statistics-channel`)) {
+    return `Статистика канала`
+  }
+  return ''
+}

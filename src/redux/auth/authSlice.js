@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { toastConfig } from 'src/utils/toastConfig'
-import backendURL from 'src/utils/url'
+import { toastConfig } from '@/utils/toastConfig'
+import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
 
 export const login = createAsyncThunk(

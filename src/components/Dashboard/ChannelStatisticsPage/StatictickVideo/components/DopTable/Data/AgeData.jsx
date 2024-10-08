@@ -1,4 +1,4 @@
-import { TableCell } from 'src/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 
 function AgeData({ statistic }) {
   return (

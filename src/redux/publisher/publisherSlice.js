@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
 
 const initialState = {

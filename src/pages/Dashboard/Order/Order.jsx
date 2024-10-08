@@ -1,21 +1,9 @@
-
-import OrderTable from 'src/components/Dashboard/Order/OrderTable/OrderTable.jsx'
-
+import OrderTable from '@/components/Dashboard/Order/OrderTable'
 function Order() {
-
   return (
     <div>
-      {/*<AnimatePresence>*/}
-      {/*  {showOrder && (*/}
-      {/*    <ModalUI>*/}
-      {/*      <OrderModal />*/}
-      {/*    </ModalUI>*/}
-      {/*  )}*/}
-      {/*</AnimatePresence>*/}
-
       <OrderTable />
     </div>
   )
 }
-
 export default Order

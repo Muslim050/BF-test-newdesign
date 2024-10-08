@@ -8,12 +8,12 @@ import {
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import MaskedInput from 'react-text-mask'
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from 'src/components/ui/dialog'
+} from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Eye, EyeOff } from 'lucide-react'

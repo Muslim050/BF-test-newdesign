@@ -40,41 +40,32 @@ function ChannelTableUsers() {
           <div className="spinner"></div>
         </div>
       ) : (
-        <div>
-          <div
-            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
-          >
-            {channelUsers.length ? (
-              <div className="h-full overflow-y-auto">
-                <Table
-                  className={`${style.responsive_table} border_design rounded-lg h-full`}
-                >
-                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                    <TableRow>
-                      {headers.map((row) => {
-                        return (
-                          <TableHead
-                            key={row.key}
-                            className={`text-${textColor}`}
-                          >
-                            {row.label}
-                          </TableHead>
-                        )
-                      })}
-                    </TableRow>
-                  </TableHeader>
+        <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
+          {channelUsers.length ? (
+            <Table
+              className={`${style.responsive_table} border_design rounded-lg h-full`}
+            >
+              <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                <TableRow>
+                  {headers.map((row) => {
+                    return (
+                      <TableHead key={row.key} className={`text-${textColor}`}>
+                        {row.label}
+                      </TableHead>
+                    )
+                  })}
+                </TableRow>
+              </TableHeader>
 
-                  <TableBody>
-                    <PublisherTableUsersList channelUsers={channelUsers} />
-                  </TableBody>
-                </Table>
-              </div>
-            ) : (
-              <div className="empty_list">
-                Список пустой. Добавьте Пользователя!
-              </div>
-            )}
-          </div>
+              <TableBody>
+                <PublisherTableUsersList channelUsers={channelUsers} />
+              </TableBody>
+            </Table>
+          ) : (
+            <div className="empty_list">
+              Список пустой. Добавьте Пользователя!
+            </div>
+          )}
         </div>
       )}
     </>

@@ -2,21 +2,21 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import InventoryData from './InventoryData.jsx'
 import style from './TableInventory.module.scss'
-import { Table, TableBody, TableHeader } from 'src/components/ui/table'
+import { Table, TableBody, TableHeader } from '@/components/ui/table'
 import Filter from '../module/Filter.jsx'
-import InventoryRows from 'src/components/Dashboard/Inventory/TableInventory/InventoryRows.jsx'
-import { Button } from 'src/components/ui/button.jsx'
+import InventoryRows from '@/components/Dashboard/Inventory/TableInventory/InventoryRows.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import {
   fetchInventory,
   resetInventory,
-} from 'src/redux/inventory/inventorySlice.js'
-import { fetchChannel } from 'src/redux/channel/channelSlice.js'
-import { FilterSvg } from 'src/assets/icons-ui.jsx'
+} from '@/redux/inventory/inventorySlice.js'
+import { fetchChannel } from '@/redux/channel/channelSlice.js'
+import { FilterSvg } from '@/assets/icons-ui.jsx'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from 'src/components/ui/popover'
+} from '@/components/ui/popover'
 
 function TableInventory() {
   const dispatch = useDispatch()
@@ -89,12 +89,12 @@ function TableInventory() {
           <div className="spinner"></div>
         </div>
       ) : (
-        <div className="tableWrapper">
+        <div className="">
           <div className="tableWrapper__table_title">
             <div className="flex items-center justify-end w-full">
               <div
                 style={{ display: 'flex', alignItems: 'end', gap: '10px' }}
-                className="py-4"
+                // className="py-4"
               >
                 {filterLoading && (
                   <div className="loaderWrapper" style={{ height: '5vh' }}>
@@ -175,24 +175,22 @@ function TableInventory() {
 
           {/*Таблица*/}
           <div
-            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
+            className={`border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col`}
           >
             {inventory ? (
-              <div className="h-full overflow-y-auto">
-                <Table
-                  className={`${style.responsive_table} border_design rounded-lg h-full`}
-                >
-                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                    <InventoryRows inventory={inventory} />
-                  </TableHeader>
-                  <TableBody>
-                    <InventoryData
-                      inventory={inventory}
-                      setCurrentOrder={setCurrentOrder}
-                    />
-                  </TableBody>
-                </Table>
-              </div>
+              <Table
+                className={`${style.responsive_table} border_design rounded-lg `}
+              >
+                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                  <InventoryRows inventory={inventory} />
+                </TableHeader>
+                <TableBody>
+                  <InventoryData
+                    inventory={inventory}
+                    setCurrentOrder={setCurrentOrder}
+                  />
+                </TableBody>
+              </Table>
             ) : (
               <div className="empty_list">
                 Список пустой. Добавьте инвентарь!

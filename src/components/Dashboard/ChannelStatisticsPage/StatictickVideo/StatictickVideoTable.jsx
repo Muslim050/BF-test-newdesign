@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableBody,
   TableCell,
-} from 'src/components/ui/table'
+} from '@/components/ui/table'
 import AgeData from './components/DopTable/Data/AgeData'
 import GenderData from './components/DopTable/Data/GenderData'
 import GeoData from './components/DopTable/Data/GeoData'
@@ -61,7 +61,7 @@ function StatictickVideoTable({ data, loading }) {
               </div>
             ) : (
               <div
-                className={`border_container rounded-[22px]  mt-2 p-[12px]  glass-background`}
+                className={`border_container rounded-[22px] overflow-hidden mt-2 p-[12px]  glass-background h-[calc(100vh-520px)]`}
               >
                 <div className="tableWrapper__table_title">
                   <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ function StatictickVideoTable({ data, loading }) {
                   </div>
                 </div>{' '}
                 <div
-                  className={`border_container rounded-[22px] p-[5px] mt-2  glass-background`}
+                  className={` rounded-[22px] p-[5px] mt-2 overflow-auto  h-[calc(100vh-600px)]`}
                 >
                   <Table
                     className={`${style.responsive_table} border_design rounded-lg overflow-auto `}

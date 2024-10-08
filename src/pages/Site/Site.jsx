@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from 'src/components/Site/Header/Header'
+import Header from '@/components/Site/Header/Header'
 
 import style from './site.module.scss'
 import FirstPage from '@/components/Site/FirstPage/FirstPage.jsx'

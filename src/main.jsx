@@ -3,7 +3,7 @@ import App from './App.jsx'
 import './index.scss'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import store from 'src/redux/store.js'
+import store from '@/redux/store.js'
 import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from '@/utils/ThemeContext.jsx'
 

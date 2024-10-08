@@ -1,4 +1,4 @@
-import { TableHead, TableRow } from 'src/components/ui/table.jsx'
+import { TableHead, TableRow } from '@/components/ui/table.jsx'
 import Cookies from 'js-cookie'
 
 const headers = [

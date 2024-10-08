@@ -6,9 +6,9 @@ import {
   SelectGroup,
   SelectItem,
   SelectValue,
-} from 'src/components/ui/select.jsx'
-import { FormatSvg, TvSvg } from 'src/assets/icons-ui.jsx'
-import { Button } from 'src/components/ui/button.jsx'
+} from '@/components/ui/select.jsx'
+import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
 
 const formatV = [

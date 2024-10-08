@@ -6,7 +6,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from 'src/components/ui/tabs.jsx'
+} from '@/components/ui/tabs.jsx'
 
 function SentOrder() {
   return (

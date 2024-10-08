@@ -1,7 +1,7 @@
 import React from 'react'
 import ModalSentOrder from '../receivedOrders/ModalSentOrder/index'
 import OpenTableSentOrder from '../OpenTableSentOrder/OpenTableSentOrder'
-import { TableCell, TableRow } from 'src/components/ui/table'
+import { TableCell, TableRow } from '@/components/ui/table'
 import { formatDate } from '../../../../utils/formatterDate'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'

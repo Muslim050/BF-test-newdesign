@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './StatictickData.module.scss'
-import { TableCell } from 'src/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 
 function GeoData({ statistic }) {
   return (

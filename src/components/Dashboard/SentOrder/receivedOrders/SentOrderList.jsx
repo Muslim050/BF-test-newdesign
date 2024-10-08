@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableCell, TableRow } from 'src/components/ui/table'
+import { TableCell, TableRow } from '@/components/ui/table'
 import ModalSentOrder from './ModalSentOrder'
 import OpenTableSentOrder from '../OpenTableSentOrder/OpenTableSentOrder'
 import { formatDate } from '../../../../utils/formatterDate'
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/popover.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Copy } from 'lucide-react'
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 
 import { PackagePlus } from 'lucide-react'
 import { hasRole } from '../../../../utils/roleUtils'

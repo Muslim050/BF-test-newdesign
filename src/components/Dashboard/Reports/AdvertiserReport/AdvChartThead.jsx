@@ -3,7 +3,7 @@ import style from './AdvChartTable.module.scss'
 import TheadGender from './components/TheadAgeGeoGender/TheadGender'
 import TheadAge from './components/TheadAgeGeoGender/TheadAge'
 import TheadGeo from './components/TheadAgeGeoGender/TheadGeo'
-import { TableRow, TableHead } from 'src/components/ui/table'
+import { TableRow, TableHead } from '@/components/ui/table'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
 const headers = [

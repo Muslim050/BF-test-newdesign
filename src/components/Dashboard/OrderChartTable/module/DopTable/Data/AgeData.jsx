@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableCell } from 'src/components/ui/table.jsx'
+import { TableCell } from '@/components/ui/table.jsx'
 
 function AgeData({ statistic }) {
   const uniqueAge = statistic.age_group_percentages

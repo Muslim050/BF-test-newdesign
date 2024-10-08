@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../../AdvChartTable.module.scss'
-import { TableCell, TableRow } from 'src/components/ui/table'
+import { TableCell, TableRow } from '@/components/ui/table'
 
 function TheadGender({ statistic }) {
   function findVideoWithThreeGenders(data) {

@@ -1,11 +1,6 @@
 import React from 'react'
 import style from './AdvertStatus.module.scss'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from 'src/components/ui/tooltip'
+
 import { formatDate } from '@/utils/formatterDate.jsx'
 const statusTexts = {
   sent: 'Отправлено',
@@ -33,8 +28,8 @@ const AdvertStatus = ({ status, children, endDate, className }) => {
       className={`${style.wrapper__status} ${style[status]} ${className}`}
       style={wrapperStyles}
     >
-      {status === 'finished' ? (
-        <div>
+      {status === 'finished' || status === 'inactive' ? (
+        <div className='text-white'>
           {statusText}
           &nbsp;
           {formatDate(endDate)}

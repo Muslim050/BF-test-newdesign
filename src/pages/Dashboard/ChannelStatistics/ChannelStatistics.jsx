@@ -1,4 +1,4 @@
-import ChannelStatisticsPage from 'src/components/Dashboard/ChannelStatisticsPage/ChannelStatisticsPage'
+import ChannelStatisticsPage from '@/components/Dashboard/ChannelStatisticsPage/ChannelStatisticsPage'
 
 function ChannelStatistics() {
   return (

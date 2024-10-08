@@ -5,9 +5,9 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ru from 'date-fns/locale/ru' // Импортируйте русскую локаль
 import DownloadReport from '../DownloadReport'
-import { FormatSvg, TvSvg } from 'src/assets/icons-ui.jsx'
+import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import { Button } from 'src/components/ui/button.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
 import { Label } from '@/components/ui/label'
 import Cookies from 'js-cookie'
@@ -18,7 +18,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectValue,
-} from 'src/components/ui/select.jsx'
+} from '@/components/ui/select.jsx'
 const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
   { value: 'mixroll', text: 'Mix-roll' },
@@ -64,28 +64,57 @@ function FilteredTooltip({
     <div className="flex flex-col gap-2">
       {user === 'admin' && (
         <div style={{ margin: '10px 0 ' }}>
-          <label
-            style={{
-              fontSize: '14px',
-              color: 'var(--text-color)',
-              fontWeight: '400',
-            }}
-          >
-            Выбрать паблишера
-            <select
-              value={selectedOptionPublisher} // Используйте ID, а не имя, для value
-              onChange={handleSelectChangePablisher}
-              style={{ width: '100%' }}
-              className={`${style.input} bg-white bg-opacity-30 backdrop-blur-md`}
-            >
-              <option value="">Выберите паблишера</option>
-              {publisher.map((option) => (
-                <option key={option.id} value={JSON.stringify(option)}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Select onValueChange={handleSelectChangePablisher} value={selectedOptionPublisher} >
+            <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+              <div
+                className="text-xs flex gap-2"
+                style={{ color: 'var(--text-color )' }}
+              >
+                <TvSvg /> Паблишер
+              </div>
+              <SelectTrigger
+                className="rounded-none border-0 p-0 h-auto pl-[25px] "
+                style={{ color: 'var(--text-color )' }}
+              >
+                <SelectValue placeholder="Выбрать паблишера" />
+              </SelectTrigger>
+            </div>
+            <SelectContent className="w-full">
+              <SelectGroup>
+                {publisher.map((option) => (
+                  <SelectItem
+                    style={{ color: 'var(--text-color )' }}
+                    key={option.id}
+                    value={JSON.stringify(option)}
+                  >
+                    {option.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          {/*<label*/}
+          {/*  style={{*/}
+          {/*    fontSize: '14px',*/}
+          {/*    color: 'var(--text-color)',*/}
+          {/*    fontWeight: '400',*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  Выбрать паблишера*/}
+          {/*  <select*/}
+          {/*    value={selectedOptionPublisher} // Используйте ID, а не имя, для value*/}
+          {/*    onChange={handleSelectChangePablisher}*/}
+          {/*    style={{ width: '100%' }}*/}
+          {/*    className={`${style.input} bg-white bg-opacity-30 backdrop-blur-md`}*/}
+          {/*  >*/}
+          {/*    <option value="">Выберите паблишера</option>*/}
+          {/*    {publisher.map((option) => (*/}
+          {/*      <option key={option.id} value={JSON.stringify(option)}>*/}
+          {/*        {option.name}*/}
+          {/*      </option>*/}
+          {/*    ))}*/}
+          {/*  </select>*/}
+          {/*</label>*/}
         </div>
       )}
 

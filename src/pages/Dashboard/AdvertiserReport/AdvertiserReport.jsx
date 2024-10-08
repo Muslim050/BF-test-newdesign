@@ -1,4 +1,4 @@
-import AdvertiserReportTable from 'src/components/Dashboard/Reports/AdvertiserReport/AdvertiserReportTable.jsx'
+import AdvertiserReportTable from '@/components/Dashboard/Reports/AdvertiserReport/AdvertiserReportTable.jsx'
 
 function AdvertiserReport() {
   return (

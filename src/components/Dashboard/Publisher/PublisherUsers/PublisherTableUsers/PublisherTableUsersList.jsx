@@ -1,5 +1,5 @@
 import React from 'react'
-import FormatterPhone from 'src/components/Labrery/formatter/FormatterPhone'
+import FormatterPhone from '@/components/Labrery/formatter/FormatterPhone'
 
 import { TableCell, TableRow } from '@/components/ui/table.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'

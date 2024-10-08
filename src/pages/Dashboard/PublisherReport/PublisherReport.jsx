@@ -1,4 +1,4 @@
-import PublisherReportTable from 'src/components/Dashboard/Reports/PublisherReport/PublisherReportTable.jsx'
+import PublisherReportTable from '@/components/Dashboard/Reports/PublisherReport/PublisherReportTable.jsx'
 
 function PublisherReport() {
   return (

@@ -1,4 +1,4 @@
-import { TableHead, TableRow } from 'src/components/ui/table'
+import { TableHead, TableRow } from '@/components/ui/table'
 import React from 'react'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'

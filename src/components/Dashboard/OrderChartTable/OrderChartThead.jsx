@@ -1,4 +1,4 @@
-import { TableHead, TableRow } from 'src/components/ui/table'
+import { TableHead, TableRow } from '@/components/ui/table'
 
 const headers = [
   { key: 'index', label: '№' },

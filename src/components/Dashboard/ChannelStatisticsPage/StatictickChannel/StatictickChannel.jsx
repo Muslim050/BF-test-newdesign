@@ -3,8 +3,8 @@ import TheadFirst from './components/TheadDataDopTable/Thead/TheadFirst'
 import TheadSecondWrapper from './components/TheadDataDopTable/Thead/TheadSecondWrapper'
 import DataDopTable from './components/TheadDataDopTable/Data/DataDopTable'
 import { Link, useLocation } from 'react-router-dom'
-import FormatterView from 'src/components/Labrery/formatter/FormatterView'
-import { Table, TableRow, TableHeader } from 'src/components/ui/table'
+import FormatterView from '@/components/Labrery/formatter/FormatterView'
+import { Table, TableRow, TableHeader } from '@/components/ui/table'
 import { ChevronLeft } from 'lucide-react'
 
 function StatictickChannel({ dataChannel, channel }) {

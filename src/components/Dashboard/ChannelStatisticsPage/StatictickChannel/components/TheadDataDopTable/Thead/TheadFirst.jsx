@@ -1,4 +1,4 @@
-import { TableCell } from 'src/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 function TheadFirst({ dataChannel }) {
   const removeDuplicates = (arr) => Array.from(new Set(arr))
   const uniqueGenders = dataChannel

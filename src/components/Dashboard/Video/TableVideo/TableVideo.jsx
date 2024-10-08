@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TableVideoList from './TableVideoList'
-import style from 'src/components/Dashboard/Video/TableVideo/TableVideo.module.scss'
-import { Table, TableBody, TableHeader } from 'src/components/ui/table'
-import TableVideoRows from 'src/components/Dashboard/Video/TableVideo/TableVideoRows.jsx'
+import style from '@/components/Dashboard/Video/TableVideo/TableVideo.module.scss'
+import { Table, TableBody, TableHeader } from '@/components/ui/table'
+import TableVideoRows from '@/components/Dashboard/Video/TableVideo/TableVideoRows.jsx'
 import { fetchVideos } from '@/redux/video/videoSlice.js'
 
 function TableVideo() {
@@ -29,28 +29,24 @@ function TableVideo() {
           <div className="spinner"></div>
         </div>
       ) : (
-        <div className="pt-6">
-          <div
-            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
-          >
+        <div>
+          <div className="border_container h-[calc(100vh-100px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
             {videos.length ? (
-              <div className="h-full overflow-y-auto">
-                <Table
-                  className={`${style.responsive_table} border_design rounded-lg h-full`}
-                >
-                  <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                    <TableVideoRows />
-                  </TableHeader>
-                  <TableBody>
-                    <TableVideoList
-                      inventoryPublish={inventoryPublish}
-                      videos={videos}
-                      currentOrder={currentOrder}
-                      setCurrentOrder={setCurrentOrder}
-                    />
-                  </TableBody>
-                </Table>
-              </div>
+              <Table
+                className={`${style.responsive_table} border_design rounded-lg h-full`}
+              >
+                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+                  <TableVideoRows />
+                </TableHeader>
+                <TableBody>
+                  <TableVideoList
+                    inventoryPublish={inventoryPublish}
+                    videos={videos}
+                    currentOrder={currentOrder}
+                    setCurrentOrder={setCurrentOrder}
+                  />
+                </TableBody>
+              </Table>
             ) : (
               <div className="empty_list">Список пустой. Добавьте Видео!</div>
             )}

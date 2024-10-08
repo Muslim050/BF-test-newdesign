@@ -1,8 +1,8 @@
-import video1 from 'src/assets/Site/FirstPage/Video/11.mp4'
-import video2 from 'src/assets/Site/FirstPage/Video/22.mp4'
-import video3 from 'src/assets/Site/FirstPage/Video/33.mp4'
-import video5 from 'src/assets/Site/FirstPage/Video/55.mp4'
-import video9 from 'src/assets/Site/FirstPage/Video/99.mp4'
+import video1 from '@/assets/Site/FirstPage/Video/11.mp4'
+import video2 from '@/assets/Site/FirstPage/Video/22.mp4'
+import video3 from '@/assets/Site/FirstPage/Video/33.mp4'
+import video5 from '@/assets/Site/FirstPage/Video/55.mp4'
+import video9 from '@/assets/Site/FirstPage/Video/99.mp4'
 
 export const sliderData = [
   {

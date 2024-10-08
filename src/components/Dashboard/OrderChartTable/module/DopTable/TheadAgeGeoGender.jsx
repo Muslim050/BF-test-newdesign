@@ -1,12 +1,12 @@
 import React from 'react'
-import { TableCell } from 'src/components/ui/table.jsx'
+import { TableCell } from '@/components/ui/table.jsx'
 import { Info } from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from 'src/components/ui/tooltip'
+} from '@/components/ui/tooltip'
 function TheadAgeGeoGender({ statistic }) {
   const removeDuplicates = (arr) => Array.from(new Set(arr))
   const uniqueGenders =

@@ -1,4 +1,4 @@
-import OrderChartTable from 'src/components/Dashboard/OrderChartTable/index.jsx'
+import OrderChartTable from '@/components/Dashboard/OrderChartTable/index.jsx'
 function OrderChart() {
   return (
     <>

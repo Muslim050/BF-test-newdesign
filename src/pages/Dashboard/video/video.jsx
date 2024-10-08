@@ -1,6 +1,5 @@
-import TableVideo from 'src/components/Dashboard/Video/TableVideo/TableVideo.jsx'
+import TableVideo from '@/components/Dashboard/Video/TableVideo/TableVideo.jsx'
 function Video() {
-
   return (
     <div>
       <TableVideo />

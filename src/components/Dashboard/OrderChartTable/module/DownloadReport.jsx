@@ -1,9 +1,8 @@
 import React from 'react'
-// import { ReactComponent as Download } from 'src/assets/Table/Download.svg'
 import axios from 'axios'
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
-import { Button } from 'src/components/ui/button.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import { Download } from 'lucide-react'
 
 function DownloadReport({

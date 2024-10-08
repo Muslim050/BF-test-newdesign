@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableHead } from 'src/components/ui/table.jsx'
+import { TableHead } from '@/components/ui/table.jsx'
 
 function OrderChartGeo({ statistic }) {
   const uniqueGenders = Array.from(

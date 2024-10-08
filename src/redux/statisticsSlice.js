@@ -3,7 +3,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
 
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 
 const initialState = {
   statistics: [],

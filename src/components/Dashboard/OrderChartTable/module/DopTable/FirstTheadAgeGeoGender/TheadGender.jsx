@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableHead } from 'src/components/ui/table.jsx'
+import { TableHead } from '@/components/ui/table.jsx'
 import { ShieldQuestion } from 'lucide-react'
 
 function OrderChartTwoThead({ statistic }) {

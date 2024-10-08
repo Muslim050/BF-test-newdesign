@@ -1,17 +1,17 @@
 import React from 'react'
 import style from './TableInventory.module.scss'
-import CircularTable from 'src/components/Labrery/Circular/CircularTable'
-import CircularBadge from 'src/components/Labrery/Circular/CircularBadge'
+import CircularTable from '@/components/Labrery/Circular/CircularTable'
+import CircularBadge from '@/components/Labrery/Circular/CircularBadge'
 import FormatterView from '../../../Labrery/formatter/FormatterView'
-import AdvertStatus from 'src/components/Labrery/AdvertStatus/AdvertStatus'
-import { TableCell, TableRow } from 'src/components/ui/table'
+import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus'
+import { TableCell, TableRow } from '@/components/ui/table'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from 'src/components/ui/tooltip.jsx'
-import { truncate } from 'src/utils/other.js'
+} from '@/components/ui/tooltip.jsx'
+import { truncate } from '@/utils/other.js'
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'

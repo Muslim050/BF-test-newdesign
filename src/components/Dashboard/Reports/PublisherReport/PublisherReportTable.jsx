@@ -27,7 +27,7 @@ import {
   Table,
   TableHead,
   TableBody,
-} from 'src/components/ui/table'
+} from '@/components/ui/table'
 import PublisherReportTableData from '@/components/Dashboard/Reports/PublisherReport/PublisherReportTableData.jsx'
 
 function PublisherReportTable() {
@@ -213,8 +213,8 @@ function PublisherReportTable() {
     }
   }
 
-  const handleSelectChangePablisher = (event) => {
-    const value = event.target.value
+  const handleSelectChangePablisher = (value) => {
+    // const value = event.target.value
     setSelectedOptionPublisher(value)
     if (value) {
       const option = JSON.parse(value)
@@ -330,7 +330,7 @@ function PublisherReportTable() {
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="my-4 bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                    className="bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                   >
                     <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
                   </Button>
@@ -402,7 +402,7 @@ function PublisherReportTable() {
                     <div className="w-2.5	h-6	bg-[#D1C5FF] rounded-[4px]"></div>
                     <h4 className="font-medium text-white">Отчет</h4>
                   </div>
-                  <div className="rounded-2xl">
+                  <div className="rounded-[22px]">
                     <InfoCardsTop
                       uniqueChannelNameFiltered={uniqueChannelNameFiltered}
                       totalbudjetChannel={totalbudjetChannel}
@@ -418,12 +418,12 @@ function PublisherReportTable() {
           ) : null}
 
           <div
-            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
+            className={`border_container rounded-[22px] p-[3px] glass-background h-[calc(100vh-360px)]`} // Здесь используется h-screen для высоты на весь экран
           >
             {publisherReport && publisherReport.length ? (
               <div className="h-full overflow-y-auto">
                 <Table
-                  className={`${style.responsive_table} border_design rounded-lg h-full`}
+                  className={`${style.responsive_table} border_design rounded-lg  `}
                 >
                   <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
                     <TableRow>

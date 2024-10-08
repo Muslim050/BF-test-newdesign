@@ -1,6 +1,5 @@
 import style from '../../AdvChartTable.module.scss'
 import React from 'react'
-// import { ReactComponent as Filter } from 'src/assets/Table/Filter.svg'
 
 function FilteredTooltipMain({ children, handleProfileClick }) {
   return (

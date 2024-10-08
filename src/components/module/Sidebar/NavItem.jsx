@@ -1,10 +1,13 @@
 import React from 'react'
-import { TooltipContent } from 'src/components/ui/tooltip'
+import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import { ChevronUp } from 'lucide-react'
 import { hasRole } from '../../../utils/roleUtils'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import {cn} from "@/lib/utils.js";
+import {buttonVariants} from "@/components/ui/button.jsx";
+import {Badge} from "@/components/ui/badge.jsx";
 
 const NavItem = ({ item, open, setOpen }) => {
   const location = useLocation()
@@ -156,3 +159,34 @@ const NavItem = ({ item, open, setOpen }) => {
 }
 
 export default NavItem
+{link.accordion  && (
+  <div className="ml-8 mt-2">
+    {link.subMenu &&
+      link.subMenu.map((subItem, index) => {
+        const subItemHasAccess = hasRole(subItem.roles)
+        return subItemHasAccess ? (
+          <Link
+            key={index}
+            to={subItem.to}
+            // className={`justify-between ${baseStyles} ${
+            //   isActive ? activeStyles : inactiveStyles
+            // }`}
+          >
+            {open ? (
+              <span
+                className={`transition-opacity duration-500 ease-in-out ${
+                  open ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}
+                style={{
+                  transitionDelay: open ? '0.3s' : '0s',
+                  // color: textColor,
+                }}
+              >
+                      {subItem.label}
+                    </span>
+            ) : null}
+          </Link>
+        ) : null
+      })}
+  </div>
+)}

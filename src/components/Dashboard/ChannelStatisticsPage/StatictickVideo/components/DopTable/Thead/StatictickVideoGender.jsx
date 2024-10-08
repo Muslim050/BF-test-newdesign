@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../../../StatictickVideoTable.module.scss'
 import { ShieldQuestion } from 'lucide-react'
-import { TableCell } from 'src/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 
 function StatictickVideoGender({ statistic }) {
   const uniqueGenders = Array.from(

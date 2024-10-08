@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../StatictickVideoTable.module.scss'
-import { TableHead, TableRow } from 'src/components/ui/table'
+import { TableHead, TableRow } from '@/components/ui/table'
 
 function StatictickVideoThead() {
   return (

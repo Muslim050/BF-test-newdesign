@@ -1,14 +1,10 @@
 import React from 'react'
 import style from './FilteredTooltip.module.scss'
-
-import { X } from 'lucide-react'
-// import {ReactComponent as Delete} from 'src/assets/Delete.svg'
 import DownloadReport from '../DownloadReport'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { DateCalendarSvg } from 'src/assets/icons-ui.jsx'
-import { Label } from 'src/components/ui/label.jsx'
-import { Button } from 'src/components/ui/button.jsx'
+import { Label } from '@/components/ui/label.jsx'
+import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
 
 function FilteredTooltip({
@@ -18,7 +14,7 @@ function FilteredTooltip({
   endDate,
   setEndDate,
   setIsTooltip,
-  getOrder,
+                           orderData,
   handleClear,
 }) {
   const handleStartDateChange = (date) => {
@@ -81,7 +77,7 @@ function FilteredTooltip({
             <Trash2 />
           </Button>
           <DownloadReport
-            getOrder={getOrder}
+            getOrder={orderData}
             startDate={startDate}
             endDate={endDate}
             setIsTooltip={setIsTooltip}

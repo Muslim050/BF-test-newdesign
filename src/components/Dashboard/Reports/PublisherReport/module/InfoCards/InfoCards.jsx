@@ -1,5 +1,5 @@
-import FormatterView from 'src/components/Labrery/formatter/FormatterView'
-import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet'
+import FormatterView from '@/components/Labrery/formatter/FormatterView'
+import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet'
 import {
   Tooltip,
   TooltipContent,
@@ -19,10 +19,10 @@ export function InfoCardsTop({
   return (
     <div className="flex gap-3">
       {/*Просмотры*/}
-      <div className="flex flex-col gap-2 justify-center  h-[90px] text-white rounded-[14px]	bg-[#b5e4ca80] items-normal px-6	">
-        <div className="text-xs">Просмотры</div>
+      <div className="flex flex-col justify-center text-base  h-[70px] text-white rounded-[14px]	bg-[#b5e4ca80] items-normal px-6	">
+        <div >Просмотры</div>
         {totalViews > 0 && (
-          <div className="text-[24px] text-white">
+          <div >
             <FormatterView data={totalViews} />
           </div>
         )}
@@ -30,11 +30,11 @@ export function InfoCardsTop({
       {/*Просмотры*/}
 
       {/*Бюджет*/}
-      <div className="flex flex-col gap-2 justify-center text-base h-[90px]  bg-[#FFFFFF1A]	text-white  rounded-[14px]	  items-normal  px-6	">
-        <div className="text-xs">Бюджет</div>
-        <div className="text-[35px] text-white">
+      <div className="flex flex-col  justify-center text-base h-[70px]  bg-[#FFFFFF1A]	text-white  rounded-[14px]	  items-normal  px-6	">
+        <div >Бюджет</div>
+        <div >
           {totalBudget > 0 && (
-            <div className="text-[24px] text-white">
+            <div >
               <FormatterBudjet budget={totalBudget} />
             </div>
           )}
@@ -43,32 +43,32 @@ export function InfoCardsTop({
       {/*Бюджет*/}
 
       {/*Комиссия*/}
-      <div className="flex flex-col gap-2 justify-center text-base h-[90px]  bg-[#2a85ff78]	text-white  rounded-[14px]	  items-normal  px-6	">
-        <div className="text-xs">Комиссия</div>
+      <div className="flex flex-col text-base justify-center  h-[70px]  bg-[#2a85ff78]	text-white  rounded-[14px]	  items-normal  px-6	">
+        <div >Комиссия</div>
         <div className="flex gap-2">
-          <div className="text-[35px] text-white">
+          <div >
             {totalComisyAdtech > 0 && (
-              <div className="text-[24px] text-white">
+              <div >
                 <FormatterBudjet budget={totalComisyAdtech} />
               </div>
             )}
-            <div className="text-[10px]">Adtech</div>
+            <div className="text-[10px] leading-3">Adtech</div>
           </div>
-          <div className="text-[35px] text-white">
+          <div >
             {totalComisy > 0 && (
-              <div className="text-[24px] text-white">
+              <div >
                 <FormatterBudjet budget={totalComisy} />
               </div>
             )}
-            <div className="text-[10px]">Агенство</div>
+            <div className="text-[10px] leading-3">Агенство</div>
           </div>
         </div>
       </div>
       {/*Комиссия*/}
 
       {/*К оплате*/}
-      <div className="flex flex-col gap-2 justify-center  h-[90px] text-white rounded-[14px]	bg-[#FFFFFF1A] items-normal px-6	">
-        <div className="text-xs">
+      <div className="flex flex-col text-base justify-center   h-[70px] text-white rounded-[14px]	bg-[#FFFFFF1A] items-normal px-6	">
+        <div >
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -84,7 +84,7 @@ export function InfoCardsTop({
           </TooltipProvider>
         </div>
         {totalbudjetChannel > 0 && (
-          <div className="text-[24px] text-white">
+          <div >
             <FormatterBudjet budget={totalbudjetChannel} />
           </div>
         )}

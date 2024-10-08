@@ -1,8 +1,8 @@
 import React from 'react'
 import style from '../StatictickChannelTable.module.scss'
-import FormatterView from 'src/components/Labrery/formatter/FormatterView'
-// import { ReactComponent as Arrow } from "src/assets/Table/arrow.svg";
-import { TableCell } from 'src/components/ui/table'
+import FormatterView from '@/components/Labrery/formatter/FormatterView'
+// import { ReactComponent as Arrow } from "@/assets/Table/arrow.svg";
+import { TableCell } from '@/components/ui/table'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
 function StatictickData({ dataChannel, handleRowClick, expandedRows }) {

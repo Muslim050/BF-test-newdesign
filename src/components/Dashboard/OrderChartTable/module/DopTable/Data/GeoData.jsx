@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableCell } from 'src/components/ui/table.jsx'
+import { TableCell } from '@/components/ui/table.jsx'
 
 function GeoData({ statistic }) {
   const uniqueGeo = statistic.geo_percentages

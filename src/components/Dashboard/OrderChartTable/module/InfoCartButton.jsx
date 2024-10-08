@@ -1,6 +1,6 @@
-import FormatterView from 'src/components/Labrery/formatter/FormatterView.jsx'
-import AdvertStatus from 'src/components/Labrery/AdvertStatus/AdvertStatus.jsx'
-import FormatterBudjet from 'src/components/Labrery/formatter/FormatterBudjet.jsx'
+import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
+import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
+import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet.jsx'
 import React from 'react'
 
 const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {

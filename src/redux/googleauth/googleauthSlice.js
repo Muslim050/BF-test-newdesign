@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 
 const initialState = {
   status: 'idle',

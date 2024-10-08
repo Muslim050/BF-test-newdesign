@@ -10,7 +10,7 @@ import { X } from 'lucide-react'
 // import { ReactComponent as Ulock } from "src/assets/InputIcon/Ulock.svg";
 import Cookies from 'js-cookie'
 
-import { hideModalChangePassword } from 'src/redux/modalSlice'
+import { hideModalChangePassword } from '@/redux/modalSlice'
 import toast from 'react-hot-toast'
 
 function ChangePasswordModal({ setchangePassword }) {

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-import backendURL from 'src/utils/url'
+import backendURL from '@/utils/url'
 
 const initialState = {
   advertiserAgencyUsers: [],
