@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Site from '../Site/Site'
 import { Route, Routes } from 'react-router-dom'
 import React from 'react'
@@ -26,7 +26,7 @@ function Home() {
   // const layout = localStorage.getItem('react-resizable-panels:layout:mail')
   // const collapsed = localStorage.getItem('react-resizable-panels:collapsed')
 
-  const defaultLayout = 300 // Инициализация значением по умолчанию
+  // const defaultLayout = 300 // Инициализация значением по умолчанию
 
   return (
     <>
@@ -36,7 +36,7 @@ function Home() {
         </Routes>
       ) : (
         <div>
-          <SystemLayout defaultLayout={defaultLayout}  />
+          <SystemLayout   />
           {/* <div
             className="p-[14px] h-screen overflow-hidden"
             style={{
