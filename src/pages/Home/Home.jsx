@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { gsap } from 'gsap'
-import SystemLayout from './SystemLayout.jsx';
+import SystemLayout from './SystemLayout';
 
 function Home() {
   const { pathname } = useLocation()
