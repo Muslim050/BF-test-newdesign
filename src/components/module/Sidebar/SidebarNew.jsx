@@ -44,87 +44,34 @@ const SidebarNew = ({isCollapsed,setIsCollapsed}) => {
     setBgColor(color.hex)
   }
   const dispatch = useDispatch()
-  const user = Cookies.get('role')
   const handleLogout = () => {
     dispatch(logout())
     navigate('/login')
   }
-  const { order } = useSelector((state) => state.order)
-  const { channel } = useSelector((state) => state.channel)
-  const { videos } = useSelector((state) => state.video)
-  const { сomplitedInventories } = useSelector((state) => state.inventory)
-  const { сonfirmedInventories } = useSelector((state) => state.inventory)
-  const [filteredOrders, setFilteredOrders] = React.useState('')
-
-  const fetchfilteredOrders = async ({ status }) => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/order/order-count-by-status/?status=${status}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    setFilteredOrders(response.data.data.count)
-  }
-
-  // React.useEffect(() => {
-  //   if (user === 'admin') {
-  //     // dispatch (fetchOrder ())
-  //     fetchfilteredOrders({ status: 'sent' })
-  //     dispatch(fetchInventory({ status: 'open' }))
-  //     dispatch(fetchChannel())
-  //     dispatch(fetchVideos())
-  //   }
-  //
-  //   if (user === 'advertiser' || user === 'advertising_agency') {
-  //     dispatch(fetchOrder())
-  //   }
-  //
-  //   if (user === 'publisher') {
-  //     dispatch(fetchChannel())
-  //     dispatch(fetchVideos())
-  //   }
-  //   if (user === 'channel') {
-  //     dispatch(fetchChannel())
-  //     dispatch(fetchVideos())
-  //   }
-  // }, [dispatch])
-  //
-  // // Рекломадатели
-  // const filteredOrdersAdvertiser = order.filter(
-  //   (i) => i.status === 'accepted' || i.status === 'in_progress',
-  // )
-  // // Рекломадатели
-  //
-  // // Паблишер
-  // const filteredComplitedI = сomplitedInventories.filter(
-  //   (i) => i.removal_date === null,
-  // )
-  // const filteredConfirmedI = сonfirmedInventories.filter((i) => i)
-  // const filteredChannel = channel.filter((i) => i.is_connected === false)
-  //
-  // const filteredVideo = videos.filter((i) => i.link_to_video === null)
-  // // Паблишер
-  //
-  // const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
-  //
 
 
   return (
     <div
-      className={cn (
-        'border_container glass-background relative rounded-[22px] transition-all duration-300 ease-in-out',
-        isCollapsed ?
-          'w-[65px] ' : 'w-[250px] ',
+      // className={cn (
+      //   'border_container glass-background  rounded-[22px] transition-all duration-300   bottom-0 ease-in-out w-full  h-max sm:h-[100%] ',
+      //   isCollapsed ?
+      //     'sm:w-[65px] ' : 'sm:w-[250px] ',
+      // )}
+      className={cn(
+        'border_container glass-background rounded-[22px] transition-all duration-300 ease-in-out w-full h-max',
+        isCollapsed ? 'sm:w-[65px]' : 'sm:w-[250px]',
+        'sm:relative sm:h-[100%] sidebar-container' // Добавлено для мобильного отображения
       )}
     >
+      {/*<div*/}
+      {/*  className={cn(*/}
+      {/*    'border_container sm:glass-backgroundNav glass-background  sm:relative absolute bottom-0 z-10  h-max sm:h-[100%] rounded-[22px] transition-all duration-300 ease-in-out w-full',*/}
+      {/*    isCollapsed ? 'sm:w-[65px] ' : 'sm:w-[250px] '*/}
+      {/*  )}*/}
+      {/*>*/}
       <div
         onClick={() => setIsCollapsed (!isCollapsed)}
-        className={`absolute z-40 cursor-pointer  w-7 text-white 
+        className={`hidden sm:flex absolute z-40 cursor-pointer  w-7 text-white 
             rounded-full  ${
           isCollapsed ? 'right-[-25.5px] top-4 ' : '-right-[3.5px] top-4'
         }`}
@@ -147,7 +94,7 @@ const SidebarNew = ({isCollapsed,setIsCollapsed}) => {
       </div>
       <div className='flex flex-col justify-between h-full'>
         <div>
-          <div className="flex gap-x-4 items-center p-2">
+          <div className="flex gap-x-4 items-center p-2 hidden sm:flex ">
             <div className="flex items-center">
               <div
                 className={`${!isCollapsed ? 'w-[56px] h-[56px]' : ' w-[48px] h-[48px]'} relative  rounded-full bg-[var(--bg-color)]`}></div>
@@ -171,12 +118,15 @@ const SidebarNew = ({isCollapsed,setIsCollapsed}) => {
               </div>
             )}
           </div>
-          <Nav isCollapsed={isCollapsed} links={menuItems}/>
-          <Separator/>
+          <Nav isCollapsed={isCollapsed} links={menuItems} handleLogout={handleLogout}/>
+
+          <Separator className='hidden sm:flex '/>
 
         </div>
-        <div className='pb-3 flex flex-col gap-0.5'>
-          <div className='flex flex-col justify-center  px-2'>
+
+
+        <div className='pb-3 hidden sm:flex  flex-col gap-0.5'>
+          <div className='flex  flex-col justify-center  px-2'>
             <Popover>
               <PopoverTrigger
                 asChild

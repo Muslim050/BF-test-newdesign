@@ -19,13 +19,14 @@ function OrderChartList({ statistic, index, handleRowClick, isExpanded }) {
 
   return (
     <>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell                 data-label="№"
+                                 className={`font-normal text-${textColor} text-sm `}>
         {index + 1}
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell   data-label="Канал" className={`font-normal text-${textColor} text-sm `}>
         {statistic.channel_name}
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Название видео	" className={`font-normal text-${textColor} text-sm `}>
         <a
           target="_blank"
           href={statistic.video_link}
@@ -44,11 +45,11 @@ function OrderChartList({ statistic, index, handleRowClick, isExpanded }) {
           </TooltipProvider>
         </a>
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Формат" className={`font-normal text-${textColor} text-sm `}>
         {(statistic.order_format === 'preroll' && 'Pre-roll') ||
           ('mixroll' && 'Mix-roll')}
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell  data-label="Начало" className={`font-normal text-${textColor} text-sm `}>
         <div>
           <div style={{ display: 'flex', width: '100px' }}>
             {statistic.publication_date === null ? (
@@ -59,13 +60,13 @@ function OrderChartList({ statistic, index, handleRowClick, isExpanded }) {
           </div>
         </div>
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Статус" className={`font-normal text-${textColor} text-sm `}>
         <AdvertStatus
           status={statistic.status}
           endDate={statistic.deactivation_date}
         />
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Показы" className={`font-normal text-${textColor} text-sm `}>
         {statistic.video_link ===
         'https://www.youtube.com/watch?v=OcR6AYdiyUo' ? (
           <FormatterView data="59 971" />
@@ -73,13 +74,13 @@ function OrderChartList({ statistic, index, handleRowClick, isExpanded }) {
           <FormatterView data={statistic.online_view_count} />
         )}
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Бюджет"  className={`font-normal text-${textColor} text-sm `}>
         <FormatterBudjet
           budget={statistic.budget}
           data={'2024-05-10'} //сделал так потому что publication date null прилетает
         />
       </TableCell>
-      <TableCell className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Анализ аудитории"  className={`font-normal text-${textColor} text-sm `}>
         <button
           className={`  px-[10px] py-[5px] flex rounded-[12px] hover:bg-white hover:text-[#12173c] ${
             isExpanded ? 'bg-white text-[#12173c]' : 'bg-[#FFFFFF2B] text-white'

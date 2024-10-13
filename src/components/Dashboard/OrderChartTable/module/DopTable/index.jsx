@@ -1,4 +1,4 @@
-import style from '@/components/Dashboard/OrderChartTable/OrderChartTable.module.scss'
+import style from '../../OrderChartTable.module.scss'
 import {
   Table,
   TableBody,
@@ -17,6 +17,7 @@ import WrapperThead from '@/components/Dashboard/OrderChartTable/module/DopTable
 import AgeData from '@/components/Dashboard/OrderChartTable/module/DopTable/Data/AgeData.jsx'
 import GeoData from '@/components/Dashboard/OrderChartTable/module/DopTable/Data/GeoData.jsx'
 import GenderData from '@/components/Dashboard/OrderChartTable/module/DopTable/Data/GenderData.jsx'
+import m from "@/components/Dashboard/Order/OrderTable/styles/OrderTable.module.scss";
 
 const DopTable = ({ statistic, data, expandedRows }) => {
   return (
@@ -28,10 +29,11 @@ const DopTable = ({ statistic, data, expandedRows }) => {
       //     ? style.list__item__open
       //     : ''
       // }`}
-      className="rounded-[22px]"
+      className={`${style.dopTable} rounded-[22px] !h-[100%]`}
     >
-      <div className="bg-[#0A0F3680] p-[5px] rounded-[22px]">
-        <Table className="rounded-[22px]">
+      <div               style={{ background: 'var(--bg-color)' }}
+                         className=" p-[5px] rounded-[22px] h-[100%]">
+        <Table className="rounded-[22px] h-[100%]">
           <TableHeader style={{ border: 0 }}>
             {/* Колонки  ГЕО Возраст ПОЛ доп таблица  */}
             <TableRow>

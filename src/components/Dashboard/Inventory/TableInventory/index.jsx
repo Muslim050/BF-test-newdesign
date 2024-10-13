@@ -175,7 +175,7 @@ function TableInventory() {
 
           {/*Таблица*/}
           <div
-            className={`border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col`}
+            className={`border_container h-[calc(100vh-210px)] sm:h-[calc(100vh-100px)] rounded-[22px] mt-3 p-[3px] glass-background flex flex-col w-full`}
           >
             {inventory ? (
               <Table

@@ -99,11 +99,34 @@ body {
     rgba(184, 184, 184, 0.0289) 100%
   );
 }
+.glass-backgroundNav {
+  background: var(--bg-color);
+}
+
 
 //Border
 .border_container {
-  position: relative; /* Required for absolute positioning */
+  position: relative;
 }
+
+@media (max-width: 640px) {
+  .sidebar-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center; /* Центрирование элементов */
+    padding: 10px; /* Пустое пространство вокруг элементов */
+  }
+}
+//@media (max-width: 640px) {
+//  .border_container {
+//    position: absolute;
+//  }
+//}
 
 .border_design {
   border-radius: 22px; /* Adjust the radius as needed */

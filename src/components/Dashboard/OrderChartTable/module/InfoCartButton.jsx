@@ -12,19 +12,19 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
       >
         <div className="flex gap-2">
           <div
-            className="text-white flex gap-2 items-center"
+            className="text-white sm:text-base text-xs flex gap-2 items-center"
             style={{ marginRight: '5px' }}
           >
-            <div className="w-4 h-9 bg-[#D1C5FF] rounded"></div>
+            <div className="w-4 h-9 bg-[#D1C5FF] rounded hidden sm:block"></div>
             Итоги
           </div>
           {/*Остаток*/}
           {orderData === 'finished' ? (
             ''
           ) : (
-            <div className="flex gap-3 bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	 justify-center text-center">
-              <div className="text-base	"> Остаток</div>
-              <div className="text-base">
+            <div className="sm:flex block gap-3 bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	 justify-center text-center">
+              <div className="sm:text-base text-xs"> Остаток</div>
+              <div className="sm:text-base text-xs">
                 <FormatterView
                   data={
                     orderData.expected_number_of_views - orderData.online_views
@@ -39,11 +39,11 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
           {orderData === 'finished' ? (
             ''
           ) : (
-            <div className="flex items-center ">
+            <div className="sm:flex block items-center ">
               <AdvertStatus
                 status={orderData.status}
                 endDate={orderData.actual_end_date}
-                className="h-full rounded-[22px]"
+                className="h-full rounded-[22px] sm:flex block"
               >
                 {orderData.status === 'in_progress' ? (
                   <div
@@ -156,10 +156,10 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
           {orderData === 'finished' ? (
             ''
           ) : (
-            <div className="bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	flex gap-3 justify-center text-center">
-              <div className="text-base">Показы</div>
+            <div className="bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	sm:flex block gap-3 justify-center text-center">
+              <div className="sm:text-base text-xs">Показы</div>
 
-              <div className="text-base">
+              <div className="sm:text-base text-xs">
                 <FormatterView data={totalViews} />
               </div>
             </div>
@@ -170,10 +170,10 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
           {orderData === 'finished' ? (
             ''
           ) : (
-            <div className="bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center		flex gap-3 justify-center text-center">
-              <div className="text-base">Бюджет</div>
+            <div className="bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center		sm:flex block gap-3 justify-center text-center">
+              <div className="sm:text-base text-xs">Бюджет</div>
 
-              <div className="text-base">
+              <div className="sm:text-base text-xs">
                 <FormatterBudjet
                   budget={totalBudget}
                   // data={orderData.expected_start_date}

@@ -30,7 +30,7 @@ function TableVideo() {
         </div>
       ) : (
         <div>
-          <div className="border_container h-[calc(100vh-100px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
+          <div className="border_container h-[calc(100vh-170px)]  sm:h-[calc(100vh-100px)] rounded-[22px] mt-3 p-[3px] glass-background flex flex-col w-full">
             {videos.length ? (
               <Table
                 className={`${style.responsive_table} border_design rounded-lg h-full`}

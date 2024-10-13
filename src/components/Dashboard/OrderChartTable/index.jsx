@@ -145,20 +145,20 @@ function OrderChart() {
             {/* Ячейки с инфо Бюджет,План показов, План бюджета */}
             <div
               style={{ background: 'var(--bg-color)' }}
-              className={`${style.whitegrad}  w-full  rounded-[22px] mt-4 p-3.5`}
+              className={`${style.whitegrad}  w-full  rounded-[22px] mt-4 pl-4   sm:p-3.5 p-[5px] `}
             >
               <div className="flex items-center gap-2">
                 <div className="w-2.5	h-6	bg-[#D1C5FF] rounded-[4px]"></div>
-                <h4 className="font-medium text-white">Отчет</h4>
-                <div className="bg-[#ffffff3d] rounded-[22px]	p-2">
+                <div className="font-medium text-white sm:text-base text-xs">Отчет</div>
+                {/*<div className=" rounded-[22px]	p-2">*/}
                   <InfoCardsTop orderData={orderData} />
-                </div>
+                {/*</div>*/}
               </div>
             </div>
             {/* Ячейки с инфо Бюджет,План показов, План бюджета */}
           </div>
-          <div className="border_container h-[calc(100vh-350px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
-            <Table className="rounded-lg">
+          <div className="h-[calc(100vh-350px)]  sm:h-[calc(100vh-350px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
+            <Table className={`${style.responsive_table} rounded-lg`}>
               {/* Колонки основной таблица  */}
               <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
                 <OrderChartThead />
@@ -188,7 +188,7 @@ function OrderChart() {
                         {expandedRows === statistic.video_link && (
                           <TableRow
                             key={index}
-                            className={`bg-[#ffffff4d]  rounded-[22px]`}
+                            className={`bg-[#ffffff4d]  rounded-[22px] h-[100%]`}
                           >
                             <DopTable
                               statistic={statistic}

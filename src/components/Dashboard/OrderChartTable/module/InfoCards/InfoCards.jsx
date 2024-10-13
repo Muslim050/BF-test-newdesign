@@ -14,13 +14,13 @@ export function InfoCardsTop({ orderData }) {
 
   return (
     <div className="flex ">
-      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	bg-[#b5e4ca80] items-center px-6	">
+      <div className="sm:text-base text-xs text-center  gap-3	text-white items-center sm:flex block rounded-[20px]	bg-[#b5e4ca80] sm:px-6 px-3 sm:h-[50px] h-[35px]	">
         Номер Заказа
-        <div className="text-base text-white">{id}</div>
+        <div className="sm:text-base text-xs text-white">{id}</div>
       </div>
-      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	 items-center px-6	">
+      <div className="sm:text-base text-xs gap-3	text-white sm:flex block rounded-[20px] text-center	 items-center sm:px-6 px-3	sm:h-[50px] h-[35px]">
         План
-        <div className="text-base text-white">
+        <div className="sm:text-base text-xs text-white">
           {orderData.status === 'in_progress' ? (
             <div className={style.infoCart__text}>
               <FormatterView data={orderData.expected_number_of_views} />
@@ -33,9 +33,9 @@ export function InfoCardsTop({ orderData }) {
         </div>
       </div>
 
-      <div className="text-base h-[50px] gap-3	text-white flex rounded-[20px]	bg-[#2a85ff75] items-center px-6	">
+      <div className="sm:text-base text-xs gap-3	text-white sm:flex block text-center rounded-[20px]	bg-[#2a85ff75] items-center sm:px-6 px-3	sm:h-[50px] h-[35px]">
         Бюджет
-        <div className="text-base text-white ">
+        <div className="sm:text-base text-xs text-white ">
           <FormatterBudjet
             budget={orderData.budget}
             data={orderData.expected_start_date}
