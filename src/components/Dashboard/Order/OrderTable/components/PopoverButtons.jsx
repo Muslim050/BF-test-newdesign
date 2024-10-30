@@ -161,13 +161,19 @@ const PopoverButtons = ({
                 style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
               >
                 {isOver100Percent && (
-                  <CircularBadge
-                    style={{
-                      backgroundColor: 'red',
-                      width: '15px',
-                      height: '15px',
-                    }}
-                  />
+                  <div className='absolute -right-1 top-1'>
+                    <span className="relative flex h-3 w-3">
+  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+</span>
+                  </div>
+                  // <CircularBadge
+                  //   style={{
+                  //     backgroundColor: 'red',
+                  //     width: '15px',
+                  //     height: '15px',
+                  //   }}
+                  // />
                 )}
                 <CheckCompletedSvg
                   className={`w-[24px] h-[24px]  hover:text-red-500`}
@@ -175,7 +181,7 @@ const PopoverButtons = ({
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
-              <AlertDialogHeader>
+            <AlertDialogHeader>
                 <AlertDialogTitle className="text-red-500">
                   Вы уверены, что хотите финишировать заказ?
                 </AlertDialogTitle>

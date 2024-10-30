@@ -218,7 +218,7 @@ function Login() {
             className="flex items-center justify-center py-12"
           >
             <div className="mx-auto grid w-[450px] gap-6">
-              <div ref={titleRef} className="grid gap-2 text-center">
+              <div  className="grid gap-2 text-center">
                 <p
                   className="text-balance text-muted-foreground"
                   style={{ color: ' var(--text-color)' }}
@@ -229,7 +229,7 @@ function Login() {
                   Brandformance
                 </h1>
               </div>
-              <div ref={firstRef} className="relative">
+              <div  className="relative">
                 <Input
                   id="login"
                   type="text"
@@ -247,7 +247,7 @@ function Login() {
                   {errors?.login && <p>{errors?.login?.message}</p>}
                 </span>
               </div>
-              <div ref={secondRef} className="relative">
+              <div  className="relative">
                 <Input
                   id="password"
                   type={showPasswordOld ? 'text' : 'password'}
@@ -275,7 +275,7 @@ function Login() {
                   )}
                 </div>
               </div>
-              <div ref={buttonRef}>
+              <div >
                 <Button
                   className={`${
                     isValid

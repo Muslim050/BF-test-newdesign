@@ -14,6 +14,7 @@ import {
   Table,
 } from '@/components/ui/table.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 const headers = [
   { key: 'id', label: '№' },
   { key: 'name', label: 'Логин' },
@@ -28,17 +29,17 @@ function ChannelTableUsers() {
   const dispatch = useDispatch()
   const { channelUsers, status } = useSelector((state) => state.channelUsers)
   const { textColor } = React.useContext(ThemeContext)
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    dispatch(fetchChannelUsers())
+    dispatch(fetchChannelUsers()).then(() => setLoading(false))
   }, [selectUsers])
 
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div className="spinner"></div>
-        </div>
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка пользователей'} />
+
       ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {channelUsers.length ? (

@@ -5,23 +5,24 @@ import { fetchAdvertiser } from '@/redux/advertiser/advertiserSlice.js'
 import { Table, TableHeader, TableBody } from '@/components/ui/table.jsx'
 import AdvertiserTableRows from '@/components/Dashboard/Advertiser/AdvertiserUtilizer/AdvertiserTableRows.jsx'
 import AdvertiserTableData from '@/components/Dashboard/Advertiser/AdvertiserUtilizer/AdvertiserTableData.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const AdvertiserTable = () => {
   const { advertisers, status } = useSelector((state) => state.advertiser)
   const dispatch = useDispatch()
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    dispatch(fetchAdvertiser())
+    dispatch(fetchAdvertiser()).then(() => setLoading(false))
   }, [dispatch])
 
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div className="text-white">Загрузка рекламодателей &nbsp;</div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка рекламодателей'} />
+
+        ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {advertisers.length ? (
             <Table

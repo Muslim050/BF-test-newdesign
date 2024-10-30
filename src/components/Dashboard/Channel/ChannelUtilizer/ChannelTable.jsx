@@ -25,6 +25,7 @@ import {
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
 import { ChartSvg } from '../../../../assets/icons-ui.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -45,9 +46,10 @@ function ChannelTable() {
   const [connectG, setConnectG] = React.useState(channel.is_connected)
   const user = Cookies.get('role')
   const { textColor } = React.useContext(ThemeContext)
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    dispatch(fetchChannel())
+    dispatch(fetchChannel()).then(() => setLoading(false))
   }, [dispatch])
 
   const authGoogle = (pubId) => {
@@ -59,14 +61,10 @@ function ChannelTable() {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка каналов &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка каналов'} />
+
+        ) : (
         <div>
           <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
             {channel && channel.length ? (

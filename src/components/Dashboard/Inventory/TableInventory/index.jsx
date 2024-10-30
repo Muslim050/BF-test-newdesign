@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 function TableInventory() {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ function TableInventory() {
   const [selectedChannelName, setSelectedChannelName] = React.useState(null)
   const [currentOrder, setCurrentOrder] = React.useState(null)
   const channel = useSelector((state) => state.channel.channel)
+  const [loading, setLoading] = React.useState(true)
 
   const handleSelectFormat = (value) => {
     setSelectedFormat(value)
@@ -75,20 +77,16 @@ function TableInventory() {
   }, [dispatch])
 
   React.useEffect(() => {
-    dispatch(fetchInventory({}))
+    dispatch(fetchInventory({})).then(() => setLoading(false))
   }, [dispatch])
 
   return (
     <>
-      {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка инвентарей &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+      {(status === 'loading' || loading) ? (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка инвентарей'} />
+
+        ) : (
         <div className="">
           <div className="tableWrapper__table_title">
             <div className="flex items-center justify-end w-full">

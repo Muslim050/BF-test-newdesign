@@ -11,6 +11,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import OrderModal from './modals/CreateOrder/CreateOrder'
 import Cookies from 'js-cookie'
 import style from './styles/OrderTable.module.scss'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 function OrderTable() {
   const dispatch = useDispatch()
@@ -37,10 +38,8 @@ function OrderTable() {
   return (
     <>
       {loading ? (
-        <div className="loaderWrapper">
-          <div style={{ marginRight: '10px' }}>Загрузка заказов</div>
-          <div className="spinner"></div>
-        </div>
+       
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка заказов'} />
       ) : (
         <div>
           {user === 'admin' ? null : (

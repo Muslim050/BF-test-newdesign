@@ -173,7 +173,7 @@ function AddInventoryData({
             >
 
               {
-                formatDate(advert?.video_content?.actual_publication_time) ? formatDate(advert?.video_content?.actual_publication_time) : formatDate(advert?.video_content?.publication_time)
+                formatDate(advert?.video_content?.publication_time)
               }
             </TableCell>
 

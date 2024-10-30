@@ -143,6 +143,9 @@ export default function AddVideo({
         toast.success('Размещение успешно созданно !')
         // dispatch(fetchInventory({ orderAssignmentId: item.id }))
         dispatch(fetchOnceListSentToPublisher({ is_deactivated: false }))
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)
         setIsPopoverOpen(false)
       } else {
         throw new Error('Unexpected response payload')

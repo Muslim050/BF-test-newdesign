@@ -48,12 +48,10 @@ const CompletedOrders = () => {
           <div className="spinner"></div>
         </div>
       ) : (
-        <div className="tableWrapper" style={{ overflow: 'visible' }}>
+        <div className="tableWrapper" >
           <div
             // style={{ background: ' var(--bg-color)' }}
-            className={`border_container rounded-[22px] p-[3px] glass-background h-screen`} // Здесь используется h-screen для высоты на весь экран
-          >
-            <div className="h-full overflow-y-auto">
+            className="border_container w-full h-[calc(100vh-150px)]   rounded-[22px]  p-[3px] glass-background flex flex-col"          >
               <Table
                 className={`${style.responsive_table} border_design rounded-lg h-full`}
               >
@@ -80,7 +78,7 @@ const CompletedOrders = () => {
                   <SentOrderList listsentPublisher={listsentPublisher} />
                 </TableBody>
               </Table>
-            </div>
+
           </div>
         </div>
       )}

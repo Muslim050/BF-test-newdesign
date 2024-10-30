@@ -9,11 +9,9 @@ import {
   TableHeader,
   Table,
 } from '@/components/ui/table.jsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
-import { Button } from '@/components/ui/button.jsx'
-import { Plus } from 'lucide-react'
-import AdvertiserAgencyModalUsers from '@/components/Dashboard/AdvertiserAgency/AdvertiserAgencyUsers/AdvertiserAgencyModalUsers.jsx'
+
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -32,9 +30,10 @@ function AdvertiserAgencyTableUsers() {
   const { advertiserAgencyUsers, status } = useSelector(
     (state) => state.advertiserAgencyUsers,
   )
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    dispatch(fetchAdvertiserAgencyUsers())
+    dispatch(fetchAdvertiserAgencyUsers()).then(() => setLoading(false))
   }, [dispatch])
   // Модальное окно OrderModal
   const [open, setOpen] = React.useState(false)
@@ -45,9 +44,8 @@ function AdvertiserAgencyTableUsers() {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div className="spinner"></div>
-        </div>
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка пользователей'} />
+
       ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {advertiserAgencyUsers.length ? (

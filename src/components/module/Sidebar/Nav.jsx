@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/alert-dialog.jsx";
 import {LogoutSvg} from "@/assets/SidebarsIcons-ui.jsx";
 import useMedia from 'use-media';
+import {fetchOnceListSentToPublisher} from "@/redux/order/SentToPublisher.js";
 
 
 
@@ -46,6 +47,9 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
   const hasAccess = (roles) => {
     return roles?.some((role) => userRoles.includes(role)) // Проверяем наличие хотя бы одной роли
   }
+  const { listsentPublisher } = useSelector(
+    (state) => state.sentToPublisher,
+  )
   const dispatch = useDispatch()
   const user = Cookies.get('role')
 
@@ -66,7 +70,6 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
     )
     setFilteredOrders(response.data.data.count)
   }
-
   // React.useEffect(() => {
   //   if (user === 'admin') {
   //     // dispatch (fetchOrder ())
@@ -105,6 +108,8 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
       if (['publisher', 'channel'].includes(user)) {
         dispatch(fetchChannel());
         dispatch(fetchVideos());
+        // dispatch(fetchOnceListSentToPublisher({ is_deactivated: false }))
+
       }
     };
 
@@ -124,13 +129,14 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
   //Каналы
   const filteredChannel = channel.filter((i) => i.is_connected === false)
   const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
+  const filtredSentPublisher = listsentPublisher.filter((i) => i.order_status === 'in_review')
+
   //Каналы
 
   //Видео
   const filteredVideo = videos.filter((i) => i.link_to_video === null)
   //Видео
 
-  console.log (links)
 
   const updateMenuItems = (items) => {
     return items.map(item => {
@@ -138,26 +144,32 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
         if (userRole === 'advertiser' || userRole === 'advertising_agency') {
           return {
             ...item,
+            color: 'green',
             label: filteredOrdersAdvertiser.length.toString(),
           };
         } else if (userRole === 'publisher') {
           return {
             ...item,
-            label: (filteredComplitedI.length + filteredConfirmedI.length).toString(),
+            color: 'green',
+            label: filtredSentPublisher.length.toString(),
+
           };
         }
         else if (userRole === 'channel') {
           return {
             ...item,
-            label: (filteredComplitedI.length + filteredConfirmedI.length).toString(),
+            color: 'green',
+            label: filtredSentPublisher.length.toString(),
           };
         } else if (userRole === 'admin') {
           return {
             ...item,
             label: filteredOrders.length,
           };
+          // eslint-disable-next-line no-dupe-else-if
         }
       }
+
 
       if (item.title === 'Каналы') {
         if (userRole === 'publisher' || userRole === 'admin' || userRole === 'channel') {
@@ -226,7 +238,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                     <span
                       className='absolute -top-3 -right-2'
                     >
-                        <Badge className="bg-red-500 px-0.5 py-0">
+                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : 'bg-red-500'}`}>
                           {link.label}
                           {(link.title === 'Каналы' && userRole === 'admin') &&
                             <span>
@@ -242,7 +254,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                   <span>{link.title}</span>
                   {link.accordion && link.subMenu && (
                     <div className="flex flex-col">
-                      {link.subMenu.map ((subItem, subIndex) => (
+                      {link.subMenu?.filter(subItem => hasAccess(subItem.roles)).map((subItem, subIndex) => (
                         <Link
                           key={subIndex}
                           to={subItem.to}
@@ -297,7 +309,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                       )}
                     >
 
-                    <Badge className="bg-red-500 px-1.5 py-[1.4px]">
+                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : 'bg-red-500'}`}>
                       {link.label} {(link.title === 'Каналы' && userRole === 'admin') &&
                       <span
                         className={cn (
@@ -324,19 +336,31 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                   </div>
                 </Link>
 
-                {link.accordion && isCollapsed === false && isSubMenuOpen === link.title && (
+
+                {hasAccess (link.roles) && link.accordion && isCollapsed === false && isSubMenuOpen === link.title && (
                   <div className="pl-9 pb-2 ">
-                    {link.subMenu.map ((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subItem.to}
-                        className={cn (
-                          buttonVariants ({variant: link.variant, size: 'sm'}),
-                          link.variant === 'ghost' &&
-                          'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
-                          isActive && 'bg-[var(--bg-color)] text-white', // Класс для активного состояния
-                          'justify-start h-[40px] rounded-[12px] w-full',
-                        )}>
+                    {/*{link.subMenu.map ((subItem, subIndex) => (*/}
+                    {/*  <Link*/}
+                    {/*    key={subIndex}*/}
+                    {/*    to={subItem.to}*/}
+                    {/*    className={cn (*/}
+                    {/*      buttonVariants ({variant: link.variant, size: 'sm'}),*/}
+                    {/*      link.variant === 'ghost' &&*/}
+                    {/*      'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',*/}
+                    {/*      isActive && 'bg-[var(--bg-color)] text-white', // Класс для активного состояния*/}
+                    {/*      'justify-start h-[40px] rounded-[12px] w-full',*/}
+                    {/*    )}>*/}
+                    {/*    {subItem.title}*/}
+                    {/*  </Link>*/}
+                    {/*))}*/}
+                    {link.subMenu?.filter(subItem => hasAccess(subItem.roles)).map((subItem, subIndex) => (
+                      <Link key={subIndex} to={subItem.to} className={cn (
+                            buttonVariants ({variant: link.variant, size: 'sm'}),
+                            link.variant === 'ghost' &&
+                            'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
+                            isActive && 'bg-[var(--bg-color)] text-white', // Класс для активного состояния*/}
+                            'justify-start h-[40px] rounded-[12px] w-full',
+                          )}>
                         {subItem.title}
                       </Link>
                     ))}
@@ -351,61 +375,64 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
 
         }
 
-        <div className='flex  flex-col justify-end px-2 min-h-[50px]'>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <div
-                className=' group py-2    rounded-[12px]  h-full cursor-pointer'
+        {
+          isMobile ? <div className='flex  flex-col justify-end px-2 min-h-[50px]'>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <div
+                  className=' group py-2    rounded-[12px]  h-full cursor-pointer'
 
-                // className={`hover:scale-105 transition-all ${baseStyles} hover:${inactiveStyles} group hover:text-red-500 hover:bg-red-200 cursor-pointer`}
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="flex items-center relative ">
-                      <LogoutSvg className="sm:w-[26px] sm:h-[26px] w-[20px] h-[20px] text-red-500"/>
-                      {!isCollapsed ? (
-                        <span
-                          className={`ml-1.5 transition-opacity duration-500 ease-in-out text-white  ${
-                            !isCollapsed
-                              ? 'opacity-100 visible'
-                              : 'opacity-0 invisible'
-                          }`}
-                          style={{
-                            transitionDelay: !isCollapsed ? '0.3s' : '0s',
-                          }}
-                        >
+                  // className={`hover:scale-105 transition-all ${baseStyles} hover:${inactiveStyles} group hover:text-red-500 hover:bg-red-200 cursor-pointer`}
+                >
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center relative ">
+                        <LogoutSvg className="sm:w-[26px] sm:h-[26px] w-[20px] h-[20px] text-red-500"/>
+                        {!isCollapsed ? (
+                          <span
+                            className={`ml-1.5 transition-opacity duration-500 ease-in-out text-white  ${
+                              !isCollapsed
+                                ? 'opacity-100 visible'
+                                : 'opacity-0 invisible'
+                            }`}
+                            style={{
+                              transitionDelay: !isCollapsed ? '0.3s' : '0s',
+                            }}
+                          >
                             Выход
                           </span>
-                      ) : null}
-                    </div>
-                  </TooltipTrigger>
+                        ) : null}
+                      </div>
+                    </TooltipTrigger>
 
-                </Tooltip>
-              </div>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="text-white">
-                  Выйти из системы Brandformance
-                </AlertDialogTitle>
-                <AlertDialogDescription className="text-white">
-                  Вы точно хотите выйти?
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter className='!flex'>
-                <AlertDialogCancel className="text-white w-[100px]">
-                  Нет
-                </AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-400 w-[100px]"
-                >
-                  Да
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>
+                  </Tooltip>
+                </div>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-white">
+                    Выйти из системы Brandformance
+                  </AlertDialogTitle>
+                  <AlertDialogDescription className="text-white">
+                    Вы точно хотите выйти?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className='!flex'>
+                  <AlertDialogCancel className="text-white w-[100px]">
+                    Нет
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-400 w-[100px]"
+                  >
+                    Да
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+: null
+        }
 
       </nav>
     </div>

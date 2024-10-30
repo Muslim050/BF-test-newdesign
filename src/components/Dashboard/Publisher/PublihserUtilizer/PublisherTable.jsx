@@ -16,6 +16,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -28,8 +29,10 @@ function PublisherTable() {
   const dispatch = useDispatch()
   const { textColor } = React.useContext(ThemeContext)
   const { publisher, status } = useSelector((state) => state.publisher)
+  const [loading, setLoading] = React.useState(true)
+
   React.useEffect(() => {
-    dispatch(fetchPublisher())
+    dispatch(fetchPublisher()).then(() => setLoading(false))
   }, [dispatch])
 
   // Модальное окно OrderModal
@@ -42,14 +45,10 @@ function PublisherTable() {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка паблишеров &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка паблишеров'} />
+
+        ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {publisher && publisher ? (
             <Table

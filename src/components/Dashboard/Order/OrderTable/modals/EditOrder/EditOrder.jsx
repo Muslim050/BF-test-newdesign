@@ -199,8 +199,11 @@ export default function EditOrder({
     dispatch(deleteOrder({ id: currentOrder.id }))
       .unwrap()
       .then((result) => {
-        toast.success('Заказ успешно завершен')
+        toast.success('Заказ успешно удален')
         onClose()
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)
         dispatch(fetchOrder())
       })
       .catch((error) => {

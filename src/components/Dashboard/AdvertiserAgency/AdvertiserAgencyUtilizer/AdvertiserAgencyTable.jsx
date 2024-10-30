@@ -17,6 +17,7 @@ import { EditSvg } from '@/assets/icons-ui.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import style from '@/components/Dashboard/AdvertiserAgency/AdvertiserAgencyUsers/AdvertiserAgencyTableUsers.module.scss'
 import Cookies from 'js-cookie'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -35,6 +36,7 @@ function AdvertiserAgencyTable() {
   const [currentAdv, setCurrentAdv] = React.useState(null)
   const role = Cookies.get('role')
   const { textColor } = React.useContext(ThemeContext)
+  const [loading, setLoading] = React.useState(true)
 
   // Модальное окно EditModal
   const [editOpen, setEditOpen] = React.useState(false)
@@ -44,7 +46,7 @@ function AdvertiserAgencyTable() {
   // Модальное окно EditModal
 
   React.useEffect(() => {
-    dispatch(fetchAdvertiserAgency())
+    dispatch(fetchAdvertiserAgency()).then(() => setLoading(false))
   }, [dispatch])
 
   return (
@@ -61,14 +63,16 @@ function AdvertiserAgencyTable() {
       {/*Редактирование*/}
 
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка рекламных агентств &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+        // <div className="loaderWrapper">
+        //   <div style={{ color: 'var(--text-color, )' }}>
+        //     {' '}
+        //     Загрузка рекламных агентств &nbsp;
+        //   </div>
+        //   <div className="spinner"></div>
+        // </div>
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка рекламных агентств'} />
+
+        ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {advertiserAgency.length ? (
             <Table

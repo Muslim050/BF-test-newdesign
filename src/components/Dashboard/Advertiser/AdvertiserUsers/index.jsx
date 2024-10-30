@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/table.jsx'
 import style from '@/components/Dashboard/Advertiser/AdvertiserUtilizer/AdvertiserTable.module.scss'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -27,9 +28,10 @@ function AdvertiserTableUsers() {
   const { advertiserUsers, status } = useSelector(
     (state) => state.advertiserUsers,
   )
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    dispatch(fetchAdvertiserUsers())
+    dispatch(fetchAdvertiserUsers()).then(() => setLoading(false))
   }, [dispatch])
 
   const { textColor } = React.useContext(ThemeContext)
@@ -37,10 +39,12 @@ function AdvertiserTableUsers() {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div className="spinner"></div>
-        </div>
-      ) : (
+        // <div className="loaderWrapper">
+        //   <div className="spinner"></div>
+        // </div>
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка пользователей'} />
+
+        ) : (
         <div className="border_container h-[calc(100vh-150px)]  rounded-[22px] mt-3 p-[3px] glass-background flex flex-col">
           {advertiserUsers.length ? (
             <Table
