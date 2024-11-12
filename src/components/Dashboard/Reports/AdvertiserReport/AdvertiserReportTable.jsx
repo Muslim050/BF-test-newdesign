@@ -25,6 +25,7 @@ import {
   TableHead,
   TableBody,
 } from '@/components/ui/table'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 function AdvertiserReportTable() {
   const dispatch = useDispatch()
   const [expandedRows, setExpandedRows] = React.useState('')
@@ -163,14 +164,10 @@ function AdvertiserReportTable() {
   return (
     <>
       {loading ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка данных &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading}text="Загрузка отчета" />
+
+        ) : (
         <div className="tableWrapper" style={{ overflow: 'visible' }}>
           <div className="tableWrapper__table_title">
             <div className="flex justify-end items-center gap-2">
@@ -342,7 +339,7 @@ function AdvertiserReportTable() {
                 </div>
               </>
             ) : (
-              <div className="flex items-center gap-2 justify-center h-[200px] 	">
+              <div className="flex items-center gap-2 justify-center h-[100%] 	">
                 Установите фильтр для отображения данных!
               </div>
             )}

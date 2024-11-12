@@ -77,6 +77,10 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        customPing: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(1.05)', opacity: '0.9' }, // уменьшенный масштаб
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -85,10 +89,27 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
       },
       animation: {
+        customPing: 'customPing 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        rotate: 'rotate 1.5s ease-in-out forwards',
+        fadeIn: 'fadeIn 1.5s ease-in-out forwards',
+        fadeInRotate: 'fadeIn 1.5s ease-in-out forwards, rotate 2s ease-in-out forwards',
       },
     },
   },

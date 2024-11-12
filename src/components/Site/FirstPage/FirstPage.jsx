@@ -226,7 +226,7 @@ const FirstPage = () => {
 
                 textShadow: '0px 4px 20px rgba(255, 255, 255, 0.25)',
               }}
-              className={`animated-element text-[35px] md:text-[40px] lg:text-[60px] pt-3 pb-10  custom-845:pt-20 custom-845:pb-1  `}
+              className={`animated-element text-[35px] md:text-[40px] lg:text-[60px] sm:pt-3 pb-10 pt-28 custom-845:pt-28 custom-845:pb-1  `}
             >
               Развивайте свой бизнес с нами{' '}
             </h2>

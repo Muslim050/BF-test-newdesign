@@ -13,6 +13,7 @@ import {
 import style from '../TableSentsOrder.module.scss'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -40,14 +41,10 @@ const CompletedOrders = () => {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка видео &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard status={status} text="Загрузка заказов" />
+
+        ) : (
         <div className="tableWrapper" >
           <div
             // style={{ background: ' var(--bg-color)' }}

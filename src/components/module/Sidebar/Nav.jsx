@@ -130,16 +130,16 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
   const filteredChannel = channel.filter((i) => i.is_connected === false)
   const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
   const filtredSentPublisher = listsentPublisher.filter((i) => i.order_status === 'in_review')
-
+  const countInventoryCount = listsentPublisher.some(item => item.inventory_count === 0);
   //Каналы
-
+  const finishedOrder = (listsentPublisher.map((i) => i.order_status === 'finished'))
   //Видео
   const filteredVideo = videos.filter((i) => i.link_to_video === null)
   //Видео
-
-
+  console.log (countInventoryCount)
   const updateMenuItems = (items) => {
     return items.map(item => {
+
       if (item.title === 'Заказы') {
         if (userRole === 'advertiser' || userRole === 'advertising_agency') {
           return {
@@ -147,34 +147,27 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
             color: 'green',
             label: filteredOrdersAdvertiser.length.toString(),
           };
-        } else if (userRole === 'publisher') {
+        } else if (userRole === 'publisher' || userRole === 'channel') {
           return {
             ...item,
-            color: 'green',
-            label: filtredSentPublisher.length.toString(),
-
-          };
-        }
-        else if (userRole === 'channel') {
-          return {
-            ...item,
-            color: 'green',
-            label: filtredSentPublisher.length.toString(),
+            color:  filtredSentPublisher.length > 0 ? 'green' : "bg-[#ff9800]",
+            label: filtredSentPublisher.length.toString()
           };
         } else if (userRole === 'admin') {
           return {
             ...item,
-            label: filteredOrders.length,
+            color:  'green',
+            label: filteredOrders.length || filteredOrders,
           };
-          // eslint-disable-next-line no-dupe-else-if
         }
       }
-
 
       if (item.title === 'Каналы') {
         if (userRole === 'publisher' || userRole === 'admin' || userRole === 'channel') {
           return {
             ...item,
+            color:  'bg-red-500',
+
             label: filteredChannel.length.toString(),
           };
           // eslint-disable-next-line no-dupe-else-if
@@ -184,6 +177,8 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
       if (item.title === 'Видео' && (userRole === 'publisher' || userRole === 'admin' || userRole === 'channel')) {
         return {
           ...item,
+          color:  'bg-red-500',
+
           label: filteredVideo.length.toString(),
         };
       }
@@ -231,14 +226,15 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                   >
                     <link.icon className="h-5 w-5 sm:h-6 sm:w-6"/>
                     <span className="sr-only">{link.title}</span>
-                    {link.label > 0 ? (
-                      <>
+                    <>
+                      {link.label > 0 ? (
+                        <>
 
 
                     <span
                       className='absolute -top-3 -right-2'
                     >
-                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : 'bg-red-500'}`}>
+                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : link.color}`}>
                           {link.label}
                           {(link.title === 'Каналы' && userRole === 'admin') &&
                             <span>
@@ -247,7 +243,8 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                           }
                         </Badge>
                       </span></>
-                    ) : null}
+                      ) : null}
+                    </>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side={isMobile ? "top" : "right"} className="flex flex-col gap-2">
@@ -299,7 +296,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                   </div>
 
                   <div>
-                    {link.label && (
+                    {link.label > 0 ? (
                       <>
                     <span
                       className={cn (
@@ -309,8 +306,9 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                       )}
                     >
 
-                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : 'bg-red-500'}`}>
-                      {link.label} {(link.title === 'Каналы' && userRole === 'admin') &&
+                        <Badge className={`px-1.5 py-0 ${link.color === 'green' ? 'bg-[#05c800]' : link.color}`}>
+                      {link.label}
+                          {(link.title === 'Каналы' && userRole === 'admin') &&
                       <span
                         className={cn (
                           'ml-auto',
@@ -324,7 +322,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                     }
                     </Badge>
                   </span></>
-                    )}
+                    ) : null}
                     <div className='float-right'>
                       {link.accordion &&
                         (isSubMenuOpen ? (

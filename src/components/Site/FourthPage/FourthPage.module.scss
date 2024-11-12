@@ -35,3 +35,16 @@
     }
   }
 }
+
+.wrapperCard {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr); /* 2 колонки по умолчанию */
+}
+
+@media (min-width: 768px) {
+  .wrapperCard {
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки для экранов шире 768px */
+  }
+}
+

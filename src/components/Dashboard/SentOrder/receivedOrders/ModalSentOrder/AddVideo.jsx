@@ -82,8 +82,9 @@ export default function AddVideo({
       category: '',
       video_duration: 0,
       publication_time: '',
+      link_to_video: ''
     },
-    mode: 'onBlur',
+    mode: 'onSubmit',
   })
 
   const timeC = (event) => {
@@ -127,6 +128,7 @@ export default function AddVideo({
           category: data.category,
           video_duration: data.video_duration,
           publication_time: data.publication_time,
+          link_to_video: data.link_to_video
         },
         {
           headers: {
@@ -413,7 +415,7 @@ export default function AddVideo({
         </div>
         {/**/}
 
-        <div className="flex gap-4 items-end">
+        <div className="flex gap-4 items-end ">
           <div className="grid w-full ">
             <Label className="text-sm	text-white pb-2">
               {' '}
@@ -425,23 +427,41 @@ export default function AddVideo({
                   errors?.promo_duration ? 'border-red-500' : 'border-gray-300'
                 }   transition-all duration-300 text-sm `}
                 type="number"
-                {...register('promo_duration', {
+                {...register ('promo_duration', {
                   required: 'Поле обязательно для заполнения',
                 })}
               />
             </div>
+
           </div>
-          <Button
-            className={`${
-              isValid
-                ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
-                : 'bg-[#616161]'
-            } w-full   h-[40px] text-white rounded-lg	`}
-            disabled={!isValid}
-          >
-            Создать
-          </Button>
+          <div className="grid w-full">
+            <Label className="text-sm	text-white pb-2">
+              Прикрепить ссылку
+            </Label>
+
+            <Input
+              type="text"
+              autoComplete="off"
+              {...register('link_to_video')}
+
+              placeholder={'Прикрепить ссылку '}
+              className={`border ${
+                errors?.linkToVideo ? 'border-red-500' : 'border-gray-300'
+              }   transition-all duration-300 text-sm `}
+            />
+          </div>
+
         </div>
+        <Button
+          className={`${
+            isValid
+              ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
+              : 'bg-[#616161]'
+          } w-full   h-[40px] text-white rounded-lg	mt-4`}
+          disabled={!isValid}
+        >
+          Создать
+        </Button>
       </form>
     </>
   )

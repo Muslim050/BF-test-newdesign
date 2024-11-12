@@ -5,18 +5,18 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import Logo from '@/assets/Logo.png'
 
-const PreLoadDashboard = ({ onComplete, loading, text }) => {
+const PreLoadDashboard = ({ onComplete, loading, text, status }) => {
   const textRef = useRef(null)
   const circleContainerRef = useRef(null)
   const circleRef = useRef(null)
   const containerRef = useRef(null)
 
   useEffect(() => {
-    if (loading) {
+    if (loading || status === 'loading') {
       // Вращение контейнера с кругами
       gsap.to(circleContainerRef.current, {
         rotation: "+=360",
-        duration: 2,
+        duration: 1.5,
         ease: 'linear',
         repeat: -1,
         transformOrigin: '50% 50%',

@@ -11,7 +11,6 @@ export const useOrderChart = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const { id } = useParams()
-  console.log('asdasdasd', id)
 
   const [open, setOpen] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
@@ -179,5 +178,6 @@ export const useOrderChart = () => {
     loading,
     setOpen,
     open,
+    setLoading
   }
 }

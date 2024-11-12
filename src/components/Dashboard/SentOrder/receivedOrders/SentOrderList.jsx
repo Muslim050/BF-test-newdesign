@@ -60,14 +60,29 @@ function SentOrderList({ listsentPublisher }) {
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <div style={{display: 'flex'}}>
-
-                {i + 1}
-
-
+              <div className='flex justify-between'>
                 {item.order_status === 'in_review' ? (
-                  <CircularTable/>
+                  // <CircularTable/>
+                  <>
+                  <span className=" h-5 w-2.5 flex">
+
+                      <span
+                        className=" inline-flex rounded-full h-5 w-2.5 bg-[#05c800] text-[14px] items-center justify-center"></span>
+                    </span>
+                  </>
                 ) : null}
+                {i + 1}
+                <div style={{display: 'flex', justifyContent: "space-between" }}>
+
+
+                  {item.order_status === 'in_review' ? null : <>
+                    {item.inventory_count ? null : <span className=" h-5 w-2.5">
+
+                      <span
+                        className="relative inline-flex rounded-full h-5 w-2.5 bg-red-500 text-[14px] items-center justify-center"></span>
+                    </span>}
+                  </>}
+                </div>
               </div>
 
             </TableCell>
@@ -75,7 +90,12 @@ function SentOrderList({ listsentPublisher }) {
               data-label="Кампания"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {item.order_name}
+              <div className='relative'>
+                <div className='absolute -left-10'>
+
+                </div>
+                {item.order_name}
+              </div>
             </TableCell>
             <TableCell
               data-label="Формат"
@@ -91,7 +111,7 @@ function SentOrderList({ listsentPublisher }) {
               data-label="Начало"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(item.start_date)}
+              {formatDate (item.start_date)}
             </TableCell>
             <TableCell
               data-label="Конец"
@@ -136,24 +156,40 @@ function SentOrderList({ listsentPublisher }) {
                 className="relative hover:scale-125 transition-all"
               >
                 <OpenSvg
-                  className={`hover:text-brandPrimary-1 transition-all ease-in-out ${
+                  className={`hover:text-brandPrimary-1 transition-all ease-in-out 
+                  ${ item.order_status === 'in_review' ? null : item.inventory_count ? null : 'text-red-500'}
+                  ${
                     expandedRows === item.id
                       ? 'rotate-90 text-brandPrimary-1 scale-125'
                       : 'rotate-0'
                   }`}
-                />{' '}
-              </button>
-              {item.order_status === 'finished' ? null : (
-                <TableCell style={{ display: 'contents' }}>
-                  {item?.notes_text ? (
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <button
-                          onClick={() => {
-                            setCurrentOrder(item)
-                          }}
-                          className="hover:scale-125 transition-all p-0"
-                        >
+                />
+
+                {
+                  <>
+                    {
+                      item.order_status === 'in_review' ? null : <div className='absolute top-1.5 -left-1'>
+                        {item.inventory_count ? null : <span className="relative flex h-3 w-3">
+                      <span
+                        className="animate-ping absolute  inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span
+                        className="relative inline-flex rounded-full h-3 w-3 bg-red-500 text-[14px] items-center justify-center"></span>
+                    </span>}
+                      </div>}</>
+                  }
+
+                  </button>
+                {item.order_status === 'finished' ? null : (
+                  <TableCell style={{display: 'contents'}}>
+                {item?.notes_text ? (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        onClick={() => {
+                          setCurrentOrder (item)
+                        }}
+                        className="hover:scale-125 transition-all p-0"
+                      >
                           <CommentSvg className="w-[24px] h-[24px] text-white hover:text-green-500" />
                         </button>
                       </PopoverTrigger>

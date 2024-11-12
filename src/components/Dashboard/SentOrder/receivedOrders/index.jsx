@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -46,14 +47,10 @@ const ReceivedOrders = () => {
   return (
     <>
       {loading ? (
-        <div className="loaderWrapper">
-          <div style={{ color: 'var(--text-color, )' }}>
-            {' '}
-            Загрузка видео &nbsp;
-          </div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка заказов'} />
+
+        ) : (
         <div className="tableWrapper" style={{ overflow: 'visible' }}>
           <div
             // style={{ background: ' var(--bg-color)' }}

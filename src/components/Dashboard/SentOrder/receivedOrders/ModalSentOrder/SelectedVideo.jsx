@@ -68,7 +68,7 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
       video_id: '',
       channel_id: '',
     },
-    mode: 'onBlur',
+    mode: 'onSubmit',
   })
   const cId = watch('channel_id')
   const onSubmit = async (data) => {

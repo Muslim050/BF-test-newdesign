@@ -108,7 +108,6 @@ export default function AddInventory({
       transition: 'transform 0.3s ease',
     }
   }
-
   return (
     <div className={` rounded-[22px] p-[3px]   glass-background`}>
       {getOrder.length && getOrder ? (
@@ -246,7 +245,11 @@ export default function AddInventory({
                 </button>
               </TableHead>
               <TableHead className={`text-${textColor}`}>
-                Действия/Статус
+
+                {onceOrder?.status ==="finished" ?  'Статус' : 'Статус / Действия'
+                }
+
+
               </TableHead>
             </TableRow>
           </TableHeader>

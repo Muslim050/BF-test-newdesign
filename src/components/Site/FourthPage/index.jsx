@@ -47,11 +47,13 @@ const FourthPage = () => {
     const container = containerRefImageData.current
 
     if (container) {
+      const isMobile = window.innerWidth < 768
+      const endValue = isMobile ? '+=400%' : '+=200%'
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '.sectionFourthBlue',
           start: 'top top',
-          end: '+=180%', // Увеличь пространство, чтобы плавно завершить анимацию
+          end: endValue, // Увеличь пространство, чтобы плавно завершить анимацию
           // Увеличь продолжительность анимации
           scrub: 1, // slower scrub might make it smoother
           pinSpacing: true, // Отключаем дополнительное пространство
@@ -144,6 +146,41 @@ const FourthPage = () => {
       card.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [])
+
+  const [gridStyle, setGridStyle] = React.useState({
+    height: 'auto',
+    opacity: 0,
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)', // По умолчанию 2 колонки
+    gap: '16px',
+  });
+
+  useEffect(() => {
+    const updateGridStyle = () => {
+      if (window.innerWidth >= 768) {
+        setGridStyle((prevStyle) => ({
+          ...prevStyle,
+          gridTemplateColumns: 'repeat(3, 1fr)', // 3 колонки на экранах от 768px
+        }));
+      } else {
+        setGridStyle((prevStyle) => ({
+          ...prevStyle,
+          gridTemplateColumns: 'repeat(2, 1fr)', // 2 колонки на экранах меньше 768px
+        }));
+      }
+    };
+
+    // Устанавливаем начальное значение при загрузке компонента
+    updateGridStyle();
+
+    // Добавляем слушатель события изменения размера экрана
+    window.addEventListener('resize', updateGridStyle);
+
+    // Убираем слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener('resize', updateGridStyle);
+    };
+  }, []);
   return (
     <>
       <section className="sectionFourth sectionFourthBlue ">
@@ -170,7 +207,7 @@ const FourthPage = () => {
               playsInline
               className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
             ></video>
-            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#05060a] text-[80px] flex justify-center flex-col items-center ">
+            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#05060a] text-[35px] flex justify-center flex-col items-center ">
               Brandformance
             </div>
           </div>
@@ -178,15 +215,8 @@ const FourthPage = () => {
         <div
           ref={containerRefImageData}
           alt=""
-          className="dog-2 imgFourth grid grid-cols-3 gap-4 p-4 max-w-[1240px] w-full m-auto"
-          style={{
-            height: 'auto',
-            opacity: 0,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)', // 3 колонки
-            gridTemplateRows: 'repeat(3, auto)', // Авторазмер для строк
-            gap: '16px',
-          }}
+          className={`dog-2 imgFourth grid grid-cols-3 md:grid-cols-2 gap-4 p-4 max-w-[1240px] w-full m-auto`}
+          style={gridStyle}
         >
           <div ref={sparkleRef} className={m.sparkles} />
 

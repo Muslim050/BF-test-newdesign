@@ -14,6 +14,7 @@ import { Paperclip } from 'lucide-react'
 import { Dialog } from '@/components/ui/dialog.jsx'
 import { Link } from 'lucide-react'
 import Cookies from 'js-cookie'
+import log from "eslint-plugin-react/lib/util/log.js";
 
 function OpenTableSentOrderData({ data }) {
   const user = Cookies.get('role')
@@ -48,6 +49,7 @@ function OpenTableSentOrderData({ data }) {
       </Dialog>
 
       {data.map((inventor, i) => (
+        console.log(inventor),
         <>
           <TableRow className={style.table__tr}>
             <TableCell
@@ -139,7 +141,10 @@ function OpenTableSentOrderData({ data }) {
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <AdvertStatus status={inventor.status} />
+              <AdvertStatus status={inventor.status}
+                            endDate={inventor.deactivation_date}
+
+              />
             </TableCell>
 
             <TableCell

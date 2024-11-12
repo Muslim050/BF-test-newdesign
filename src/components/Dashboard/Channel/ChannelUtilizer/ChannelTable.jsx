@@ -104,14 +104,15 @@ function ChannelTable() {
                               <TooltipProvider>
                                 <Tooltip>
                                   <TooltipTrigger asChild>
-                                    <div className="w-2	cursor-pointer hover:scale-110 h-6 bg-red-500 rounded-[2px] top-[17px]  absolute left-0 z-40"></div>
+                                    <div
+                                      className="h-6 w-3	cursor-pointer hover:scale-110  bg-red-500 rounded-full top-[18px]  absolute left-0 z-40"></div>
                                   </TooltipTrigger>
                                   <TooltipContent className="bg-red-400 text-white font-medium relative z-40">
-                                    <p>Нужно переподключить канал</p>
-                                  </TooltipContent>
-                                </Tooltip>
+                                  <p>Нужно переподключить канал</p>
+                                </TooltipContent>
+                              </Tooltip>
                               </TooltipProvider>
-                            )}
+                              )}
                             <div
                               className={`${
                                 !channel.is_active ? 'ml-2' : 'ml-0'

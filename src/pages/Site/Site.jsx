@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react'
-import Header from '@/components/Site/Header/Header'
-
+import React from 'react'
 import style from './site.module.scss'
 import FirstPage from '@/components/Site/FirstPage/FirstPage.jsx'
-import { gsap } from 'gsap'
 import FourthPage from '@/components/Site/FourthPage/index.jsx'
-
 import FifthPage from '@/components/Site/FifthPage/index.jsx'
 import FaqPage from '@/components/Site/FaqPage/index.jsx'
 import SeventhPage from '@/components/Site/SeventhPage/index.jsx'
@@ -14,6 +10,9 @@ import ThirdPage from '../../components/Site/ThirdPage'
 import Loading from './PreLoad/PreLoad'
 import FifthPage2 from '../../components/Site/FifthPage2'
 import ScrollToTopButton from '../../components/Site/ScrollToTopButton/ScrollToTopButton'
+
+import Header from '@/components/Site/Header/Header'
+
 
 function Site() {
   const [loading, setLoading] = React.useState(true)

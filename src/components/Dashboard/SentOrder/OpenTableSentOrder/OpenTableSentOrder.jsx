@@ -73,17 +73,21 @@ function OpenTableSentOrder({ item }) {
               <div className="flex justify-end">
                 <PopoverTrigger asChild>
                   <button
-                    onClick={() => setIsPopoverOpen(true)}
-                    className="hover:scale-105 transition-all h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5  bg-orange-500 hover:bg-orange-400 border border-transparent hover:border-orange-700"
+                    onClick={() => setIsPopoverOpen (true)}
+                    className={`${
+                      item.inventory_count ? '' : 'scale-90 transition-all animate-customPing'
+                    } hover:scale-105 mb-3 transition-all h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5 bg-orange-500 hover:bg-orange-400 border border-transparent hover:border-orange-700`}
                   >
-                    <PackagePlus />
+
+                    <PackagePlus/>
                     Добавить размещение
-                    {hasRole('channel') || hasRole('publisher') ? (
+                    {hasRole ('channel') || hasRole ('publisher') ? (
                       <div className="absolute top-0 right-0">
                         {item.order_status === 'in_review' ||
                         item.order_status === 'confirmed' ? (
                           <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span
+                              className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                           </span>
                         ) : null}

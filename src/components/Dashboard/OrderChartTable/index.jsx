@@ -19,6 +19,7 @@ import DopTable from '@/components/Dashboard/OrderChartTable/module/DopTable/ind
 import FilteredTooltip from '@/components/Dashboard/OrderChartTable/module/FilteredTooltip/FilteredTooltip.jsx'
 import SelectedFilterCart from './module/SelectedFilterCart/index.jsx'
 import { useOrderChart } from './useOrderChart.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 function OrderChart() {
   const {
@@ -34,6 +35,7 @@ function OrderChart() {
     startDate,
     setOpen,
     open,
+    setLoading
   } = useOrderChart()
   const [expandedRows, setExpandedRows] = React.useState('')
   const data = useSelector((state) => state.statistics.statistics.results)
@@ -51,11 +53,13 @@ function OrderChart() {
   return (
     <>
       {loading ? (
-        <div className="loaderWrapper">
-          <div className="text-white">Загрузка статистики &nbsp;</div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+        // <div className="loaderWrapper">
+        //   <div className="text-white">Загрузка статистики &nbsp;</div>
+        //   <div className="spinner"></div>
+        // </div>
+        <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка статистики'} />
+
+        ) : (
         <div>
           {/* <div
             className="rounded-[22px] overflow-auto h-screen p-4"

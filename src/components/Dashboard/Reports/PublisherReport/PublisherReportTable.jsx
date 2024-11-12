@@ -29,6 +29,7 @@ import {
   TableBody,
 } from '@/components/ui/table'
 import PublisherReportTableData from '@/components/Dashboard/Reports/PublisherReport/PublisherReportTableData.jsx'
+import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 
 function PublisherReportTable() {
   const { textColor } = React.useContext(ThemeContext)
@@ -285,11 +286,8 @@ function PublisherReportTable() {
   return (
     <>
       {status === 'loading' ? (
-        <div className="loaderWrapper" style={{ height: '80vh' }}>
-          <div style={{ marginRight: '15px' }}>Загрузка отчета</div>
-          <div className="spinner"></div>
-        </div>
-      ) : (
+        <PreLoadDashboard status={status} text="Загрузка отчета" />
+        ) : (
         <div className="tableWrapper">
           <div className="tableWrapper__table_title">
             <div className="flex items-center justify-end w-full">
