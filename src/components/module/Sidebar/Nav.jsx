@@ -136,7 +136,6 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
   //Видео
   const filteredVideo = videos.filter((i) => i.link_to_video === null)
   //Видео
-  console.log (countInventoryCount)
   const updateMenuItems = (items) => {
     return items.map(item => {
 

@@ -39,7 +39,7 @@ function OrderChart() {
   } = useOrderChart()
   const [expandedRows, setExpandedRows] = React.useState('')
   const data = useSelector((state) => state.statistics.statistics.results)
-
+  console.log (data)
   const handleRowClick = (videoLink) => {
     setExpandedRows((prevExpandedRow) =>
       prevExpandedRow === videoLink ? '' : videoLink,

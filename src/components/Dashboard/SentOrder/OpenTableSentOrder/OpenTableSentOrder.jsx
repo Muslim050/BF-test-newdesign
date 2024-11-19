@@ -74,9 +74,7 @@ function OpenTableSentOrder({ item }) {
                 <PopoverTrigger asChild>
                   <button
                     onClick={() => setIsPopoverOpen (true)}
-                    className={`${
-                      item.inventory_count ? '' : 'scale-90 transition-all animate-customPing'
-                    } hover:scale-105 mb-3 transition-all h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5 bg-orange-500 hover:bg-orange-400 border border-transparent hover:border-orange-700`}
+                    className={` hover:scale-105 mb-3 transition-all h-auto px-2 py-1 hover:text-white rounded-lg flex items-center gap-1.5 bg-orange-500 hover:bg-orange-400 border border-transparent hover:border-orange-700`}
                   >
 
                     <PackagePlus/>

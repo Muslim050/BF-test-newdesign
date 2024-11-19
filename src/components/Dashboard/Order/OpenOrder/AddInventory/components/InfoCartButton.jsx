@@ -4,7 +4,6 @@ import Cookies from 'js-cookie'
 
 const InfoCartButton = ({ totalOnlineView, onceOrder }) => {
   const role = Cookies.get('role')
-
   return (
     <div className="flex  justify-center ">
       <div

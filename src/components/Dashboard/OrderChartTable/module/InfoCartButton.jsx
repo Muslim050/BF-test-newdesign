@@ -4,6 +4,7 @@ import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet.jsx'
 import React from 'react'
 
 const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
+
   return (
     <div className="flex  justify-center h-[80px]">
       <div
@@ -18,13 +19,25 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
             <div className="w-4 h-9 bg-[#D1C5FF] rounded hidden sm:block"></div>
             Итоги
           </div>
+
           {/*Остаток*/}
-          {orderData === 'finished' ? (
-            ''
-          ) : (
-            <div className="sm:flex block gap-3 bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	 justify-center text-center">
+          {orderData.status === 'finished' ? (
+            <div
+              className="sm:flex block gap-3 bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	 justify-center text-center">
               <div className="sm:text-base text-xs"> Остаток</div>
               <div className="sm:text-base text-xs">
+
+                <FormatterView
+                  data="0"
+                />
+              </div>
+            </div>
+          ) : (
+            <div
+              className="sm:flex block gap-3 bg-white bg-opacity-30 backdrop-blur-md text-white p-2.5 rounded-[22px] items-center	 justify-center text-center">
+              <div className="sm:text-base text-xs"> Остаток</div>
+              <div className="sm:text-base text-xs">
+
                 <FormatterView
                   data={
                     orderData.expected_number_of_views - orderData.online_views
@@ -100,52 +113,7 @@ const InfoCartButton = ({ orderData, totalBudget, totalViews }) => {
                         ' ' +
                         '%'}
                   </div>
-                ) : // <div
-                //   style={{
-                //     display: 'flex',
-                //     justifyContent: 'space-around',
-                //     marginTop: '5px',
-                //     padding: '3px 5px',
-                //     borderRadius: '7px',
-                //     background: (() => {
-                //       const ratie = Math.floor(
-                //         (totalViews / orderData.online_views) * 100,
-                //       )
-
-                //       if (ratie >= 100) {
-                //         return '#ec2020'
-                //       } else if (ratie >= 80) {
-                //         return 'rgba(85, 112, 241, 0.16)'
-                //       } else if (ratie >= 50) {
-                //         return 'rgba(50, 147, 111, 0.16)'
-                //       } else if (ratie >= 1) {
-                //         return 'rgb(86 112 241)'
-                //       }
-                //       return 'inherit'
-                //     })(),
-
-                //     color: (() => {
-                //       const ratio = Math.floor(
-                //         (totalViews / orderData.online_views) * 100,
-                //       )
-                //       if (ratio >= 100) {
-                //         return '#f8f8f8'
-                //       } else if (ratio >= 80) {
-                //         return '#5570F1'
-                //       } else if (ratio >= 50) {
-                //         return '#519C66'
-                //       } else if (ratio >= 1) {
-                //         return 'rgb(228 232 253)'
-                //       }
-                //       return 'inherit'
-                //     })(),
-                //   }}
-                // >
-                //   {totalViews > 0 &&
-                //     Math.floor((totalViews / orderData.online_views) * 100) +
-                //       ' ' +
-                //       '%'}
-                // </div>
+                ) :
                 null}
               </AdvertStatus>
             </div>

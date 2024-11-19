@@ -7,12 +7,12 @@ import 'swiper/css/pagination'
 gsap.registerPlugin(ScrollTrigger)
 import HeadeYouTube from './HeadeYouTube.png'
 import video2 from '@/assets/Site/FirstPage/Video/22.mp4'
-import video9 from '@/assets/Site/FirstPage/Video/99.mp4'
+import video9 from '@/assets/Site/FirstPage/Video/1011.mp4'
 import video1 from '@/assets/Site/FirstPage/Video/11.mp4'
 import m from './FifthPage.module.scss'
-import video3 from '@/assets/Site/FirstPage/Video/33.mp4'
-import video11 from '@/assets/Site/FirstPage/Video/1011.mp4'
-import video4 from '@/assets/Site/FirstPage/Video/44.mp4'
+import video3 from '@/assets/Site/FirstPage/Video/44.mp4'
+import video11 from '@/assets/Site/FirstPage/Video/1012.mp4'
+import video4 from '@/assets/Site/FirstPage/Video/55.mp4'
 import PageTitle from '../module/PageTitle'
 
 gsap.registerPlugin(ScrollTrigger)

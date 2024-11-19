@@ -23,7 +23,7 @@ export const useOrderChart = () => {
 
   // const orderData = location.state?.advert || {}
   const [orderData, setOrderData] = React.useState([])
-  console.log(orderData)
+
 
   React.useEffect(() => {
     const fetchOrderId = async () => {

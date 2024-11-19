@@ -38,10 +38,11 @@ const PopoverButtons = ({
   advert,
   setShowModalEditAdmin,
   handleFinishOrder,
+  isOver100Percent
 }) => {
   //нотификация на кнопке ЗАВЕРШИТЬ
-  const isOver100Percent =
-    (advert.online_views / advert.expected_number_of_views) * 100 >= 100
+  // const isOver100Percent =
+  //   (advert.online_views / advert.expected_number_of_views) * 100 >= 100
   const isInProgress = advert.status === 'in_progress'
   //нотификация на кнопке ЗАВЕРШИТЬ
 
@@ -157,7 +158,7 @@ const PopoverButtons = ({
             <AlertDialogTrigger asChild>
               <Button
                 variant="link"
-                className="hover:scale-125 transition-all p-0 relative"
+                className={`${isOver100Percent && 'bg-red-600'} hover:scale-125 transition-all p-0 relative`}
                 style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
               >
                 {isOver100Percent && (

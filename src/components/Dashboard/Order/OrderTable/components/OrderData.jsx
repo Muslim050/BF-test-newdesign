@@ -104,7 +104,9 @@ function OrderData({ data }) {
     <>
       {data?.map((advert, i) => {
         const isFinishing = finishingOrderId === advert.id // Проверяем, завершение или загрузка
-
+        const isOver100Percent =
+          (advert.online_views / advert.expected_number_of_views) * 100 >= 100
+        console.log (isOver100Percent)
         return (
           <>
             {(isFinishing || isFetchingOrder) && (
@@ -119,7 +121,7 @@ function OrderData({ data }) {
                 data-label="ID"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', alignItems: "center" }}>
                   <div>{i + 1}</div>
                   {role === 'advertiser' || role === 'advertising_agency' ? (
                     <>
@@ -135,6 +137,31 @@ function OrderData({ data }) {
                         className="relative inline-flex rounded-full h-5 w-2.5 bg-[#05c800] text-[14px] ml-2 items-center justify-center"></span>
                     </div> : null}</>
                   )}
+
+                  {role === 'admin' && (
+                    <>{advert.inventories.filter(
+                      (item) =>
+                        item.video_content.link_to_video &&
+                        item.status === 'booked',
+                    ).length > 0 ? <div className='flex'>
+                      <span
+                        className=" inline-flex rounded-full h-5 w-2.5 bg-[#aa84ff] text-[14px] ml-2 items-center justify-center"></span>
+                    </div> : null}</>
+                  )}
+
+                  {advert.status === 'finished' ? null :
+                    <>
+                      {role === 'admin' && (
+                        <>{isOver100Percent ? <div>
+                      <span
+                        className="relative inline-flex rounded-full h-5 w-2.5 bg-red-600 text-[14px] ml-2 items-center justify-center"></span>
+                        </div> : null}</>
+                      )}</>
+
+                  }
+
+
+
                 </div>
               </TableCell>
               <TableCell
@@ -318,9 +345,18 @@ function OrderData({ data }) {
                 {advert.is_paid === true ? (
                   <div></div>
                 ) : (
-                  <FormatterView
-                    data={advert.expected_number_of_views - advert.online_views}
-                  />
+                  <>
+                    {
+                      advert.status === 'finished' ? (
+                        <FormatterView
+                          data={advert.online_views - advert.online_views}
+                        />
+                      ) :  <FormatterView
+                        data={advert.expected_number_of_views - advert.online_views}
+                      />
+                    }
+                  </>
+
                 )}
               </TableCell>
 
@@ -336,7 +372,13 @@ function OrderData({ data }) {
                       className="relative hover:scale-125 transition-all "
                     >
                       <OpenSvg
-                        className={`hover:text-brandPrimary-1 transition-all ease-in-out ${
+                        className={`
+                        ${advert.inventories.filter(
+                          (item) =>
+                            item.video_content.link_to_video &&
+                            item.status === 'booked',
+                        ).length > 0  && 'text-[#aa84ff]' }
+                        hover:text-brandPrimary-1 transition-all ease-in-out ${
                           expandedRows === advert.id
                             ? 'rotate-90 text-brandPrimary-1 scale-125'
                             : 'rotate-0'
@@ -349,10 +391,10 @@ function OrderData({ data }) {
                             item.video_content.link_to_video &&
                             item.status === 'booked',
                         ).length > 0 ? (
-                          <div className="absolute -top-3 -right-3">
+                          <div className="absolute -top-2.5 -right-2.5">
                             <span className="relative flex h-[17px] w-[17px]">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-[17px] w-[17px] bg-violet-500 justify-center text-[12px]">
+                              <span className="relative inline-flex items-center rounded-full h-[17px] w-[17px] bg-violet-500 justify-center text-[12px]">
                                 {
                                   advert.inventories.filter(
                                     (item) =>
@@ -430,6 +472,7 @@ function OrderData({ data }) {
                 >
                   <PopoverButtons
                     advert={advert}
+                    isOver100Percent={isOver100Percent}
                     setShowModalEditAdmin={setShowModalEditAdmin}
                     handleFinishOrder={handleFinishOrder}
                   />
