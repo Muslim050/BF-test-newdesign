@@ -58,7 +58,7 @@ function OrderTable() {
               </Dialog>
             </div>
           )}
-          <div className="border_container w-full sm:h-[calc(100vh-100px)] h-[calc(100vh-170px)]   rounded-[22px]  p-[3px] glass-background flex flex-col">
+          <div className="border_container w-full sm:h-[calc(100vh-100px)] h-[calc(100vh-100px)]   rounded-[22px]  p-[3px] glass-background flex flex-col">
             {data.length && data ? (
               <Table
                 className={`${style.responsive_table} border_design rounded-lg h-full`}

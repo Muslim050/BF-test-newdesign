@@ -36,7 +36,7 @@ const SystemLayout = () => {
           backgroundColor: bgColor,
           color: textColor,
         }}
-        className="!h-screen items-stretch sm:p-[14px] p-0 flex flex-col"
+        className="!h-screen items-stretch sm:p-[14px] p-0 flex flex-col sm:gap-0 gap-2"
       >
         <SidebarNew isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
         {/*<ResizableHandle withHandle />*/}
@@ -46,8 +46,8 @@ const SystemLayout = () => {
           className=" sm:pl-[20px] pl-0 h-screen space-y-4"
         >
           <div className="border_container glass-background border_design flex justify-between items-center px-4 py-2 ">
-            <h1 className="text-lg font-bold">{transformedTitle}</h1>
-            <div className="flex items-center gap-4">
+            <h1 className="sm:text-lg text-xs font-bold">{transformedTitle}</h1>
+            <div className="flex items-center gap-4 ">
               <div>
                 <div
                   className="text-white text-xs	"

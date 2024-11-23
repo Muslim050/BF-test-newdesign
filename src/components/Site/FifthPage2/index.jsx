@@ -3,7 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import m from './FifthPage.module.scss'
-gsap.registerPlugin(ScrollTrigger)
 import PageTitle from '../module/PageTitle'
 import svg1 from '../../../assets/Site/FifthPage/1.webp'
 import svg2 from '../../../assets/Site/FifthPage/3.webp'
@@ -38,8 +37,8 @@ function FifthPage2() {
       },
     )
     return () => {
-      ScrollTrigger.kill() // Clean up ScrollTriggers
-      pin.kill()
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      pin.kill(); // Kill the GSAP animation instance
     }
   }, [])
 

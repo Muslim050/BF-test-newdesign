@@ -45,7 +45,7 @@ const PreLoadDashboard = ({ onComplete, loading, text, status }) => {
     <div ref={containerRef} className="overflow-hidden ">
       <div className='relative h-[90vh] flex justify-center items-center'>
         <div ref={circleContainerRef} className="relative flex justify-center items-center">
-          <div ref={circleRef} className="  w-[400px] flex justify-center items-center">
+          <div ref={circleRef} className=" max-w-[400px] flex justify-center items-center">
             <EllipseSvg className="w-full h-full"/>
           </div>
         </div>

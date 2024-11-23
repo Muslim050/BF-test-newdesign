@@ -37,6 +37,7 @@ const LeftRightCart = ({ phoneLeftCart, phoneRightCart }) => {
       })
     }
 
+    // eslint-disable-next-line react/prop-types
     card.addEventListener('mousemove', handleMouseMove)
     card.addEventListener('mouseleave', handleMouseLeave)
 

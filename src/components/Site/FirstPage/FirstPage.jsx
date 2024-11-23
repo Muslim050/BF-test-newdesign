@@ -99,7 +99,7 @@ const FirstPage = () => {
         },
       })
     } else {
-      gsap.killTweensOf(phoneRef.current)
+      gsap.killTweensOf(phoneRef.current);
     }
   }, [])
 
@@ -461,28 +461,6 @@ export const FirstSection = () => {
   const socials1 = useRef(null)
   const socials2 = useRef(null)
 
-  // useEffect(() => {
-  //   gsap.from([button1Ref.current, button2Ref.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'back',
-  //   })
-
-  //   gsap.from([headerRef.current, paragraphRef.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'power3.out',
-  //   })
-
-  //   gsap.from([socials1.current, socials2.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'power3.out',
-  //   })
-  // }, [])
   useEffect(() => {
     const timeline = gsap.timeline()
     timeline

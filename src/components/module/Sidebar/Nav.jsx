@@ -203,7 +203,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
       className="group flex flex-col gap-4 sm:py-5 py-3.5   relative z-10"
     >
       <nav
-        className="sm:grid flex px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2 ">
+        className="grid px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2 ">
         {updatedMenuItems
           .filter ((item) => hasAccess (item.roles))
           .map ((link, index) => {
@@ -246,7 +246,7 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
                     </>
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent side={isMobile ? "top" : "right"} className="flex flex-col gap-2">
+                <TooltipContent side="right" className="flex flex-col gap-2">
                   <span>{link.title}</span>
                   {link.accordion && link.subMenu && (
                     <div className="flex flex-col">

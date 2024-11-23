@@ -39,7 +39,7 @@ const PreLoad = ({ onComplete }) => {
         fadeOut ? 'opacity-0' : 'opacity-100'
       }`}
     >
-      <GradientBGSvg className="absolute top-0 w-full -z-5 overflow-hidden" />
+      <GradientBGSvg className="absolute top-0 w-full -z-5 overflow-hidden " />
       <div className="absolute top-1/2 transform -translate-y-1/2 w-full">
         <div className="relative animate-rotate">
           <EllipseSvg className="absolute top-1/2 transform -translate-y-1/2 w-full -z-5" />

@@ -132,7 +132,7 @@ function OrderData({ data }) {
                   ) : null}
 
                   {role === 'admin' && (
-                    <>{advert.status === 'sent' || advert.status === 'accepted' ? <div>
+                    <>{advert.status === 'sent' || advert.status === 'accepted' ? <div className='flex'>
                       <span
                         className="relative inline-flex rounded-full h-5 w-2.5 bg-[#05c800] text-[14px] ml-2 items-center justify-center"></span>
                     </div> : null}</>
