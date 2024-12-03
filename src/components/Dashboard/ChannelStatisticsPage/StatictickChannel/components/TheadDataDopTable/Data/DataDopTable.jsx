@@ -3,7 +3,7 @@ import { TableCell } from '@/components/ui/table'
 function DataDopTable({ dataChannel }) {
   return (
     <>
-      {dataChannel.gender_percentages.map((gender, index) => (
+      {dataChannel?.gender_percentages?.map((gender, index) => (
         <>
           <TableCell
             key={gender.percentage}
@@ -17,7 +17,7 @@ function DataDopTable({ dataChannel }) {
         </>
       ))}
 
-      {dataChannel.age_group_percentages.map((age, index) => (
+      {dataChannel?.age_group_percentages?.map((age, index) => (
         <TableCell
           key={index}
           data-label="Возраст"
@@ -29,7 +29,7 @@ function DataDopTable({ dataChannel }) {
         </TableCell>
       ))}
 
-      {dataChannel.geo_percentages.map((geo, index) => (
+      {dataChannel?.geo_percentages?.map((geo, index) => (
         <>
           <TableCell
             key={index}

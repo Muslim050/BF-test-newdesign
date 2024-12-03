@@ -16,7 +16,7 @@ import AgeData from './components/DopTable/Data/AgeData'
 import GenderData from './components/DopTable/Data/GenderData'
 import GeoData from './components/DopTable/Data/GeoData'
 
-function StatictickVideoTable({ data, loading }) {
+function StatictickVideoTable({ data, loading, error }) {
   const [expandedRows, setExpandedRows] = React.useState('')
 
   const handleRowClick = (videoLink) => {
@@ -51,13 +51,16 @@ function StatictickVideoTable({ data, loading }) {
               <div
                 style={{
                   fontSize: '16px',
+                  padding: "30px 0",
                   lineHeight: '15px',
                   color: '#fa8a00',
                   textAlign: 'center',
                   fontWeight: '600',
                 }}
               >
-                Видео отсуствуют или нужно обновить токен канала
+                {
+                  error
+                }
               </div>
             ) : (
               <div
@@ -69,9 +72,13 @@ function StatictickVideoTable({ data, loading }) {
                     Статистика видео
                   </div>
                 </div>{' '}
+
+
                 <div
                   className={` rounded-[22px] p-[5px] mt-2 overflow-auto  h-[calc(100vh-600px)]`}
                 >
+                  {
+                    data?.length === 0 ? null :
                   <Table
                     className={`${style.responsive_table} border_design rounded-lg overflow-auto `}
                   >
@@ -83,7 +90,7 @@ function StatictickVideoTable({ data, loading }) {
 
                     <TableBody>
                       {data &&
-                        data.map((statistic, index) => (
+                        data?.map((statistic, index) => (
                           <>
                             {/* Данные основной таблицы */}
                             <TableRow>
@@ -100,11 +107,11 @@ function StatictickVideoTable({ data, loading }) {
 
                             {expandedRows === statistic.video_link && (
                               <TableRow
-                                className={`bg-[#ffffff4d]  rounded-[22px]`}
+
+                                className={`  rounded-[22px]`}
                               >
                                 <TableCell
                                   colSpan="5"
-                                  style={{ background: '#FFFFFF4D' }}
                                   className="rounded-[22px]"
                                 >
                                   <div className="tableWrapper">
@@ -123,8 +130,10 @@ function StatictickVideoTable({ data, loading }) {
                                         Введется аналитика данных
                                       </div>
                                     ) : (
-                                      <div className="bg-[#0A0F3680] p-[5px] rounded-[22px]">
+                                      <div className=" p-[5px] rounded-[22px]"               style={{ background: 'var(--bg-color)' }}
+                                      >
                                         <Table
+
                                           className={`${style.responsive_table} border_design rounded-lg overflow-auto `}
                                         >
                                           {' '}
@@ -160,7 +169,9 @@ function StatictickVideoTable({ data, loading }) {
                         ))}
                     </TableBody>
                   </Table>
+                  }
                 </div>
+
               </div>
             )}
           </>

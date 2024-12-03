@@ -37,32 +37,7 @@ export const fetchViewStatus = createAsyncThunk(
   },
 )
 
-export const assignInventories = createAsyncThunk(
-  'order/assignInventories',
-  async ({ expandedRows, selectedRows }) => {
-    const token = Cookies.get('token')
 
-    try {
-      const response = await axios.post(
-        `${backendURL}/order/assign-inventories/`,
-        {
-          order_id: expandedRows,
-          inventory_ids: selectedRows,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      return response
-    } catch (error) {
-      throw error
-    }
-  },
-)
 
 export const confirmByChannel = createAsyncThunk(
   'order/comfirmByChannel',

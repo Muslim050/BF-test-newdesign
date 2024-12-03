@@ -2,15 +2,15 @@ import { TableCell } from '@/components/ui/table'
 function TheadFirst({ dataChannel }) {
   const removeDuplicates = (arr) => Array.from(new Set(arr))
   const uniqueGenders = dataChannel
-    ? removeDuplicates(dataChannel.gender_percentages.map((gen) => gen.gender))
+    ? removeDuplicates(dataChannel?.gender_percentages?.map((gen) => gen.gender))
     : []
   const uniqueAge = dataChannel
     ? removeDuplicates(
-        dataChannel.age_group_percentages.map((age) => age.age_group),
+        dataChannel?.age_group_percentages?.map((age) => age.age_group),
       )
     : []
   const uniqueGeo = dataChannel
-    ? removeDuplicates(dataChannel.geo_percentages.map((geo) => geo.country))
+    ? removeDuplicates(dataChannel?.geo_percentages?.map((geo) => geo.country))
     : []
   const genderColSpan = uniqueGenders.length
   const ageColSpan = uniqueAge.length

@@ -9,7 +9,7 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'tailwindcss/tailwind.css'
-import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import {  SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import { sliderData } from './module/sliderData'
 import m from './FirstPage.module.scss'
 import Phone from '@/assets/Site/FirstPage/Phone.png'
@@ -99,7 +99,7 @@ const FirstPage = () => {
         },
       })
     } else {
-      gsap.killTweensOf(phoneRef.current)
+      gsap.killTweensOf(phoneRef.current);
     }
   }, [])
 
@@ -205,8 +205,12 @@ const FirstPage = () => {
       <section
         id="second-page"
         className={`relative -z-20 h-full min-h-screen py-24 custom-845:pt-0 `}
+        style={{
+          background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+          filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+        }}
       >
-        <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full  -z-[5px]" />
+        {/*<GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full  -z-[5px]" />*/}
         <StarsSSSvg className="absolute top-0 left-0  h-full w-[100%] -z-[5px]" />
         <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full  -z-[5px]" />
         <div
@@ -241,16 +245,14 @@ const FirstPage = () => {
         </div>
       </section>
       <div
-        className={`
-
-      fixed  text-white p-4 text-2xl rounded-lg shadow-lg w-full custom-845:bottom-[90%] bottom-[86%]`}
+        className={`fixed  text-white p-4 text-2xl rounded-lg shadow-lg w-full custom-845:bottom-[90%] bottom-[86%]`}
       >
         <div className="flex relative justify-center ">
           <div
             ref={swiperWRef} // добавляем ref здесь
             className={`
               animated-element
-              fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[23%] max-w-[1400px]`}
+              fixed  z-50 left-1/2 transform -translate-x-1/2 w-full custom-845:top-[19%] top-[23%] max-w-[1400px] `}
           >
             {' '}
             <div className="w-auto slider-container" ref={cardRef}>
@@ -461,28 +463,6 @@ export const FirstSection = () => {
   const socials1 = useRef(null)
   const socials2 = useRef(null)
 
-  // useEffect(() => {
-  //   gsap.from([button1Ref.current, button2Ref.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'back',
-  //   })
-
-  //   gsap.from([headerRef.current, paragraphRef.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'power3.out',
-  //   })
-
-  //   gsap.from([socials1.current, socials2.current], {
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1.5,
-  //     ease: 'power3.out',
-  //   })
-  // }, [])
   useEffect(() => {
     const timeline = gsap.timeline()
     timeline
@@ -499,8 +479,11 @@ export const FirstSection = () => {
   }, [])
 
   return (
-    <>
-      <GradientBGSvg className="absolute top-0 left-0  w-[100%] h-full -z-[5px]" />
+    <div   style={{
+      background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+      filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+    }}>
+      {/*<GradientBGSvg className="absolute top-0 left-0  w-[100%] h-full -z-[5px]" />*/}
       <StarsSSSvg className="absolute top-0 left-0 w-full h-full -z-[5px]" />
       <SetkaSvg className="absolute top-0 left-0 h-auto w-full -z-[5px]" />
       <section id="first-page" className="h-screen min-h-screen   ">
@@ -522,7 +505,7 @@ export const FirstSection = () => {
           {/* Социальные сети */}
         </div>
       </section>
-    </>
+    </div>
   )
 }
 //Первая Секция

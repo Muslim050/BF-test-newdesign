@@ -1,63 +1,21 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import {  SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import m from './FifthPage.module.scss'
-gsap.registerPlugin(ScrollTrigger)
 import PageTitle from '../module/PageTitle'
 import svg1 from '../../../assets/Site/FifthPage/1.webp'
 import svg2 from '../../../assets/Site/FifthPage/3.webp'
 import svg3 from '../../../assets/Site/FifthPage/4.webp'
-gsap.registerPlugin(ScrollTrigger)
 function FifthPage2() {
-  const sectionRef = useRef(null)
-  const triggerRef = useRef(null)
-
-  //section2
-  const sectionMainTitle = useRef(null)
-
-  //section2
-
-  useEffect(() => {
-    const pin = gsap.fromTo(
-      sectionRef.current,
-      {
-        translateX: 0,
-      },
-      {
-        translateX: '-100vw',
-        ease: 'none',
-        duration: 1,
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: 'top top',
-          end: '1000 top',
-          scrub: 0.6,
-          pin: true,
-        },
-      },
-    )
-    return () => {
-      ScrollTrigger.kill() // Clean up ScrollTriggers
-      pin.kill()
-    }
-  }, [])
-
-  //section2
-  useEffect(() => {
-    gsap.from(sectionMainTitle.current, {
-      duration: 1,
-      opacity: 1,
-      y: -50, // Смещение по горизонтали
-    })
-  }, [])
 
   return (
-
     <section className="overflow-hidden">
-      <div className=" relative">
+      <div className=" relative"   style={{
+        background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+      }}>
         {/* max-w-[900px] w-full m-auto */}
-        <GradientBGSvg className="absolute top-0 left-0 w-full h-full -z-[5px]" />
+        {/*<GradientBGSvg className="absolute top-0 left-0 w-full h-full -z-[5px]" />*/}
         <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
         <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
         <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
@@ -67,7 +25,6 @@ function FifthPage2() {
               title={'300 миллионов показов каждый месяц'}
             />
           </div>
-
           <div
             className={` h-full flex-wrap flex  gap-5 justify-center max-w-[1240px] w-full m-auto px-5`}
           >

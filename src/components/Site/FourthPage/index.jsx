@@ -1,25 +1,27 @@
-import React, { useRef, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Video from './VideoBG.mp4'
-import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
-import PageTitle from '../module/PageTitle'
-import m from './FourthPage.module.scss'
-import image1 from '@/assets/FourthPage/1.png'
-import image2 from '@/assets/FourthPage/2.png'
-import image3 from '@/assets/FourthPage/3.png'
-import image4 from '@/assets/FourthPage/4.png'
-import image5 from '@/assets/FourthPage/5.png'
-import image6 from '@/assets/FourthPage/6.png'
-import image7 from '@/assets/FourthPage/7.png'
-import image8 from '@/assets/FourthPage/8.png'
-import image9 from '@/assets/FourthPage/9.png'
-import image10 from '@/assets/FourthPage/10.png'
-import image11 from '@/assets/FourthPage/11.png'
-import image12 from '@/assets/FourthPage/12.png'
-import image13 from '@/assets/FourthPage/13.png'
-import image14 from '@/assets/FourthPage/14.png'
-import image15 from '@/assets/FourthPage/15.png'
+
+
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Video from './VideoBG.mp4';
+import {  StarsSSSvg } from '@/assets/Site/site-svg.jsx';
+import PageTitle from '../module/PageTitle';
+import m from './FourthPage.module.scss';
+import image1 from '@/assets/FourthPage/1.png';
+import image2 from '@/assets/FourthPage/2.png';
+import image3 from '@/assets/FourthPage/3.png';
+import image4 from '@/assets/FourthPage/4.png';
+import image5 from '@/assets/FourthPage/5.png';
+import image6 from '@/assets/FourthPage/6.png';
+import image7 from '@/assets/FourthPage/7.png';
+import image8 from '@/assets/FourthPage/8.png';
+import image9 from '@/assets/FourthPage/9.png';
+import image10 from '@/assets/FourthPage/10.png';
+import image11 from '@/assets/FourthPage/11.png';
+import image12 from '@/assets/FourthPage/12.png';
+import image13 from '@/assets/FourthPage/13.png';
+import image14 from '@/assets/FourthPage/14.png';
+import image15 from '@/assets/FourthPage/15.png';
 
 const imagesData = [
   { id: 1, image: image1 },
@@ -37,193 +39,115 @@ const imagesData = [
   { id: 13, image: image13 },
   { id: 14, image: image14 },
   { id: 15, image: image15 },
-]
-gsap.registerPlugin(ScrollTrigger)
+];
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FourthPage = () => {
-  const containerRefImageData = useRef(null)
-
+  const containerRef = useRef(null);
   useEffect(() => {
-    const container = containerRefImageData.current
+    const container = containerRef.current;
+
+    // Отключение анимаций для мобильных устройств
+    // if (window.innerWidth < 768) return;
 
     if (container) {
-      const isMobile = window.innerWidth < 768
-      const endValue = isMobile ? '+=400%' : '+=200%'
-      const tl = gsap.timeline({
+      // Последовательное появление карточек
+      ScrollTrigger.batch(".card", {
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.2, // Интервал между карточками
+            duration: 0.8,
+            ease: "power2.out",
+          });
+        },
+        onLeaveBack: (batch) => {
+          gsap.to(batch, {
+            opacity: 0,
+            y: 200, // Возвращение карточек вниз
+            stagger: 0.2,
+            duration: 0.8,
+            ease: "power2.in",
+          });
+        },
+        start: "top 80%", // Когда карточки входят в область видимости
+        end: "bottom 20%", // Когда карточки покидают область видимости
+      });
+
+      // Видео и основные анимации
+      gsap.timeline({
         scrollTrigger: {
-          trigger: '.sectionFourthBlue',
-          start: 'top top',
-          end: endValue, // Увеличь пространство, чтобы плавно завершить анимацию
-          // Увеличь продолжительность анимации
-          scrub: 1, // slower scrub might make it smoother
-          pinSpacing: true, // Отключаем дополнительное пространство
+          trigger: ".sectionFourthBlue",
+          start: "top top",
+          end: "+=200%",
+          scrub: 1,
           pin: true,
         },
       })
-
-      tl.fromTo(
-        '.dog-1',
-        { opacity: 0, scale: 6 },
-        { opacity: 1, scale: 1, duration: 2, ease: 'power1.out' },
-      ).to('.dog-2', { opacity: 1, duration: 2, ease: 'power1.out' })
-
-      gsap.fromTo(
-        container,
-        { opacity: 1, y: 1300 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 2,
-          scrollTrigger: {
-            trigger: container,
-            start: 'top bottom',
-            end: 'bottom',
-            scrub: 1, // slower scrub might make it smoother
-            ease: 'power1.out', // Добавляем easing для плавности
-          },
-        },
-      )
+        .fromTo(
+          ".dog-1",
+          { opacity: 0, scale: 6 },
+          { opacity: 1, scale: 1, duration: 2, ease: "power1.out" }
+        )
+        .to(".dog-2", { opacity: 1, duration: 2, ease: "power1.out" });
     }
-  }, [])
-  useEffect(() => {
-    const container = containerRefImageData.current
-
-    if (container) {
-      const rows = gsap.utils.toArray('.card') // Получаем массив всех строк
-
-      gsap.fromTo(
-        rows,
-        { opacity: 0, y: 100 }, // Начальное состояние
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1, // Длительность анимации для каждого ряда
-          stagger: 1, // Задержка между анимациями строк
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: container,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1, // Плавное течение анимации во время скролла
-          },
-        },
-      )
-    }
-  }, [])
-  const cardRef = useRef(null)
-  const sparkleRef = useRef(null)
-
-  useEffect(() => {
-    const card = cardRef.current
-    const sparkles = sparkleRef.current
-
-    // Анимация при наведении
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e
-
-      gsap.to(sparkles, {
-        x: clientX - card.getBoundingClientRect().left,
-        y: clientY - card.getBoundingClientRect().top,
-        duration: 0.3,
-        ease: 'power3.out',
-        opacity: 1,
-      })
-    }
-
-    const handleMouseLeave = () => {
-      gsap.to(sparkles, {
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power3.out',
-      })
-    }
-
-    card.addEventListener('mousemove', handleMouseMove)
-    card.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      card.removeEventListener('mousemove', handleMouseMove)
-      card.removeEventListener('mouseleave', handleMouseLeave)
-    }
-  }, [])
-
-  const [gridStyle, setGridStyle] = React.useState({
-    height: 'auto',
-    opacity: 0,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)', // По умолчанию 2 колонки
-    gap: '16px',
-  });
-
-  useEffect(() => {
-    const updateGridStyle = () => {
-      if (window.innerWidth >= 768) {
-        setGridStyle((prevStyle) => ({
-          ...prevStyle,
-          gridTemplateColumns: 'repeat(3, 1fr)', // 3 колонки на экранах от 768px
-        }));
-      } else {
-        setGridStyle((prevStyle) => ({
-          ...prevStyle,
-          gridTemplateColumns: 'repeat(2, 1fr)', // 2 колонки на экранах меньше 768px
-        }));
-      }
-    };
-
-    // Устанавливаем начальное значение при загрузке компонента
-    updateGridStyle();
-
-    // Добавляем слушатель события изменения размера экрана
-    window.addEventListener('resize', updateGridStyle);
-
-    // Убираем слушатель при размонтировании компонента
-    return () => {
-      window.removeEventListener('resize', updateGridStyle);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+
+
   return (
-    <>
-      <section className="sectionFourth sectionFourthBlue ">
+    <section className="sectionFourth sectionFourthBlue">
+      {/* Video background */}
+      <video
+        src={Video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        loading="lazy"
+        style={{ paddingBottom: "10px" }}
+        className="absolute top-0 left-0 w-full h-full object-cover "
+      />
+      <PageTitle title="По рекламе для успеха на YouTube" />
+
+      <div className="dog-1 absolute w-full h-full">
+        {/*<GradientBGSvg >*/}
+        <div style={{
+          background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+          filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+        }} className="absolute top-0 left-0 w-full h-auto z-10" />
+
+
+        <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10 mb-2" />
         <video
           src={Video}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
+          className="absolute top-0 left-0 w-full h-full object-cover "
         ></video>
-
-        <PageTitle title={'По рекламе для успеха на YouTube'} />
-        <div alt="" className="dog-1 absolute w-full h-full  ">
-          {/* <SetkaSvg className="absolute top-0 left-0 w-[100%] z-10" /> */}
-          <div alt="" className="absolute w-full h-full    ">
-            <GradientBGSvg className="absolute top-0 left-0 w-full h-auto z-10" />
-            <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-auto z-10 " />
-            <video
-              src={Video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute top-0 left-0 w-full h-full object-cover	p-[5px]"
-            ></video>
-            <div className="mix-blend-multiply m-auto	font-black	uppercase absolute top-0 left-0 w-full h-full text-white bg-[#05060a] text-[35px] flex justify-center flex-col items-center ">
-              Brandformance
-            </div>
-          </div>
+        <div className="mix-blend-multiply m-auto font-black uppercase absolute top-0 left-0 w-full h-full text-white bg-[#05060a] text-[35px] flex justify-center flex-col items-center ">
+          Brandformance
         </div>
-        <div
-          ref={containerRefImageData}
-          alt=""
-          className={`dog-2 imgFourth grid grid-cols-3 md:grid-cols-2 gap-4 p-4 max-w-[1240px] w-full m-auto`}
-          style={gridStyle}
-        >
-          <div ref={sparkleRef} className={m.sparkles} />
+      </div>
 
+      {/* Cards with ScrollTrigger */}
+      <div
+        ref={containerRef}
+        // className="dog-2 imgFourth grid grid-cols-3 md:grid-cols-2 gap-4 p-4 max-w-[1240px] w-full m-auto"
+        className="dog-2 imgFourth max-w-[1240px] w-full m-auto"
+
+      >
+        <div className={m.wrapperCard}>
           {imagesData.map((item, index) => (
             <div
-              key={index}
-              ref={cardRef}
+              key={item.id}
               className={`card card-${index} ${m.cardWrapper} flex items-center justify-center`}
               style={{
                 background:
@@ -232,60 +156,22 @@ const FourthPage = () => {
                 boxShadow:
                   '0px 16px 32px rgba(0, 0, 0, 0.3), inset 0px 1px 1px rgba(216, 236, 248, 0.3), inset 0px 24px 48px rgba(168, 216, 245, 0.06)',
                 borderRadius: '20px',
-                height: 'auto',
-                width: 'auto',
+                opacity: 0,
+                transform: 'translateY(1000px)', // Matches the animation start state
               }}
             >
               <img
                 loading="lazy"
                 src={item.image}
+                alt={`Image ${item.id}`}
                 className="w-auto h-auto max-w-[150px] object-cover"
-              ></img>
+              />
             </div>
           ))}
         </div>
-      </section>
-    </>
-  )
-}
+      </div>
+    </section>
+  );
+};
 
-export default FourthPage
-
-// imagesData.forEach((_, index) => {
-//   const cardClass = `.card .dog-2`
-//   if (document.querySelector(cardClass)) {
-//     gsap.fromTo(
-//       cardClass,
-//       { opacity: 0, y: 100 },
-//       {
-//         opacity: 1,
-//         y: 0,
-//         duration: 1,
-
-//         scrollTrigger: {
-//           trigger: container,
-//           start: 'top top+=100', // Start the animation after the container appears
-//           // end: `bottom `,
-//           scrub: 0.5,
-//         },
-//       },
-//     )
-//   }
-// })
-
-// gsap.fromTo(
-//   '.dog-2 .card',
-//   { opacity: 0, y: -10 },
-//   {
-//     opacity: 1,
-//     y: 0,
-//     duration: 1,
-//     stagger: 0.1,
-//     scrollTrigger: {
-//       trigger: container,
-//       start: 'top bottom+=200', // Когда контейнер появится в центре экрана, анимация начнется
-//       end: 'bottom center',
-//       scrub: 0.5,
-//     },
-//   },
-// )
+export default FourthPage;

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { GradientBGSvg, EllipseSvg, EllipseSvg2 } from '@/assets/Site/site-svg.jsx'
+import React, { useEffect, useRef, useState } from 'react'
+import { EllipseSvg, EllipseSvg2 } from '@/assets/Site/site-svg.jsx'
 import Logo from '@/assets/Logo.png'
 
 const PreLoad = ({ onComplete }) => {
@@ -38,18 +38,22 @@ const PreLoad = ({ onComplete }) => {
       className={`overflow-hidden transition-opacity duration-500 h-screen ${
         fadeOut ? 'opacity-0' : 'opacity-100'
       }`}
+      style={{
+        background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+      }}
     >
-      <GradientBGSvg className="absolute top-0 w-full -z-5 overflow-hidden" />
+      {/*<GradientBGSvg className="absolute top-0 w-full -z-5 overflow-hidden "/>*/}
       <div className="absolute top-1/2 transform -translate-y-1/2 w-full">
         <div className="relative animate-rotate">
-          <EllipseSvg className="absolute top-1/2 transform -translate-y-1/2 w-full -z-5" />
+          <EllipseSvg className="absolute top-1/2 transform -translate-y-1/2 w-full -z-5"/>
         </div>
         <div className="relative animate-fadeInRotate">
-          <EllipseSvg2 className="absolute top-1/2 transform -translate-y-1/2 w-full -z-5" />
+          <EllipseSvg2 className="absolute top-1/2 transform -translate-y-1/2 w-full -z-5"/>
         </div>
         <div className="relative left-0 -top-12 w-full flex flex-col justify-center animate-fadeIn">
           <div className="flex justify-center">
-            <img loading="lazy" src={Logo} alt="" className="w-[54px] h-[60px]" />
+            <img loading="lazy" src={Logo} alt="" className="w-[54px] h-[60px]"/>
           </div>
           <div
             style={{

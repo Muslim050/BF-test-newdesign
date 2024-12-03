@@ -158,7 +158,7 @@ const PopoverButtons = ({
             <AlertDialogTrigger asChild>
               <Button
                 variant="link"
-                className={`${isOver100Percent && 'bg-red-600'} hover:scale-125 transition-all p-0 relative`}
+                className={` hover:scale-125 transition-all p-0 relative`}
                 style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
               >
                 {isOver100Percent && (
@@ -177,7 +177,7 @@ const PopoverButtons = ({
                   // />
                 )}
                 <CheckCompletedSvg
-                  className={`w-[24px] h-[24px]  hover:text-red-500`}
+                  className={`${isOver100Percent && 'text-red-600'} w-[24px] h-[24px]  hover:text-red-500`}
                 />
               </Button>
             </AlertDialogTrigger>

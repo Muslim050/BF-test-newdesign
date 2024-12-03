@@ -140,7 +140,7 @@ function OpenTableSentOrder({ item }) {
             </Table>
           ) : (
             <div className="text-white flex justify-center">
-              Список пустой. Добавьте инвентарь!
+              Список пустой. Создайте свой первый заказ!
             </div>
           )}
           {/*</div>*/}

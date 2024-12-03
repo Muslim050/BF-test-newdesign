@@ -209,34 +209,33 @@ export default function CreateOrder({ onClose }) {
               <div className="flex gap-5 mb-2">
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-0.5">
-                    Рекламное агенство
-                    <span className="text-red-500 ml-0.5">*</span>
+                    Выбрать рекламодателя <span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Controller
                     name="selectedAdvertiserId"
-                    {...register('advertiserID', {
+                    {...register ('advertiserID', {
                       required: 'Поле обязательно',
                     })}
                     control={control}
                     defaultValue=""
-                    render={({ field }) => (
+                    render={({field}) => (
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         value={field.value}
                       >
                         <SelectTrigger className="!text-white">
-                          <SelectValue placeholder="Выбрать рекламное агенство" />
+                          <SelectValue placeholder="Выбрать рекламодателя"/>
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>
-                              Выбрать рекламное агенство
+                              Выбрать рекламодателя
                             </SelectLabel>
-                            {advertiser.map((adv) => (
+                            {advertiser.map ((adv) => (
                               <SelectItem
                                 key={adv.id}
-                                value={adv.id.toString()}
+                                value={adv.id.toString ()}
                               >
                                 {adv.name}
                               </SelectItem>
@@ -250,20 +249,21 @@ export default function CreateOrder({ onClose }) {
               </div>
             ) : (
               ''
+
             )}
             <div className="flex gap-2 mb-2">
               <div className="grid w-full">
                 <Label className="text-sm	text-white pb-0.5">
-                  Название кампании
+                  Название рекламной кампании
                   <span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Input
-                  placeholder=" Название кампании"
+                  placeholder=" Название рекламной кампании"
                   className={`border ${
                     errors?.name ? 'border-red-500' : 'border-gray-300'
                   }   transition-all duration-300 text-sm `}
                   type="text"
-                  {...register('name', {
+                  {...register ('name', {
                     required: 'Поле обязательно к заполнению',
                   })}
                 />
@@ -283,7 +283,7 @@ export default function CreateOrder({ onClose }) {
                   }   transition-all duration-300 text-sm `}
                   type="date"
                   // min={getCurrentDate()}
-                  {...register('startdate', {
+                  {...register ('startdate', {
                     required: 'Поле обязательно к заполнению',
                   })}
                 />
@@ -442,11 +442,10 @@ export default function CreateOrder({ onClose }) {
             <div className="grid w-full">
               <Label className="text-sm	text-white pb-0.5">
                 Комментарий к заказу
-                <span className="text-red-500 ml-0.5">*</span>
               </Label>
               <Textarea
                 placeholder="Добавить текст и ссылки"
-                className="resize-none text-white"
+                className="resize-none text-white placeholder:text-white"
                 // {...field}
                 {...register('notes')}
                 onChange={handleNotesChange} // Обработка изменений

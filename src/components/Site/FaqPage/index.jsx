@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import 'tailwindcss/tailwind.css'
-import { GradientBGSvg, SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
+import { SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import Blestki from './Blestki.svg'
 gsap.registerPlugin(ScrollTrigger)
 import m from './Faq.module.scss'
@@ -112,13 +112,17 @@ const FaqPage = () => {
     //   <div className=" ">
     //     {/* max-w-[900px] w-full m-auto */}
     //     <div className="relative  flex-col justify-between  py-20	   overflow-hidden">
-    //       <GradientBGSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
+    //       <GradientBGSvg.svg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
     //       <StarsSSSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
     //       <SetkaSvg className="absolute top-0 left-0 w-[100%] h-full -z-[5px]" />
 
     <section ref={containerRef} className="relative h-full w-full" id="">
-      <div className="">
-        <GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
+      <div className=""
+           style={{
+        background: "radial-gradient(49.2% 63.45% at 50% 45.62%, rgba(21, 61, 204, 0.08) 14.36%, rgba(5, 5, 11, 0) 100%), radial-gradient(47.78% 64.92% at 50% 44.06%, rgba(216, 236, 248, 0.04) 0%, rgba(152, 192, 239, 0.01) 50%, rgba(5, 5, 11, 0) 100%",
+        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
+      }}>
+        {/*<GradientBGSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />*/}
         <StarsSSSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
         <SetkaSvg className="absolute top-0 w-[100%] h-full -z-[5px]" />
 

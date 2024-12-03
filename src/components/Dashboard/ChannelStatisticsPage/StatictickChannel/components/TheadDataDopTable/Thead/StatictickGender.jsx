@@ -5,7 +5,7 @@ import { ShieldQuestion } from 'lucide-react'
 
 function StatictickGender({ dataChannel }) {
   const uniqueGenders = Array.from(
-    new Set(dataChannel.gender_percentages.map((gen) => gen.gender)),
+    new Set(dataChannel?.gender_percentages?.map((gen) => gen.gender)),
   )
   return (
     <>

@@ -132,7 +132,7 @@ function OrderData({ data }) {
                   ) : null}
 
                   {role === 'admin' && (
-                    <>{advert.status === 'sent' || advert.status === 'accepted' ? <div>
+                    <>{advert.status === 'sent' || advert.status === 'accepted' ? <div className='flex'>
                       <span
                         className="relative inline-flex rounded-full h-5 w-2.5 bg-[#05c800] text-[14px] ml-2 items-center justify-center"></span>
                     </div> : null}</>
@@ -342,21 +342,12 @@ function OrderData({ data }) {
                 data-label="Остаток"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                {advert.is_paid === true ? (
+                {advert.is_paid === true && role === 'admin'  ? (
                   <div></div>
                 ) : (
-                  <>
-                    {
-                      advert.status === 'finished' ? (
-                        <FormatterView
-                          data={advert.online_views - advert.online_views}
-                        />
-                      ) :  <FormatterView
-                        data={advert.expected_number_of_views - advert.online_views}
-                      />
-                    }
-                  </>
-
+                  <FormatterView
+                    data={advert.expected_number_of_views - advert.online_views}
+                  />
                 )}
               </TableCell>
 

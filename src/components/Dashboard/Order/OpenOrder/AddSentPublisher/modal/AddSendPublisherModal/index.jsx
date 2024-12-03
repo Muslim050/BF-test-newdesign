@@ -283,12 +283,15 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                         key={option.id}
                         value={option.id.toString()}
                         className="flex"
-                        disabled={!option.is_active}
+                        disabled={!option.is_active ||  !option.is_connected}
                       >
                         <div className="flex items-center justify-between w-full">
                           <div className="relative">{option.name}</div>
-                          {!option.is_active && (
-                            <div className="absolute left-0 bg-red-500 w-3 h-full rounded-[3px]"></div>
+                          {!option.is_active  && (
+                            <div className="absolute left-0 bg-red-500 rounded-full  w-3 h-full "></div>
+                          )}
+                          {!option.is_connected  && (
+                            <div className="absolute left-0 bg-red-500 w-2 h-2 rounded-[3px]"></div>
                           )}
                         </div>
                       </SelectItem>

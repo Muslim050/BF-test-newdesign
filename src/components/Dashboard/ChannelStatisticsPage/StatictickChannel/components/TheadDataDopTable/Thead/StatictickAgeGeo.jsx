@@ -4,7 +4,7 @@ import { TableCell } from '@/components/ui/table'
 
 function StatictickAgeGeo({ dataChannel }) {
   const uniqueGenders = Array.from(
-    new Set(dataChannel.geo_percentages.map((geo) => geo.country)),
+    new Set(dataChannel?.geo_percentages?.map((geo) => geo.country)),
   )
   return (
     <>

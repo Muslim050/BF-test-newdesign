@@ -2,7 +2,7 @@ import { TableCell } from '@/components/ui/table'
 
 function StatictickAge({ dataChannel }) {
   const uniqueGenders = Array.from(
-    new Set(dataChannel.age_group_percentages.map((age) => age.age_group)),
+    new Set(dataChannel?.age_group_percentages?.map((age) => age.age_group)),
   )
   return (
     <>
