@@ -29,27 +29,27 @@ function OrderChartRow({ statistic }) {
               key={header.key}
               className={`text-${textColor} ${
                 index === headers.length - 1 ? 'rounded-r-xl' : ''
-              }`}
+              } ${header.key === 'budget' ? 'text-right' : ''} ${header.key === 'channel_name' ? 'text-center' : ''}`}
             >
               {header.label}
             </TableHead>
           )
         })}
         <TableHead className="bg-[#2a85ff75] rounded-l-xl">
-          <TableHead className="text-white w-full flex justify-center items-center">
+          <TableHead className="text-white w-full flex justify-center items-center h-auto mt-2">
             Пол
           </TableHead>
           <TheadGender statistic={statistic} />
         </TableHead>
         <TableHead className="bg-[#2a85ff75]">
-          <TableHead className="text-white w-full flex justify-center items-center">
+          <TableHead className="text-white w-full flex justify-center items-center h-auto mt-2">
             Возраст
           </TableHead>
           <TheadAge statistic={statistic} />
         </TableHead>
 
         <TableHead className="bg-[#2a85ff75]">
-          <TableHead className="text-white w-full flex justify-center items-center">
+          <TableHead className="text-white w-full flex justify-center items-center h-auto mt-2">
             Гео
           </TableHead>
           <TheadGeo statistic={statistic} />

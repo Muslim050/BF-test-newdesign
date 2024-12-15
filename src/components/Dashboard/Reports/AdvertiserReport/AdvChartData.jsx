@@ -107,7 +107,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
       </TableCell>
       <TableCell
         data-label="ID"
-        className={`font-normal text-${textColor} text-sm `}
+        className={`font-normal text-${textColor} text-sm text-right`}
       >
         {' '}
         {statistic.online_view_count === 0 ? (
@@ -142,6 +142,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: "end"
           }}
         >
           {statistic.budget === 0 ? (
@@ -170,7 +171,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
         <>
           <TableCell
             data-label="ID"
-            className={`font-normal text-${textColor} text-sm `}
+            className={`font-normal text-${textColor} text-sm text-right`}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               {uniqueGendersss.length > 0
@@ -178,7 +179,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <td
                       key={`gender-${index}`}
                       data-label="Пол"
-                      className={`w-[60px] text-[13px] font-bold ${
+                      className={`w-[60px] text-[14px] font-bold ${
                         bgColor ? 'text-blue-600' : 'text-green-500'
                       } `}
                     >
@@ -190,7 +191,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
           </TableCell>
           <TableCell
             data-label="ID"
-            className={`font-normal text-${textColor} text-sm `}
+            className={`font-normal text-${textColor} text-sm text-right`}
           >
             <div style={{ display: 'flex', justifyContent: 'start' }}>
               {uniqueAge.length > 0
@@ -198,7 +199,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <td
                       key={`age-${index}`}
                       data-label="Возраст"
-                      className={`w-[60px] text-[13px] font-bold ${
+                      className={`w-[60px] text-[14px] font-bold ${
                         bgColor ? 'text-blue-600' : 'text-green-500'
                       } `}
                     >
@@ -211,7 +212,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
 
           <TableCell
             data-label="ID"
-            className={`font-normal text-${textColor} text-sm `}
+            className={`font-normal text-${textColor} text-sm text-right`}
           >
             <div style={{ display: 'flex', justifyContent: 'start' }}>
               {uniqueGeo.length > 0
@@ -219,7 +220,7 @@ function AdvChartData({ statistic, index, isExpanded }) {
                     <div
                       key={`geo-${index}`}
                       data-label="Гео"
-                      className={`w-[60px] text-[13px] font-bold ${
+                      className={`w-[60px] text-[14px] font-bold ${
                         bgColor ? 'text-blue-600' : 'text-green-500'
                       } `}
                     >

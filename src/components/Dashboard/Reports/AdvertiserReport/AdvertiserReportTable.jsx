@@ -7,7 +7,6 @@ import AdvChartData from './AdvChartData'
 import { InfoCardsBottom } from './components/InfoCardsBottom/InfoCards'
 import FilteredTooltip from './components/FilteredTooltip/FilteredTooltip'
 import { fetchAdvertiser } from '@/redux/advertiser/advertiserSlice'
-import FilteredTooltipMain from './components/FilteredTooltip/FilteredTooltipMain'
 import { fetchShortList } from '@/redux/order/orderSlice'
 import { format } from 'date-fns'
 import { clearStatistics, fetchStatistics } from '@/redux/statisticsSlice.js'
@@ -19,20 +18,20 @@ import {
 import { FilterSvg } from '@/assets/icons-ui.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import {
-  TableRow,
   TableHeader,
   Table,
-  TableHead,
   TableBody,
 } from '@/components/ui/table'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
+import SelectedFilter from "@/components/Dashboard/Reports/AdvertiserReport/components/SelectedFilter.jsx";
+
+
 function AdvertiserReportTable() {
   const dispatch = useDispatch()
   const [expandedRows, setExpandedRows] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   //
   const data = useSelector((state) => state.statistics.statistics.results)
-  const ShortListdata = useSelector((state) => state.order.shortListData)
   const advdata = useSelector((state) => state.advertiser.advertisers)
   //
   const [isTooltip, setIsTooltip] = React.useState(false)
@@ -43,8 +42,6 @@ function AdvertiserReportTable() {
   const [selectedAdvName, setSelectedAdvName] = React.useState(null)
   const [selectedOptionAdv, setSelectedOptionAdv] = React.useState('')
   //
-  const [selectedOrderName, setSelectedOrderName] = React.useState(null)
-  const [selectedOptionOrder, setSelectedOptionOrder] = React.useState('')
   const [startDateMonth, setStartDateMonth] = React.useState(null)
   const [endDateMonth, setEndDateMonth] = React.useState(null)
   const [dateRange, setDateRange] = React.useState([])
@@ -130,19 +127,9 @@ function AdvertiserReportTable() {
   }
   // Отправка запроса с фильтра
 
-  const handleProfileClick = () => {
-    setIsTooltip(!isTooltip)
-  }
-  const closeH = () => {
-    setIsTooltip(!isTooltip)
-    setStartDate(startDate)
-    setEndDate(endDate)
-  }
   const handleClear = () => {
-    setSelectedOrderName(null)
     setSelectedAdvName(null)
     setSelectedOptionAdv('')
-    setSelectedOptionOrder('')
     setStartDate(null)
     setEndDate(null)
     setSelectedMonth('')
@@ -170,66 +157,31 @@ function AdvertiserReportTable() {
         ) : (
         <div className="tableWrapper" style={{ overflow: 'visible' }}>
           <div className="tableWrapper__table_title">
-            <div className="flex justify-end items-center gap-2">
-              {selectedAdvName && (
-                <Button
-                  variant="link"
-                  onClick={handleClear}
-                  className="text-[#A7CCFF] px-0"
-                >
-                  Очистить
-                </Button>
-              )}
-              {(startDate || endDate) && (
-                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
-                  <div>
-                    {' '}
-                    {startDate && (
-                      <>
-                        {startDate
-                          .toLocaleDateString('en-GB')
-                          .replaceAll('/', '-')}
-                      </>
-                    )}
-                    &nbsp;
-                    {endDate && (
-                      <>
-                        {endDate
-                          .toLocaleDateString('en-GB')
-                          .replaceAll('/', '-')}
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
-              {(startDateMonth || endDateMonth) && (
-                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
-                  <div>
-                    {' '}
-                    {selectedMonth
-                      ? selectedMonth
-                          .toLocaleString('ru-RU', { month: 'long' })
-                          .toLowerCase()
-                      : 'All'}
-                  </div>
-                </div>
-              )}
-              {selectedAdvName && (
-                <div className="rounded-lg	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
-                  <div>{selectedAdvName}</div>
-                </div>
-              )}
+            <div className="flex justify-end items-center gap-2 mb-4">
+
+            {/*Выбрынные фильтры*/}
+             <SelectedFilter
+               selectedAdvName={selectedAdvName}
+               handleClear={handleClear}
+               startDate={startDate}
+               endDate={endDate}
+               startDateMonth={startDateMonth}
+               endDateMonth={endDateMonth}
+               selectedMonth={selectedMonth}
+             />
+              {/*Выбрынные фильтры*/}
+
 
               <Popover>
                 <PopoverTrigger asChild className="">
                   <Button
                     variant="ghost"
-                    className=" flex justify-end mb-4 bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                    className=" flex justify-end  bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                   >
                     <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-xl">
+                <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-[22px]">
                   <div className="">
                     <div className="flex items-center gap-2 pb-4">
                       <div className="w-2.5	h-6	bg-[#B5E4CA] rounded-[4px]"></div>
@@ -241,36 +193,27 @@ function AdvertiserReportTable() {
                       </h4>
                     </div>
                     <p
-                      className="text-xs	  py-3 border-t border-[#F9F9F9] "
+                      className="text-xs	  pt-3 pb-1 border-t border-[#F9F9F9] "
                       style={{ color: 'var(--text-color )' }}
                     >
                       Выберите необходимые параметры
                     </p>
+
                     <FilteredTooltip
-                      isTooltip={isTooltip}
                       handleDateStatictick={handleDateStatictick}
                       startDate={startDate}
-                      setStartDate={setStartDate}
                       endDate={endDate}
-                      setEndDate={setEndDate}
-                      closeH={closeH}
                       advdata={advdata}
                       selectedOptionAdv={selectedOptionAdv}
                       handleSelectChangeADV={handleSelectChangeADV}
-                      ShortListdata={ShortListdata}
                       //
-                      setSelectedOptionOrder={setSelectedOptionOrder}
-                      selectedOptionOrder={selectedOptionOrder}
                       selectedAdv={selectedAdv}
                       handleClear={handleClear}
                       selectedAdvName={selectedAdvName}
-                      selectedOrderName={selectedOrderName}
                       //
                       handleStartDateChange={handleStartDateChange}
                       handleEndDateChange={handleEndDateChange}
                       handleDateChange={handleDateChange}
-                      setStartDateMonth={setStartDateMonth}
-                      setEndDateMonth={setEndDateMonth}
                       startDateMonth={startDateMonth}
                       endDateMonth={endDateMonth}
                       selectedMonth={selectedMonth}

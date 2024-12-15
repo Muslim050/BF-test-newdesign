@@ -93,15 +93,15 @@ function PublisherReportTable({ publisherReport }) {
             </TableCell>
             <TableCell
               data-label="Показы факт"
-              className={`font-normal text-${textColor} text-sm `}
+              className={`font-normal text-${textColor} text-sm text-right`}
             >
               <FormatterView data={person.recorded_view_count} />
             </TableCell>
             <TableCell
               data-label="Бюджет компании"
-              className={`font-normal text-${textColor} text-sm `}
+              className={`font-normal text-${textColor} text-sm text-right`}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', justifyContent: 'end' }}>
                 <FormatterBudjet
                   budget={person.budget_fact}
                   data={person.order_start_date}
@@ -112,7 +112,7 @@ function PublisherReportTable({ publisherReport }) {
               data-label="Комиссия Агенства"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', justifyContent: 'end' }}>
                 <FormatterBudjet
                   budget={person.agency_commission_total}
                   data={person.order_start_date}
@@ -123,7 +123,7 @@ function PublisherReportTable({ publisherReport }) {
               data-label="Комиссия AdTech Media"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', justifyContent: 'end' }}>
                 <FormatterBudjet
                   budget={person.adtechmedia_commission_total}
                   data={person.order_start_date}
@@ -134,7 +134,7 @@ function PublisherReportTable({ publisherReport }) {
               data-label="Бюджет"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', justifyContent: 'end' }}>
                 <FormatterBudjet
                   budget={person.channel_budget_total}
                   data={person.order_start_date}

@@ -290,7 +290,7 @@ function PublisherReportTable() {
         ) : (
         <div className="tableWrapper">
           <div className="tableWrapper__table_title">
-            <div className="flex items-center justify-end w-full">
+            <div className="flex items-center justify-end w-full mb-4">
               {filterLoading && (
                 <div className="loaderWrapper" style={{ height: '5vh' }}>
                   <div
@@ -300,8 +300,8 @@ function PublisherReportTable() {
                 </div>
               )}
 
-              <div style={{ display: 'flex' }}>
-                <div className="flex gap-2 items-center">
+              <div style={{ display: 'flex' }} >
+                <div className="flex gap-2 items-center mr-2">
                   {(selectedChannel || selectedFormat) && (
                     <Button
                       variant="link"
@@ -312,15 +312,17 @@ function PublisherReportTable() {
                     </Button>
                   )}
                   {selectedFormat && (
-                    <div className="rounded-[14px]	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
+                    <div className="rounded-[22px] bg-[#FFFFFF1A]		h-[40px]  p-2 text-white text-sm	px-5	flex items-center justify-center">
                       <div>{selectedFormat}</div>
                     </div>
                   )}
                   {selectedChannelName && (
-                    <div className="rounded-[14px]	border border-solid border-[#D9D9D9] h-[48px] p-2 text-white text-sm	px-5	flex items-center justify-center">
+                    <div
+                      className="rounded-[22px] bg-[#FFFFFF1A]		h-[40px]  p-2 text-white text-sm	px-5	flex items-center justify-center">
                       <div>{selectedChannelName}</div>
                     </div>
                   )}
+
                 </div>
               </div>
 

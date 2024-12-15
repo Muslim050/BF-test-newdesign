@@ -14,22 +14,22 @@ function TheadAge({ statistic }) {
 
   return (
     <>
-      <div>
+      <div className="my-2">
         {uniqueAge.length > 0
-          ? uniqueAge.map((genderData, index) => (
-              <TableCell
-                key={index}
-                className="border-transparent text-white"
-                style={{
-                  fontSize: '12px',
-                  padding: '6px',
-                  width: '60px',
-                  fontWeight: '600',
-                }}
-              >
-                {genderData.substring(3)}
-              </TableCell>
-            ))
+          ? uniqueAge.map ((genderData, index) => (
+            <TableCell
+              key={index}
+              className="border-transparent text-white h-auto text-right"
+              style={{
+                fontSize: '12px',
+                padding: '6px',
+                width: '60px',
+                fontWeight: '600',
+              }}
+            >
+              {genderData.substring (3)}
+            </TableCell>
+          ))
           : null}
       </div>
     </>

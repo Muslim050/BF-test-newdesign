@@ -20,56 +20,55 @@ import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
 
 function FilteredTooltip({
-  isTooltip,
+
   handleDateStatictick,
   startDate,
   endDate,
-  closeH,
   advdata,
-  tableData,
   selectedOptionAdv,
   handleSelectChangeADV,
+  ///
+  selectedAdv,
   handleClear,
-  selectedOrderName,
   selectedAdvName,
-  loadingDots,
-  handleEndDateChange,
+//
   handleStartDateChange,
-  setStartDateMonth,
-  setEndDateMonth,
+  handleEndDateChange,
+  handleDateChange,
   startDateMonth,
   endDateMonth,
-  selectedAdv,
-  handleDateChange,
   selectedMonth,
   setIsTooltip,
+  tableData,
+
 }) {
   return (
     <>
       <div className={style.profile__wrapper__tooltip}>
         {/*  */}
         <Select onValueChange={handleSelectChangeADV} value={selectedOptionAdv}>
-          <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+          <div className="bg-white bg-opacity-20 backdrop-blur-md px-2 py-2 h-[50px] rounded-[18px]">
             <div
-              className="text-xs flex gap-2 "
+              className="text-xs flex gap-2 ml-1"
               style={{ color: 'var(--text-color )' }}
             >
               <TvSvg /> Рекламодатель
             </div>
             <SelectTrigger
-              className="rounded-none border-0 p-0 h-auto pl-[25px] "
+              className="rounded-none border-0 p-0 h-auto pl-[28px] "
               style={{ color: 'var(--text-color )' }}
             >
               <SelectValue placeholder="Выбрать рекламодателя" />
             </SelectTrigger>
           </div>
-          <SelectContent className="w-full">
+          <SelectContent className="w-full rounded-[18px]">
             <SelectGroup>
               {advdata.map((option) => (
                 <SelectItem
                   style={{ color: 'var(--text-color )' }}
                   key={option.id}
                   value={JSON.stringify(option)}
+                  className='rounded-[18px]'
                 >
                   {option.name}
                 </SelectItem>
@@ -87,27 +86,12 @@ function FilteredTooltip({
             position: 'relative',
           }}
         >
-          {loadingDots && (
-            <div
-              style={{
-                position: 'absolute',
-                background: '#5f5f5f1c',
-                width: '100%',
-                height: '100%',
-                zIndex: '3',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <div className={style.loader}></div>
-            </div>
-          )}
+
 
           <div className="grid">
             <Label
               htmlFor="terms"
-              className=" pb-2"
+              className=" pb-1 text-xs	"
               style={{ color: 'var(--text-color )' }}
             >
               Дата начало
@@ -116,14 +100,14 @@ function FilteredTooltip({
               selected={startDate}
               onChange={handleStartDateChange}
               dateFormat="dd-MM-yyyy"
-              className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-md w-full text-white"
+              className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-[18px] w-full text-white"
             />
           </div>
 
           <div className="grid">
             <Label
               htmlFor="terms"
-              className=" pb-2"
+              className=" pb-1 text-xs	"
               style={{ color: 'var(--text-color )' }}
             >
               Дата конец
@@ -131,7 +115,7 @@ function FilteredTooltip({
             <DatePicker
               selected={endDate}
               onChange={handleEndDateChange}
-              className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-md w-full text-white"
+              className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-[18px] w-full text-white"
               dateFormat="dd-MM-yyyy"
             />
           </div>
@@ -140,7 +124,7 @@ function FilteredTooltip({
         <div className="grid pt-2">
           <Label
             htmlFor="terms"
-            className=" pb-2"
+            className=" pb-1 text-xs	"
             style={{ color: 'var(--text-color )' }}
           >
             Месяц
@@ -151,7 +135,7 @@ function FilteredTooltip({
             dateFormat="MM/yyyy"
             showMonthYearPicker
             showFullMonthYearPicker
-            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-md w-full text-white"
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[45px] rounded-[18px] w-full text-white"
             disabled={!!startDate || !!endDate} // Здесь используется приведение dateRange к булевому типу
             locale={ru}
           />
@@ -161,7 +145,7 @@ function FilteredTooltip({
           {
             <Button
               variant="ghost"
-              className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
+              className="bg-brandPrimary-1 rounded-[18px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
               onClick={handleDateStatictick}
               disabled={!selectedAdvName}
             >
@@ -184,7 +168,7 @@ function FilteredTooltip({
             <div>
               <Button
                 onClick={handleClear}
-                className="bg-red-400 rounded-lg hover:bg-red-500 text-white no-underline hover:text-white h-[44px] w-full"
+                className="bg-red-400 rounded-[18px] hover:bg-red-500 text-white no-underline hover:text-white h-[44px] w-full"
               >
                 {/*<Delete style={{ width: '23px', height: '23px' }} />*/}
                 <Trash2 />

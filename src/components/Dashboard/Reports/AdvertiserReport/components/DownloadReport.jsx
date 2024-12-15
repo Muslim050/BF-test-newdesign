@@ -71,7 +71,7 @@ function DownloadReport({
       <Button
         onClick={() => exportExcel()}
         disabled={loading}
-        className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
+        className="bg-brandPrimary-1 rounded-[18px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
       >
         {loading ? (
           <div className="loaderWrapper" style={{ height: '30px' }}>

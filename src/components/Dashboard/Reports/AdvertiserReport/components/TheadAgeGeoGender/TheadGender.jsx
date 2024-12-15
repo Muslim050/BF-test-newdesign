@@ -12,12 +12,12 @@ function TheadGender({ statistic }) {
     new Set(result?.gender_percentages.map((gen) => gen.gender)),
   )
   return (
-    <div className="">
+    <div className="my-2">
       {uniqueGenders.length > 0
         ? uniqueGenders.map((gender, index) => (
             <TableCell
               key={index}
-              className="border-transparent text-white "
+              className="border-transparent text-white h-auto text-right"
               style={{
                 fontSize: '12px',
                 padding: '6px',

@@ -16,22 +16,22 @@ function TheadGeo({ statistic }) {
     new Set(result?.geo_percentages.map((gen) => gen.country)),
   )
   return (
-    <div>
+    <div className="my-2">
       {uniqueGenders.length > 0
-        ? uniqueGenders.map((geo, index) => (
-            <TableCell
-              key={index}
-              className="border-transparent text-white"
-              style={{
-                fontSize: '12px',
-                padding: '6px',
-                width: '60px',
-                fontWeight: '600',
-              }}
-            >
-              {geo}
-            </TableCell>
-          ))
+        ? uniqueGenders.map ((geo, index) => (
+          <TableCell
+            key={index}
+            className="border-transparent text-white h-auto text-right"
+            style={{
+              fontSize: '12px',
+              padding: '6px',
+              width: '60px',
+              fontWeight: '600',
+            }}
+          >
+            {geo}
+          </TableCell>
+        ))
         : null}
     </div>
   )

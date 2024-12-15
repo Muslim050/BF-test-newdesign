@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import style from './site.module.scss'
-import FirstPage from '@/components/Site/FirstPage/FirstPage.jsx'
-import FourthPage from '@/components/Site/FourthPage/index.jsx'
-import FifthPage from '@/components/Site/FifthPage/index.jsx'
-import FaqPage from '@/components/Site/FaqPage/index.jsx'
-import SeventhPage from '@/components/Site/SeventhPage/index.jsx'
-import Footer from '../../components/Site/Footer'
-import ThirdPage from '../../components/Site/ThirdPage'
+const Header = lazy(() => import('@/components/Site/Header/Header.jsx'));
+const FirstPage = lazy(() => import('@/components/Site/FirstPage/FirstPage.jsx'));
+const ThirdPage = lazy(() => import('@/components/Site/ThirdPage'));
+const FourthPage = lazy(() => import('@/components/Site/FourthPage'));
+const FifthPage = lazy(() => import('@/components/Site/FifthPage'));
+const FifthPage2 = lazy(() => import('@/components/Site/FifthPage2'));
+const FaqPage = lazy(() => import('@/components/Site/FaqPage'));
+const SeventhPage = lazy(() => import('@/components/Site/SeventhPage'));
+const Footer = lazy(() => import('@/components/Site/Footer'));
 import Loading from './PreLoad/PreLoad'
-import FifthPage2 from '../../components/Site/FifthPage2'
 import ScrollToTopButton from '../../components/Site/ScrollToTopButton/ScrollToTopButton'
-
-import Header from '@/components/Site/Header/Header'
-
 
 function Site() {
   const [loading, setLoading] = React.useState(true)
@@ -25,7 +23,7 @@ function Site() {
       {loading ? (
         <Loading onComplete={handleLoadingComplete} />
       ) : (
-        <div>
+        <Suspense fallback={<div>Загрузка...</div>}>
           <Header />
           <FirstPage />
           <ThirdPage />
@@ -35,8 +33,8 @@ function Site() {
           <FaqPage />
           <SeventhPage />
           <Footer />
-          <ScrollToTopButton /> {/* Добавляем кнопку прокрутки наверх */}
-        </div>
+          <ScrollToTopButton />
+        </Suspense>
       )}
     </div>
   )
