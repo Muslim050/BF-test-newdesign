@@ -11,7 +11,7 @@ import { fetchOnceListSentToPublisher } from '@/redux/order/SentToPublisher.js'
 import { TableCell, TableRow } from '@/components/ui/table.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
-import { ClipboardCheck, X } from 'lucide-react'
+import {ClipboardCheck, Monitor, MonitorPlay, MonitorUp, X} from 'lucide-react'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 
 import { Input } from '@/components/ui/input.jsx'
@@ -26,9 +26,11 @@ import {
 } from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
 import { Button } from '../../../../../../ui/button.jsx'
+
 const format = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
 ]
 
 const EditSendPublisherModal = ({

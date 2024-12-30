@@ -19,22 +19,20 @@ import {
   SelectValue,
 } from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import { TableCell } from '@/components/ui/table.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { PackagePlus } from 'lucide-react'
 import Cookies from 'js-cookie'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip.jsx'
-const format = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
-]
 
+
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
+
+
+const format = [
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
+]
 const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
   const dispatch = useDispatch()
   const [channelModal, setChannelModal] = React.useState([])
@@ -44,7 +42,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
   const [budgett, setBudgett] = React.useState(0)
   const [isOrderCreated, setIsOrderCreated] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
-
+  console.log (onceOrder)
   const selectedPublisher = (value) => {
     setPublisherID(value)
   }
@@ -316,7 +314,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                 onValueChange={field.onChange}
                 defaultValue={field.value}
                 value={field.value}
-                disabled={onceOrder.format === 'preroll'}
+                disabled={onceOrder.format === 'preroll' || onceOrder.format === 'tv_preroll' || onceOrder.format === 'top_preroll'}
               >
                 <SelectTrigger className="!text-white">
                   <SelectValue placeholder="Выбрать формат" />
@@ -326,7 +324,19 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                     <SelectLabel>Выбрать формат</SelectLabel>
                     {format.map((option) => (
                       <SelectItem key={option.value} value={option.value}>
-                        {option.text}
+                        <div className='!flex items-center gap-1'>
+                          {option.icon &&
+                            <option.icon/>
+                          }
+                          {option.text}
+                          {onceOrder?.target_country && <div
+                            className={`rounded-[6px] px-1 text-[12px]  ${
+                              onceOrder?.target_country ? 'bg-[#606afc]' : 'bg-transparent'
+                            }`}
+                          >
+                            {onceOrder?.target_country}
+                          </div>}
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectGroup>

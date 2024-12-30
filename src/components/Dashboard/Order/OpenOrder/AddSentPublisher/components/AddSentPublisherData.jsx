@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import EditSendPublisherModal from '../modal/EditSendPublisherModal/index.jsx'
 import { toast } from 'react-hot-toast'
 import { TableCell, TableRow } from '@/components/ui/table.jsx'
+
 import {
   Popover,
   PopoverContent,
@@ -18,7 +19,7 @@ import {
   sentToPublisherButton,
 } from '@/redux/order/SentToPublisher.js'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
-import { BookmarkCheck } from 'lucide-react'
+import {BookmarkCheck, Monitor, MonitorPlay, MonitorUp} from 'lucide-react'
 import { EditSvg, LinkSvg } from '@/assets/icons-ui.jsx'
 import { Send } from 'lucide-react'
 import { Plus } from 'lucide-react'
@@ -90,20 +91,34 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
                 data-label="Формат"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                {(item.format === 'preroll' && 'Pre-roll') ||
-                  ('mixroll' && 'Mix-roll')}
+                <div className='flex items-center gap-1'>
+                  {
+                    (item.format === 'preroll' && <Monitor/>) ||
+                    (item.format === 'top_preroll' && <MonitorUp/>) ||
+                    (item.format === 'tv_preroll' && <MonitorPlay/>)
+                  }
+                  {
+                    (item.format === 'preroll' && 'Pre-roll') ||
+                    (item.format === 'mixroll' && 'Mix-roll') ||
+                    (item.format === 'top_preroll' && 'Top Pre-roll') ||
+                    (item.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+                </div>
+                {/*{(item.format === 'preroll' && 'Pre-roll') ||*/}
+                {/*  ('mixroll' && 'Mix-roll')}*/}
               </TableCell>
               <TableCell
                 data-label="Начало"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                {formatDate(item.start_date)}
+                {formatDate (item.start_date)}
               </TableCell>
               <TableCell
                 data-label="Конец"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                {formatDate(item.end_date)}
+                {formatDate (item.end_date)}
               </TableCell>
 
               <TableCell
