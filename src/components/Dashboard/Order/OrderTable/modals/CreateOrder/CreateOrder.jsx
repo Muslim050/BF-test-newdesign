@@ -80,7 +80,7 @@ export default function CreateOrder({ onClose }) {
       target_country: '',
     },
 
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const expectedView = watch('expectedView')
   const agencyAdvId = watch('advertiserID')
