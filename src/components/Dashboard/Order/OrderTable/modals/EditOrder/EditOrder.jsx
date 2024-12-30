@@ -442,7 +442,7 @@ export default function EditOrder({
           </div>
           <div className="flex gap-4 mb-4">
             <div className="grid w-full">
-              <Label className="text-sm	text-white pb-2">Тякущий ролик:</Label>
+              <Label className="text-sm	text-white pb-2">Текущий ролик:</Label>
               <a
                 href={currentOrder.promo_file}
                 target="_blank"
