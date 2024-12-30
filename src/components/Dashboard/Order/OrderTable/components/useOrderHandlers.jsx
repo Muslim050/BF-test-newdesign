@@ -12,10 +12,22 @@ export const useOrderHandlers = () => {
   const [expandedRows, setExpandedRows] = React.useState('')
 
   //Смена статуса заказа
-  const handleRowClick = useCallback((id, data) => {
+  // const handleRowClick = useCallback((id, data) => {
+  //   console.log (data, id)
+  //   setExpandedRows((prev) => (prev === id ? null : id));
+  //   const item = data.find((item) => item.id === id);
+  //   if (item?.status === 'sent') {
+  //     dispatch(fetchViewStatus(id)).then((result) => {
+  //       if (result.type === fetchViewStatus.fulfilled.toString()) {
+  //         dispatch(setOrderStatus({ orderId: id, status: 'accepted' }));
+  //       }
+  //     });
+  //   }
+  // }, [dispatch]);
+  const handleRowClick = useCallback((id, advert) => {
+    console.log(advert, id);
     setExpandedRows((prev) => (prev === id ? null : id));
-    const item = data.find((item) => item.id === id);
-    if (item?.status === 'sent') {
+    if (advert.status === 'sent') {
       dispatch(fetchViewStatus(id)).then((result) => {
         if (result.type === fetchViewStatus.fulfilled.toString()) {
           dispatch(setOrderStatus({ orderId: id, status: 'accepted' }));

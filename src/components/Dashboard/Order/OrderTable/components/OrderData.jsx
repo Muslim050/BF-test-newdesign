@@ -244,7 +244,7 @@ function OrderData({ data }) {
                   {/*кнопка открыть*/}
                   {role === 'admin' ? (
                     <button
-                      onClick={() => handleRowClick(advert.id)}
+                      onClick={() => handleRowClick(advert.id, advert)}
                       className="relative hover:scale-125 transition-all "
                     >
                       <OpenSvg
