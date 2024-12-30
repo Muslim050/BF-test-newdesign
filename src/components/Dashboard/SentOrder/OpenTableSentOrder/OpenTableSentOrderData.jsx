@@ -10,7 +10,7 @@ import { formatDate } from '../../../../utils/formatterDate'
 import CircularTable from '@/components/Labrery/Circular/CircularTable.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { Button } from '../../../ui/button'
-import { Paperclip } from 'lucide-react'
+import {Monitor, MonitorPlay, MonitorUp, Paperclip} from 'lucide-react'
 import { Dialog } from '@/components/ui/dialog.jsx'
 import { Link } from 'lucide-react'
 import Cookies from 'js-cookie'
@@ -114,25 +114,43 @@ function OpenTableSentOrderData({ data }) {
             </TableCell>
             {/**/}
             <TableCell className="text-blue-300 font-medium">
-              {(inventor.format === 'preroll' && 'Pre-roll') ||
-                (inventor.format === 'midroll1' && 'Mid-roll 1') ||
-                (inventor.format === 'midroll2' && 'Mid-roll 2') ||
-                (inventor.format === 'midroll3' && 'Mid-roll 3') ||
-                (inventor.format === 'midroll4' && 'Mid-roll 4')}
+              {/*{(inventor.format === 'preroll' && 'Pre-roll') ||*/}
+              {/*  (inventor.format === 'midroll1' && 'Mid-roll 1') ||*/}
+              {/*  (inventor.format === 'midroll2' && 'Mid-roll 2') ||*/}
+              {/*  (inventor.format === 'midroll3' && 'Mid-roll 3') ||*/}
+              {/*  (inventor.format === 'midroll4' && 'Mid-roll 4')}*/}
+              <div className='flex items-center gap-1'>
+                {
+                  (inventor.format === 'preroll' && <Monitor/>) ||
+                  (inventor.format === 'top_preroll' && <MonitorUp/>) ||
+                  (inventor.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (inventor.format === 'preroll' && 'Pre-roll') ||
+                  (inventor.format === 'preroll' && 'Pre-roll') ||
+                  ('midroll1' && 'Mid-roll 1') ||
+                  ('midroll2' && 'Mid-roll 2') ||
+                  ('midroll3' && 'Mid-roll 3') ||
+                  ('midroll4' && 'Mid-roll 4') ||
+                  (inventor.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (inventor.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
             </TableCell>
 
             <TableCell
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(inventor.video_content?.publication_time)}
+              {formatDate (inventor.video_content?.publication_time)}
             </TableCell>
             <TableCell
               data-label="ID"
               className={`font-normal text-${textColor} text-sm `}
             >
               {inventor.online_views > 0 ? (
-                <FormatterView data={inventor.online_views} />
+                <FormatterView data={inventor.online_views}/>
               ) : (
                 <div>----</div>
               )}
