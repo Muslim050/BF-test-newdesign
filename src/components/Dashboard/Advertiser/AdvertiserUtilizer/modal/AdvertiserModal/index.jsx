@@ -233,7 +233,7 @@ export default function AdvertiserModal({ onClose }) {
                     {...register('cpm_preroll', {
                       required: 'Поле обезательно к заполнению',
                     })}
-                    placeholder={'Введите cpm preroll'}
+                    placeholder={'Введите cpm'}
                     className={`border ${
                       errors?.cpm_preroll ? 'border-red-500' : 'border-gray-300'
                     }   transition-all duration-300 text-sm `}
@@ -243,8 +243,12 @@ export default function AdvertiserModal({ onClose }) {
 
 
                 <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                  <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                    Preroll
+                    <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    uz
+                  </div>
+                    <span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -252,10 +256,58 @@ export default function AdvertiserModal({ onClose }) {
                     {...register('cpm_preroll_uz', {
                       required: 'Поле обезательно к заполнению',
                     })}
-                    placeholder={'Введите cpm mixroll'}
+                    placeholder={'Введите cpm'}
                     className={`border ${
                       errors?.cpm_mixroll ? 'border-red-500' : 'border-gray-300'
                     }   transition-all duration-300 text-sm `}
+                  />
+                </div>
+              </div>
+            )}
+            {/**/}
+
+
+
+            {/**/}
+            {hasRole('admin') && (
+              <div className="flex gap-4 mb-4">
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2">
+                    Tv Preroll<span className="text-red-500 ml-0.5">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    {...register('cpm_tv_preroll', {
+                      required: 'Поле обезательно к заполнению',
+                    })}
+                    placeholder={'Введите cpm'}
+                    className={`border ${
+                      errors?.cpm_preroll_uz
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
+                  />
+                </div>
+
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                    Tv Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    uz
+                  </div><span className="text-red-500 ml-0.5">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    {...register('cpm_tv_preroll_uz', {
+                      required: 'Поле обязательно к заполнению',
+                    })}
+                    placeholder="Введите cpm"
+                    className={`border ${
+                      errors?.cpm_mixroll_uz
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    } transition-all duration-300 text-sm`}
                   />
                 </div>
               </div>
@@ -275,7 +327,7 @@ export default function AdvertiserModal({ onClose }) {
                     {...register('cpm_top_preroll', {
                       required: 'Поле обезательно к заполнению',
                     })}
-                    placeholder={'Введите cpm preroll'}
+                    placeholder={'Введите cpm'}
                     className={`border ${
                       errors?.cpm_preroll_uz
                         ? 'border-red-500'
@@ -285,8 +337,10 @@ export default function AdvertiserModal({ onClose }) {
                 </div>
 
                 <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Top Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                  <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                    Top Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    uz
+                  </div><span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -294,51 +348,7 @@ export default function AdvertiserModal({ onClose }) {
                     {...register('cpm_top_preroll_uz', {
                       required: 'Поле обязательно к заполнению',
                     })}
-                    placeholder="Введите target mixroll"
-                    className={`border ${
-                      errors?.cpm_mixroll_uz
-                        ? 'border-red-500'
-                        : 'border-gray-300'
-                    } transition-all duration-300 text-sm`}
-                  />
-                </div>
-              </div>
-            )}
-            {/**/}
-
-            {/**/}
-            {hasRole('admin') && (
-              <div className="flex gap-4 mb-4">
-                <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Tv Preroll<span className="text-red-500 ml-0.5">*</span>
-                  </Label>
-                  <Input
-                    type="text"
-                    autoComplete="off"
-                    {...register('cpm_tv_preroll', {
-                      required: 'Поле обезательно к заполнению',
-                    })}
-                    placeholder={'Введите cpm preroll'}
-                    className={`border ${
-                      errors?.cpm_preroll_uz
-                        ? 'border-red-500'
-                        : 'border-gray-300'
-                    }   transition-all duration-300 text-sm `}
-                  />
-                </div>
-
-                <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Tv Preroll UZ<span className="text-red-500 ml-0.5">*</span>
-                  </Label>
-                  <Input
-                    type="text"
-                    autoComplete="off"
-                    {...register('cpm_tv_preroll_uz', {
-                      required: 'Поле обязательно к заполнению',
-                    })}
-                    placeholder="Введите target mixroll"
+                    placeholder="Введите cpm"
                     className={`border ${
                       errors?.cpm_mixroll_uz
                         ? 'border-red-500'

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { Tv } from 'lucide-react';
 
 import { addOrder } from '../../../../../../redux/order/orderSlice'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -29,11 +30,17 @@ import { hasRole } from '../../../../../../utils/roleUtils'
 import { Button } from '../../../../../ui/button'
 import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
+import svgTV from './television-svgrepo-com.svg'
+import svgTop from './top-arrow-svgrepo-com.svg'
+import svgpreroll from './tv-series-svgrepo-com.svg'
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
+
 
 const formatV = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'top_preroll', text: 'Top Pre-roll' },
-  { value: 'tv_preroll', text: 'Tv Pre-roll' },
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'Tv Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
+
 ]
 export default function CreateOrder({ onClose }) {
   const dispatch = useDispatch()
@@ -329,8 +336,14 @@ export default function CreateOrder({ onClose }) {
                   <SelectContent className="w-full">
                     <SelectGroup>
                       {formatV.map((option, index) => (
-                        <SelectItem key={index} value={option.value}>
-                          {option.text}
+                        <SelectItem key={index} value={option.value} >
+                          <div className='!flex items-center gap-1'>
+                            {option.icon &&
+                              <option.icon/>
+                              // <img src={option.icon} alt="" className='size-4'/>
+                            }
+                            {option.text}
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectGroup>
