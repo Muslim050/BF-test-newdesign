@@ -109,11 +109,11 @@ function SentOrderList({ listsentPublisher }) {
                 }
                 {
                   (item.format === 'preroll' && 'Pre-roll') ||
-                  (item.format === 'preroll' && 'Pre-roll') ||
-                  ('midroll1' && 'Mid-roll 1') ||
-                  ('midroll2' && 'Mid-roll 2') ||
-                  ('midroll3' && 'Mid-roll 3') ||
-                  ('midroll4' && 'Mid-roll 4') ||
+                  (item.format === 'mixroll' && 'Mid-roll') ||
+                  (item.format === 'midroll1' && 'Mid-roll 1') ||
+                  (item.format === 'midroll2' && 'Mid-roll 2') ||
+                  (item.format === 'midroll3' && 'Mid-roll 3') ||
+                  (item.format === 'midroll4' && 'Mid-roll 4') ||
                   (item.format === 'top_preroll' && 'Top Pre-roll') ||
                   (item.format === 'tv_preroll' && 'TV Pre-roll')}
 

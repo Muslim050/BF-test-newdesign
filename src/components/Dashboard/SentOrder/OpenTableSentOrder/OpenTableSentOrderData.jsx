@@ -127,7 +127,7 @@ function OpenTableSentOrderData({ data }) {
                 }
                 {
                   (inventor.format === 'preroll' && 'Pre-roll') ||
-                  (inventor.format === 'preroll' && 'Pre-roll') ||
+                  (inventor.format === 'mixroll' && 'Mid-roll') ||
                   ('midroll1' && 'Mid-roll 1') ||
                   ('midroll2' && 'Mid-roll 2') ||
                   ('midroll3' && 'Mid-roll 3') ||

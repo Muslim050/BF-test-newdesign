@@ -19,15 +19,18 @@ import { Input } from '@/components/ui/input.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { fetchInventory } from '../../../../../redux/inventory/inventorySlice'
 import Cookies from 'js-cookie'
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 const categoryC = [
   { id: 1, value: 'Шоу', text: 'Шоу' },
   { id: 2, value: 'Драмма', text: 'Драмма' },
   { id: 3, value: 'Клип', text: 'Клип' },
 ]
+
 const format = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
 ]
 
 export default function AddVideo({
@@ -267,7 +270,7 @@ export default function AddVideo({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                   value={field.value}
-                  disabled={item.format === 'preroll'}
+                  disabled={item.format === 'preroll' || item.format === 'tv_preroll' || item.format === 'top_preroll'}
                 >
                   <SelectTrigger className="!text-white">
                     <SelectValue placeholder="Выбрать формат" />
@@ -277,7 +280,13 @@ export default function AddVideo({
                       <SelectLabel>Выбрать формат</SelectLabel>
                       {format.map((adv) => (
                         <SelectItem key={adv.id} value={adv.value}>
-                          {adv.text}
+                          <div className='!flex items-center gap-1'>
+                            {adv.icon &&
+                              <adv.icon/>
+                              // <img src={option.icon} alt="" className='size-4'/>
+                            }
+                            {adv.text}
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectGroup>

@@ -56,7 +56,6 @@ export default function CreateOrder({ onClose }) {
     advId = item.id // Присваиваем значение свойства name текущего элемента массива
   })
   const [selectedFormat, setSelectedFormat] = React.useState('')
-  console.log (selectedFormat)
   const handleFormatChange = (value) => {
     setSelectedFormat(value)
     setValue('format', value)

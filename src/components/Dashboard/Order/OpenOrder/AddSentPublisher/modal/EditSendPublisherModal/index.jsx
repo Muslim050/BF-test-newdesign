@@ -337,51 +337,51 @@ const EditSendPublisherModal = ({
           )}
         />
       </td>
-      <td style={{ padding: '2px', paddingTop: '5px' }}>
-        {/* <select
-          id="countries"
-          className={style.select__select}
-          {...register('format', {
-            required: 'Поле обязательно',
-          })}
-          style={{ border: errors?.format ? '1px solid red' : '' }}
-        >
-          <option value="">Выбрать Формат</option>
+      {/*<td style={{ padding: '2px', paddingTop: '5px' }}>*/}
+      {/*  /!* <select*/}
+      {/*    id="countries"*/}
+      {/*    className={style.select__select}*/}
+      {/*    {...register('format', {*/}
+      {/*      required: 'Поле обязательно',*/}
+      {/*    })}*/}
+      {/*    style={{ border: errors?.format ? '1px solid red' : '' }}*/}
+      {/*  >*/}
+      {/*    <option value="">Выбрать Формат</option>*/}
 
-          {format.map((option, index) => (
-            <option key={index} value={option.value}>
-              {option.text}
-            </option>
-          ))}
-        </select> */}
-        <Controller
-          name="format"
-          control={control}
-          rules={{ required: 'Поле обязательно' }}
-          render={({ field }) => (
-            <Select
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              value={field.value}
-              disabled={item.format === 'preroll'}
-            >
-              <SelectTrigger className="!text-white">
-                <SelectValue placeholder="Выбрать формат" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Выбрать формат</SelectLabel>
-                  {format.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.text}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </td>
+      {/*    {format.map((option, index) => (*/}
+      {/*      <option key={index} value={option.value}>*/}
+      {/*        {option.text}*/}
+      {/*      </option>*/}
+      {/*    ))}*/}
+      {/*  </select> *!/*/}
+      {/*  <Controller*/}
+      {/*    name="format"*/}
+      {/*    control={control}*/}
+      {/*    rules={{ required: 'Поле обязательно' }}*/}
+      {/*    render={({ field }) => (*/}
+      {/*      <Select*/}
+      {/*        onValueChange={field.onChange}*/}
+      {/*        defaultValue={field.value}*/}
+      {/*        value={field.value}*/}
+      {/*        disabled={item.format === 'preroll'}*/}
+      {/*      >*/}
+      {/*        <SelectTrigger className="!text-white">*/}
+      {/*          <SelectValue placeholder="Выбрать формат" />*/}
+      {/*        </SelectTrigger>*/}
+      {/*        <SelectContent>*/}
+      {/*          <SelectGroup>*/}
+      {/*            <SelectLabel>Выбрать формат</SelectLabel>*/}
+      {/*            {format.map((option) => (*/}
+      {/*              <SelectItem key={option.value} value={option.value}>*/}
+      {/*                {option.text}*/}
+      {/*              </SelectItem>*/}
+      {/*            ))}*/}
+      {/*          </SelectGroup>*/}
+      {/*        </SelectContent>*/}
+      {/*      </Select>*/}
+      {/*    )}*/}
+      {/*  />*/}
+      {/*</td>*/}
       <td style={{ padding: '2px', paddingTop: '5px' }}>
         <div style={{ display: 'grid' }}>
           <Controller
@@ -566,7 +566,7 @@ const EditSendPublisherModal = ({
         />
       </td>
 
-      <td
+      <td className='flex'
         style={{
           padding: '0px 10px',
           gap: '5px',

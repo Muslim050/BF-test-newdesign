@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TableBody, TableCell } from '@/components/ui/table.jsx'
-import { Star } from 'lucide-react'
+import {Monitor, MonitorPlay, MonitorUp, Star} from 'lucide-react'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
 // import Verify from '@/components/Dashboard/Order/BindingOrder/Verify/Verify.jsx'
@@ -114,21 +114,40 @@ function AddInventoryData({
             >
               {advert.video_content?.category}
             </TableCell>
+
             <TableCell
               data-label="Формат"
-              className={`font-normal text-${textColor} text-sm `}
+              className={`text-blue-300 font-medium text-${textColor} text-sm `}
             >
-              {(advert.format === 'preroll' && 'Pre-roll') ||
-                ('midroll1' && 'Mid-roll 1') ||
-                ('midroll2' && 'Mid-roll 2') ||
-                ('midroll3' && 'Mid-roll 3') ||
-                ('midroll4' && 'Mid-roll 4')}
+              {/*{(advert.format === 'preroll' && 'Pre-roll') ||*/}
+              {/*  ('midroll1' && 'Mid-roll 1') ||*/}
+              {/*  ('midroll2' && 'Mid-roll 2') ||*/}
+              {/*  ('midroll3' && 'Mid-roll 3') ||*/}
+              {/*  ('midroll4' && 'Mid-roll 4')}*/}
+              <div className='flex items-center gap-1'>
+                {
+                  (advert.format === 'preroll' && <Monitor/>) ||
+                  (advert.format === 'top_preroll' && <MonitorUp/>) ||
+                  (advert.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (advert.format === 'preroll' && 'Pre-roll') ||
+                  (advert.format === 'preroll' && 'Pre-roll') ||
+                  ('midroll1' && 'Mid-roll 1') ||
+                  ('midroll2' && 'Mid-roll 2') ||
+                  ('midroll3' && 'Mid-roll 3') ||
+                  ('midroll4' && 'Mid-roll 4') ||
+                  (advert.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (advert.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
             </TableCell>
             <TableCell
               data-label="Прогноз показов"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <FormatterView data={advert.expected_number_of_views} />
+              <FormatterView data={advert.expected_number_of_views}/>
             </TableCell>
 
             <TableCell
