@@ -6,6 +6,7 @@ import { useForm, Controller } from 'react-hook-form'
 import backendURL from '@/utils/url.js'
 import MaskedInput from 'react-text-mask'
 import { Loader2 } from 'lucide-react'
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 
 import { toast } from 'react-hot-toast'
 import {
@@ -224,8 +225,8 @@ export default function AdvertiserModal({ onClose }) {
             {hasRole('admin') && (
               <div className="flex gap-4 mb-4">
                 <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Preroll<span className="text-red-500 ml-0.5">*</span>
+                  <Label className="text-sm	text-white pb-2 gap-1 flex items-center">
+                    <Monitor/> Preroll<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -244,8 +245,8 @@ export default function AdvertiserModal({ onClose }) {
 
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2 flex items-center gap-1">
-                    Preroll
-                    <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    <Monitor/> Preroll
+                    <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
                     uz
                   </div>
                     <span className="text-red-500 ml-0.5">*</span>
@@ -272,8 +273,8 @@ export default function AdvertiserModal({ onClose }) {
             {hasRole('admin') && (
               <div className="flex gap-4 mb-4">
                 <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Tv Preroll<span className="text-red-500 ml-0.5">*</span>
+                  <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                    <MonitorPlay/> TV Preroll<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -292,7 +293,7 @@ export default function AdvertiserModal({ onClose }) {
 
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2 flex items-center gap-1">
-                    Tv Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    <MonitorPlay/> TV Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
                     uz
                   </div><span className="text-red-500 ml-0.5">*</span>
                   </Label>
@@ -318,8 +319,8 @@ export default function AdvertiserModal({ onClose }) {
             {hasRole('admin') && (
               <div className="flex gap-4 mb-4">
                 <div className="grid w-full">
-                  <Label className="text-sm	text-white pb-2">
-                    Top Preroll<span className="text-red-500 ml-0.5">*</span>
+                  <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                    <MonitorUp/> Top Preroll<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -338,7 +339,7 @@ export default function AdvertiserModal({ onClose }) {
 
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2 flex items-center gap-1">
-                    Top Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[12px] bg-[#606afc] inline">
+                    <MonitorUp/> Top Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
                     uz
                   </div><span className="text-red-500 ml-0.5">*</span>
                   </Label>

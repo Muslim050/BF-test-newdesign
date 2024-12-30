@@ -43,10 +43,13 @@ import {
 } from '@/components/ui/select.jsx'
 import { Button } from '../../../../../ui/button'
 import toast from 'react-hot-toast'
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
+
+
 const formatV = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'top_preroll', text: 'Top Pre-roll' },
-  { value: 'tv_preroll', text: 'Tv Pre-roll' },
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
 ]
 import Cookies from 'js-cookie'
 
@@ -329,7 +332,13 @@ export default function EditOrder({
                   <SelectGroup>
                     {formatV.map((option, index) => (
                       <SelectItem key={index} value={option.value}>
-                        {option.text}
+                        <div className='!flex items-center gap-1'>
+                          {option.icon &&
+                            <option.icon/>
+                            // <img src={option.icon} alt="" className='size-4'/>
+                          }
+                          {option.text}
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectGroup>

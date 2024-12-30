@@ -16,11 +16,11 @@ import { Label } from '@/components/ui/label.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { toast } from 'react-hot-toast'
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 
 export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
   const dispatch = useDispatch()
   const [isEditingCreated, setEditingCreated] = React.useState(false)
-  console.log (currentAdvertiser)
   const id = currentAdvertiser.id
   const {
     formState: { errors, isValid },
@@ -78,8 +78,8 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
             <div className="pb-4 flex gap-4">
               {/**/}
               <div className="grid w-full ">
-                <Label className="text-sm	text-white pb-1">
-                  Preroll
+                <Label className="text-sm	text-white pb-1 flex gap-1 items-center">
+                  <Monitor/> Preroll
                   <span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
@@ -116,8 +116,12 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               {/**/}
               {/**/}
               <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1">
-                  Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                  <Monitor/> Preroll
+                  <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
+                    uz
+                  </div>
+                  <span className="text-red-500 ml-0.5">*</span>
                 </Label>
 
                 <Controller
@@ -156,8 +160,8 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
             <div className="pb-4 flex gap-4">
               {/**/}
               <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1">
-                  Top Preroll<span className="text-red-500 ml-0.5">*</span>
+                <Label className="text-sm	text-white pb-1 flex items-center gap-1">
+                  <MonitorUp/> Top Preroll<span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
                   name="cpm_top_preroll"
@@ -194,8 +198,10 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
 
               {/**/}
               <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1">
-                  Top Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                  <MonitorUp/> Top Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
+                  uz
+                </div><span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
                   name="cpm_top_preroll_uz"
@@ -235,8 +241,8 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
             <div className=" flex gap-4">
               {/**/}
               <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1">
-                  TV Preroll<span className="text-red-500 ml-0.5">*</span>
+                <Label className="text-sm	text-white pb-1 flex gap-1 items-center">
+                  <MonitorPlay/> TV Preroll<span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
                   name="cpm_tv_preroll"
@@ -273,8 +279,10 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
 
               {/**/}
               <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1">
-                  TV Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                  <MonitorPlay/> TV Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
+                  uz
+                </div><span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
                   name="cpm_tv_preroll_uz"

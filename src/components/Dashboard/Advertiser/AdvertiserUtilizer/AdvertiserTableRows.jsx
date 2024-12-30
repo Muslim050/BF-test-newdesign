@@ -10,7 +10,7 @@ const headers = [
   { key: 'cpm_preroll', label: 'Preroll' },
   {
     key: 'cpm_preroll_uz', label: 'Preroll', icon: <div
-      className="rounded-[6px] px-1 pb-0.5 h-auto text-[12px] bg-[#606afc] inline"
+      className="rounded-[8px] px-1 pb-0.5 h-auto text-[16px] bg-[#606afc] inline"
     >
       uz
     </div>
@@ -18,7 +18,7 @@ const headers = [
   {key: 'cpm_top_preroll', label: 'Top Preroll'},
   {
     key: 'cpm_top_preroll_uz', label: 'Top Preroll', icon: <div
-      className="rounded-[6px] px-1 pb-0.5 h-auto text-[12px] bg-[#606afc] inline"
+      className="rounded-[8px] px-1 pb-0.5 h-auto text-[16px] bg-[#606afc] inline"
     >
       uz
     </div>
@@ -26,7 +26,7 @@ const headers = [
   {key: 'cpm_tv_preroll', label: 'TV Preroll'},
   {
     key: 'cpm_tv_preroll_uz', label: 'TV Preroll', icon: <div
-      className="rounded-[6px] px-1 pb-0.5 h-auto text-[12px] bg-[#606afc] inline"
+      className="rounded-[8px] px-1 pb-0.5 h-auto text-[16px] bg-[#606afc] inline"
     >
       uz
     </div>

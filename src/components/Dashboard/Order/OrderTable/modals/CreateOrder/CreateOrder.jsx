@@ -30,17 +30,13 @@ import { hasRole } from '../../../../../../utils/roleUtils'
 import { Button } from '../../../../../ui/button'
 import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
-import svgTV from './television-svgrepo-com.svg'
-import svgTop from './top-arrow-svgrepo-com.svg'
-import svgpreroll from './tv-series-svgrepo-com.svg'
 import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 
 
 const formatV = [
   { value: 'preroll', text: 'Pre-roll', icon: Monitor },
-  { value: 'tv_preroll', text: 'Tv Pre-roll', icon: MonitorPlay },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
   { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
-
 ]
 export default function CreateOrder({ onClose }) {
   const dispatch = useDispatch()
@@ -169,7 +165,7 @@ export default function CreateOrder({ onClose }) {
       setIsOrderCreated(true)
       const response = await dispatch(addOrder({ data }))
       if (response && !response.error) {
-        toast.success('Заказ успешно создан!')
+        toast.success('Заказ успешно оформлен!')
         onClose()
         setTimeout(() => {
           window.location.reload()
