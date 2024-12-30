@@ -33,7 +33,7 @@ function Verify({
       inventory: selectedInventoryId,
       order: expandedRows,
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = (data) => {

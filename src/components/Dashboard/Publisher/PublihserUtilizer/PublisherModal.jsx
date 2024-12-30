@@ -26,7 +26,7 @@ export default function PublisherModal({onClose}) {
       format: '',
       selectedFile: null,
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const onSubmit = async (data) => {
     try {

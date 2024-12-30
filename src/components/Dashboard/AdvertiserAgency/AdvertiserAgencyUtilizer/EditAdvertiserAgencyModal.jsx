@@ -30,7 +30,7 @@ export default function EditAdvertiserAgencyModal({ currentOrder, onClose }) {
       phone_number: currentOrder.phone_number,
       commission_rate: currentOrder.commission_rate,
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

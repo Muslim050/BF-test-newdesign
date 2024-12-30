@@ -38,7 +38,7 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
       cpm_tv_preroll: currentAdvertiser.cpm_tv_preroll,
       cpm_tv_preroll_uz: currentAdvertiser.cpm_tv_preroll_uz,
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   useEffect(() => {
     if (currentAdvertiser) {

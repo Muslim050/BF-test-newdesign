@@ -36,7 +36,7 @@ function ChangePasswordModal({ setchangePassword }) {
       newPassword: '',
       confirmPassword: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const handleButtonClick = () => {
     dispatch(hideModalChangePassword())

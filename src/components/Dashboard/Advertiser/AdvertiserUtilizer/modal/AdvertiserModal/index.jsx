@@ -57,7 +57,7 @@ export default function AdvertiserModal({ onClose }) {
       cpm_top_preroll: '',
       cpm_top_preroll_uz: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const fetchAdvertiser = async () => {
     const token = Cookies.get('token')

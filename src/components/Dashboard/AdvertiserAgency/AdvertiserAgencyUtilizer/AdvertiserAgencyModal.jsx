@@ -31,7 +31,7 @@ export default function AdvertiserAgencyModal({ onClose }) {
       email: '',
       commission_rate: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

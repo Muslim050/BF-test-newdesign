@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover.jsx'
 import { Button } from '@/components/ui/button.jsx'
-import { Copy } from 'lucide-react'
+import {Copy, Monitor, MonitorPlay, MonitorUp} from 'lucide-react'
 import backendURL from '@/utils/url'
 
 import { PackagePlus } from 'lucide-react'
@@ -101,11 +101,25 @@ function SentOrderList({ listsentPublisher }) {
               data-label="Формат"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {(item.format === 'preroll' && 'Pre-roll') ||
-                ('midroll1' && 'Mid-roll 1') ||
-                ('midroll2' && 'Mid-roll 2') ||
-                ('midroll3' && 'Mid-roll 3') ||
-                ('midroll4' && 'Mid-roll 4')}
+              <div className='flex items-center gap-1'>
+                {
+                  (item.format === 'preroll' && <Monitor/>) ||
+                  (item.format === 'top_preroll' && <MonitorUp/>) ||
+                  (item.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (item.format === 'preroll' && 'Pre-roll') ||
+                  (item.format === 'preroll' && 'Pre-roll') ||
+                  ('midroll1' && 'Mid-roll 1') ||
+                  ('midroll2' && 'Mid-roll 2') ||
+                  ('midroll3' && 'Mid-roll 3') ||
+                  ('midroll4' && 'Mid-roll 4') ||
+                  (item.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (item.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
+
             </TableCell>
             <TableCell
               data-label="Начало"
@@ -117,7 +131,7 @@ function SentOrderList({ listsentPublisher }) {
               data-label="Конец"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(item.end_date)}
+              {formatDate (item.end_date)}
             </TableCell>
             <TableCell
               data-label="Ролик"

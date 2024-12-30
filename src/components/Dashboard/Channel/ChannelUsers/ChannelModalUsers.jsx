@@ -71,7 +71,7 @@ export default function ChannelModalUsers({ onClose }) {
       password: '',
       channel: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

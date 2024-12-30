@@ -7,6 +7,7 @@ import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { OpenSvg } from '@/assets/icons-ui.jsx'
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 function SentOrderList({ listsentPublisher }) {
   const [openPopoverIndex, setOpenPopoverIndex] = React.useState(null)
@@ -51,23 +52,37 @@ function SentOrderList({ listsentPublisher }) {
               data-label="Формат"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {(item.format === 'preroll' && 'Pre-roll') ||
-                ('midroll1' && 'Mid-roll 1') ||
-                ('midroll2' && 'Mid-roll 2') ||
-                ('midroll3' && 'Mid-roll 3') ||
-                ('midroll4' && 'Mid-roll 4')}
+              <div className='flex items-center gap-1'>
+                {
+                  (item.format === 'preroll' && <Monitor/>) ||
+                  (item.format === 'top_preroll' && <MonitorUp/>) ||
+                  (item.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (item.format === 'preroll' && 'Pre-roll') ||
+                  (item.format === 'preroll' && 'Pre-roll') ||
+                  ('midroll1' && 'Mid-roll 1') ||
+                  ('midroll2' && 'Mid-roll 2') ||
+                  ('midroll3' && 'Mid-roll 3') ||
+                  ('midroll4' && 'Mid-roll 4') ||
+                  (item.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (item.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
+
             </TableCell>
             <TableCell
               data-label="Начало"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(item.start_date)}
+              {formatDate (item.start_date)}
             </TableCell>
             <TableCell
               data-label="Конец"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(item.end_date)}
+              {formatDate (item.end_date)}
             </TableCell>
             <TableCell
               data-label="Ролик"

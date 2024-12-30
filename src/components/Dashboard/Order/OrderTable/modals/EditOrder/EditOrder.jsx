@@ -91,7 +91,7 @@ export default function EditOrder({
       notes: currentOrder.notes,
       target_country: currentOrder.target_country || '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const handleFileChange = (event) => {
@@ -394,7 +394,7 @@ export default function EditOrder({
                   required: 'Поле обязательно к заполнению',
                 }}
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                render={({ field: { onChange, value, name, ref } }) => (
                   <Input
                     className={`border ${
                       errors?.enddate ? 'border-red-500' : 'border-gray-300'
@@ -406,7 +406,7 @@ export default function EditOrder({
                       const newValue = rawValue ? parseInt(rawValue, 10) : ''
                       onChange(newValue)
                     }}
-                    onBlur={onBlur}
+                    onBlur={onChange}
                     name={name}
                     ref={ref}
                     placeholder="Количество показов"

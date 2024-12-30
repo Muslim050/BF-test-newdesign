@@ -74,7 +74,7 @@ export default function ChannelModal({ onClose }) {
       phone: '',
       channelId: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

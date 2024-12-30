@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/tooltip.jsx'
 import { truncate } from '@/utils/other.js'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
-import { ChevronDown } from 'lucide-react'
+import {ChevronDown, Monitor, MonitorPlay, MonitorUp} from 'lucide-react'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { formatDate } from '../../../utils/formatterDate'
 
@@ -46,16 +46,31 @@ function OrderChartList({ statistic, index, handleRowClick, isExpanded }) {
         </a>
       </TableCell>
       <TableCell data-label="Формат" className={`font-normal text-${textColor} text-sm `}>
-        {(statistic.order_format === 'preroll' && 'Pre-roll') ||
-          ('mixroll' && 'Mix-roll')}
+        <div className='flex items-center gap-1'>
+          {
+            (statistic.order_format === 'preroll' && <Monitor/>) ||
+            (statistic.order_format === 'top_preroll' && <MonitorUp/>) ||
+            (statistic.order_format === 'tv_preroll' && <MonitorPlay/>)
+          }
+          {
+            (statistic.order_format === 'preroll' && 'Pre-roll') ||
+            (statistic.order_format === 'mixroll' && 'Mix-roll') ||
+            (statistic.order_format === 'top_preroll' && 'Top Pre-roll') ||
+            (statistic.order_format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+        </div>
+
+        {/*{(statistic.order_format === 'preroll' && 'Pre-roll') ||*/}
+        {/*  ('mixroll' && 'Mix-roll')}*/}
       </TableCell>
-      <TableCell  data-label="Начало" className={`font-normal text-${textColor} text-sm `}>
+      <TableCell data-label="Начало" className={`font-normal text-${textColor} text-sm `}>
         <div>
-          <div style={{ display: 'flex', width: '100px' }}>
+          <div style={{display: 'flex', width: '100px'}}>
             {statistic.publication_date === null ? (
               <div>---</div>
             ) : (
-              formatDate(statistic.publication_date)
+              formatDate (statistic.publication_date)
             )}
           </div>
         </div>

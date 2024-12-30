@@ -27,7 +27,7 @@ export default function LinkedVideoModal({ selectedId, onClose }) {
       selectedId,
       linkvideo: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

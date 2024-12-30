@@ -73,7 +73,7 @@ export default function AdvertiserModalUsers({ onClose }) {
       password: '',
       advertiser: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

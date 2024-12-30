@@ -68,7 +68,7 @@ export default function PublisherModalUsers({ onClose }) {
       password: '',
       publisher: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {

@@ -79,7 +79,7 @@ export default function EditVideoModal({ currentOrder, onClose }) {
       link_to_video: currentOrder.link_to_video,
       video_id: currentOrder.video_id,
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
 
   const onSubmit = async (data) => {
