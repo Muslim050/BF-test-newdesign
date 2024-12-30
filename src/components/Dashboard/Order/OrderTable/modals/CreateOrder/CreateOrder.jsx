@@ -32,7 +32,8 @@ import Cookies from 'js-cookie'
 
 const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
+  { value: 'top_preroll', text: 'Top Pre-roll' },
+  { value: 'tv_preroll', text: 'Tv Pre-roll' },
 ]
 export default function CreateOrder({ onClose }) {
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ export default function CreateOrder({ onClose }) {
     advId = item.id // Присваиваем значение свойства name текущего элемента массива
   })
   const [selectedFormat, setSelectedFormat] = React.useState('')
-
+  console.log (selectedFormat)
   const handleFormatChange = (value) => {
     setSelectedFormat(value)
     setValue('format', value)
@@ -86,13 +87,13 @@ export default function CreateOrder({ onClose }) {
     let newBudget = 0
     if (targetCountry) {
       const uzFormat = `${selectedFormat}_uz`
+      console.log (uzFormat)
       if (cpm[uzFormat]) {
         newBudget = (expectedView / 1000) * cpm[uzFormat]
       }
     } else if (cpm[selectedFormat]) {
       newBudget = (expectedView / 1000) * cpm[selectedFormat]
     }
-
     setBudgett(newBudget)
   }
 
@@ -156,6 +157,7 @@ export default function CreateOrder({ onClose }) {
     }
   }, [advID])
   const onSubmit = async (data) => {
+
     try {
       setIsOrderCreated(true)
       const response = await dispatch(addOrder({ data }))
@@ -223,6 +225,7 @@ export default function CreateOrder({ onClose }) {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         value={field.value}
+
                       >
                         <SelectTrigger className="!text-white">
                           <SelectValue placeholder="Выбрать рекламодателя"/>
@@ -336,7 +339,7 @@ export default function CreateOrder({ onClose }) {
               </div>
 
               <div className="grid w-full">
-                <div className="border-dashed border-2 border-sky-500 rounded-lg p-2 flex flex-col justify-between">
+                <div className="border-dashed border-2 border-sky-500 rounded-2xl p-2 flex flex-col justify-between">
                   <Label className="text-sm	text-white pb-0.5">
                     Target для РУЗ
                   </Label>
@@ -428,7 +431,7 @@ export default function CreateOrder({ onClose }) {
                 Файл
                 <span className="text-red-500 ml-0.5">*</span>
               </Label>
-              <div className="border-dashed border-2 border-[#A7CCFF] rounded-lg p-2 flex flex-col justify-between h-[76px]">
+              <div className="border-dashed border-2 border-[#A7CCFF] rounded-2xl p-2 flex flex-col justify-between h-[76px]">
                 <Input
                   type="file"
                   onChange={handleFileChange}
@@ -468,7 +471,7 @@ export default function CreateOrder({ onClose }) {
                   isValid && !isOrderCreated
                     ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
                     : 'bg-[#616161]'
-                } w-full   h-[44px] text-white rounded-lg	mt-4`}
+                } w-full   h-[44px] text-white rounded-2xl	mt-4`}
                 disabled={!isValid || isOrderCreated}
                 isValid={true}
                 type="submit"

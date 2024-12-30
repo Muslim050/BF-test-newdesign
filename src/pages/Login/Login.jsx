@@ -164,8 +164,8 @@ function Login() {
                   ref={mainSubtitleRef}
                   className="text-2xl	font-normal	text-white"
                 >
-                  Brandformance - это онлайн видео площадка созданная для
-                  увеличения показателей вашего бренда через видео контент.
+                  Brandformance - Платформа Видеорекламы в <span className='text-white ml-1'>You<span className='bg-red-600 p-0.5 rounded-[10px] font-semibold'>Tube</span> </span>.
+                  Разместите ваш рекламный ролик буквально в три клика.
                 </div>
               </div>
               {/* <div className=" flex  gap-2 w-full relative"> */}

@@ -1,10 +1,7 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchOrder, setOrderStatus } from '@/redux/order/orderSlice.js'
-import {
-  fetchViewStatus,
-  finishOrder,
-} from '@/redux/orderStatus/orderStatusSlice.js'
+import { useDispatch } from 'react-redux'
+import { fetchOrder } from '@/redux/order/orderSlice.js'
+
 import OpenOrderTable from '../../OpenOrder/index.jsx'
 import FormatterBudjet from '../../../../Labrery/formatter/FormatterBudjet.jsx'
 import { TableCell, TableRow } from '@/components/ui/table'
@@ -21,84 +18,28 @@ import { Film } from 'lucide-react'
 import FormatterView from '@/components/Labrery/formatter/FormatterView'
 import CircularTable from '@/components/Labrery/Circular/CircularTable'
 import CircularBadge from '@/components/Labrery/Circular/CircularBadge'
-import { useNavigate } from 'react-router-dom'
 import { ChartSvg, OpenSvg } from '@/assets/icons-ui.jsx'
 import { truncate } from '@/utils/other.js'
 import PopoverButtons from '@/components/Dashboard/Order/OrderTable/components/PopoverButtons'
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { hasRole } from '@/utils/roleUtils.js'
-import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
+import {getProgressStyle} from "@/components/Dashboard/Order/OrderTable/components/getProgressStyle.jsx";
+import {useOrderHandlers} from "@/components/Dashboard/Order/OrderTable/components/useOrderHandlers.jsx";
 
 function OrderData({ data }) {
   const dispatch = useDispatch()
-  const [expandedRows, setExpandedRows] = React.useState('')
   const role = Cookies.get('role')
   const [showModalEditAdmin, setShowModalEditAdmin] = React.useState(false)
-  const navigate = useNavigate()
   const { textColor } = React.useContext(ThemeContext)
-  const { showPayment } = useSelector((state) => state.modal)
-  const [finishingOrderId, setFinishingOrderId] = React.useState(null)
-  const [isFetchingOrder, setIsFetchingOrder] = React.useState(false)
-
-  //Смена статуса заказа
-  const handleRowClick = (id) => {
-    setExpandedRows(id === expandedRows ? false : id)
-    const item = data.find((item) => item.id === id)
-    if (item && item.status === 'sent') {
-      dispatch(fetchViewStatus(id)).then((result) => {
-        if (result.type === fetchViewStatus.fulfilled.toString()) {
-          dispatch(setOrderStatus({ orderId: id, status: 'accepted' }))
-        }
-      })
-    } else {
-      // setTimeout (() => fetchGetOrder (id), 2000); // Fetch the specific order directly after 2 seconds if the status is not "sent"
-    }
-  }
-  //Смена статуса заказа
-
-  const handleFinishOrder = (id) => {
-    setFinishingOrderId(id) // Устанавливаем ID заказа, который в процессе завершения
-    setIsFetchingOrder(true) // Устанавливаем состояние загрузки
-
-    dispatch(finishOrder({ id }))
-      .unwrap()
-      .then((result) => {
-        toast.success('Заказ успешно завершен')
-        // onClose() - если необходимо
-        dispatch(
-          fetchOrder().finally(() => {
-            setIsFetchingOrder(false)
-          }),
-        )
-      })
-      .catch((error) => {
-        toast.error(`Ошибка завершения заказа: ${error.data.error.detail}`)
-        dispatch(
-          fetchOrder().finally(() => {
-            setIsFetchingOrder(false)
-          }),
-        )
-      })
-      .finally(() => {
-        setFinishingOrderId(null) // Сбрасываем состояние после завершения или ошибки
-      })
-  }
+  const { handleRowClick, handleFinishOrder, redirectToTariffDetails, isFetchingOrder, finishingOrderId, expandedRows } = useOrderHandlers();
 
   React.useEffect(() => {
     fetchOrder()
   }, [dispatch])
-  // const redirectToTariffDetails = React.useCallback(
-  //   (advert) => {
-  //     navigate(`/chart-order-table/${advert.id}`, { state: { advert } })
-  //   },
-  //   [navigate],
-  // )
-  const redirectToTariffDetails = React.useCallback((advert) => {
-    const url = `/chart-order-table/${advert.id}`
-    window.open(url, '_blank', 'noopener,noreferrer') // Открыть в новом окне
-  }, [])
+
+
 
   return (
     <>
@@ -106,7 +47,6 @@ function OrderData({ data }) {
         const isFinishing = finishingOrderId === advert.id // Проверяем, завершение или загрузка
         const isOver100Percent =
           (advert.online_views / advert.expected_number_of_views) * 100 >= 100
-        console.log (isOver100Percent)
         return (
           <>
             {(isFinishing || isFetchingOrder) && (
@@ -206,7 +146,7 @@ function OrderData({ data }) {
                 <div className="flex items-center h-[15px] gap-1">
                   <div>
                     {(advert.format === 'preroll' && 'Pre-roll') ||
-                      ('mixroll' && 'Mix-roll')}
+                      (advert.format === 'mixroll' && 'Mix-roll') || (advert.format === 'top_preroll' && 'Top Pre-roll') || (advert.format === 'tv_preroll' && 'Tv Pre-roll')}
                   </div>
                   <div
                     className={`rounded-[6px] px-1 text-[12px]  ${
@@ -250,94 +190,28 @@ function OrderData({ data }) {
                   />
                 </div>
               </TableCell>
+
+              {/*Статус*/}
               <TableCell
                 data-label="Статус"
                 className={`font-normal text-${textColor} text-sm `}
               >
-                <AdvertStatus
-                  status={advert.status}
-                  endDate={advert.actual_end_date}
-                >
-                  {role === 'admin' ||
-                  role === 'advertising_agency' ||
-                  role === 'advertiser' ? (
-                    <>
-                      {role === 'admin' ||
-                      role === 'advertising_agency' ||
-                      role === 'advertiser' ? (
-                        <>
-                          {advert.status === 'in_progress' ? (
-                            <div
-                              style={{
-                                display: (() => {
-                                  const ratie = Math.floor(
-                                    (advert.online_views /
-                                      advert.expected_number_of_views) *
-                                      100,
-                                  )
-                                  if (ratie >= 1) {
-                                    return 'initial'
-                                  }
-                                  return 'none'
-                                })(),
-                                padding: '1px 5px',
-                                borderRadius: '7px',
-                                height: '100%',
-                                fontWeight: '600',
-                                background: (() => {
-                                  const ratie = Math.floor(
-                                    (advert.online_views /
-                                      advert.expected_number_of_views) *
-                                      100,
-                                  )
-
-                                  if (ratie >= 100) {
-                                    return '#ec2020'
-                                  } else if (ratie >= 80) {
-                                    return '#fd8b00'
-                                  } else if (ratie >= 50) {
-                                    return 'rgba(50, 147, 111, 0.16)'
-                                  } else if (ratie >= 1) {
-                                    return 'rgb(86 112 241)'
-                                  }
-                                  return 'inherit'
-                                })(),
-
-                                color: (() => {
-                                  const ratio =
-                                    (advert.online_views /
-                                      advert.expected_number_of_views) *
-                                    100
-
-                                  if (ratio >= 100) {
-                                    return '#f8f8f8'
-                                  } else if (ratio >= 80) {
-                                    return '#764306'
-                                  } else if (ratio >= 50) {
-                                    return '#0bd244'
-                                  } else if (ratio >= 1) {
-                                    return 'rgb(228 232 253)'
-                                  }
-                                  return 'inherit'
-                                })(),
-                              }}
-                            >
-                              {advert.online_views > 0 &&
-                                Math.floor(
-                                  (advert.online_views /
-                                    advert.expected_number_of_views) *
-                                    100,
-                                ) +
-                                  ' ' +
-                                  '%'}
-                            </div>
-                          ) : null}
-                        </>
-                      ) : null}
-                    </>
+                <AdvertStatus status={advert.status} endDate={advert.actual_end_date}>
+                  {hasRole('admin') || hasRole('advertising_agency') || hasRole('advertiser') ? (
+                    advert.status === 'in_progress' && (
+                      <div
+                        className="rounded-lg px-1 font-semibold"
+                        style={getProgressStyle(advert.online_views, advert.expected_number_of_views)}
+                      >
+                        {Math.floor((advert.online_views / advert.expected_number_of_views) * 100)}%
+                      </div>
+                    )
                   ) : null}
                 </AdvertStatus>
               </TableCell>
+              {/*Статус*/}
+
+
               <TableCell
                 data-label="Остаток"
                 className={`font-normal text-${textColor} text-sm `}

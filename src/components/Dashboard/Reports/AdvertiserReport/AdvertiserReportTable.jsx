@@ -1,15 +1,9 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
 import style from './AdvChartTable.module.scss'
 import OrderChartThead from './AdvChartThead'
 import AdvChartData from './AdvChartData'
 import { InfoCardsBottom } from './components/InfoCardsBottom/InfoCards'
 import FilteredTooltip from './components/FilteredTooltip/FilteredTooltip'
-import { fetchAdvertiser } from '@/redux/advertiser/advertiserSlice'
-import { fetchShortList } from '@/redux/order/orderSlice'
-import { format } from 'date-fns'
-import { clearStatistics, fetchStatistics } from '@/redux/statisticsSlice.js'
 import {
   Popover,
   PopoverContent,
@@ -24,130 +18,38 @@ import {
 } from '@/components/ui/table'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 import SelectedFilter from "@/components/Dashboard/Reports/AdvertiserReport/components/SelectedFilter.jsx";
+import useAdvertiserReport from "@/components/Dashboard/Reports/AdvertiserReport/useAdvertiserReport.jsx";
 
 
 function AdvertiserReportTable() {
-  const dispatch = useDispatch()
-  const [expandedRows, setExpandedRows] = React.useState('')
-  const [loading, setLoading] = React.useState(false)
-  //
-  const data = useSelector((state) => state.statistics.statistics.results)
-  const advdata = useSelector((state) => state.advertiser.advertisers)
-  //
-  const [isTooltip, setIsTooltip] = React.useState(false)
-  const [startDate, setStartDate] = React.useState('')
-  const [endDate, setEndDate] = React.useState('')
-  //
-  const [selectedAdv, setSetSelectedAdv] = React.useState(null)
-  const [selectedAdvName, setSelectedAdvName] = React.useState(null)
-  const [selectedOptionAdv, setSelectedOptionAdv] = React.useState('')
-  //
-  const [startDateMonth, setStartDateMonth] = React.useState(null)
-  const [endDateMonth, setEndDateMonth] = React.useState(null)
-  const [dateRange, setDateRange] = React.useState([])
-  const [selectedMonth, setSelectedMonth] = React.useState('')
-
-  React.useEffect(() => {
-    setStartDateMonth(dateRange[0])
-    setEndDateMonth(dateRange[1])
-  }, [dateRange])
-  //Выбор рекламадателя
-  const handleSelectChangeADV = (value) => {
-    setSelectedOptionAdv(value)
-
-    if (value) {
-      const option = JSON.parse(value)
-      setSetSelectedAdv(option.id)
-      setSelectedAdvName(option.name)
-    } else {
-      setSetSelectedAdv(null)
-      setSelectedAdvName('')
-    }
-  }
-  //Выбор рекламадателя
-
-  //useEffect
-  React.useEffect(() => {
-    dispatch(fetchAdvertiser({}))
-  }, [dispatch])
-  React.useEffect(() => {
-    if (selectedAdv) {
-      dispatch(fetchShortList({ id: selectedAdv }))
-    }
-  }, [dispatch, selectedAdv])
-  //useEffect
-
-  const formattedStartDate = startDate
-    ? format(startDate, 'yyyy-MM-dd')
-    : undefined
-  const formattedEndDate = endDate ? format(endDate, 'yyyy-MM-dd') : undefined
-
-  const handleDateChange = (date) => {
-    const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
-    const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-    setDateRange([startOfMonth, endOfMonth])
-    setSelectedMonth(startOfMonth)
-    setEndDateMonth(dateRange[1])
-    setStartDateMonth(dateRange[0])
-  }
-  // Отправка запроса с фильтра
-
-  const handleDateStatictick = () => {
-    if (selectedAdv) {
-      setLoading(true) // Start loading
-      const formattedStartDateMonth = startDateMonth
-        ? format(startDateMonth, 'yyyy-MM-dd')
-        : undefined
-      const formattedEndDateMonth = endDateMonth
-        ? format(endDateMonth, 'yyyy-MM-dd')
-        : undefined
-
-      const useMonthBasedDates = startDateMonth !== undefined
-      dispatch(
-        fetchStatistics({
-          adv_id: selectedAdv,
-          startDate: useMonthBasedDates
-            ? formattedStartDateMonth
-            : formattedStartDate,
-          endDate: useMonthBasedDates
-            ? formattedEndDateMonth
-            : formattedEndDate,
-        }),
-      )
-        .then(() => {
-          setLoading(false) // Stop loading when the request is successful
-        })
-        .catch(() => {
-          setLoading(false) // Stop loading also when there is an error
-        })
-      setIsTooltip(!isTooltip)
-    } else {
-      console.log('No advertiser selected')
-    }
-  }
-  // Отправка запроса с фильтра
-
-  const handleClear = () => {
-    setSelectedAdvName(null)
-    setSelectedOptionAdv('')
-    setStartDate(null)
-    setEndDate(null)
-    setSelectedMonth('')
-    setDateRange([])
-    dispatch(clearStatistics())
-  }
-  const handleStartDateChange = (date) => {
-    setStartDate(date) // Keep the Date object for DatePicker
-  }
-  const handleEndDateChange = (date) => {
-    setEndDate(date) // Keep the Date object for DatePicker
-  }
 
   let totalViews = 0
   let totalBudget = 0
   let totalAnalitickView = 0
   let tableData = []
 
+  const {
+    loading,
+    handleDateStatictick,
+    handleSelectChangeADV,
+    data,
+    setLoading,
+    selectedOptionAdv,
+    selectedAdvName,
+    startDate,
+    handleDateChange,
+    setIsTooltip,
+    selectedMonth,
+    endDateMonth,
+    startDateMonth,
+    handleEndDateChange,
+    handleStartDateChange,
+    handleClear,
+    selectedAdv,
+    advdata,
+    endDate
+
+  } = useAdvertiserReport();
   return (
     <>
       {loading ? (
@@ -170,6 +72,8 @@ function AdvertiserReportTable() {
                selectedMonth={selectedMonth}
              />
               {/*Выбрынные фильтры*/}
+
+
 
 
               <Popover>
@@ -258,9 +162,7 @@ function AdvertiserReportTable() {
                                 <AdvChartData
                                   statistic={statistic}
                                   index={index}
-                                  isExpanded={
-                                    expandedRows === statistic.video_link
-                                  }
+
                                 />
                               </tr>
                             </React.Fragment>
@@ -268,18 +170,17 @@ function AdvertiserReportTable() {
                         })}
                     </TableBody>
                   </Table>
-                  {/* Ячейки с инфо Итого:	 */}
 
-                  {/* Ячейки с инфо Итого:	 */}
                 </div>
-                <div className="w-full justify-center flex py-4">
-                  <InfoCardsBottom
-                    totalViews={totalViews}
-                    totalBudget={totalBudget}
-                    totalAnalitickView={totalAnalitickView}
-                    tableData={data}
-                  />
-                </div>
+
+                {/* Ячейки с инфо Итого:	 */}
+                <InfoCardsBottom
+                  totalViews={totalViews}
+                  totalBudget={totalBudget}
+                  totalAnalitickView={totalAnalitickView}
+                />
+                {/* Ячейки с инфо Итого:	 */}
+
               </>
             ) : (
               <div className="flex items-center gap-2 justify-center h-[100%] 	">

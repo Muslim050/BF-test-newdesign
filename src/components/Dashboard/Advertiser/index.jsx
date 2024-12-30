@@ -6,27 +6,28 @@ import { hasRole } from '../../../utils/roleUtils'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Plus } from 'lucide-react'
-import AdvertiserModal from './AdvertiserUtilizer/AdvertiserModal'
+
 import AdvertiserModalUsers from './AdvertiserUsers/AdvertiserModalUsers'
 import Cookies from 'js-cookie'
+import AdvertiserModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/AdvertiserModal/index.jsx";
 
 const AdvertiserAndUsers = () => {
   const [selectedTab, setSelectedTab] = React.useState('advertiser')
   const user = Cookies.get('role')
 
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
   const [open, setOpen] = React.useState(false)
   const handleClose = () => {
     setOpen(false)
   }
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
 
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
   const [openUsers, setOpenUsers] = React.useState(false)
   const handleCloseUsers = () => {
     setOpenUsers(false)
   }
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
   return (
     <div className="mb-4 mt-2">
       <Tabs defaultValue="advertiser">

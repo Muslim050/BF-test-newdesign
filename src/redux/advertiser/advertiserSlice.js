@@ -45,10 +45,12 @@ export const addAdvertiser = createAsyncThunk(
           name: data.name,
           email: data.email,
           phone_number: data.phone,
-          cpm_mixroll: data.cpm_mixroll,
           cpm_preroll: data.cpm_preroll,
-          cpm_mixroll_uz: data.cpm_mixroll_uz,
           cpm_preroll_uz: data.cpm_preroll_uz,
+          cpm_tv_preroll: data.cpm_tv_preroll,
+          cpm_tv_preroll_uz: data.cpm_tv_preroll_uz,
+          cpm_top_preroll: data.cpm_top_preroll,
+          cpm_top_preroll_uz: data.cpm_top_preroll_uz,
         },
         {
           headers: {
@@ -101,10 +103,12 @@ export const editAdvertiser = createAsyncThunk(
           name: data.name,
           email: data.email,
           phone_number: data.phone_number,
-          cpm_mixroll: data.cpm_mixroll,
           cpm_preroll: data.cpm_preroll,
-          cpm_mixroll_uz: data.cpm_mixroll_uz,
           cpm_preroll_uz: data.cpm_preroll_uz,
+          cpm_top_preroll: data.cpm_top_preroll,
+          cpm_top_preroll_uz: data.cpm_top_preroll_uz,
+          cpm_tv_preroll: data.cpm_tv_preroll,
+          cpm_tv_preroll_uz: data.cpm_tv_preroll_uz,
         },
         {
           headers: {

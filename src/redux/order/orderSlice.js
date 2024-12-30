@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 // import axios from "src/utils/axiosInstance.js";
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import log from "eslint-plugin-react/lib/util/log.js";
 
 const initialState = {
   order: [],
@@ -71,7 +72,7 @@ export const addOrder = createAsyncThunk(
   'order/addOrder',
   async ({ data }, { rejectWithValue }) => {
     const token = Cookies.get('token')
-
+    console.log (data)
     try {
       const response = await axios.post(
         `${backendURL}/order/`,

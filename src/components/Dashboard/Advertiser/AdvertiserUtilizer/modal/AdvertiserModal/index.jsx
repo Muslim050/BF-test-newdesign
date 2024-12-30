@@ -28,6 +28,8 @@ import {
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
 import Cookies from 'js-cookie'
+import InputField
+  from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/AdvertiserModal/components/InputField.jsx";
 
 export default function AdvertiserModal({ onClose }) {
   const [advertiserModal, setAdvertiserModal] = React.useState([])
@@ -47,10 +49,12 @@ export default function AdvertiserModal({ onClose }) {
       phone: '',
       email: '',
       agency: '',
-      cpm_mixroll: '',
       cpm_preroll: '',
       cpm_preroll_uz: '',
-      cpm_mixroll_uz: '',
+      cpm_tv_preroll: '',
+      cpm_tv_preroll_uz: '',
+      cpm_top_preroll: '',
+      cpm_top_preroll_uz: '',
     },
     mode: 'onBlur',
   })
@@ -101,9 +105,10 @@ export default function AdvertiserModal({ onClose }) {
       const adv = await dispatch(addAdvertiser({ data })).unwrap()
       toast.success('Пользователь рекламодателя успешно создан!')
       onClose()
+
       setTimeout(() => {
-        dispatch(fetchAdvertiser())
-      }, 1000)
+        window.location.reload()
+      }, 1500)
       setIsLogin(false)
     } catch (error) {
       setIsLogin(false)
@@ -205,26 +210,14 @@ export default function AdvertiserModal({ onClose }) {
             {/**/}
 
             {/**/}
-            <div className="grid w-full mb-4">
-              <Label className="text-sm	text-white pb-2 flex gap-0.5">
-                Email<span className="text-red-500 ml-0.5">*</span>
-                <div className="text-sm	text-red-500 ">
-                  {' '}
-                  {errors?.email && <p>{errors.email.message}</p>}
-                </div>
-              </Label>
-              <Input
-                type="email"
-                autoComplete="off"
-                {...register('email', {
-                  required: '.',
-                })}
-                placeholder={'Введите email'}
-                className={`border ${
-                  errors?.email ? 'border-red-500' : 'border-gray-300'
-                }   transition-all duration-300 text-sm `}
-              />
-            </div>
+            <InputField
+              label="Email"
+              name="email"
+              register={register}
+              rules={{ required: 'Поле обязательно к заполнению' }}
+              placeholder="Введите email"
+              error={errors?.email}
+            />
             {/*  */}
 
             {/*  */}
@@ -232,7 +225,7 @@ export default function AdvertiserModal({ onClose }) {
               <div className="flex gap-4 mb-4">
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2">
-                    СPM Preroll<span className="text-red-500 ml-0.5">*</span>
+                    Preroll<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
@@ -247,14 +240,16 @@ export default function AdvertiserModal({ onClose }) {
                   />
                 </div>
 
+
+
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2">
-                    CPM Mixroll<span className="text-red-500 ml-0.5">*</span>
+                    Preroll UZ<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
                     autoComplete="off"
-                    {...register('cpm_mixroll', {
+                    {...register('cpm_preroll_uz', {
                       required: 'Поле обезательно к заполнению',
                     })}
                     placeholder={'Введите cpm mixroll'}
@@ -272,12 +267,12 @@ export default function AdvertiserModal({ onClose }) {
               <div className="flex gap-4 mb-4">
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2">
-                    Target preroll<span className="text-red-500 ml-0.5">*</span>
+                    Top Preroll<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
                     autoComplete="off"
-                    {...register('cpm_preroll_uz', {
+                    {...register('cpm_top_preroll', {
                       required: 'Поле обезательно к заполнению',
                     })}
                     placeholder={'Введите cpm preroll'}
@@ -291,12 +286,56 @@ export default function AdvertiserModal({ onClose }) {
 
                 <div className="grid w-full">
                   <Label className="text-sm	text-white pb-2">
-                    Target Mixroll<span className="text-red-500 ml-0.5">*</span>
+                    Top Preroll UZ<span className="text-red-500 ml-0.5">*</span>
                   </Label>
                   <Input
                     type="text"
                     autoComplete="off"
-                    {...register('cpm_mixroll_uz', {
+                    {...register('cpm_top_preroll_uz', {
+                      required: 'Поле обязательно к заполнению',
+                    })}
+                    placeholder="Введите target mixroll"
+                    className={`border ${
+                      errors?.cpm_mixroll_uz
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    } transition-all duration-300 text-sm`}
+                  />
+                </div>
+              </div>
+            )}
+            {/**/}
+
+            {/**/}
+            {hasRole('admin') && (
+              <div className="flex gap-4 mb-4">
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2">
+                    Tv Preroll<span className="text-red-500 ml-0.5">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    {...register('cpm_tv_preroll', {
+                      required: 'Поле обезательно к заполнению',
+                    })}
+                    placeholder={'Введите cpm preroll'}
+                    className={`border ${
+                      errors?.cpm_preroll_uz
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    }   transition-all duration-300 text-sm `}
+                  />
+                </div>
+
+                <div className="grid w-full">
+                  <Label className="text-sm	text-white pb-2">
+                    Tv Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    {...register('cpm_tv_preroll_uz', {
                       required: 'Поле обязательно к заполнению',
                     })}
                     placeholder="Введите target mixroll"

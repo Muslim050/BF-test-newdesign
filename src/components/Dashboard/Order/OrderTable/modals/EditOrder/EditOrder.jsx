@@ -16,11 +16,8 @@ import {
 import { toastConfig } from '../../../../../../utils/toastConfig'
 import 'react-datepicker/dist/react-datepicker.css'
 import style from './EditOrder.module.scss'
-import { X } from 'lucide-react'
-// import {ReactComponent as File} from '@/assets/Table/file.svg'
 import backendURL from '@/utils/url'
 import axios from 'axios'
-// import {ReactComponent as Delete} from '@/assets/Table/Delete.svg'
 import { Label } from '@/components/ui/label.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
 
@@ -48,7 +45,8 @@ import { Button } from '../../../../../ui/button'
 import toast from 'react-hot-toast'
 const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
+  { value: 'top_preroll', text: 'Top Pre-roll' },
+  { value: 'tv_preroll', text: 'Tv Pre-roll' },
 ]
 import Cookies from 'js-cookie'
 

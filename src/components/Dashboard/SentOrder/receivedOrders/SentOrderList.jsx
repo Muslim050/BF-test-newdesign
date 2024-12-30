@@ -45,9 +45,9 @@ function SentOrderList({ listsentPublisher }) {
   const handleRowClick = (id) => {
     setExpandedRows(id === expandedRows ? false : id)
   }
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
 
   return (
     <>

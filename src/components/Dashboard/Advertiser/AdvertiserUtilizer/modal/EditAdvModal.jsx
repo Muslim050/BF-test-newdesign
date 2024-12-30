@@ -20,7 +20,8 @@ import { toast } from 'react-hot-toast'
 export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
   const dispatch = useDispatch()
   const [isEditingCreated, setEditingCreated] = React.useState(false)
-
+  console.log (currentAdvertiser)
+  const id = currentAdvertiser.id
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -30,10 +31,12 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
       name: currentAdvertiser.name,
       email: currentAdvertiser.email,
       phone_number: currentAdvertiser.phone_number,
-      cpm_mixroll: currentAdvertiser.cpm_mixroll,
       cpm_preroll: currentAdvertiser.cpm_preroll,
       cpm_preroll_uz: currentAdvertiser.cpm_preroll_uz,
-      cpm_mixroll_uz: currentAdvertiser.cpm_mixroll_uz,
+      cpm_top_preroll: currentAdvertiser.cpm_top_preroll,
+      cpm_top_preroll_uz: currentAdvertiser.cpm_top_preroll_uz,
+      cpm_tv_preroll: currentAdvertiser.cpm_tv_preroll,
+      cpm_tv_preroll_uz: currentAdvertiser.cpm_tv_preroll_uz,
     },
     mode: 'onBlur',
   })
@@ -45,7 +48,7 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
 
   const onSubmit = async (data) => {
     try {
-      const adv = await dispatch(editAdvertiser({ data })).unwrap()
+      const adv = await dispatch(editAdvertiser({id, data })).unwrap()
       toast.success('Изминения успешно обновлены!')
       onClose()
       setTimeout(() => {
@@ -82,18 +85,18 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
                 <Controller
                   name="cpm_preroll"
                   control={control}
-                  rules={{ required: 'Поле обязательно к заполнению' }}
+                  rules={{required: 'Поле обязательно к заполнению'}}
                   defaultValue=""
                   render={({
-                    field: { onChange, onBlur, value, name, ref },
-                  }) => (
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
                     <Input
                       type="text"
-                      value={value?.toLocaleString('en-US')}
+                      value={value?.toLocaleString ('en-US')}
                       onChange={(e) => {
-                        const rawValue = e.target.value.replace(/\D/g, '')
-                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                        onChange(newValue)
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
                       }}
                       onBlur={onBlur}
                       name={name}
@@ -114,24 +117,24 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               {/**/}
               <div className="grid w-full">
                 <Label className="text-sm	text-white pb-1">
-                  Mixroll<span className="text-red-500 ml-0.5">*</span>
+                  Preroll UZ<span className="text-red-500 ml-0.5">*</span>
                 </Label>
 
                 <Controller
-                  name="cpm_mixroll"
+                  name="cpm_preroll_uz"
                   control={control}
-                  rules={{ required: 'Поле обязательно к заполнению' }}
+                  rules={{required: 'Поле обязательно к заполнению'}}
                   defaultValue=""
                   render={({
-                    field: { onChange, onBlur, value, name, ref },
-                  }) => (
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
                     <Input
                       type="text"
-                      value={value?.toLocaleString('en-US')}
+                      value={value?.toLocaleString ('en-US')}
                       onChange={(e) => {
-                        const rawValue = e.target.value.replace(/\D/g, '')
-                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                        onChange(newValue)
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
                       }}
                       onBlur={onBlur}
                       name={name}
@@ -150,27 +153,27 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               </div>
             </div>
 
-            <div className=" flex gap-4">
+            <div className="pb-4 flex gap-4">
               {/**/}
               <div className="grid w-full">
                 <Label className="text-sm	text-white pb-1">
-                  Target Preroll<span className="text-red-500 ml-0.5">*</span>
+                  Top Preroll<span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
-                  name="cpm_preroll_uz"
+                  name="cpm_top_preroll"
                   control={control}
-                  rules={{ required: 'Поле обязательно к заполнению' }}
+                  rules={{required: 'Поле обязательно к заполнению'}}
                   defaultValue=""
                   render={({
-                    field: { onChange, onBlur, value, name, ref },
-                  }) => (
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
                     <Input
                       type="text"
-                      value={value?.toLocaleString('en-US')}
+                      value={value?.toLocaleString ('en-US')}
                       onChange={(e) => {
-                        const rawValue = e.target.value.replace(/\D/g, '')
-                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                        onChange(newValue)
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
                       }}
                       onBlur={onBlur}
                       name={name}
@@ -192,23 +195,23 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               {/**/}
               <div className="grid w-full">
                 <Label className="text-sm	text-white pb-1">
-                  Target Mixroll<span className="text-red-500 ml-0.5">*</span>
+                  Top Preroll UZ<span className="text-red-500 ml-0.5">*</span>
                 </Label>
                 <Controller
-                  name="cpm_mixroll_uz"
+                  name="cpm_top_preroll_uz"
                   control={control}
-                  rules={{ required: 'Поле обязательно к заполнению' }}
+                  rules={{required: 'Поле обязательно к заполнению'}}
                   defaultValue=""
                   render={({
-                    field: { onChange, onBlur, value, name, ref },
-                  }) => (
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
                     <Input
                       type="text"
-                      value={value?.toLocaleString('en-US')}
+                      value={value?.toLocaleString ('en-US')}
                       onChange={(e) => {
-                        const rawValue = e.target.value.replace(/\D/g, '')
-                        const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                        onChange(newValue)
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
                       }}
                       onBlur={onBlur}
                       name={name}
@@ -228,18 +231,98 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               {/**/}
             </div>
 
+
+            <div className=" flex gap-4">
+              {/**/}
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-1">
+                  TV Preroll<span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="cpm_tv_preroll"
+                  control={control}
+                  rules={{required: 'Поле обязательно к заполнению'}}
+                  defaultValue=""
+                  render={({
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
+                    <Input
+                      type="text"
+                      value={value?.toLocaleString ('en-US')}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
+                      }}
+                      onBlur={onBlur}
+                      name={name}
+                      ref={ref}
+                      autoComplete="off"
+                      step="1000"
+                      className={`border ${
+                        errors?.cpm_preroll_uz
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }  transition-all duration-300 text-sm text-[#CECECE]`}
+                      placeholder={'Введите target preroll'}
+                    />
+                  )}
+                />
+              </div>
+              {/**/}
+
+              {/**/}
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-1">
+                  TV Preroll UZ<span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="cpm_tv_preroll_uz"
+                  control={control}
+                  rules={{required: 'Поле обязательно к заполнению'}}
+                  defaultValue=""
+                  render={({
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
+                    <Input
+                      type="text"
+                      value={value?.toLocaleString ('en-US')}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
+                      }}
+                      onBlur={onBlur}
+                      name={name}
+                      ref={ref}
+                      autoComplete="off"
+                      step="1000"
+                      className={`border ${
+                        errors?.cpm_mixroll_uz
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }   transition-all duration-300 text-sm text-[#CECECE]`}
+                      placeholder={'Введите target mixroll'}
+                    />
+                  )}
+                />
+              </div>
+              {/**/}
+            </div>
+
+
             <div>
               <Button
                 className={`${
                   isValid
                     ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
                     : 'bg-[#616161]'
-                } w-full   h-[44px] text-white rounded-lg	mt-8`}
+                } w-full   h-[44px] text-white rounded-2xl	mt-8`}
                 disabled={!isValid || isEditingCreated}
               >
                 Сохранить
                 {isEditingCreated && (
-                  <Loader2 className="ml-2 h-6 w-6 animate-spin" />
+                  <Loader2 className="ml-2 h-6 w-6 animate-spin"/>
                 )}
               </Button>
             </div>

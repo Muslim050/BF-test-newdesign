@@ -1,5 +1,4 @@
 import React from 'react'
-import style from './AdvChartTable.module.scss'
 import { TableCell, TableRow } from '@/components/ui/table'
 import FormatterView from '@/components/Labrery/formatter/FormatterView'
 import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet'
@@ -12,7 +11,7 @@ import {
 } from '@/components/ui/tooltip.jsx'
 import { truncate } from '@/utils/other.js'
 
-function AdvChartData({ statistic, index, isExpanded }) {
+function AdvChartData({ statistic, index }) {
   const { bgColor } = React.useContext(ThemeContext)
 
   const uniqueGendersss = statistic.gender_percentages

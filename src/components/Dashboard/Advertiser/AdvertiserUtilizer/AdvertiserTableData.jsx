@@ -5,13 +5,14 @@ import { hasRole } from '@/utils/roleUtils.js'
 import { Dialog } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import React, { useCallback } from 'react'
-import EditAdvModal from '@/components/Dashboard/Advertiser/AdvertiserUtilizer/EditAdvModal.jsx'
+// import EditAdvModal from '@/components/Dashboard/Advertiser/AdvertiserUtilizer/EditAdvModal.jsx'
 import backendURL from '@/utils/url.js'
 import axios from 'axios'
 import { EditSvg } from '@/assets/icons-ui.jsx'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
+import EditAdvModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/EditAdvModal.jsx";
 
 const AdvertiserTableData = ({ advertisers }) => {
   const { textColor } = React.useContext(ThemeContext)
@@ -68,6 +69,7 @@ const AdvertiserTableData = ({ advertisers }) => {
             >
               {person.name}
             </TableCell>
+
             {hasRole('admin') && (
               <>
                 <TableCell
@@ -76,17 +78,6 @@ const AdvertiserTableData = ({ advertisers }) => {
                 >
                   <FormatterView data={person.cpm_preroll} />
                 </TableCell>
-                <TableCell
-                  data-label="CPM_Mixroll"
-                  className={`font-normal text-${textColor} text-sm`}
-                >
-                  <FormatterView data={person.cpm_mixroll} />
-                </TableCell>
-              </>
-            )}
-
-            {hasRole('admin') && (
-              <>
                 <TableCell
                   data-label="Target_Preroll"
                   className={`font-normal text-${textColor} text-sm`}
@@ -101,8 +92,38 @@ const AdvertiserTableData = ({ advertisers }) => {
                   data-label="Target_Mixroll"
                   className={`font-normal text-${textColor} text-sm`}
                 >
-                  {person.cpm_mixroll_uz ? (
-                    <FormatterView data={person.cpm_mixroll_uz} />
+                  {person.cpm_top_preroll ? (
+                    <FormatterView data={person.cpm_top_preroll} />
+                  ) : (
+                    <>----</>
+                  )}
+                </TableCell>
+                <TableCell
+                  data-label="Target_Mixroll"
+                  className={`font-normal text-${textColor} text-sm`}
+                >
+                  {person.cpm_top_preroll_uz ? (
+                    <FormatterView data={person.cpm_top_preroll_uz} />
+                  ) : (
+                    <>----</>
+                  )}
+                </TableCell>
+                <TableCell
+                  data-label="Target_Mixroll"
+                  className={`font-normal text-${textColor} text-sm`}
+                >
+                  {person.cpm_tv_preroll ? (
+                    <FormatterView data={person.cpm_tv_preroll} />
+                  ) : (
+                    <>----</>
+                  )}
+                </TableCell>
+                <TableCell
+                  data-label="Target_Mixroll"
+                  className={`font-normal text-${textColor} text-sm`}
+                >
+                  {person.cpm_tv_preroll_uz ? (
+                    <FormatterView data={person.cpm_tv_preroll_uz} />
                   ) : (
                     <>----</>
                   )}

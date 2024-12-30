@@ -20,12 +20,12 @@ function OrderTable() {
   const user = Cookies.get('role')
   const data = order?.order
 
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
   const [open, setOpen] = React.useState(false)
   const handleClose = () => {
     setOpen(false)
   }
-  // Модальное окно AdvertiserModal
+  // Модальное окно Index
 
   React.useEffect(() => {
     dispatch(fetchOrder()).then(() => setLoading(false))

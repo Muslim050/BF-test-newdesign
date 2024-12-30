@@ -1,14 +1,14 @@
 import React from 'react'
-import style from './InfoCards.module.scss'
 import FormatterView from '@/components/Labrery/formatter/FormatterView'
 import FormatterBudjet from '@/components/Labrery/formatter/FormatterBudjet'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
-export function InfoCardsBottom({ totalViews, totalBudget, tableData }) {
+export function InfoCardsBottom({ totalViews, totalBudget }) {
   const ndc = totalBudget * 0.12
   const { textColor } = React.useContext(ThemeContext)
 
   return (
+    <div className="w-full justify-center flex py-4">
     <div className="flex rounded-[25px]	 bg-[#FFFFFF2B] max-w-max	 h-[80px] px-4 py-[4px] gap-2">
       <div className="flex items-center gap-2">
         <div className="w-2.5	h-6	bg-[#D1C5FF] rounded-[4px]"></div>
@@ -76,5 +76,6 @@ export function InfoCardsBottom({ totalViews, totalBudget, tableData }) {
         </div>
       </div>
     </div>
-  )
+    </div>
+      )
 }

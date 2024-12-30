@@ -1,6 +1,4 @@
 import React from 'react'
-import style from './FilteredTooltip.module.scss'
-import { X } from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 // import {ReactComponent as Delete} from '@/assets/Delete.svg'
@@ -14,7 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
+import { TvSvg } from '@/assets/icons-ui.jsx'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
@@ -44,7 +42,7 @@ function FilteredTooltip({
 }) {
   return (
     <>
-      <div className={style.profile__wrapper__tooltip}>
+      <div >
         {/*  */}
         <Select onValueChange={handleSelectChangeADV} value={selectedOptionAdv}>
           <div className="bg-white bg-opacity-20 backdrop-blur-md px-2 py-2 h-[50px] rounded-[18px]">

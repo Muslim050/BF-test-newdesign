@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import 'tailwindcss/tailwind.css'
 import { SetkaSvg, StarsSSSvg } from '@/assets/Site/site-svg.jsx'
 import Blestki from './Blestki.svg'
+import { Youtube } from 'lucide-react';
+
 gsap.registerPlugin(ScrollTrigger)
 import m from './Faq.module.scss'
 import image1 from '../../../assets/Site/SixthPage/1.png'
@@ -18,7 +20,7 @@ const items = [
     image: image1,
   },
   {
-    title: 'Brandformance поможет моему бизнесу вырасти?',
+    title: 'Brandformance поможет моему бизнесу достичь новых высот?.',
     image: image2,
   },
   {
@@ -26,11 +28,15 @@ const items = [
     image: image3,
   },
   {
-    title: 'Как начать работу с Brandformance?',
+    title: 'Как можно начать сотрудничество с Brandformance?',
     image: image4,
   },
   {
-    title: 'На каких Youtube каналах будет размещена реклама моего бренда?',
+    title: (
+      <div>
+        На каких <Youtube className="ml-1 text-red-600" /> <span className="text-white">YouTube</span>, каналах будет размещена реклама моего бренда?
+      </div>
+    ),
     image: image5,
   },
 ]
@@ -178,12 +184,25 @@ const FaqPage = () => {
                       alt=""
                       className="absolute h-auto w-auto z-20 -top-4 -left-[2.5px]"
                     />
-                    <div className="flex flex-col justify-between   md:w-[330px] w-full ">
-                      <h2 className="text-xl ">{item.title}</h2>
+                    <div className="flex flex-col justify-between md:w-[330px] w-full">
+                      {typeof item.title === 'string' ? (
+                        <h2
+                          className="text-xl"
+                          dangerouslySetInnerHTML={{__html: item.title}}
+                        />
+                      ) : (
+                        <h2 className="text-xl items-center">
+                          На каких
+                          <span className='text-white ml-1'>You<span
+                            className='bg-red-600 p-0.5 rounded-[10px] font-semibold'>Tube</span> </span>
+                          каналах будет размещена реклама моего
+                          бренда?
+                        </h2>
+                      )}
                     </div>
                   </div>
                   <div>
-                    <div
+                  <div
                       className={` md:w-[200px] w-full h-[110px]  flex items-center rounded-[10px] justify-center`}
                       style={{
                         background:
