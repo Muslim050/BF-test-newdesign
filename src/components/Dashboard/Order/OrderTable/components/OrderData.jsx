@@ -27,6 +27,7 @@ import { hasRole } from '@/utils/roleUtils.js'
 import Cookies from 'js-cookie'
 import {getProgressStyle} from "@/components/Dashboard/Order/OrderTable/components/getProgressStyle.jsx";
 import {useOrderHandlers} from "@/components/Dashboard/Order/OrderTable/components/useOrderHandlers.jsx";
+import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 
 function OrderData({ data }) {
   const dispatch = useDispatch()
@@ -144,9 +145,19 @@ function OrderData({ data }) {
                 className={`font-normal text-${textColor} text-sm `}
               >
                 <div className="flex items-center h-[15px] gap-1">
-                  <div>
-                    {(advert.format === 'preroll' && 'Pre-roll') ||
-                      (advert.format === 'mixroll' && 'Mix-roll') || (advert.format === 'top_preroll' && 'Top Pre-roll') || (advert.format === 'tv_preroll' && 'Tv Pre-roll')}
+                  <div className='flex items-center gap-1'>
+                    {
+                      (advert.format === 'preroll' && <Monitor/>) ||
+                      (advert.format === 'top_preroll' && <MonitorUp/>) ||
+                      (advert.format === 'tv_preroll' && <MonitorPlay/>)
+                    }
+                    {
+                      (advert.format === 'preroll' && 'Pre-roll') ||
+                      (advert.format === 'mixroll' && 'Mix-roll') ||
+                      (advert.format === 'top_preroll' && 'Top Pre-roll') ||
+                      (advert.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
                   </div>
                   <div
                     className={`rounded-[6px] px-1 text-[12px]  ${
