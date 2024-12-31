@@ -17,14 +17,6 @@ const headers = [
       uz
     </div>
   },
-  {key: 'cpm_top_preroll',img: MonitorUp,  label: 'Top Preroll'},
-  {
-    key: 'cpm_top_preroll_uz',img: MonitorUp, label: 'Top Preroll', icon: <div
-      className="rounded-[8px] px-1 pb-0.5 h-auto text-[16px] bg-[#606afc] inline"
-    >
-      uz
-    </div>
-  },
   {key: 'cpm_tv_preroll',img: MonitorPlay, label: 'TV Preroll'},
   {
     key: 'cpm_tv_preroll_uz',img: MonitorPlay, label: 'TV Preroll', icon: <div
@@ -33,6 +25,15 @@ const headers = [
       uz
     </div>
   },
+  {key: 'cpm_top_preroll',img: MonitorUp,  label: 'Top Preroll'},
+  {
+    key: 'cpm_top_preroll_uz',img: MonitorUp, label: 'Top Preroll', icon: <div
+      className="rounded-[8px] px-1 pb-0.5 h-auto text-[16px] bg-[#606afc] inline"
+    >
+      uz
+    </div>
+  },
+
   {key: 'email', label: 'Email'},
   {key: 'phone_number', label: 'Номер телефона'},
   {key: 'advertising_agency', label: 'Рекламное агенство' },

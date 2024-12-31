@@ -129,10 +129,10 @@ function AddInventoryData({
                 {
                   (advert.format === 'preroll' && 'Pre-roll') ||
                   (advert.format === 'preroll' && 'Pre-roll') ||
-                  ('midroll1' && 'Mid-roll 1') ||
-                  ('midroll2' && 'Mid-roll 2') ||
-                  ('midroll3' && 'Mid-roll 3') ||
-                  ('midroll4' && 'Mid-roll 4') ||
+                  (advert.format === 'midroll1' && 'Mid-roll 1') ||
+                  (advert.format === 'midroll2' && 'Mid-roll 2') ||
+                  (advert.format === 'midroll3' && 'Mid-roll 3') ||
+                  (advert.format === 'midroll4' && 'Mid-roll 4') ||
                   (advert.format === 'top_preroll' && 'Top Pre-roll') ||
                   (advert.format === 'tv_preroll' && 'TV Pre-roll')}
 

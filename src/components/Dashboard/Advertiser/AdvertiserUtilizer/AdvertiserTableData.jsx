@@ -92,26 +92,6 @@ const AdvertiserTableData = ({ advertisers }) => {
                   data-label="Target_Mixroll"
                   className={`font-normal text-${textColor} text-sm`}
                 >
-                  {person.cpm_top_preroll ? (
-                    <FormatterView data={person.cpm_top_preroll} />
-                  ) : (
-                    <>----</>
-                  )}
-                </TableCell>
-                <TableCell
-                  data-label="Target_Mixroll"
-                  className={`font-normal text-${textColor} text-sm`}
-                >
-                  {person.cpm_top_preroll_uz ? (
-                    <FormatterView data={person.cpm_top_preroll_uz} />
-                  ) : (
-                    <>----</>
-                  )}
-                </TableCell>
-                <TableCell
-                  data-label="Target_Mixroll"
-                  className={`font-normal text-${textColor} text-sm`}
-                >
                   {person.cpm_tv_preroll ? (
                     <FormatterView data={person.cpm_tv_preroll} />
                   ) : (
@@ -128,6 +108,27 @@ const AdvertiserTableData = ({ advertisers }) => {
                     <>----</>
                   )}
                 </TableCell>
+                <TableCell
+                  data-label="Target_Mixroll"
+                  className={`font-normal text-${textColor} text-sm`}
+                >
+                  {person.cpm_top_preroll ? (
+                    <FormatterView data={person.cpm_top_preroll} />
+                  ) : (
+                    <>----</>
+                  )}
+                </TableCell>
+                <TableCell
+                  data-label="Target_Mixroll"
+                  className={`font-normal text-${textColor} text-sm`}
+                >
+                  {person.cpm_top_preroll_uz ? (
+                    <FormatterView data={person.cpm_top_preroll_uz} />
+                  ) : (
+                    <>----</>
+                  )}
+                </TableCell>
+
               </>
             )}
             <TableCell
