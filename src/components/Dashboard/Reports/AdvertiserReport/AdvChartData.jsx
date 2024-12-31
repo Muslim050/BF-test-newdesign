@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip.jsx'
 import { truncate } from '@/utils/other.js'
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 function AdvChartData({ statistic, index }) {
   const { bgColor } = React.useContext(ThemeContext)
@@ -61,20 +62,37 @@ function AdvChartData({ statistic, index }) {
         data-label="ID"
         className={`font-normal text-${textColor} text-sm `}
       >
-        {(statistic.order_format === 'preroll' && 'Pre-roll') ||
-          ('mixroll' && 'Mix-roll')}
+        <div className='flex items-center gap-1'>
+          {
+            (statistic.order_format === 'preroll' && <Monitor/>) ||
+            (statistic.order_format === 'top_preroll' && <MonitorUp/>) ||
+            (statistic.order_format === 'tv_preroll' && <MonitorPlay/>)
+          }
+          {
+            (statistic.order_format === 'preroll' && 'Pre-roll') ||
+            (statistic.order_format === 'mixroll' && 'Mid-roll') ||
+            (statistic.order_format === 'midroll1' && 'Mid-roll 1') ||
+            (statistic.order_format === 'midroll2' && 'Mid-roll 2') ||
+            (statistic.order_format === 'midroll3' && 'Mid-roll 3') ||
+            (statistic.order_format === 'midroll4' && 'Mid-roll 4') ||
+            (statistic.order_format === 'top_preroll' && 'Top Pre-roll') ||
+            (statistic.order_format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+        </div>
+
       </TableCell>
       <TableCell
         data-label="ID"
         className={`font-normal text-${textColor} text-sm `}
       >
         <div>
-          <div style={{ display: 'flex', width: '100px' }}>
+          <div style={{display: 'flex', width: '100px'}}>
             {statistic.publication_date === null ? (
               <div>----</div>
             ) : (
               <>
-                {new Date(statistic.publication_date).toLocaleDateString(
+                {new Date (statistic.publication_date).toLocaleDateString (
                   'ru-RU',
                   {
                     day: '2-digit',

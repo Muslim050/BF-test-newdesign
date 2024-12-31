@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/tooltip'
 import { truncate } from '@/utils/other.js'
 import { TableCell, TableRow } from '@/components/ui/table'
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 function PublisherReportTable({ publisherReport }) {
   const { textColor } = React.useContext(ThemeContext)
@@ -77,25 +78,42 @@ function PublisherReportTable({ publisherReport }) {
               data-label="Формат"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {person.format}
+              <div className='flex items-center gap-1'>
+                {
+                  (person.format === 'preroll' && <Monitor/>) ||
+                  (person.format === 'top_preroll' && <MonitorUp/>) ||
+                  (person.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (person.format === 'preroll' && 'Pre-roll') ||
+                  (person.format === 'mixroll' && 'Mid-roll') ||
+                  (person.format === 'midroll1' && 'Mid-roll 1') ||
+                  (person.format === 'midroll2' && 'Mid-roll 2') ||
+                  (person.format === 'midroll3' && 'Mid-roll 3') ||
+                  (person.format === 'midroll4' && 'Mid-roll 4') ||
+                  (person.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (person.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
             </TableCell>
             <TableCell
               data-label="Начало"
               className={`font-normal text-${textColor} text-sm w-[100px]`}
             >
-              {formatDate(person.order_start_date)}
+              {formatDate (person.order_start_date)}
             </TableCell>
             <TableCell
               data-label="Конец"
               className={`font-normal text-${textColor} text-sm w-[100px]`}
             >
-              {formatDate(person.order_end_date)}
+              {formatDate (person.order_end_date)}
             </TableCell>
             <TableCell
               data-label="Показы факт"
               className={`font-normal text-${textColor} text-sm text-right`}
             >
-              <FormatterView data={person.recorded_view_count} />
+              <FormatterView data={person.recorded_view_count}/>
             </TableCell>
             <TableCell
               data-label="Бюджет компании"

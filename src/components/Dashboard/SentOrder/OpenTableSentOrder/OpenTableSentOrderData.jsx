@@ -114,11 +114,6 @@ function OpenTableSentOrderData({ data }) {
             </TableCell>
             {/**/}
             <TableCell className="text-blue-300 font-medium">
-              {/*{(inventor.format === 'preroll' && 'Pre-roll') ||*/}
-              {/*  (inventor.format === 'midroll1' && 'Mid-roll 1') ||*/}
-              {/*  (inventor.format === 'midroll2' && 'Mid-roll 2') ||*/}
-              {/*  (inventor.format === 'midroll3' && 'Mid-roll 3') ||*/}
-              {/*  (inventor.format === 'midroll4' && 'Mid-roll 4')}*/}
               <div className='flex items-center gap-1'>
                 {
                   (inventor.format === 'preroll' && <Monitor/>) ||

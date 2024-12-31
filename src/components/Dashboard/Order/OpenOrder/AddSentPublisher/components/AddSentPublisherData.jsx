@@ -89,7 +89,7 @@ function AddSentPublisherData({ listsentPublisher, expandedRows, onceOrder }) {
               {/*</td>*/}
               <TableCell
                 data-label="Формат"
-                className={`font-normal text-${textColor} text-sm `}
+                className={`text-blue-300 font-medium  text-sm `}
               >
                 <div className='flex items-center gap-1'>
                   {

@@ -117,13 +117,9 @@ function AddInventoryData({
 
             <TableCell
               data-label="Формат"
-              className={`text-blue-300 font-medium text-${textColor} text-sm `}
+              className={`text-blue-300 font-medium text-sm `}
             >
-              {/*{(advert.format === 'preroll' && 'Pre-roll') ||*/}
-              {/*  ('midroll1' && 'Mid-roll 1') ||*/}
-              {/*  ('midroll2' && 'Mid-roll 2') ||*/}
-              {/*  ('midroll3' && 'Mid-roll 3') ||*/}
-              {/*  ('midroll4' && 'Mid-roll 4')}*/}
+
               <div className='flex items-center gap-1'>
                 {
                   (advert.format === 'preroll' && <Monitor/>) ||

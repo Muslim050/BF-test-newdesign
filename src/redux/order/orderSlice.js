@@ -159,6 +159,8 @@ export const fetchShortList = createAsyncThunk(
   },
 )
 
+
+
 export const fetchEditOrder = createAsyncThunk(
   'order/fetchEditOrder',
   async ({ id, data }) => {
@@ -239,16 +241,65 @@ export const deleteOrder = createAsyncThunk(
     }
   },
 )
+export const fetchSingleOrder = createAsyncThunk(
+  'order/fetchSingleOrder',
+  async (orderId) => {
+    const token = Cookies.get('token');
 
+    try {
+      const response = await axios.get(`${backendURL}/order/${orderId}/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return { orderId, data: response.data };
+    } catch (error) {
+      if (error.response.status === 401) {
+        window.location.href = 'login';
+      }
+      if (error.response?.data?.error?.detail) {
+        toast.error(error.response.data.error.detail);
+      } else {
+        toast.error('Ошибка при загрузке заказа');
+      }
+      throw error;
+    }
+  }
+);
 const orderSlice = createSlice({
   name: 'order',
   initialState,
+  // reducers: {
+  //   setOrderStatus: (state, action) => {
+  //     const { orderId, status } = action.payload
+  //     console.log (orderId, status)
+  //     const order = state.order.find((o) => o.id === orderId)
+  //     if (order) {
+  //       order.status = status
+  //     }
+  //   },
+  // },
   reducers: {
     setOrderStatus: (state, action) => {
-      const { orderId, status } = action.payload
-      const order = state.order.find((o) => o.id === orderId)
-      if (order) {
-        order.status = status
+      const { orderId, status } = action.payload;
+      const index = state.order.findIndex((o) => o.id === orderId);
+      if (index !== -1) {
+        state.order[index] = { ...state.order[index], status };
+      }
+    },
+    updateOrderWithInventory(state, action) {
+      const { orderId, updatedData } = action.payload;
+      console.log (orderId, updatedData)
+      console.log (state)
+
+      const index = state.orders.findIndex((order) => order.id === orderId);
+      if (index !== -1) {
+        state.orders[index] = {
+          ...state.orders[index],
+          ...updatedData, // Обновляем только изменённые данные
+        };
       }
     },
   },
@@ -307,9 +358,20 @@ const orderSlice = createSlice({
       .addCase(fetchShortList.rejected, (state, action) => {
         state.status = 'failed'
       })
+      .addCase(fetchSingleOrder.fulfilled, (state, action) => {
+        const { orderId, data } = action.payload;
+        const index = state.order.findIndex((order) => order.id === orderId); // Изменено с state.orders на state.order
+        if (index !== -1) {
+          state.order[index] = {
+            ...state.order[index],
+            ...data.data, // Обновляем только изменённые поля
+          };
+        }
+      });
+
   },
 })
 
-export const { setOrderStatus } = orderSlice.actions
+export const { setOrderStatus, updateOrderWithInventory } = orderSlice.actions
 
 export default orderSlice.reducer

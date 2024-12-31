@@ -21,12 +21,6 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
 
   const [onceOrder, setOnceOrder] = React.useState([])
 
-  const { order } = useSelector((state) => state)
-  const orders = order?.order
-
-  const { inventory } = useSelector((state) => state)
-  const inventor = inventory?.inventory
-
   const fetchGetOrder = async () => {
     setIsLoading(true)
     const token = Cookies.get('token')
@@ -48,7 +42,8 @@ const OpenOrderTable = ({ onRowsSelected, expandedRows }) => {
   }
   React.useEffect(() => {
     fetchGetOrder()
-  }, [dispatch])
+  }, [dispatch, expandedRows, setOnceOrder])
+  console.log (onceOrder)
   const isDisabled = selectedRows.length === 0
   const [addInventroyModal, setAddInventroyModal] = React.useState(false)
   return (

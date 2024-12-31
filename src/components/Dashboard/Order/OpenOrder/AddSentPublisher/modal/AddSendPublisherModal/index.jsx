@@ -26,6 +26,8 @@ import Cookies from 'js-cookie'
 
 
 import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
+import {fetchViewStatus} from "@/redux/orderStatus/orderStatusSlice.js";
+import {fetchSingleOrder, updateOrderWithInventory} from "@/redux/order/orderSlice.js";
 
 
 const format = [
@@ -147,10 +149,13 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
         toast.success('Запись успешно создана!')
         setViewNote(false)
         await dispatch(fetchOnceListSentToPublisher({ expandedRows }))
+        await dispatch(fetchSingleOrder(onceOrder.id));
+
       } else {
         // Handle case where payload is not as expected
         throw new Error('Unexpected response payload')
       }
+
     } catch (error) {
       setIsOrderCreated(false)
       const errorData = error.response.data.error

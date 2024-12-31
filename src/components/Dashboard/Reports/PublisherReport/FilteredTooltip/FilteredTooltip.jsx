@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './FilteredTooltip.module.scss'
-import { X } from 'lucide-react'
+import {Monitor, MonitorPlay, MonitorUp, X} from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ru from 'date-fns/locale/ru' // Импортируйте русскую локаль
@@ -20,8 +20,9 @@ import {
   SelectValue,
 } from '@/components/ui/select.jsx'
 const formatV = [
-  { value: 'preroll', text: 'Pre-roll' },
-  { value: 'mixroll', text: 'Mix-roll' },
+  { value: 'preroll', text: 'Pre-roll', icon: Monitor },
+  { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
+  { value: 'top_preroll', text: 'Top Pre-roll', icon: MonitorUp  },
 ]
 
 function FilteredTooltip({
@@ -65,7 +66,7 @@ function FilteredTooltip({
       {user === 'admin' && (
         <div style={{ margin: '10px 0 ' }}>
           <Select onValueChange={handleSelectChangePablisher} value={selectedOptionPublisher} >
-            <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+            <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl">
               <div
                 className="text-xs flex gap-2"
                 style={{ color: 'var(--text-color )' }}
@@ -119,7 +120,7 @@ function FilteredTooltip({
       )}
 
       <Select onValueChange={handleSelectChange} value={selectedOptionChannel}>
-        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl">
           <div
             className="text-xs flex gap-2"
             style={{ color: 'var(--text-color )' }}
@@ -127,7 +128,7 @@ function FilteredTooltip({
             <TvSvg /> Канал
           </div>
           <SelectTrigger
-            className="rounded-none border-0 p-0 h-auto pl-[25px] "
+            className=" border-0 p-0 h-auto pl-[25px] "
             style={{ color: 'var(--text-color )' }}
           >
             <SelectValue placeholder="Выбрать канал" />
@@ -166,7 +167,7 @@ function FilteredTooltip({
             dateFormat="MM/yyyy"
             showMonthYearPicker
             showFullMonthYearPicker
-            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full text-sm"
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl w-full text-sm"
             // disabled={!!dateRange[0] || !!dateRange[1]}
             locale={ru}
           />
@@ -187,7 +188,7 @@ function FilteredTooltip({
           <DatePicker
             selected={endDate}
             onChange={handleEndDateChange}
-            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md w-full text-sm"
+            className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl w-full text-sm"
             dateFormat="dd-MM-yyyy"
             disabled={!!startDateMonth || !!endDateMonth} // Здесь используется приведение dateRange к булевому типу
           />
@@ -195,7 +196,7 @@ function FilteredTooltip({
       </div>
       {/*Выбрать формат*/}
       <Select onValueChange={handleSelectFormat} value={selectedFormat}>
-        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+        <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl">
           <div
             className="text-xs flex gap-2 "
             style={{ color: 'var(--text-color )' }}
@@ -215,9 +216,15 @@ function FilteredTooltip({
               <SelectItem
                 key={index}
                 value={option.value}
-                style={{ color: 'var(--text-color )' }}
+                style={{color: 'var(--text-color )'}}
               >
-                {option.text}
+                <div className='!flex items-center gap-1'>
+                  {option.icon &&
+                    <option.icon/>
+                    // <img src={option.icon} alt="" className='size-4'/>
+                  }
+                  {option.text}
+                </div>
               </SelectItem>
             ))}
           </SelectGroup>
@@ -232,8 +239,8 @@ function FilteredTooltip({
           height: '50px',
         }}
       >
-        <div style={{ width: '100%', height: '100%' }}>
-          <Button
+        <div style={{width: '100%', height: '100%'}}>
+        <Button
             variant="ghost"
             className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
             onClick={handleSearch}

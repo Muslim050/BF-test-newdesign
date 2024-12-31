@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/table'
 import PublisherReportTableData from '@/components/Dashboard/Reports/PublisherReport/PublisherReportTableData.jsx'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 function PublisherReportTable() {
   const { textColor } = React.useContext(ThemeContext)
@@ -312,8 +313,28 @@ function PublisherReportTable() {
                     </Button>
                   )}
                   {selectedFormat && (
-                    <div className="rounded-[22px] bg-[#FFFFFF1A]		h-[40px]  p-2 text-white text-sm	px-5	flex items-center justify-center">
-                      <div>{selectedFormat}</div>
+                    <div
+                      className="rounded-[22px] bg-[#FFFFFF1A]		h-[40px]  p-2 text-white text-sm	px-5	flex items-center justify-center">
+                      <div className='flex items-center gap-1'>
+                        {
+                          (selectedFormat === 'preroll' && <Monitor/>) ||
+                          (selectedFormat === 'top_preroll' && <MonitorUp/>) ||
+                          (selectedFormat === 'tv_preroll' && <MonitorPlay/>)
+                        }
+                        {
+                          (selectedFormat === 'preroll' && 'Pre-roll') ||
+                          (selectedFormat === 'mixroll' && 'Mid-roll') ||
+                          (selectedFormat === 'midroll1' && 'Mid-roll 1') ||
+                          (selectedFormat === 'midroll2' && 'Mid-roll 2') ||
+                          (selectedFormat === 'midroll3' && 'Mid-roll 3') ||
+                          (selectedFormat === 'midroll4' && 'Mid-roll 4') ||
+                          (selectedFormat === 'top_preroll' && 'Top Pre-roll') ||
+                          (selectedFormat === 'tv_preroll' && 'TV Pre-roll')}
+
+
+                      </div>
+
+
                     </div>
                   )}
                   {selectedChannelName && (
@@ -332,7 +353,7 @@ function PublisherReportTable() {
                     variant="ghost"
                     className="bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                   >
-                    <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
+                    <FilterSvg className="w-4 h-4 mr-2"/> Фильтр
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-[20px]">
