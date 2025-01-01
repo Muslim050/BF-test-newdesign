@@ -331,11 +331,10 @@ export default function CreateOrder({ onClose }) {
                   <SelectContent className="w-full">
                     <SelectGroup>
                       {formatV.map((option, index) => (
-                        <SelectItem key={index} value={option.value} >
-                          <div className='!flex items-center gap-1'>
+                        <SelectItem key={index} value={option.value} className='hover:bg-white hover:text-black cursor-pointer' >
+                          <div className='flex items-center gap-1'>
                             {option.icon &&
                               <option.icon/>
-                              // <img src={option.icon} alt="" className='size-4'/>
                             }
                             {option.text}
                           </div>
