@@ -62,7 +62,7 @@
 .swiper {
   height: 200px !important;
   .slide {
-    @apply rounded-[20px];
+    @apply rounded-3xl;
   }
 
   [class*='swiper-wrapper'] {

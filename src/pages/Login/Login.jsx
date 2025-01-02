@@ -18,7 +18,6 @@ import 'swiper/css/navigation'
 import { sliderData } from './sliderData'
 // import Cookies from 'js-cookie'
 import Cookies from 'js-cookie'
-import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
 function Login() {
@@ -113,18 +112,6 @@ function Login() {
     gsap.from(buttonRef.current, { duration: 1, opacity: 0, y: 50, delay: 1.5 })
     gsap.from(leftRef.current, { duration: 1, opacity: 0, y: -300 })
   }, [])
-
-  // const carouselItemsRef = useRef([])
-  // useEffect(() => {
-  //   carouselItemsRef.current = carouselItemsRef.current.slice(0, 4)
-  //   gsap.fromTo(
-  //     carouselItemsRef.current,
-  //     { opacity: 0, y: 50 },
-  //     { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
-  //   )
-  //   gsap.from(mainTitleRef.current, { duration: 1, opacity: 0, y: 50 })
-  //   gsap.from(mainSubtitleRef.current, { duration: 1, opacity: 0, y: 50 })
-  // }, [])
   const intervalRef = useRef(null)
 
   useEffect(() => {
@@ -138,18 +125,17 @@ function Login() {
       clearInterval(intervalRef.current)
     }
   }, [])
-  const { bgColor } = React.useContext(ThemeContext)
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div
-          style={{ background: ' var(--bg-color)' }}
+          style={{ background: 'var(--bg-color)'}}
           className="w-full lg:grid h-screen lg:grid-cols-2  p-6 "
         >
           <div
             ref={leftRef}
-            className="hidden lg:block border_container_login glass-background rounded-[22px]"
+            className="hidden lg:block border_container_login glass-background rounded-3xl"
           >
             <div className="flex flex-col justify-around	 h-full">
               <div className=" xl:px-[110px]  lg:px-[50px]	flex flex-col gap-6">
@@ -236,7 +222,7 @@ function Login() {
                   {...register('login', {
                     required: 'Поле обезательно к заполнению',
                   })}
-                  className={`border-[1px]  rounded-[20px] h-[73px] p-[26px] text-white bg-[#0A0F3633] text-base ${
+                  className={`border-[1px]  rounded-3xl h-[73px] p-[26px] text-white bg-[#0A0F3633] text-base ${
                     errors.login ? 'border-red-500' : 'border-[#123057]'
                   }`}
                   placeholder="Логин"
@@ -254,7 +240,7 @@ function Login() {
                   {...register('password', {
                     required: 'Поле обезательно к заполнению',
                   })}
-                  className={`border-[1px]  rounded-[20px] h-[73px] p-[26px] text-white bg-[#0A0F3633] text-base ${
+                  className={`border-[1px]  rounded-3xl h-[73px] p-[26px] text-white bg-[#0A0F3633] text-base ${
                     errors.password ? 'border-red-500' : 'border-[#123057]'
                   }`}
                   placeholder="Пароль"
@@ -281,7 +267,7 @@ function Login() {
                     isValid
                       ? 'bg-[#2A85FF] hover:bg-[#2A85FF99]'
                       : 'bg-[#616161]'
-                  } w-full  rounded-[20px] h-[64px] text-white`}
+                  } w-full   h-[64px] rounded-3xl text-white`}
                   disabled={!isValid || isLogin}
                 >
                   Войти
