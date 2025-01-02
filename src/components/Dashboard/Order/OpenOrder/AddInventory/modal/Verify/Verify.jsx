@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { inventoryVerify } from '@/redux/inventoryStatus/inventoryStatusSlice.js'
 import { toast } from 'react-hot-toast'
-import { fetchOrder } from '@/redux/order/orderSlice.js'
+import {fetchOrder, fetchSingleOrder} from '@/redux/order/orderSlice.js'
 
 import style from './Verify.module.scss'
 import {
@@ -20,6 +20,8 @@ function Verify({
   selectedInventoryId,
   videoLink,
   onClose,
+                  onceOrder,
+                  fetchGetOrder
 }) {
   const dispatch = useDispatch()
 
@@ -47,10 +49,12 @@ function Verify({
           if (!response.error) {
             toast.success('Ссылка успешно прикреплена!')
             onClose()
-            setTimeout(() => {
-              window.location.reload()
-            }, 1500)
-            fetchOrder()
+            // setTimeout(() => {
+            //   window.location.reload()
+            // }, 1500)
+            // fetchOrder()
+            fetchGetOrder()
+            dispatch(fetchSingleOrder(onceOrder.id));
           }
         })
         .catch((error) => {

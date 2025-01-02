@@ -261,6 +261,7 @@ export default function AddInventory({
             setSelectedRows={setSelectedRows}
             handleDeactivateInventory={handleDeactivateInventory}
             onceOrder={onceOrder}
+            fetchGetOrder={fetchGetOrder}
           />
         </Table>
       ) : (

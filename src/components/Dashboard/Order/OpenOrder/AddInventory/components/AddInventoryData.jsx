@@ -27,6 +27,7 @@ function AddInventoryData({
   expandedRows,
   handleDeactivateInventory,
   onceOrder,
+                            fetchGetOrder
 }) {
   const dispatch = useDispatch()
   const [selectedInventoryId, setSelectedInventoryId] = React.useState('')
@@ -69,6 +70,8 @@ function AddInventoryData({
               selectedInventoryId={selectedInventoryId}
               videoLink={filteredVideoLink}
               onClose={handleClose}
+              onceOrder={onceOrder}
+              fetchGetOrder={fetchGetOrder}
             />
           )}
         </Dialog>
