@@ -15,6 +15,7 @@ import { truncate } from '@/utils/other.js'
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
+import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 
 function InventoryData({ inventory }) {
   const user = Cookies.get('role')
@@ -87,17 +88,30 @@ function InventoryData({ inventory }) {
               data-label="Формат"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {(inventor.format === 'preroll' && 'Pre-roll') ||
-                (inventor.format === 'midroll1' && 'Mid-roll 1') ||
-                (inventor.format === 'midroll2' && 'Mid-roll 2') ||
-                (inventor.format === 'midroll3' && 'Mid-roll 3') ||
-                (inventor.format === 'midroll4' && 'Mid-roll 4')}
+              <div className='flex items-center gap-1'>
+                {
+                  (inventor.format === 'preroll' && <Monitor/>) ||
+                  (inventor.format === 'top_preroll' && <MonitorUp/>) ||
+                  (inventor.format === 'tv_preroll' && <MonitorPlay/>)
+                }
+                {
+                  (inventor.format === 'preroll' && 'Pre-roll') ||
+                  (inventor.format === 'mixroll' && 'Mid-roll') ||
+                  (inventor.format === 'midroll1' && 'Mid-roll 1') ||
+                  (inventor.format === 'midroll2' && 'Mid-roll 2') ||
+                  (inventor.format === 'midroll3' && 'Mid-roll 3') ||
+                  (inventor.format === 'midroll4' && 'Mid-roll 4') ||
+                  (inventor.format === 'top_preroll' && 'Top Pre-roll') ||
+                  (inventor.format === 'tv_preroll' && 'TV Pre-roll')}
+
+
+              </div>
             </TableCell>
             <TableCell
               data-label="Прогноз"
               className={`font-normal text-${textColor} text-sm `}
             >
-              <FormatterView data={inventor.expected_number_of_views} />
+              <FormatterView data={inventor.expected_number_of_views}/>
             </TableCell>
             <TableCell
               data-label="Категория"
@@ -109,7 +123,7 @@ function InventoryData({ inventory }) {
               data-label="Дата начала"
               className={`font-normal text-${textColor} text-sm `}
             >
-              {formatDate(inventor.video_content?.publication_time)}
+              {formatDate (inventor.video_content?.publication_time)}
             </TableCell>
             <TableCell
               data-label="Статус"

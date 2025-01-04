@@ -16,7 +16,6 @@ import SidebarNew from "@/components/module/Sidebar/SidebarNew.jsx";
 
 
 const SystemLayout = () => {
-  const defaultLayout = [20, 32, 48]
   const [isCollapsed, setIsCollapsed] = React.useState(true)
   const { bgColor, textColor } = React.useContext(ThemeContext)
   const route = useLocation().pathname.split('/').slice(1)
@@ -41,48 +40,53 @@ const SystemLayout = () => {
         <SidebarNew isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
         {/*<ResizableHandle withHandle />*/}
         <ResizablePanel
-          defaultSize={defaultLayout[1]}
+          defaultSize={20}
           minSize={30}
-          className=" sm:pl-[20px] pl-0 h-screen space-y-4"
+          className="sm:pl-[20px] pl-0 h-screen space-y-4 overflow-hidden"
         >
-          <div className="border_container glass-background border_design flex justify-between items-center px-4 py-2 ">
-            <h1 className="sm:text-lg text-xs font-bold">{transformedTitle}</h1>
-            <div className="flex items-center gap-4 ">
-              <div>
-                <div
-                  className="text-white text-xs	"
-                  style={{color: textColor}}
-                >
-                  Логин: &nbsp;
-                  {username}
-                </div>
+          <div className="h-full flex flex-col">
 
-                <div
-                  className="text-white text-xs	"
-                  style={{color: textColor}}
-                >
-                  Роль: &nbsp;
-                  {(user === 'admin' && 'Менеджер') ||
-                    (user === 'channel' && 'Канал') ||
-                    (user === 'advertiser' && 'Рекламодатель') ||
-                    (user === 'publisher' && 'Паблишер') ||
-                    (user === 'advertising_agency' && 'Рекламное агентство')}
+            <div
+              className="border_container glass-background border_design flex justify-between items-center px-4 py-2 ">
+              <h1 className="sm:text-lg text-xs font-bold">{transformedTitle}</h1>
+              <div className="flex items-center gap-4 ">
+                <div>
+                  <div
+                    className="text-white text-xs	"
+                    style={{color: textColor}}
+                  >
+                    Логин: &nbsp;
+                    {username}
+                  </div>
+
+                  <div
+                    className="text-white text-xs	"
+                    style={{color: textColor}}
+                  >
+                    Роль: &nbsp;
+                    {(user === 'admin' && 'Менеджер') ||
+                      (user === 'channel' && 'Канал') ||
+                      (user === 'advertiser' && 'Рекламодатель') ||
+                      (user === 'publisher' && 'Паблишер') ||
+                      (user === 'advertising_agency' && 'Рекламное агентство')}
+                  </div>
                 </div>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full w-8 h-8"
+                >
+                  <CircleUser className="size-4"/>
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
               </div>
-              <Button
-                variant="secondary"
-                size="icon"
-                className="rounded-full w-8 h-8"
-              >
-                <CircleUser className="size-4"/>
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              <Outlet/>
             </div>
           </div>
 
-          <div className="h-auto">
-            <Outlet/>
-          </div>
         </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>

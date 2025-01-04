@@ -26,6 +26,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-spring/web": "^9.7.5",
     "@reduxjs/toolkit": "^2.2.5",
+    "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/react-table": "^8.20.6",
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.7.2",

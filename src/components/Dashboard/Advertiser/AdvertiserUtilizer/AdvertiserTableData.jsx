@@ -16,7 +16,6 @@ import EditAdvModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/m
 
 const AdvertiserTableData = ({ advertisers }) => {
   const { textColor } = React.useContext(ThemeContext)
-
   const [currentAdv, setCurrentAdv] = React.useState(null)
   // Модальное окно OrderModal
   const [open, setOpen] = React.useState(false)
@@ -153,24 +152,24 @@ const AdvertiserTableData = ({ advertisers }) => {
                 <>------</>
               )}
             </TableCell>
-            {hasRole('admin') ? (
-              <TableCell
-                data-label=""
-                className={`font-normal text-${textColor} text-sm`}
-              >
-                <Button
-                  variant="link"
-                  onClick={() => {
-                    setCurrentAdv(person)
-                    setOpen(!open)
-                  }}
-                  className={`hover:scale-125 transition-all p-0 text-${textColor}`}
-                  // className={`text-${textColor} hover:text-brandPrimary-50 p-1`}
-                >
-                  <EditSvg className="w-[24px] h-[24px]  hover:text-orange-500" />
-                </Button>
-              </TableCell>
-            ) : null}
+            {/*{hasRole('admin') ? (*/}
+            {/*  <TableCell*/}
+            {/*    data-label=""*/}
+            {/*    className={`font-normal text-${textColor} text-sm`}*/}
+            {/*  >*/}
+            {/*    <Button*/}
+            {/*      variant="link"*/}
+            {/*      onClick={() => {*/}
+            {/*        setCurrentAdv(person)*/}
+            {/*        setOpen(!open)*/}
+            {/*      }}*/}
+            {/*      className={`hover:scale-125 transition-all p-0 text-${textColor}`}*/}
+            {/*      // className={`text-${textColor} hover:text-brandPrimary-50 p-1`}*/}
+            {/*    >*/}
+            {/*      <EditSvg className="w-[24px] h-[24px]  hover:text-orange-500" />*/}
+            {/*    </Button>*/}
+            {/*  </TableCell>*/}
+            {/*) : null}*/}
           </TableRow>
         )
       })}

@@ -6,19 +6,21 @@ import { hasRole } from '../../../utils/roleUtils'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Plus } from 'lucide-react'
-
 import AdvertiserModalUsers from './AdvertiserUsers/AdvertiserModalUsers'
 import Cookies from 'js-cookie'
 import AdvertiserModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/AdvertiserModal/index.jsx";
+import DebouncedInput from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/DebouncedInput.jsx";
+import {useTable} from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/useTable.jsx";
+import EditAdvModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/EditAdvModal.jsx";
 
 const AdvertiserAndUsers = () => {
   const [selectedTab, setSelectedTab] = React.useState('advertiser')
   const user = Cookies.get('role')
 
   // Модальное окно Index
-  const [open, setOpen] = React.useState(false)
+  const [openUtilizer, setOpenUtilizer] = React.useState(false)
   const handleClose = () => {
-    setOpen(false)
+    setOpenUtilizer(false)
   }
   // Модальное окно Index
 
@@ -28,6 +30,18 @@ const AdvertiserAndUsers = () => {
     setOpenUsers(false)
   }
   // Модальное окно Index
+
+  const {
+    table, // Экземпляр таблицы
+    globalFilter,
+    setGlobalFilter,
+    flexRender,
+    currentAdv,
+    fetchCpm,
+    open,
+    setOpen,
+  } = useTable();
+
   return (
     <div className="mb-4 mt-2">
       <Tabs defaultValue="advertiser">
@@ -60,17 +74,28 @@ const AdvertiserAndUsers = () => {
             <div>
               {hasRole('admin') && (
                 <div className="flex justify-end ">
-                  <Dialog open={open} onOpenChange={setOpen}>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className=" bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
-                      >
-                        <Plus className="w-5 h-5 mr-2" /> Создать рекламодателя
-                      </Button>
-                    </DialogTrigger>
-                    {open && <AdvertiserModal onClose={handleClose} />}
-                  </Dialog>
+                  <div className='flex flex-wrap gap-2'>
+                    <div>
+                      <DebouncedInput
+                        value={globalFilter ?? ''}
+                        onChange={value => setGlobalFilter (String (value))}
+                        className="p-2 font-lg shadow border border-block"
+                        placeholder="Search all columns..."
+                      />
+                    </div>
+
+                    <Dialog open={openUtilizer} onOpenChange={setOpenUtilizer}>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className=" bg-brandPrimary-1 rounded-3xl hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                        >
+                          <Plus className="w-5 h-5 mr-2"/> Создать рекламодателя
+                        </Button>
+                      </DialogTrigger>
+                      {open && <AdvertiserModal onClose={handleClose}/>}
+                    </Dialog>
+                  </div>
                 </div>
               )}
             </div>
@@ -78,7 +103,7 @@ const AdvertiserAndUsers = () => {
 
           {selectedTab === 'advertiser-users' && (
             <div>
-              {hasRole('admin') && (
+              {hasRole ('admin') && (
                 <div className="flex justify-end ">
                   <Dialog open={openUsers} onOpenChange={setOpenUsers}>
                     <DialogTrigger asChild>
@@ -86,11 +111,11 @@ const AdvertiserAndUsers = () => {
                         variant="ghost"
                         className=" bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                       >
-                        <Plus className="w-5 h-5 mr-2" /> Создать пользователя
+                        <Plus className="w-5 h-5 mr-2"/> Создать пользователя
                       </Button>
                     </DialogTrigger>
                     {openUsers && (
-                      <AdvertiserModalUsers onClose={handleCloseUsers} />
+                      <AdvertiserModalUsers onClose={handleCloseUsers}/>
                     )}
                   </Dialog>
                 </div>
@@ -100,12 +125,25 @@ const AdvertiserAndUsers = () => {
         </div>
 
         <TabsContent value="advertiser">
-          <AdvertiserTable />
+          <AdvertiserTable flexRender={flexRender} table={table}/>
         </TabsContent>
         <TabsContent value="advertiser-users">
           <AdvertiserTableUsers />
         </TabsContent>
       </Tabs>
+
+
+      {/*Редактирование*/}
+      <Dialog open={open} onOpenChange={setOpen}>
+        {open && (
+          <EditAdvModal
+            onClose={() => setOpen (false)}
+            currentAdvertiser={currentAdv}
+            fetchCpm={fetchCpm}
+          />
+        )}
+      </Dialog>
+      {/*Редактирование*/}
     </div>
   )
 }
