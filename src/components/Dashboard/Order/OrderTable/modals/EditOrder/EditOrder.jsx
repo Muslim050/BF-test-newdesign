@@ -119,7 +119,7 @@ export default function EditOrder({
   }
 
   let advId
-  order.forEach((item) => {
+  order.results.forEach((item) => {
     advId = item.advertiser.id
   })
 
