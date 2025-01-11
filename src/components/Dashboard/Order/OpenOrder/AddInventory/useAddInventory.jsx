@@ -108,7 +108,7 @@ export const useAddInventory = (getOrder, onceOrder, fetchGetOrder) => {
         accessorFn: (row) => row.format, // Преобразование в число
         id: 'Формат',
         cell: ({ row }) =>
-          <FormatFormatter format={row.original.format} />,
+          <FormatFormatter format={row.original.format} target={row.original.target_country} />,
         filterFn: 'includesStringSensitive', //note: normal non-fuzzy filter column - case sensitive
         header: () => <span>Формат</span>,
       },

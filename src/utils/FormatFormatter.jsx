@@ -13,12 +13,17 @@ const formatMapping = {
 };
 
 
-export const FormatFormatter = ({ format }) => {
-  const { icon, label } = formatMapping[format] || { icon: null, label: 'Unknown format' };
+export const FormatFormatter = ({ format, target }) => {
+  const { icon, label,  } = formatMapping[format] || { icon: null, label: 'Unknown format' };
+
   return (
     <div className="flex items-center gap-1">
       {icon}
       {label}
+
+      {
+        target && <div className='bg-[#606afc] flex items-center px-1 rounded-lg font-semibold text-base'>{target}</div>
+      }
     </div>
   )
 }

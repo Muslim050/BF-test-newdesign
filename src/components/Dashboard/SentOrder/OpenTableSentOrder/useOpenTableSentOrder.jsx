@@ -182,7 +182,7 @@ export const useOpenTableSentOrder = () => {
         accessorFn: (row) => row.format, // Преобразование в число
         id: 'Формат',
         cell: ({ row }) =>
-          <FormatFormatter format={row.original.format} />,
+          <FormatFormatter format={row.original.format} target={row.original.target_country} />,
         filterFn: 'includesString',
         header: () => <span className="flex items-center gap-1">Формат</span>
       },

@@ -155,7 +155,7 @@ export const useOrder = () => {
                 </Tooltip>
               </TooltipProvider>
             ) : (
-              <div>{truncate(row.name, 20)}</div>
+              <div>{truncate(row.original.name, 20)}</div>
             )}</>,
         filterFn: 'includesString',
         header: () => <span className="flex items-center gap-1">Кампания</span>
@@ -181,7 +181,7 @@ export const useOrder = () => {
         accessorFn: (row) => row.format, // Преобразование в число
         id: 'Формат',
         cell: ({ row }) =>
-          <FormatFormatter format={row.original.format} />,
+          <FormatFormatter format={row.original.format} target={row.original.target_country}  />,
         filterFn: 'includesString',
         header: () => <span className="flex items-center gap-1">Формат</span>
       },
