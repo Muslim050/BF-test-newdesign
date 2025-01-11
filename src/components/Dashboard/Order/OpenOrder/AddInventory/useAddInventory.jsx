@@ -14,8 +14,6 @@ import {truncate} from "@/utils/other.js";
 import {formatDate} from "@/utils/formatterDate.jsx";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import {CheckCompletedSvg, LinkSvg} from "@/assets/icons-ui.jsx";
-import {TableCell} from "@/components/ui/table.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {Star, SquareArrowOutUpRight, SquareCheckBig} from "lucide-react";
@@ -62,6 +60,8 @@ export const useAddInventory = (getOrder, onceOrder, fetchGetOrder) => {
       dispatch(fetchOrder())
     }
   }
+
+
   const columns = React.useMemo(
     () => [
       {

@@ -12,7 +12,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover.jsx'
-import { FilterSvg } from '@/assets/icons-ui.jsx'
 import InfoCartButton from '@/components/Dashboard/OrderChartTable/module/InfoCartButton.jsx'
 import OrderChartMain from './OrderChartList.jsx'
 import DopTable from '@/components/Dashboard/OrderChartTable/module/DopTable/index.jsx'
@@ -20,6 +19,7 @@ import FilteredTooltip from '@/components/Dashboard/OrderChartTable/module/Filte
 import SelectedFilterCart from './module/SelectedFilterCart/index.jsx'
 import { useOrderChart } from './useOrderChart.jsx'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
+import { SlidersHorizontal } from 'lucide-react';
 
 function OrderChart() {
   const {
@@ -118,7 +118,7 @@ function OrderChart() {
                     variant="ghost"
                     className=" px-7 bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                   >
-                    <FilterSvg className="w-4 h-4 mr-2" /> Фильтр
+                    <SlidersHorizontal className="w-4 h-4 mr-2" /> Фильтр
                   </Button>
                 </PopoverTrigger>
 

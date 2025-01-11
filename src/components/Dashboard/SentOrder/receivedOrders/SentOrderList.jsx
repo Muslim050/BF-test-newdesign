@@ -6,7 +6,9 @@ import { formatDate } from '../../../../utils/formatterDate'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
-import { CommentSvg, OpenSvg } from '@/assets/icons-ui.jsx'
+import {  OpenSvg } from '@/assets/icons-ui.jsx'
+import { MessageSquareText } from 'lucide-react';
+
 import {
   Popover,
   PopoverContent,
@@ -202,7 +204,7 @@ function SentOrderList({ listsentPublisher }) {
                         }}
                         className="hover:scale-125 transition-all p-0"
                       >
-                          <CommentSvg className="w-[24px] h-[24px] text-white hover:text-green-500" />
+                          <MessageSquareText className="w-[24px] h-[24px] text-white hover:text-green-500" />
                         </button>
                       </PopoverTrigger>
                       <PopoverContent className="w-full  bg-white bg-opacity-30 backdrop-blur-md rounded-xl">

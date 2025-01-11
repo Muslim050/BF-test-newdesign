@@ -1,8 +1,8 @@
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
 import {Button} from "@/components/ui/button.jsx";
-import {FilterSvg} from "@/assets/icons-ui.jsx";
 import Filter from "@/components/Dashboard/Inventory/module/Filter.jsx";
 import React from "react";
+import { SlidersHorizontal } from 'lucide-react';
 
 const FilterMain = ({channel,
                       selectedOptionChannel,
@@ -13,7 +13,6 @@ const FilterMain = ({channel,
                       handleSearch,
                       handleClear}) => {
 
-  console.log (channel)
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -21,7 +20,7 @@ const FilterMain = ({channel,
           variant="ghost"
           className="bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
         >
-          <FilterSvg className="w-4 h-4 mr-2"/> Фильтр
+          <SlidersHorizontal className="w-4 h-4 mr-2"/> Фильтр
         </Button>
       </PopoverTrigger>
 

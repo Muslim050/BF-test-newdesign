@@ -7,12 +7,7 @@ import {
   resetInventory,
 } from '@/redux/inventory/inventorySlice.js'
 import { fetchChannel } from '@/redux/channel/channelSlice.js'
-import { FilterSvg } from '@/assets/icons-ui.jsx'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
+
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
 import {useInventory} from "@/components/Dashboard/Inventory/TableInventory/useInventory.jsx";

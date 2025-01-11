@@ -9,15 +9,9 @@ import {
   flexRender, getPaginationRowModel
 } from '@tanstack/react-table';
 import {useDispatch, useSelector} from 'react-redux';
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.jsx";
-import {truncate} from "@/utils/other.js";
 import {formatDate} from "@/utils/formatterDate.jsx";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import {CheckCompletedSvg, EditSvg, LinkSvg} from "@/assets/icons-ui.jsx";
-import {TableCell} from "@/components/ui/table.jsx";
-import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
-import {Button} from "@/components/ui/button.jsx";
 import {BookmarkCheck, Plus, Send, Pencil, Link} from "lucide-react";
 import Cookies from "js-cookie";
 import {fetchOnceListSentToPublisher, sentToPublisherButton} from "@/redux/order/SentToPublisher.js";

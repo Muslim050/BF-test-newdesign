@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover.jsx'
-import { FilterSvg } from '@/assets/icons-ui.jsx'
+import { SlidersHorizontal } from 'lucide-react';
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import { InfoCardsTop } from '@/components/Dashboard/Reports/PublisherReport/module/InfoCards/InfoCards.jsx'
 import { InfoCardsButton } from '@/components/Dashboard/Reports/PublisherReport/module/InfoCards/InfoCardsButton.jsx'
@@ -353,7 +353,7 @@ function PublisherReportTable() {
                     variant="ghost"
                     className="bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                   >
-                    <FilterSvg className="w-4 h-4 mr-2"/> Фильтр
+                    <SlidersHorizontal className="w-4 h-4 mr-2"/> Фильтр
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-[20px]">

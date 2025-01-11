@@ -6,19 +6,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
-import { ListChecks } from 'lucide-react'
 import OrderPayment from '../modals/OrderPayment.jsx'
-import CircularBadge from '@/components/Labrery/Circular/CircularBadge'
-import {
-  CheckCompletedSvg,
-  CommentSvg,
-  EditSvg,
-  MoreSvg,
-} from '../../../../../assets/icons-ui.jsx'
 import { hasRole } from '../../../../../utils/roleUtils.js'
 import { useOrder } from '../hooks/useOrder.jsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
-import { ThemeContext } from '@/utils/ThemeContext.jsx'
 
 import {
   AlertDialog,
@@ -98,19 +89,6 @@ const PopoverButtons = ({
             {advert?.notes ? (
               <Popover>
                 <PopoverTrigger asChild>
-                  {/* <Button
-                    variant="link"
-                    onClick={() => {
-                      setCurrentOrder(advert)
-                    }}
-                    className="hover:scale-125 transition-all p-0 m-0"
-                  >
-                    <CommentSvg
-                      style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
-                      className={`w-[24px] h-[24px]   hover:text-green-500`}
-                    />
-                  </Button> */}
-
                   <Button
                     variant="link"
                     onClick={() => {

@@ -35,7 +35,6 @@ export const SetkaSvg = (props) => (
     </defs>
   </SvgComponent>
 )
-
 export const YoutubeSvg = (props) => (
   <SvgComponent
     width="24"

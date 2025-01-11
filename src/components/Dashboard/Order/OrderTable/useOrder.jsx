@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table';
 import {useDispatch, useSelector} from 'react-redux';
 import {hasRole} from "@/utils/roleUtils.js";
-import {Film, ChartColumnIncreasing, PanelTopOpen} from "lucide-react";
+import {Film, ChartColumnIncreasing} from "lucide-react";
 import CircularTable from "@/components/Labrery/Circular/CircularTable.jsx";
 import Cookies from "js-cookie";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.jsx";
@@ -25,6 +25,7 @@ import PopoverButtons from "@/components/Dashboard/Order/OrderTable/components/P
 import toast from 'react-hot-toast'
 import {fetchOrder, setOrderStatus} from "@/redux/order/orderSlice.js";
 import {fetchViewStatus, finishOrder} from "@/redux/orderStatus/orderStatusSlice.js";
+import {OpenSvg} from "@/assets/icons-ui.jsx";
 
 
 export const useOrder = () => {
@@ -93,8 +94,6 @@ export const useOrder = () => {
 
   const columns = React.useMemo(
     () => [
-
-
       {
         id: 'id',
         accessorFn: (_, index) => index + 1, // Используем индекс строки
@@ -289,7 +288,7 @@ export const useOrder = () => {
                   }}
                   className="relative hover:scale-125 transition-all "
                 >
-                  <PanelTopOpen
+                  <OpenSvg
                     className={`
                   ${row.original.inventories.filter (
                       (item) =>
@@ -298,7 +297,7 @@ export const useOrder = () => {
                     ).length > 0 && 'text-[#aa84ff]'}
                   hover:text-brandPrimary-1 transition-all ease-in-out ${
                       expandedRowId === row.id
-                        ? 'rotate-180 text-brandPrimary-1 scale-125'
+                        ? 'rotate-90 text-brandPrimary-1 scale-125'
                         : 'rotate-0'
                     }`}
                   />

@@ -8,25 +8,14 @@ import {
 } from '@tanstack/react-table';
 import {useDispatch, useSelector} from 'react-redux';
 import {hasRole} from "@/utils/roleUtils.js";
-import {Copy, ChartColumnIncreasing, PanelTopOpen, PackagePlus} from "lucide-react";
+import {Copy, ChartColumnIncreasing, PackagePlus} from "lucide-react";
 import Cookies from "js-cookie";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import {formatDate} from "@/utils/formatterDate.jsx";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
-import NestedTable from "@/components/module/TablePagination/nestedTable.jsx";
 import toast from 'react-hot-toast'
 import backendURL from "@/utils/url.js";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
 import {
   Popover,
   PopoverContent,
@@ -35,6 +24,7 @@ import {
 import {Button} from "@/components/ui/button.jsx";
 import ModalSentOrder from "@/components/Dashboard/SentOrder/receivedOrders/ModalSentOrder/index.jsx";
 import OpenTableSentOrder from "@/components/module/TablePagination/OpenTableSentOrder.jsx";
+import {OpenSvg} from "@/assets/icons-ui.jsx";
 export const useReceived = () => {
   const [columnFilters, setColumnFilters] = React.useState([]);
   const { listsentPublisher, total_count } = useSelector((state) => state.sentToPublisher)
@@ -187,7 +177,7 @@ export const useReceived = () => {
               }}
               className="relative hover:scale-125 transition-all"
             >
-              <PanelTopOpen
+              <OpenSvg
                 className={`hover:text-brandPrimary-1 transition-all ease-in-out 
                   ${ row.original.order_status === 'in_review' ? null : row.original.inventory_count ? null : 'text-red-500'}
                   ${

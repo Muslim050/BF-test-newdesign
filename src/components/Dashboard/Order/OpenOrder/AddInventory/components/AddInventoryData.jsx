@@ -1,16 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TableBody, TableCell } from '@/components/ui/table.jsx'
-import {Monitor, MonitorPlay, MonitorUp, Star} from 'lucide-react'
+import {Monitor, MonitorPlay, MonitorUp, Star, SquareCheckBig} from 'lucide-react'
 import FormatterView from '@/components/Labrery/formatter/FormatterView.jsx'
 import AdvertStatus from '@/components/Labrery/AdvertStatus/AdvertStatus.jsx'
 // import Verify from '@/components/Dashboard/Order/BindingOrder/Verify/Verify.jsx'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
-import { LinkSvg } from '@/assets/icons-ui.jsx'
+import { SquareArrowOutUpRight } from 'lucide-react';
 import { formatDate } from '@/utils/formatterDate.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Dialog } from '@/components/ui/dialog.jsx'
-import { CheckCompletedSvg } from '../../../../../../assets/icons-ui.jsx'
 import Verify from '../modal/Verify/Verify.jsx'
 import Cookies from 'js-cookie'
 import {
@@ -180,7 +179,7 @@ function AddInventoryData({
               >
                 Ссылка
                 {advert.verified_link_with_timecode === null ? null : (
-                  <LinkSvg />
+                  <SquareArrowOutUpRight className='size-4' />
                 )}
               </a>
             </TableCell>
@@ -269,7 +268,7 @@ function AddInventoryData({
                       style={{ backdropFilter: 'blur(10.3049px)' }}
                       className="hover:scale-105 transition-all w-full h-auto px-1.5 py-1 rounded-[12px] flex items-center gap-1.5  bg-[#ffffff4d] hover:bg-red-400 border border-transparent hover:border-red-500"
                     >
-                      <CheckCompletedSvg className="w-[20px] h-[20px] text-white" />
+                      <SquareCheckBig className="w-[20px] h-[20px] text-white" />
                       Завершить
                     </Button>
                   </div>

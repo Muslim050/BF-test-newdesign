@@ -7,8 +7,7 @@ import {
   flexRender, getPaginationRowModel, getExpandedRowModel
 } from '@tanstack/react-table';
 import {useDispatch, useSelector} from 'react-redux';
-import {hasRole} from "@/utils/roleUtils.js";
-import {Film, ChartColumnIncreasing, PanelTopOpen, Paperclip, Link} from "lucide-react";
+import { Paperclip, Link} from "lucide-react";
 import CircularTable from "@/components/Labrery/Circular/CircularTable.jsx";
 import Cookies from "js-cookie";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.jsx";
@@ -16,11 +15,7 @@ import {truncate} from "@/utils/other.js";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import {formatDate} from "@/utils/formatterDate.jsx";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import FormatterBudjet from "@/components/Labrery/formatter/FormatterBudjet.jsx";
 import AdvertStatus from "@/components/Labrery/AdvertStatus/AdvertStatus.jsx";
-import {getProgressStyle} from "@/components/Dashboard/Order/OrderTable/components/getProgressStyle.jsx";
-import CircularBadge from "@/components/Labrery/Circular/CircularBadge.jsx";
-import PopoverButtons from "@/components/Dashboard/Order/OrderTable/components/PopoverButtons.jsx";
 import toast from 'react-hot-toast'
 import {fetchOrder} from "@/redux/order/orderSlice.js";
 import {finishOrder} from "@/redux/orderStatus/orderStatusSlice.js";
@@ -30,10 +25,6 @@ import {showModalVideoLinked} from "@/redux/modalSlice.js";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import LinkedVideoModal from "@/components/Dashboard/SentOrder/OpenTableSentOrder/LinkedVideoModal.jsx";
