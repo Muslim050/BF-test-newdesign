@@ -8,8 +8,6 @@ import ChannelModal from '@/components/Dashboard/Channel/ChannelUtilizer/Channel
 import React from 'react'
 import Cookies from 'js-cookie'
 import ChannelModalUsers from '@/components/Dashboard/Channel/ChannelUsers/ChannelModalUsers.jsx'
-import {usePublihserUtilizer} from "@/components/Dashboard/Publisher/PublihserUtilizer/usePublihserUtilizer.jsx";
-import {usePublihserUser} from "@/components/Dashboard/Publisher/PublisherUsers/usePublisherUser.jsx";
 import {useChannelUser} from "@/components/Dashboard/Channel/ChannelUsers/useChannelUser.jsx";
 import {useChannelUtilizer} from "@/components/Dashboard/Channel/ChannelUtilizer/useChannelUtilizer.jsx";
 import TableSearchInput from "@/shared/TableSearchInput/index.jsx";

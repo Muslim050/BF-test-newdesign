@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAdvertiserAgency } from '../../../../redux/AgencySlice/advertiserAgency/advertiserAgencySlice.js'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
 import TablePagination from "@/components/module/TablePagination/index.jsx";
 import Pagination from "@/components/module/Pagination/index.jsx";
+import {fetchAdvertiserAgency} from "@/redux/AgencySlice/advertiserAgency/advertiserAgencySlice.js";
 
 function AdvertiserAgencyUtilizer({table, flexRender, pagination}) {
   const dispatch = useDispatch()

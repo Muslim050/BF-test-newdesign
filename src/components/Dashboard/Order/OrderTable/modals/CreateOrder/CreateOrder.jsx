@@ -31,6 +31,7 @@ import { Button } from '../../../../../ui/button'
 import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
 import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
+import axiosInstance from "@/api/api.js";
 
 
 const formatV = [
@@ -52,7 +53,7 @@ export default function CreateOrder({ onClose }) {
   const advID = Cookies.get('advertiser')
   const today = new Date()
   let advId
-  advertiser.forEach((item) => {
+  advertiser?.forEach((item) => {
     advId = item.id // Присваиваем значение свойства name текущего элемента массива
   })
   const [selectedFormat, setSelectedFormat] = React.useState('')
@@ -111,36 +112,17 @@ export default function CreateOrder({ onClose }) {
   }
 
   const fetchCpm = async () => {
-    const token = Cookies.get('token')
-
-    const response = await axios.get(
-      `${backendURL}/order/cpm/?advertiser=${agencyAdvId || advID}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
+    const response = await axiosInstance.get(
+      `${backendURL}/order/cpm/?advertiser=${agencyAdvId || advID}`
     )
     setCpm(response.data.data)
   }
 
   const fetchAdvertiser = async () => {
-    const token = Cookies.get('token')
-
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${backendURL}/advertiser/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
     )
-    setAdvertiser(response.data.data)
+    setAdvertiser(response.data.data.results)
   }
   React.useEffect(() => {
     fetchAdvertiser()

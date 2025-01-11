@@ -18,6 +18,8 @@ import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
 import {useInventory} from "@/components/Dashboard/Inventory/TableInventory/useInventory.jsx";
 import Pagination from "@/components/module/Pagination/index.jsx";
 import TablePagination from "@/components/module/TablePagination/index.jsx";
+import FilterMain from "@/components/Dashboard/Inventory/module/FilterMain.jsx";
+import SelectedFilter from "@/components/Dashboard/Inventory/module/SelectedFilter.jsx";
 
 function TableInventory() {
   const dispatch = useDispatch()
@@ -28,7 +30,7 @@ function TableInventory() {
   const [selectedFormat, setSelectedFormat] = React.useState('')
   const [selectedChannel, setSelectedChannel] = React.useState(null)
   const [selectedChannelName, setSelectedChannelName] = React.useState(null)
-  const {results} = useSelector((state) => state.channel.channel)
+  const {channel} = useSelector((state) => state.channel)
 
   const [loading, setLoading] = React.useState(true)
   const {
@@ -107,7 +109,7 @@ function TableInventory() {
 
           <div className="tableWrapper__table_title">
             <div className="flex items-center justify-end w-full">
-              <div style={{display: 'flex', alignItems: 'end', gap: '10px'}}>
+              <div className='flex items-end gap-2.5'>
                 {filterLoading && (
                   <div className="loaderWrapper" style={{height: '5vh'}}>
                     <div
@@ -123,72 +125,29 @@ function TableInventory() {
                     className={`p-2 font-lg shadow border border-block `}
                   />
                 </div>
-                <div style={{display: 'flex'}}>
-                  <div className="flex gap-2 items-center">
-                    {(selectedChannel || selectedFormat) && (
-                      <Button
-                        variant="link"
-                        onClick={handleClear}
-                        className="text-[#A7CCFF] px-0"
-                      >
-                        Очистить
-                      </Button>
-                    )}
-                    {selectedFormat && (
-                      <div
-                        className="rounded-3xl	border border-solid border-[#D9D9D9] h-[40px] p-2 text-white text-sm	px-5	flex items-center justify-center">
-                        <div>{selectedFormat}</div>
-                      </div>
-                    )}
-                    {selectedChannelName && (
-                      <div
-                        className="rounded-3xl	border border-solid border-[#D9D9D9] h-[40px] p-2 text-white text-sm	px-5	flex items-center justify-center">
-                        <div>{selectedChannelName}</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
 
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
-                    >
-                      <FilterSvg className="w-4 h-4 mr-2"/> Фильтр
-                    </Button>
-                  </PopoverTrigger>
+                {/*Выбранные фильтры*/}
+                <SelectedFilter
+                  selectedChannel={selectedChannel}
+                  selectedFormat={selectedFormat}
+                  selectedChannelName={selectedChannelName}
+                  handleClear={handleClear}
+                />
+                {/*Выбранные фильтры*/}
 
-                  <PopoverContent className="w-80 mr-3.5 bg-white bg-opacity-30 backdrop-blur-md border-0 rounded-xl">
-                    <div className="">
-                      <div className="flex items-center gap-2 pb-4">
-                        <div className="w-2.5	h-6	bg-[#B5E4CA] rounded-[4px]"></div>
-                        <h4
-                          className="font-medium "
-                          style={{color: 'var(--text-color )'}}
-                        >
-                          Фильтры
-                        </h4>
-                      </div>
-                      <p
-                        className="text-xs	  py-3 border-t border-[#F9F9F9] "
-                        style={{color: 'var(--text-color )'}}
-                      >
-                        Выберите необходимые параметры
-                      </p>
-                      <Filter
-                        channel={results}
-                        selectedOptionChannel={selectedOptionChannel}
-                        selectedFormat={selectedFormat}
-                        handleSelectFormat={handleSelectFormat}
-                        handleSelectChange={handleSelectChange}
-                        selectedChannel={selectedChannel}
-                        handleSearch={handleSearch}
-                        handleClear={handleClear}
-                      />
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                {/*Фильтр*/}
+                <FilterMain
+                  channel={channel}
+                  selectedOptionChannel={selectedOptionChannel}
+                  selectedFormat={selectedFormat}
+                  handleSelectFormat={handleSelectFormat}
+                  handleSelectChange={handleSelectChange}
+                  selectedChannel={selectedChannel}
+                  handleSearch={handleSearch}
+                  handleClear={handleClear}
+                />
+                {/*Фильтр*/}
+
               </div>
             </div>
           </div>

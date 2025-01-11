@@ -23,11 +23,7 @@ function AdvertiserTableUsers({table, flexRender, loading,setLoading, pagination
   return (
     <>
       {status === 'loading' ? (
-        // <div className="loaderWrapper">
-        //   <div className="spinner"></div>
-        // </div>
         <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка пользователей'} />
-
         ) : (
         <>
           <div
@@ -36,7 +32,9 @@ function AdvertiserTableUsers({table, flexRender, loading,setLoading, pagination
               <TablePagination table={table} flexRender={flexRender}/>
             </div>
           </div>
-          <Pagination table={table} pagination={pagination}/>
+          {table.getPageCount() > 1 &&
+            <Pagination table={table} pagination={pagination}/>
+          }
         </>
       )}
     </>

@@ -14,10 +14,13 @@ const initialState = {
 
 export const fetchAdvertiserAgency = createAsyncThunk(
   'advertiserAgency/fetchAdvertiserAgency',
-  async (_, { rejectWithValue }) => {
+  async ({page = null, pageSize = null} = {}, { rejectWithValue }) => {
     try {
-      const url = `${backendURL}/advertiser/advertising-agency/`
-      const response = await axiosInstance.get(url)
+      const params = {
+        ...(page && { page }),
+        ...(pageSize && { page_size: pageSize }),
+      };
+      const response = await axiosInstance.get('/advertiser/advertising-agency/', {params})
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)

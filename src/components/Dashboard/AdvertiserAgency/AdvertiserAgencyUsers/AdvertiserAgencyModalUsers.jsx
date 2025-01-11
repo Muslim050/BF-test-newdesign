@@ -1,9 +1,7 @@
-import axios from 'axios'
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-
 import {
   addAdvertiserAgencyUsers,
   fetchAdvertiserAgencyUsers,
@@ -13,9 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog.jsx'
-import backendURL from '@/utils/url.js'
-import Cookies from 'js-cookie'
-
 import { Label } from '@/components/ui/label.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import MaskedInput from 'react-text-mask'
@@ -39,23 +34,12 @@ export default function AdvertiserAgencyModalUsers({ onClose }) {
   const { advertiserAgency } = useSelector(
     (state) => state.advertiserAgency,
   )
-  // const fetchAgency = async () => {
-  //   const token = Cookies.get('token')
-  //   const response = await axios.get(
-  //     `${backendURL}/advertiser/advertising-agency/`,
-  //
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Accept: 'application/json',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     },
-  //   )
-  //   setAgency(response.data.data)
-  // }
+
   React.useEffect(() => {
-    dispatch(fetchAdvertiserAgency())
+    dispatch(fetchAdvertiserAgency({
+      page: 1, // API использует нумерацию с 1
+      pageSize: 100,
+    }))
   }, [dispatch])
 
   const {

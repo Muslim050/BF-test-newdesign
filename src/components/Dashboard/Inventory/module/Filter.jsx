@@ -49,7 +49,7 @@ function Filter({
           </div>
           <SelectContent className="w-full">
             <SelectGroup>
-              {channel.map((option) => (
+              {channel?.results.map((option) => (
                 <SelectItem
                   style={{ color: 'var(--text-color )' }}
                   key={option.id}

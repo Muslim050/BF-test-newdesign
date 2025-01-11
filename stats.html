@@ -1952,7 +1952,7 @@ var drawChart = (function (exports) {
 
       if (value === '/') {
         // if the beginning of the glob is "./", advance the start
-        // to the current index.jsx, and don't add the "./" characters
+        // to the current FilterMain.jsx, and don't add the "./" characters
         // to the state. This greatly simplifies lookbehinds when
         // checking for BOS characters like "!" and "." (not "./")
         if (prev.type === 'dot' && state.index === state.start + 1) {
@@ -4015,11 +4015,11 @@ var drawChart = (function (exports) {
   }
 
   function string(a, b) {
-    var bi = reA.lastIndex = reB.lastIndex = 0, // scan index.jsx for next number in b
+    var bi = reA.lastIndex = reB.lastIndex = 0, // scan FilterMain.jsx for next number in b
         am, // current match in a
         bm, // current match in b
         bs, // string preceding current number in b, if any
-        i = -1, // index.jsx in s
+        i = -1, // FilterMain.jsx in s
         s = [], // string constants and placeholders
         q = []; // number interpolators
 

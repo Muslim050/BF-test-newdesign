@@ -77,29 +77,31 @@ function OrderTable() {
         <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка заказов'} />
       ) : (
         <div>
-          <div className='flex mt-3 justify-end'>
-            <TableSearchInput
-              value={globalFilter ?? ''}
-              onChange={value => setGlobalFilter (String (value))}
-              className={`p-2 font-lg shadow border border-block `}
-            />
-          </div>
-          {user === 'admin' ? null : (
-            <div className="py-4 flex justify-end">
-              <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="rounded-[22px] h-auto bg-brandPrimary-1 hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
-                    onClick={handleButtonClick}
-                  >
-                    <Plus className="w-4 h-4 mr-2"/> Создать заказ
-                  </Button>
-                </DialogTrigger>
-                {open && <OrderModal onClose={handleClose}/>}
-              </Dialog>
+          <div className='flex gap-2 justify-end pt-4 pb-1'>
+            <div className='flex  justify-end'>
+              <TableSearchInput
+                value={globalFilter ?? ''}
+                onChange={value => setGlobalFilter (String (value))}
+                className={`p-2 font-lg shadow border border-block `}
+              />
             </div>
-          )}
+            {user === 'admin' ? null : (
+              <div className="flex justify-end">
+                <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="rounded-[22px] h-auto bg-brandPrimary-1 hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                      onClick={handleButtonClick}
+                    >
+                      <Plus className="w-4 h-4 mr-2"/> Создать заказ
+                    </Button>
+                  </DialogTrigger>
+                  {open && <OrderModal onClose={handleClose}/>}
+                </Dialog>
+              </div>
+            )}
+          </div>
           {/*<div className="border_container w-full sm:h-[calc(100vh-100px)] h-[calc(100vh-100px)]   rounded-[22px]  p-[3px] glass-background flex flex-col">*/}
 
 

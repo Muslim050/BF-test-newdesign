@@ -144,7 +144,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     } catch (error) {
       setIsOrderCreated(false)
       const errorData = error.response.data.error
-      // Convert array contents to a string and format with index.jsx
+      // Convert array contents to a string and format with FilterMain.jsx
       let index = 1
       const errorMessages = Object.keys(errorData)
         .map((key) => {

@@ -10,10 +10,9 @@ import {
   flexRender,
   getPaginationRowModel
 } from '@tanstack/react-table';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.jsx";
 import FormatterPhone from "@/components/Labrery/formatter/FormatterPhone.jsx";
-import {fetchAdvertiserUsers} from "@/redux/advertiserUsers/advertiserUsersSlice.js";
 
 export const useAdvertiserUser = () => {
   const [columnFilters, setColumnFilters] = React.useState([]);

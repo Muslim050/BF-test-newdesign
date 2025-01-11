@@ -1,14 +1,9 @@
-
-
 import React from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFacetedMinMaxValues,
   flexRender, getPaginationRowModel
 } from '@tanstack/react-table';
 import { useSelector } from 'react-redux';

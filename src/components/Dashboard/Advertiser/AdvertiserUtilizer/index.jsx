@@ -15,7 +15,7 @@ const AdvertiserTable = ({table, flexRender, pagination}) => {
       page: pagination.pageIndex + 1, // API использует нумерацию с 1
       pageSize: pagination.pageSize,
     }))
-      .then(() => setLoading(false))
+    .then(() => setLoading(false))
   }, [dispatch,  pagination.pageIndex, pagination.pageSize])
 
   return (
@@ -30,7 +30,9 @@ const AdvertiserTable = ({table, flexRender, pagination}) => {
               <TablePagination table={table} flexRender={flexRender}/>
             </div>
           </div>
-          <Pagination table={table} pagination={pagination}/>
+          {table.getPageCount() > 1 &&
+            <Pagination table={table} pagination={pagination}/>
+          }
         </>
       )}
     </>

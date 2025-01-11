@@ -5,7 +5,6 @@ import React from 'react'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Plus } from 'lucide-react'
-import { hasRole } from '../../../utils/roleUtils'
 import AdvertiserAgencyModalUsers from './AdvertiserAgencyUsers/AdvertiserAgencyModalUsers'
 import AdvertiserAgencyModal from './AdvertiserAgencyUtilizer/AdvertiserAgencyModal'
 import Cookies from 'js-cookie'
@@ -18,10 +17,10 @@ import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
 import {
   useAdvertiserAgencyUser
 } from "@/components/Dashboard/AdvertiserAgency/AdvertiserAgencyUsers/useAdvertiserAgencyUser.jsx";
+import {hasRole} from "@/utils/roleUtils.js";
 
 const AdvertiserAgencyAndUsers = () => {
   const user = Cookies.get('role')
-
   const [selectedTab, setSelectedTab] = React.useState('advertiser')
   // Модальное окно OrderModal
   const [openUser, setOpenUser] = React.useState(false)

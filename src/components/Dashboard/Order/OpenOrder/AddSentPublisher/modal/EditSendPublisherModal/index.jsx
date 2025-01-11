@@ -222,8 +222,8 @@ const EditSendPublisherModal = ({
           onChange={selectedPublisher}
         >
           <option value="">Выбрать Паблишера</option>
-          {publisher?.map((option, index.jsx) => (
-            <option key={index.jsx} value={option.id}>
+          {publisher?.map((option, FilterMain.jsx) => (
+            <option key={FilterMain.jsx} value={option.id}>
               {option.name}
             </option>
           ))}
@@ -272,8 +272,8 @@ const EditSendPublisherModal = ({
         >
           <option value="">Выбрать канал</option>
           {Array.isArray(channelModal) ? (
-            channelModal.map((option, index.jsx) => (
-              <option key={index.jsx} value={option.id}>
+            channelModal.map((option, FilterMain.jsx) => (
+              <option key={FilterMain.jsx} value={option.id}>
                 {option.name}
               </option>
             ))
@@ -323,8 +323,8 @@ const EditSendPublisherModal = ({
       {/*  >*/}
       {/*    <option value="">Выбрать Формат</option>*/}
 
-      {/*    {format.map((option, index.jsx) => (*/}
-      {/*      <option key={index.jsx} value={option.value}>*/}
+      {/*    {format.map((option, FilterMain.jsx) => (*/}
+      {/*      <option key={FilterMain.jsx} value={option.value}>*/}
       {/*        {option.text}*/}
       {/*      </option>*/}
       {/*    ))}*/}

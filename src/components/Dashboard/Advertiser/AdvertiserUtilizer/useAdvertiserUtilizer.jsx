@@ -1,14 +1,9 @@
-
-
 import React, {useCallback} from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFacetedMinMaxValues,
   flexRender, getPaginationRowModel
 } from '@tanstack/react-table';
 import { useSelector } from 'react-redux';
@@ -16,8 +11,6 @@ import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
 import {hasRole} from "@/utils/roleUtils.js";
 import {Button} from "@/components/ui/button.jsx";
 import { Pencil } from 'lucide-react';
-import Cookies from "js-cookie";
-import axios from "axios";
 import backendURL from "@/utils/url.js";
 import axiosInstance from "@/api/api.js";
 
