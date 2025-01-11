@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
 import log from "eslint-plugin-react/lib/util/log.js";
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   order: [],
@@ -15,33 +16,26 @@ const initialState = {
   confirmedOrders: [],
   exportConfirmed: [],
   shortListData: [],
+  total_count: 0
 }
 
-export const fetchOrder = createAsyncThunk('order/fetchOrder', async () => {
-  const token = Cookies.get('token')
+export const fetchOrder = createAsyncThunk('order/fetchOrder',
+  async ({ page = null, pageSize = null } = {}, { rejectWithValue }) => {
 
-  try {
-    const response = await axios.get(`${backendURL}/order/`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    try {
+      let url = new URL(`${backendURL}/order/`)
+      const params = new URLSearchParams()
+      if (page) {
+        params.append('page', page);
+      }
+      if (pageSize) {
+        params.append('page_size', pageSize);
+      }
+      url.search = params.toString()
+      const response = await axiosInstance.get(url.href)
     return response.data.data
   } catch (error) {
-    if (error.response.status === 401) {
-      window.location.href = 'login'
-    }
-    if (error.response && error.response.data && error.response.data.error) {
-      const errorMessage = error.response.data.error
-      if (errorMessage.detail) {
-        toast.error(errorMessage.detail) // Отображение деталей ошибки с помощью toast
-      }
-    } else {
-      toast.error('Ошибка при загрузке') // Общее сообщение об ошибке, если детали не доступны
-    }
-    throw error
+    return rejectWithValue(error.response)
   }
 })
 
@@ -311,6 +305,8 @@ const orderSlice = createSlice({
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.order = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchOrder.rejected, (state, action) => {
         state.status = 'failed'

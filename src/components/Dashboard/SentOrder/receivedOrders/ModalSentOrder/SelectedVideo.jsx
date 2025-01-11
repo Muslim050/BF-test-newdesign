@@ -22,6 +22,7 @@ import Cookies from 'js-cookie'
 import { fetchInventory } from '../../../../../redux/inventory/inventorySlice'
 import { fetchOnceListSentToPublisher } from '../../../../../redux/order/SentToPublisher'
 import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
+import axiosInstance from "@/api/api.js";
 
 const categoryC = [
   { id: 1, value: 'Шоу', text: 'Шоу' },
@@ -73,11 +74,11 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
     mode: 'onSubmit',
   })
   const cId = watch('channel_id')
+  console.log (channelid)
   const onSubmit = async (data) => {
-    const token = Cookies.get('token')
 
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/inventory/assign-to-order-with-existing-video`,
         {
           expected_number_of_views: data.expected_number_of_views,
@@ -86,14 +87,7 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
           promo_duration: data.promo_duration,
           order_assignment_id: data.order_id,
           video_id: data.video_id,
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
 
       if (response.data) {
@@ -176,7 +170,7 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
         },
       },
     )
-    setChannelModal(response.data.data)
+    setChannelModal(response.data.data.results)
   }
 
   React.useEffect(() => {
@@ -187,7 +181,7 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
       fetchVideo()
     }
     fetchVideo()
-  }, [dispatch])
+  }, [dispatch, cId])
 
   React.useEffect(() => {
     fetchChannel()
@@ -195,20 +189,12 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
 
   const fetchVideo = async () => {
     try {
-      const token = Cookies.get('token')
-      const response = await axios.get(
-        `${backendURL}/inventory/video/?channel_id=${cId}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+      const response = await axiosInstance.get(
+        `${backendURL}/inventory/video/?channel_id=${channelid}`,
       )
       setVideoModal(
         // response.data.data
-        response.data.data,
+        response.data.data.results,
       )
     } catch (error) {
       console.error('Error fetching video:', error)
@@ -286,7 +272,7 @@ export default function SelectedVideo({ item, setIsPopoverOpen }) {
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Выбрать Видео</SelectLabel>
-                        {videoModal.map((adv) => (
+                        {videoModal?.results?.map((adv) => (
                           <SelectItem key={adv.id} value={adv.id.toString()}>
                             {adv.name}
                           </SelectItem>

@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../StatictickChannelTable.module.scss'
 import FormatterView from '@/components/Labrery/formatter/FormatterView'
-// import { ReactComponent as Arrow } from "@/assets/Table/arrow.svg";
+// import { ReactComponent as Arrow } from "@/assets/TablePagination/arrow.svg";
 import { TableCell } from '@/components/ui/table'
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 

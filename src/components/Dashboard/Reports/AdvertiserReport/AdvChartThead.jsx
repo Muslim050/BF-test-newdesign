@@ -1,5 +1,4 @@
 import React from 'react'
-import style from './AdvChartTable.module.scss'
 import TheadGender from './components/TheadAgeGeoGender/TheadGender'
 import TheadAge from './components/TheadAgeGeoGender/TheadAge'
 import TheadGeo from './components/TheadAgeGeoGender/TheadGeo'

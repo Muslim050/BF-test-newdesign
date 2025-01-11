@@ -3,30 +3,30 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import backendURL from '@/utils/url'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   publisherUsers: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
+
 }
 
 export const fetchPublisherUsers = createAsyncThunk(
   'publisherusers/fetchPublisherUsers',
-  async (_, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
+  async ({ page = null, pageSize = null } = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${backendURL}/publisher/user/`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      let url = new URL(`${backendURL}/publisher/user/`)
+      const params = new URLSearchParams()
+      if (page) {
+        params.append('page', page);
+      }
+      if (pageSize) {
+        params.append('page_size', pageSize);
+      }
+      url.search = params.toString()
+      const response = await axiosInstance.get(url.href)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -78,6 +78,8 @@ const publisherUsersSlice = createSlice({
       .addCase(fetchPublisherUsers.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.publisherUsers = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchPublisherUsers.rejected, (state, action) => {
         state.status = 'failed'

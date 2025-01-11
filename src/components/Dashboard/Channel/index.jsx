@@ -8,6 +8,11 @@ import ChannelModal from '@/components/Dashboard/Channel/ChannelUtilizer/Channel
 import React from 'react'
 import Cookies from 'js-cookie'
 import ChannelModalUsers from '@/components/Dashboard/Channel/ChannelUsers/ChannelModalUsers.jsx'
+import {usePublihserUtilizer} from "@/components/Dashboard/Publisher/PublihserUtilizer/usePublihserUtilizer.jsx";
+import {usePublihserUser} from "@/components/Dashboard/Publisher/PublisherUsers/usePublisherUser.jsx";
+import {useChannelUser} from "@/components/Dashboard/Channel/ChannelUsers/useChannelUser.jsx";
+import {useChannelUtilizer} from "@/components/Dashboard/Channel/ChannelUtilizer/useChannelUtilizer.jsx";
+import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
 
 const ChannelAndUsers = () => {
   const user = Cookies.get('role')
@@ -28,6 +33,22 @@ const ChannelAndUsers = () => {
 
   const [selectedTab, setSelectedTab] = React.useState('channel')
 
+
+  const {
+    table, // Экземпляр таблицы
+    globalFilter,
+    setGlobalFilter,
+    flexRender,
+    pagination
+  } = useChannelUtilizer();
+
+  const {
+    table: publisherUsersTable,
+    globalFilter: usersGlobalFilter,
+    setGlobalFilter: setUsersGlobalFilter,
+    flexRender: flexRenderUsers,
+    pagination: paginationUsers
+  } = useChannelUser();
   return (
     <div className="mb-4 mt-2">
       <Tabs defaultValue="channel">
@@ -63,6 +84,16 @@ const ChannelAndUsers = () => {
               {user === 'channel' || user === 'publisher' ? (
                 ''
               ) : (
+                <div className="flex justify-end ">
+
+                  <div className='flex flex-wrap gap-2'>
+                    <div>
+                      <TableSearchInput
+                        value={globalFilter ?? ''}
+                        onChange={value => setGlobalFilter (String (value))}
+                        className={`p-2 font-lg shadow border border-block `}
+                      />
+                    </div>
                 <Dialog open={channelModal} onOpenChange={setChannelModal}>
                   <DialogTrigger asChild>
                     <Button
@@ -76,11 +107,21 @@ const ChannelAndUsers = () => {
                     <ChannelModal onClose={handleCloseChannelModal} />
                   )}
                 </Dialog>
+                  </div>
+                </div>
               )}
             </div>
           )}
           {selectedTab === 'channel-users' && (
             <div className="flex justify-end ">
+              <div className='flex flex-wrap gap-2'>
+                <div>
+                  <TableSearchInput
+                    value={usersGlobalFilter ?? ''}
+                    onChange={value => setUsersGlobalFilter (String (value))}
+                    className={`p-2 font-lg shadow border border-block `}
+                  />
+                </div>
               <Dialog
                 open={channelModalUser}
                 onOpenChange={setChannelModalUser}
@@ -97,14 +138,17 @@ const ChannelAndUsers = () => {
                   <ChannelModalUsers onClose={handleCloseModalUser} />
                 )}
               </Dialog>
+              </div>
             </div>
           )}
         </div>
         <TabsContent value="channel">
-          <ChannelTable />
+          <ChannelTable table={table} flexRender={flexRender} pagination={pagination}/>
         </TabsContent>
         <TabsContent value="channel-users">
-          <ChannelTableUsers />
+          <ChannelTableUsers  flexRender={flexRenderUsers}
+                              table={publisherUsersTable}
+          pagination={paginationUsers}/>
         </TabsContent>
       </Tabs>
     </div>

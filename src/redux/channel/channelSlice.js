@@ -2,34 +2,36 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
+import log from "eslint-plugin-react/lib/util/log.js";
 
 const initialState = {
   channel: [],
   channelID: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
 }
 
 export const fetchChannel = createAsyncThunk(
   'channel/fetchChannel',
-  async (id, { rejectWithValue }) => {
-    const token = Cookies.get('token')
+  async ({ id = null, page = null, pageSize = null } = {}, { rejectWithValue }) => {
     let url = new URL(`${backendURL}/publisher/channel/`)
     const params = new URLSearchParams()
+
     if (id) {
       params.append('publisher_id', id)
+    }
+    if (page) {
+      params.append('page', page);
+    }
+    if (pageSize) {
+      params.append('page_size', pageSize);
     }
     url.search = params.toString()
 
     try {
-      const response = await axios.get(url.href, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
+      const response = await axiosInstance(url.href)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -40,10 +42,8 @@ export const fetchChannel = createAsyncThunk(
 export const addChannel = createAsyncThunk(
   'channel/addChannel',
   async ({ data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/publisher/channel/`,
         {
           publisher: data.publisher,
@@ -51,14 +51,7 @@ export const addChannel = createAsyncThunk(
           email: data.email,
           phone_number: data.phone,
           channel_id: data.channelId,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
       return response.data
     } catch (error) {
@@ -79,6 +72,8 @@ const channelSlice = createSlice({
       .addCase(fetchChannel.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.channel = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchChannel.rejected, (state, action) => {
         state.status = 'failed'

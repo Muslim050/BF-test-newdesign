@@ -28,6 +28,7 @@ import Cookies from 'js-cookie'
 import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 import {fetchViewStatus} from "@/redux/orderStatus/orderStatusSlice.js";
 import {fetchSingleOrder, updateOrderWithInventory} from "@/redux/order/orderSlice.js";
+import axiosInstance from "@/api/api.js";
 
 
 const format = [
@@ -44,24 +45,18 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
   const [budgett, setBudgett] = React.useState(0)
   const [isOrderCreated, setIsOrderCreated] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
-  console.log (onceOrder)
+  console.log (channelModal)
   const selectedPublisher = (value) => {
     setPublisherID(value)
   }
   const fetchChannel = async () => {
-    const token = Cookies.get('token')
-    const url = `${backendURL}/publisher/channel${
-      publisherID ? `?publisher_id=${publisherID}` : ''
-    }`
-
     try {
-      const response = await axios.get(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      let url = new URL(`${backendURL}/publisher/channel${
+        publisherID ? `?publisher_id=${publisherID}` : ''
+      }`)
+      const params = new URLSearchParams()
+      url.search = params.toString()
+      const response = await axiosInstance.get(url)
       setChannelModal(response.data.data)
     } catch (error) {
       console.error('Error fetching channel data:', error)
@@ -70,18 +65,8 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
   }
 
   const fetchCpm = async () => {
-    const token = Cookies.get('token')
-
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${backendURL}/order/cpm/?advertiser=${onceOrder.advertiser.id}`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
     )
     setCpm(response.data.data)
   }
@@ -159,7 +144,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     } catch (error) {
       setIsOrderCreated(false)
       const errorData = error.response.data.error
-      // Convert array contents to a string and format with index
+      // Convert array contents to a string and format with index.jsx
       let index = 1
       const errorMessages = Object.keys(errorData)
         .map((key) => {
@@ -200,7 +185,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
     fetchCpm()
   }, [onceOrder])
   React.useEffect(() => {
-    dispatch(fetchPublisher())
+    dispatch(fetchPublisher({}))
   }, [dispatch])
   React.useEffect(() => {
     fetchChannel().then(() => setLoading(false))
@@ -230,7 +215,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                   <SelectGroup>
                     <SelectLabel>Выбрать паблишера</SelectLabel>
                     {/* Assuming you have a publisher array */}
-                    {publisher.map((pub) => (
+                    {publisher?.results?.map((pub) => (
                       <SelectItem key={pub.id} value={pub.id.toString()}>
                         {pub.name}
                       </SelectItem>
@@ -281,7 +266,7 @@ const AddSendPublisherModal = ({ setViewNote, expandedRows, onceOrder }) => {
                       </div>
                     </SelectLabel>
                     {/* Assuming you have a channelModal array */}
-                    {channelModal.map((option) => (
+                    {channelModal?.results?.map((option) => (
                       <SelectItem
                         key={option.id}
                         value={option.id.toString()}

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   advertiserUsers: [],
@@ -10,35 +11,23 @@ const initialState = {
 }
 export const fetchAdvertiserUsers = createAsyncThunk(
   'advertiserusers/fetchAdvertiserUsers',
-  async (_, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
+  async ({ page = 1, pageSize = 10 } = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${backendURL}/advertiser/user/`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      return response.data.data
+      const response = await axiosInstance.get(`advertiser/user/`, {
+        params: { page, page_size: pageSize },
+      });
+      return response.data.data.results; // Предполагается, что ваш API возвращает данные в поле `data`
     } catch (error) {
-      return rejectWithValue(error.response)
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
-)
+);
 
 export const addAdvertiserUsers = createAsyncThunk(
   'advertiserusers/addAdvertiserUsers',
   async ({ data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/advertiser/user/`,
         {
           advertiser: data.advertiser,
@@ -48,14 +37,7 @@ export const addAdvertiserUsers = createAsyncThunk(
           username: data.username,
           phone_number: data.phone,
           password: data.password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
       return response.data
     } catch (error) {

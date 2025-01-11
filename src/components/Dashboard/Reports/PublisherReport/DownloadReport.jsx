@@ -1,5 +1,5 @@
 import React from 'react'
-// import { ReactComponent as Download } from '@/assets/Table/Download.svg'
+// import { ReactComponent as Download } from '@/assets/TablePagination/Download.svg'
 import axios from 'axios'
 import backendURL from '@/utils/url'
 import { format } from 'date-fns'

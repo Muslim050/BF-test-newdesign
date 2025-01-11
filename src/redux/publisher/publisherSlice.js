@@ -3,6 +3,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   publisher: [],
@@ -10,39 +11,27 @@ const initialState = {
   error: null,
   publisherReport: [],
   publisherReportExport: [],
+  total_count: 0, // Изначально общее количество равно 0
+
 }
 
 export const fetchPublisher = createAsyncThunk(
   'publisher/fetchPublisher',
-  async (_, { getState }) => {
-    const token = Cookies.get('token')
+  async ({ page = null, pageSize = null } = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${backendURL}/publisher/`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-
+      let url = new URL(`${backendURL}/publisher/`)
+      const params = new URLSearchParams()
+      if (page) {
+        params.append('page', page);
+      }
+      if (pageSize) {
+        params.append('page_size', pageSize);
+      }
+      url.search = params.toString()
+      const response = await axiosInstance.get(url.href)
       return response.data.data
     } catch (error) {
-      if (error.response.status === 401) {
-        window.location.href = 'login'
-      }
-      if (error.response && error.response.data && error.response.data.error) {
-        const errorMessage = error.response.data.error
-        if (errorMessage.detail) {
-          toast.error(errorMessage.detail) // Отображение деталей ошибки с помощью toast
-        }
-      } else {
-        toast.error('Ошибка при загрузке') // Общее сообщение об ошибке, если детали не доступны
-      }
-      throw error
+      return rejectWithValue(error.response)
     }
   },
 )
@@ -162,6 +151,8 @@ const publisherSlice = createSlice({
       .addCase(fetchPublisher.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.publisher = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchPublisher.rejected, (state, action) => {
         state.status = 'failed'

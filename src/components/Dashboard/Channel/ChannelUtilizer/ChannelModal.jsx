@@ -34,7 +34,7 @@ import {
 } from '@radix-ui/react-tooltip'
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 export default function ChannelModal({ onClose }) {
   const dispatch = useDispatch()
@@ -42,19 +42,10 @@ export default function ChannelModal({ onClose }) {
   const [publisherModal, setPublisherModal] = React.useState([])
 
   const fetchPubl = async () => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/publisher/`,
+    let url = new URL(`${backendURL}/publisher/`)
 
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    setPublisherModal(response.data.data)
+    const response = await axiosInstance.get(url)
+    setPublisherModal(response.data.data.results)
   }
 
   React.useEffect(() => {

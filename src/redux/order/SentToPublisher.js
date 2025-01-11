@@ -3,6 +3,7 @@ import axios from 'axios'
 // import axios from "src/utils/axiosInstance.js";
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   // order: [],
@@ -14,32 +15,32 @@ const initialState = {
   exportConfirmed: [],
   shortListData: [],
   listsentPublisher: [],
+  total_count: 0, // Изначально общее количество равно 0
+
 }
 
 //запрос на получения списка
 export const fetchOnceListSentToPublisher = createAsyncThunk(
   'sentToPublisher/sentToPublisher',
-  async ({ expandedRows, is_deactivated }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
+  async ({ expandedRows, is_deactivated, page = null, pageSize = null }, { rejectWithValue }) => {
 
-    let data = ''
-
+    let url = new URL(`${backendURL}/order/assignments/`)
+    const params = new URLSearchParams()
     if (expandedRows) {
-      data = `${backendURL}/order/assignments/?order_id=${expandedRows}`
-    } else if (is_deactivated !== undefined) {
-      data = `${backendURL}/order/assignments/?is_deactivated=${is_deactivated}`
-    } else {
-      data = `${backendURL}/order/assignments/`
+      params.append('order_id', expandedRows)
     }
-
+    if (is_deactivated !== undefined) {
+      params.append('is_deactivated', is_deactivated)
+    }
+    if (page) {
+      params.append('page', page);
+    }
+    if (pageSize) {
+      params.append('page_size', pageSize);
+    }
+    url.search = params.toString()
     try {
-      const response = await axios.get(data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await axiosInstance.get(url.href)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -263,6 +264,8 @@ const sentToPublisherSlice = createSlice({
       .addCase(fetchOnceListSentToPublisher.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.listsentPublisher = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchOnceListSentToPublisher.rejected, (state, action) => {
         state.status = 'failed'

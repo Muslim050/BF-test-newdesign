@@ -34,8 +34,8 @@ function StatictickChannel({ dataChannel, channel, error }) {
                 className={`border_container rounded-[22px] p-[12px]  glass-background`}
               >
                 <div className="tableWrapper__table_title">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-[#D1C5FF] w-4 h-8 rounded"></div>
+                  <div className={`${error ? 'text-red-500 font-semibold' : 'text-white'} flex items-center gap-2`}>
+                    <div className={`${error ? 'bg-red-600 ' : 'bg-green-500'} w-4 h-8 rounded-2xl`}></div>
                     Статистика / {channelName.name}
                   </div>
                 </div>

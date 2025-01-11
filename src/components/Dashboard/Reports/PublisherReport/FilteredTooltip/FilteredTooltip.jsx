@@ -1,11 +1,10 @@
 import React from 'react'
 import style from './FilteredTooltip.module.scss'
-import {Monitor, MonitorPlay, MonitorUp, X} from 'lucide-react'
+import {Monitor, MonitorPlay, MonitorUp, FileCog} from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ru from 'date-fns/locale/ru' // Импортируйте русскую локаль
 import DownloadReport from '../DownloadReport'
-import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
@@ -19,6 +18,8 @@ import {
   SelectItem,
   SelectValue,
 } from '@/components/ui/select.jsx'
+import { Tv } from 'lucide-react';
+
 const formatV = [
   { value: 'preroll', text: 'Pre-roll', icon: Monitor },
   { value: 'tv_preroll', text: 'TV Pre-roll', icon: MonitorPlay },
@@ -71,7 +72,7 @@ function FilteredTooltip({
                 className="text-xs flex gap-2"
                 style={{ color: 'var(--text-color )' }}
               >
-                <TvSvg /> Паблишер
+                <Tv className='size-4'/> Паблишер
               </div>
               <SelectTrigger
                 className="rounded-none border-0 p-0 h-auto pl-[25px] "
@@ -82,7 +83,7 @@ function FilteredTooltip({
             </div>
             <SelectContent className="w-full">
               <SelectGroup>
-                {publisher.map((option) => (
+                {publisher.results.map((option) => (
                   <SelectItem
                     style={{ color: 'var(--text-color )' }}
                     key={option.id}
@@ -125,7 +126,7 @@ function FilteredTooltip({
             className="text-xs flex gap-2"
             style={{ color: 'var(--text-color )' }}
           >
-            <TvSvg /> Канал
+            <Tv className='size-4'/> Канал
           </div>
           <SelectTrigger
             className=" border-0 p-0 h-auto pl-[25px] "
@@ -136,7 +137,7 @@ function FilteredTooltip({
         </div>
         <SelectContent className="w-full">
           <SelectGroup>
-            {channel.map((option) => (
+            {channel.results.map((option) => (
               <SelectItem
                 style={{ color: 'var(--text-color )' }}
                 key={option.id}
@@ -201,7 +202,7 @@ function FilteredTooltip({
             className="text-xs flex gap-2 "
             style={{ color: 'var(--text-color )' }}
           >
-            <FormatSvg /> Формат
+            <FileCog className='size-4' /> Формат
           </div>
           <SelectTrigger
             className="rounded-none border-0 p-0 h-auto pl-[25px] "

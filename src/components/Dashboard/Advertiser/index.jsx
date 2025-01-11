@@ -9,9 +9,10 @@ import { Plus } from 'lucide-react'
 import AdvertiserModalUsers from './AdvertiserUsers/AdvertiserModalUsers'
 import Cookies from 'js-cookie'
 import AdvertiserModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/AdvertiserModal/index.jsx";
-import DebouncedInput from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/DebouncedInput.jsx";
-import {useTable} from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/useTable.jsx";
+import {useAdvertiserUtilizer} from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/useAdvertiserUtilizer.jsx";
 import EditAdvModal from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/EditAdvModal.jsx";
+import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
+import {useAdvertiserUser} from "@/components/Dashboard/Advertiser/AdvertiserUsers/useAdvertiserUser.jsx";
 
 const AdvertiserAndUsers = () => {
   const [selectedTab, setSelectedTab] = React.useState('advertiser')
@@ -40,7 +41,19 @@ const AdvertiserAndUsers = () => {
     fetchCpm,
     open,
     setOpen,
-  } = useTable();
+    pagination
+  } = useAdvertiserUtilizer();
+
+  const {
+    table: advertiserUsersTable,
+    globalFilter: usersGlobalFilter,
+    setGlobalFilter: setUsersGlobalFilter,
+    flexRender: flexRenderUsers,
+    setLoading,
+    pagination:paginationUser ,
+    loading
+  } = useAdvertiserUser();
+
 
   return (
     <div className="mb-4 mt-2">
@@ -76,11 +89,10 @@ const AdvertiserAndUsers = () => {
                 <div className="flex justify-end ">
                   <div className='flex flex-wrap gap-2'>
                     <div>
-                      <DebouncedInput
+                      <TableSearchInput
                         value={globalFilter ?? ''}
                         onChange={value => setGlobalFilter (String (value))}
-                        className="p-2 font-lg shadow border border-block"
-                        placeholder="Search all columns..."
+                        className={`p-2 font-lg shadow border border-block `}
                       />
                     </div>
 
@@ -93,7 +105,7 @@ const AdvertiserAndUsers = () => {
                           <Plus className="w-5 h-5 mr-2"/> Создать рекламодателя
                         </Button>
                       </DialogTrigger>
-                      {open && <AdvertiserModal onClose={handleClose}/>}
+                      {openUtilizer && <AdvertiserModal onClose={handleClose}/>}
                     </Dialog>
                   </div>
                 </div>
@@ -105,11 +117,19 @@ const AdvertiserAndUsers = () => {
             <div>
               {hasRole ('admin') && (
                 <div className="flex justify-end ">
+                  <div className='flex flex-wrap gap-2'>
+                    <div>
+                      <TableSearchInput
+                        value={usersGlobalFilter ?? ''}
+                        onChange={value => setUsersGlobalFilter (String (value))}
+                        className={`p-2 font-lg shadow border border-block `}
+                      />
+                    </div>
                   <Dialog open={openUsers} onOpenChange={setOpenUsers}>
                     <DialogTrigger asChild>
                       <Button
                         variant="ghost"
-                        className=" bg-brandPrimary-1 rounded-[22px] hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
+                        className=" bg-brandPrimary-1 rounded-3xl hover:bg-brandPrimary-50 text-white no-underline hover:text-white "
                       >
                         <Plus className="w-5 h-5 mr-2"/> Создать пользователя
                       </Button>
@@ -118,6 +138,7 @@ const AdvertiserAndUsers = () => {
                       <AdvertiserModalUsers onClose={handleCloseUsers}/>
                     )}
                   </Dialog>
+                  </div>
                 </div>
               )}
             </div>
@@ -125,10 +146,19 @@ const AdvertiserAndUsers = () => {
         </div>
 
         <TabsContent value="advertiser">
-          <AdvertiserTable flexRender={flexRender} table={table}/>
+          <AdvertiserTable
+            flexRender={flexRender}
+            table={table}
+            pagination={pagination}
+          />
         </TabsContent>
         <TabsContent value="advertiser-users">
-          <AdvertiserTableUsers />
+          <AdvertiserTableUsers
+            flexRender={flexRenderUsers}
+            table={advertiserUsersTable}
+            loading={loading} setLoading={setLoading}
+            pagination={paginationUser}
+          />
         </TabsContent>
       </Tabs>
 

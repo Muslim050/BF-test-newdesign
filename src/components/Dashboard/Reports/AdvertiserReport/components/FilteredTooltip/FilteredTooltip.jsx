@@ -12,10 +12,10 @@ import {
   SelectValue,
 } from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import { TvSvg } from '@/assets/icons-ui.jsx'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button.jsx'
 import { Trash2 } from 'lucide-react'
+import { Tv } from 'lucide-react';
 
 function FilteredTooltip({
 
@@ -50,7 +50,7 @@ function FilteredTooltip({
               className="text-xs flex gap-2 ml-1"
               style={{ color: 'var(--text-color )' }}
             >
-              <TvSvg /> Рекламодатель
+              <Tv className='size-4'/> Рекламодатель
             </div>
             <SelectTrigger
               className="rounded-none border-0 p-0 h-auto pl-[28px] "
@@ -61,7 +61,7 @@ function FilteredTooltip({
           </div>
           <SelectContent className="w-full rounded-[18px]">
             <SelectGroup>
-              {advdata.map((option) => (
+              {advdata.results.map((option) => (
                 <SelectItem
                   style={{ color: 'var(--text-color )' }}
                   key={option.id}

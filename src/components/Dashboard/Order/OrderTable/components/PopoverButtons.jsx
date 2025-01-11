@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 import { ListChecks } from 'lucide-react'
-import { Copy } from 'lucide-react'
 import OrderPayment from '../modals/OrderPayment.jsx'
 import CircularBadge from '@/components/Labrery/Circular/CircularBadge'
 import {
@@ -33,6 +32,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog.jsx'
 import EditOrderModal from '../modals/EditOrder/EditOrder.jsx'
+import { SquareCheckBig, Copy, Pencil, MessageSquareText } from 'lucide-react';
 
 const PopoverButtons = ({
   advert,
@@ -76,7 +76,7 @@ const PopoverButtons = ({
                 className="hover:scale-125 transition-all p-0 "
                 style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
               >
-                <EditSvg className="w-[24px] h-[24px] hover:text-orange-500" />
+                <Pencil className="w-[24px] h-[24px] hover:text-orange-500" />
               </Button>
             </DialogTrigger>
             {open && (
@@ -119,7 +119,7 @@ const PopoverButtons = ({
                     className="hover:scale-125 transition-all p-0 m-0"
                     style={{ color: 'var(--text-color)' }} // Динамическая переменная для цвета текста
                   >
-                    <CommentSvg className="w-[24px] h-[24px] hover:text-green-500" />
+                    <MessageSquareText className="w-[24px] h-[24px] hover:text-green-500" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-full  bg-white bg-opacity-30 backdrop-blur-md rounded-xl">
@@ -176,7 +176,7 @@ const PopoverButtons = ({
                   //   }}
                   // />
                 )}
-                <CheckCompletedSvg
+                <SquareCheckBig
                   className={`${isOver100Percent && 'text-red-600'} w-[24px] h-[24px]  hover:text-red-500`}
                 />
               </Button>

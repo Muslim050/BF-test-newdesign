@@ -51,7 +51,7 @@ function SentOrderList({ listsentPublisher }) {
 
   return (
     <>
-      {listsentPublisher.map((item, i) => (
+      {listsentPublisher.results.map((item, i) => (
 
         <>
 
@@ -73,8 +73,6 @@ function SentOrderList({ listsentPublisher }) {
                 ) : null}
                 {i + 1}
                 <div style={{display: 'flex', justifyContent: "space-between" }}>
-
-
                   {item.order_status === 'in_review' ? null : <>
                     {item.inventory_count ? null : <span className=" h-5 w-2.5">
 

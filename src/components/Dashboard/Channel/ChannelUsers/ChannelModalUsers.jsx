@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-hot-toast'
 import { Controller, useForm } from 'react-hook-form'
 import MaskedInput from 'react-text-mask'
@@ -50,7 +50,7 @@ export default function ChannelModalUsers({ onClose }) {
         },
       },
     )
-    setChannelModal(response.data.data)
+    setChannelModal(response.data.data.results)
   }
   React.useEffect(() => {
     fetchChannel()

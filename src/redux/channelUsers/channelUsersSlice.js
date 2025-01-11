@@ -2,30 +2,29 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   channelUsers: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
+
 }
 
 export const fetchChannelUsers = createAsyncThunk(
   'channelusers/fetchChannelUsers',
-  async (_, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
+  async ({page = null, pageSize = null } = {}, { rejectWithValue }) => {
+    let url = new URL(`${backendURL}/publisher/channel/user/`)
+    const params = new URLSearchParams()
+    if (page) {
+      params.append('page', page);
+    }
+    if (pageSize) {
+      params.append('page_size', pageSize);
+    }
     try {
-      const response = await axios.get(
-        `${backendURL}/publisher/channel/user/`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      const response = await axiosInstance.get(url.href)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -98,6 +97,8 @@ const publisherUsersSlice = createSlice({
       .addCase(fetchChannelUsers.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.channelUsers = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchChannelUsers.rejected, (state, action) => {
         state.status = 'failed'

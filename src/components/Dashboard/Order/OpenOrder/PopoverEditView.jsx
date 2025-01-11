@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const PopoverEditView = ({
   setOpenPopoverIndex,
@@ -19,20 +20,11 @@ const PopoverEditView = ({
   const [cpm, setCpm] = React.useState([])
   const dispatch = useDispatch()
   const [budgett, setBudgett] = React.useState(0)
-
+  console.log (item)
   const fetchCpm = async () => {
-    const token = Cookies.get('token')
 
-    const response = await axios.get(
-      `${backendURL}/order/cpm/?advertiser=${onceOrder.advertiser.id}`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
+    const response = await axiosInstance.get(
+      `${backendURL}/order/cpm/?advertiser=${onceOrder.advertiser.id}`
     )
     setCpm(response.data.data)
   }
@@ -45,17 +37,17 @@ const PopoverEditView = ({
   } = useForm({
     defaultValues: {
       order: expandedRows,
-      channel: item.channel?.id,
-      format: item.format,
-      startdate: item.start_date ? item.start_date.substring(0, 10) : '',
-      enddate: item.end_date ? item.end_date.substring(0, 10) : '',
+      channel: item.original.channel?.id,
+      format: item.original.format,
+      startdate: item.original.start_date ? item.original.start_date.substring(0, 10) : '',
+      enddate: item.original.end_date ? item.original.end_date.substring(0, 10) : '',
       ordered_number_of_views: '',
       budget: budgett,
-      age_range: item.age_range,
-      content_language: item.content_language,
-      country: item.country,
-      notes_text: item.notes_text,
-      notes_url: item.notes_url,
+      age_range: item.original.age_range,
+      content_language: item.original.content_language,
+      country: item.original.country,
+      notes_text: item.original.notes_text,
+      notes_url: item.original.notes_url,
     },
     mode: 'onChange',
   })
@@ -105,7 +97,7 @@ const PopoverEditView = ({
     }
     try {
       const response = await axios.patch(
-        `${backendURL}/order/assignments/${item.id}/`,
+        `${backendURL}/order/assignments/${item.original.id}/`,
         requestData,
         {
           headers: {
@@ -209,7 +201,7 @@ const PopoverEditView = ({
           isValid
             ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
             : 'bg-[#616161]'
-        } w-full   h-[44px] text-white rounded-lg	mt-6`}
+        } w-full   h-[44px] text-white rounded-2xl	mt-6`}
         disabled={!isValid}
         isValid={true}
       >

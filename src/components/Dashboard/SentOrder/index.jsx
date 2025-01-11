@@ -7,8 +7,27 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs.jsx'
+import {useReceived} from "@/components/Dashboard/SentOrder/receivedOrders/useReceived.jsx";
 
 function SentOrder() {
+
+
+
+
+  const {
+    table, // Экземпляр таблицы
+    globalFilter,
+    setGlobalFilter,
+    flexRender,
+    pagination,
+    renderSubComponent
+
+  } = useReceived();
+
+
+
+
+
   return (
     <>
       <Tabs defaultValue="sent">
@@ -33,7 +52,13 @@ function SentOrder() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="sent">
-          <ReceivedOrders />
+          <ReceivedOrders
+            table={table}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          flexRender={flexRender}
+          pagination={pagination}
+          renderSubComponent={renderSubComponent}/>
         </TabsContent>
         <TabsContent value="complited">
           <CompletedOrder />

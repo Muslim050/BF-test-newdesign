@@ -1,48 +1,43 @@
 import style from '@/components/Dashboard/Order/OpenOrder/BindingOrderModal.module.scss'
 import React from 'react'
-import AddSentPublisherRows from './components/AddSentPublisherRows.jsx'
-import AddSentPublisherData from './components/AddSentPublisherData.jsx'
-import { useDispatch, useSelector } from 'react-redux'
 import AddSendPublisherModal from './modal/AddSendPublisherModal'
-import { fetchOnceListSentToPublisher } from '@/redux/order/SentToPublisher.js'
-import { Table, TableBody, TableHeader, TableRow } from '@/components/ui/table'
-import { ThemeContext } from '@/utils/ThemeContext.jsx'
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table'
 import { Button } from '@/components/ui/button.jsx'
-import { Plus } from 'lucide-react'
+import {ChevronDown, ChevronsUpDown, ChevronUp, Plus} from 'lucide-react'
 import { X } from 'lucide-react'
-import InfoCartSentPublisher from './components/InfoCartSentPublisher.jsx'
+import EditSendPublisherModal
+  from "@/components/Dashboard/Order/OpenOrder/AddSentPublisher/modal/EditSendPublisherModal/index.jsx";
+import {ThemeContext} from "@/utils/ThemeContext.jsx";
+import Pagination from "@/components/module/Pagination/index.jsx";
+import InfoCartSentPublisher from "@/components/Dashboard/Order/OpenOrder/AddSentPublisher/InfoCartSentPublisher.jsx";
 
-export default function AddSentPublisher({ expandedRows, onceOrder }) {
+export default function AddSentPublisher({ expandedRows, onceOrder, table, flexRender, currentOrder, setCurrentOrder, pagination, listsentPublisherWithIndex }) {
   const { textColor } = React.useContext(ThemeContext)
-  const dispatch = useDispatch()
-  const { listsentPublisher } = useSelector((state) => state.sentToPublisher)
-  const [viewNote, setViewNote] = React.useState(false)
-  React.useEffect(() => {
-    dispatch(fetchOnceListSentToPublisher({ expandedRows }))
-  }, [])
-  const [totalOnlineView, setTotalOnlineView] = React.useState(0)
 
+  const [viewNote, setViewNote] = React.useState(false)
+
+  const [totalOnlineView, setTotalOnlineView] = React.useState(0)
   React.useEffect(() => {
-    const total = listsentPublisher.reduce(
+    const total = listsentPublisherWithIndex.reduce(
       (acc, advert) => acc + (advert?.online_views || 0),
       0,
     )
     setTotalOnlineView(total)
-  }, [listsentPublisher])
+  }, [listsentPublisherWithIndex])
 
   return (
-    <div className={` rounded-[22px] p-2  `}>
+    <div className={` rounded-[22px] p-2  relative`}>
       {/*Добавление новой записи*/}
 
       {/* кнопка крестик чтобы закрыть создание записи */}
       {viewNote ? (
-        <div className="flex justify-end absolute top-3 right-3">
+        <div className="flex justify-end">
           <Button
             variant="outline"
             onClick={() => setViewNote(false)}
             className=" px-1 h-[30px] group rounded-lg  gap-2 hover:bg-red-300"
           >
-            <X className="hover:text-red-600  transform group-hover:scale-125 transition-transform" />
+            <X className="hover:text-red-600   transform group-hover:scale-125 transition-transform" />
           </Button>
         </div>
       ) : null}
@@ -79,7 +74,6 @@ export default function AddSentPublisher({ expandedRows, onceOrder }) {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              padding: '10px',
             }}
           >
             <Button
@@ -98,39 +92,114 @@ export default function AddSentPublisher({ expandedRows, onceOrder }) {
       {/*Добавление новой записи*/}
 
       {/*Данные */}
-      {listsentPublisher.length > 0 ? (
-        <div className={` rounded-[22px] p-[3px]  glass-background`}>
-          <Table
-            className={`${style.responsive_table}  rounded-lg overflow-auto`}
-          >
-            <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-              <AddSentPublisherRows />
-            </TableHeader>
-            <TableBody>
-              <AddSentPublisherData
-                listsentPublisher={listsentPublisher}
-                expandedRows={expandedRows}
-                onceOrder={onceOrder}
-              />
-            </TableBody>
-          </Table>
 
-          {listsentPublisher.length > 0 ? (
-            <InfoCartSentPublisher
-              totalOnlineView={totalOnlineView}
-              onceOrder={onceOrder}
-            />
-          ) : null}
+      <div
+        className="border_container rounded-[22px] mt-3 p-[3px] glass-background flex flex-col h-full max-h-screen">
+        <div className="overflow-y-auto sm:max-h-[calc(100vh-200px)] max-h-[calc(100vh-250px)] flex-1">
+        <Table className={`${style.responsive_table} border_design rounded-lg `}>
+          <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg justify-between">
+            {table.getHeaderGroups ().map (headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map (header => {
+                  return (
+                    <TableHead key={header.id} colSpan={header.colSpan}
+                               className={`text-${textColor} ${header.column.getIsSorted () ? 'underline ' : ''}`}>
+                      {header.isPlaceholder ? null : (
+                        <div className='flex flex-col justify-center h-full py-2'>
+                          {
+                            header.column.id === 'edit' ? null :
+                              <div
+                                className={`flex items-center ${
+                                  header.column.getCanSort () ? 'cursor-pointer select-none' : ''
+                                }`}
+                                onClick={header.column.getToggleSortingHandler ()}
+                              >
+                                {flexRender (
+                                  header.column.columnDef.header,
+                                  header.getContext ()
+                                )}
+                                <span className="ml-2">
+                                {{
+                                  asc: <ChevronUp className='size-4'/>, // Сортировка по возрастанию
+                                  desc: <ChevronDown className='size-4'/>, // Сортировка по убыванию
+                                }[header.column.getIsSorted ()] ?? (
+                                  <ChevronsUpDown className='size-4'/>
+                                )}
+                              </span>
+                              </div>
+                          }
+
+                        </div>
+                      )}
+                    </TableHead>
+                  )
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+
+            <>
+              {table.getRowModel ().rows.length > 0 &&
+                <TableBody>
+                  {table.getRowModel ().rows.map (row => {
+                    const isEditing = currentOrder?.id === row.original.id;
+
+                    return (
+                      <>
+                        {isEditing ? (
+                          <TableRow key={row.id}>
+                            <TableCell colSpan={row.getVisibleCells().length}>
+                              <EditSendPublisherModal
+                                item={currentOrder}
+                                expandedRows={expandedRows}
+                                setCurrentOrder={setCurrentOrder}
+                                onCancel={() => setCurrentOrder(null)}
+                                onSave={(updatedData) => {
+                                  setCurrentOrder(null);
+                                  // Обновите данные таблицы при необходимости
+                                }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ) : (
+                          <TableRow key={row.id} >
+                            {row.getVisibleCells().map((cell) => (
+                              <TableCell
+                                className={`font-normal text-${textColor} text-sm`}
+                                key={cell.id}
+                                data-label={cell.column.id}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        )}
+                      </>
+                    );
+                  })}
+                </TableBody>
+              }
+            </>
+
+
+        </Table>
+          {
+            table.getPageCount() > 1 &&
+            <Pagination table={table} pagination={pagination}/>}
+          <InfoCartSentPublisher
+          totalOnlineView={totalOnlineView}
+          onceOrder={onceOrder}
+        />
+        {
+          table.getRowModel ().rows.length === 0 &&
+          <div className='flex justify-center items-center h-full py-10'>
+            <div>По данному фильтру ничего не найдено!</div>
+          </div>
+        }
         </div>
-      ) : (
-        <div
-          style={{ fontSize: '15px', color: 'gray' }}
-          className={style['no-records']}
-        >
-          Нет записей, Добавьте размещение
-        </div>
-      )}
-      {/*Данные */}
+
+      </div>
+
     </div>
   )
 }

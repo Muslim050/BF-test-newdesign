@@ -20,6 +20,10 @@ import {
 import { PackagePlus } from 'lucide-react'
 import { hasRole } from '../../../../utils/roleUtils'
 import Cookies from 'js-cookie'
+import TablePagination from "@/components/module/TablePagination/index.jsx";
+import Pagination from "@/components/module/Pagination/index.jsx";
+import {useOrder} from "@/components/Dashboard/Order/OrderTable/useOrder.jsx";
+import {useOpenTableSentOrder} from "@/components/Dashboard/SentOrder/OpenTableSentOrder/useOpenTableSentOrder.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -50,6 +54,13 @@ function OpenTableSentOrder({ item }) {
   const dispatch = useDispatch()
   const [loading, setLoading] = React.useState(true)
   const data = useSelector((state) => state.inventory.inventory)
+
+  const {
+    table, // Экземпляр таблицы
+    flexRender,
+    pagination,
+
+  } = useOpenTableSentOrder();
 
   React.useEffect(() => {
     dispatch(fetchInventory({ orderAssignmentId: item.id })).then(() =>
@@ -110,39 +121,15 @@ function OpenTableSentOrder({ item }) {
           ) : null}
           {/*<div className="p-3 rounded-xl	border_container bg-white bg-opacity-30 backdrop-blur-md">*/}
 
-          {data && data.length ? (
-            <Table
-              style={{ background: ' var(--bg-color)' }}
-              className={`${style.responsive_table} border_design rounded-lg overflow-auto `}
-            >
-              <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                <TableRow>
-                  {headers.map((row) => {
-                    const user = Cookies.get('role')
-                    const showStatusColumn = user !== 'admin'
-                    if (row.key === 'is_connected' && !showStatusColumn) {
-                      return null
-                    }
-                    if (data.status === 'open') {
-                      headers.push({ key: 'status', label: 'Действия' })
-                    }
-                    return (
-                      <TableHead key={row.key} className={`text-${textColor} `}>
-                        {row.label}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <OpenTableSentOrderData data={data} />
-              </TableBody>
-            </Table>
-          ) : (
-            <div className="text-white flex justify-center">
-              Список пуст. Создайте размещение!
+          <>
+            <div
+              className="border_container rounded-[22px] mt-3 p-[3px] glass-background flex flex-col h-full max-h-screen">
+              <div className="overflow-y-auto sm:max-h-[calc(100vh-200px)] max-h-[calc(100vh-250px)] flex-1">
+                <TablePagination table={table} flexRender={flexRender}/>
+              </div>
             </div>
-          )}
+            <Pagination table={table} pagination={pagination}/>
+          </>
           {/*</div>*/}
         </>
       )}

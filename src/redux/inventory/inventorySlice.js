@@ -5,66 +5,56 @@ import Cookies from 'js-cookie'
 import backendURL from '@/utils/url'
 import { toastConfig } from '../../utils/toastConfig.js'
 import toast from 'react-hot-toast'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   inventory: [],
   status: '',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
   сomplitedInventories: [],
   сonfirmedInventories: [],
 }
 
 export const fetchInventory = createAsyncThunk(
   'inventory/fetchInventory',
-  async ({ id, format, status, orderAssignmentId }) => {
-    const token = Cookies.get('token')
-    let url = new URL(`${backendURL}/inventory/`)
-    const params = new URLSearchParams()
-    if (id) {
-      params.append('channel_id', id)
-    }
-    if (format) {
-      params.append('inventory_format', format)
-    }
-    if (status) {
-      params.append('status', status)
-    }
-    if (orderAssignmentId) {
-      params.append('order_assignment_id', orderAssignmentId)
-    }
-
-    url.search = params.toString()
-
+  async (
+    {
+      id,
+      format,
+      status,
+      orderAssignmentId,
+      page = 1,
+      pageSize = 15,
+    } = {},
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axios.get(url.href, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      // Создаем URL и добавляем параметры
+      const url = new URL(`${backendURL}/inventory/`);
+      const params = new URLSearchParams();
 
-      return response.data.data
+      params.append('page', page);
+      params.append('page_size', pageSize);
+
+      if (id) params.append('channel_id', id);
+      if (format) params.append('inventory_format', format);
+      if (status) params.append('status', status);
+      if (orderAssignmentId) params.append('order_assignment_id', orderAssignmentId);
+
+      url.search = params.toString();
+
+      // Делаем запрос
+      const response = await axiosInstance.get(url.href);
+
+      // Возвращаем данные
+      return response.data.data;
     } catch (error) {
-      if (error.response) {
-        if (error.response.status === 401) {
-          window.location.href = 'login'
-        }
-        if (error.response.data && error.response.data.error) {
-          const errorMessage = error.response.data.error
-          if (errorMessage.detail) {
-            toast.error(errorMessage.detail) // Отображение деталей ошибки с помощью toast
-          }
-        } else {
-          toast.error('Ошибка при загрузке') // Общее сообщение об ошибке, если детали не доступны
-        }
-      } else {
-        toast.error('Network error') // Сообщение об ошибке при сетевой проблеме
-      }
-      throw error
+      return rejectWithValue(error.response?.data || { message: 'Failed to fetch inventory' });
     }
-  },
-)
+  }
+);
+
 
 export const addInventory = createAsyncThunk(
   'inventory/addInventory',
@@ -224,6 +214,8 @@ const inventorySlice = createSlice({
       .addCase(fetchInventory.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.inventory = action.payload
+        state.total_count = action.payload.count; // Обновляем общее количество
+        console.log (action)
       })
       .addCase(fetchInventory.rejected, (state, action) => {
         state.status = 'failed'

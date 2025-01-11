@@ -3,29 +3,21 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import backendURL from '@/utils/url'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   advertiserAgency: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
 }
 
 export const fetchAdvertiserAgency = createAsyncThunk(
   'advertiserAgency/fetchAdvertiserAgency',
   async (_, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.get(
-        `${backendURL}/advertiser/advertising-agency/`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      const url = `${backendURL}/advertiser/advertising-agency/`
+      const response = await axiosInstance.get(url)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -35,23 +27,15 @@ export const fetchAdvertiserAgency = createAsyncThunk(
 export const addAdvertiserAgency = createAsyncThunk(
   'advertiserAgency/addAdvertiserAgency',
   async ({ data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/advertiser/advertising-agency/`,
         {
           name: data.name,
           email: data.email,
           phone_number: data.phone,
           commission_rate: data.commission_rate,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
       return response.data.data
     } catch (error) {
@@ -63,24 +47,15 @@ export const addAdvertiserAgency = createAsyncThunk(
 export const editAdvertiserAgency = createAsyncThunk(
   'advertiserAgency/editAdvertiserAgency',
   async ({ id, data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.patch(
+      const response = await axiosInstance.patch(
         `${backendURL}/advertiser/advertising-agency/${id}/`,
         {
           name: data.name,
           email: data.email,
           phone_number: data.phone,
           commission_rate: data.commission_rate,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
       return response.data.data
     } catch (error) {
@@ -100,6 +75,8 @@ const advertiserAgencySlice = createSlice({
       .addCase(fetchAdvertiserAgency.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.advertiserAgency = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchAdvertiserAgency.rejected, (state, action) => {
         state.status = 'failed'

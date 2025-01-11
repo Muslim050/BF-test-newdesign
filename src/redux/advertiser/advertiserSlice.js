@@ -1,30 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
 import backendURL from '@/utils/url'
-import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   advertisers: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
+
 }
 
 export const fetchAdvertiser = createAsyncThunk(
   'advertiser/fetchAdvertiser',
-  async ({ id } = {}, { rejectWithValue }) => {
-    // Указываем, что параметр может быть не предоставлен
-    const token = Cookies.get('token')
+  async ({ id = null, page = null, pageSize = null } = {}, { rejectWithValue }) => {
     try {
-      const url = id
-        ? `${backendURL}/advertiser/?channel_id=${id}`
-        : `${backendURL}/advertiser/`
-      const response = await axios.get(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const params = {
+        ...(id && { channel_id: id }),
+        ...(page && { page }),
+        ...(pageSize && { page_size: pageSize }),
+      };
+      const response = await axiosInstance.get('/advertiser/', {params})
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -35,10 +30,8 @@ export const fetchAdvertiser = createAsyncThunk(
 export const addAdvertiser = createAsyncThunk(
   'advertiser/addAdvertiser',
   async ({ data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/advertiser/`,
         {
           advertising_agency: data.agency,
@@ -51,14 +44,7 @@ export const addAdvertiser = createAsyncThunk(
           cpm_tv_preroll_uz: data.cpm_tv_preroll_uz,
           cpm_top_preroll: data.cpm_top_preroll,
           cpm_top_preroll_uz: data.cpm_top_preroll_uz,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        }
       )
       return response.data.data
     } catch (error) {
@@ -70,20 +56,8 @@ export const addAdvertiser = createAsyncThunk(
 export const removeAdvertiser = createAsyncThunk(
   'advertiser/removeAdvertiser',
   async ({ data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.delete(
-        `${backendURL}/advertiser/${data.id}`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      const response = await axiosInstance.delete(`${backendURL}/advertiser/${data.id}`)
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -94,10 +68,8 @@ export const removeAdvertiser = createAsyncThunk(
 export const editAdvertiser = createAsyncThunk(
   'advertiser/editAdvertiser',
   async ({ id, data }, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
     try {
-      const response = await axios.patch(
+      const response = await axiosInstance.patch(
         `${backendURL}/advertiser/${id}/`,
         {
           name: data.name,
@@ -109,15 +81,7 @@ export const editAdvertiser = createAsyncThunk(
           cpm_top_preroll_uz: data.cpm_top_preroll_uz,
           cpm_tv_preroll: data.cpm_tv_preroll,
           cpm_tv_preroll_uz: data.cpm_tv_preroll_uz,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+        })
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -137,6 +101,8 @@ const advertiserSlice = createSlice({
       .addCase(fetchAdvertiser.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.advertisers = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
+
       })
       .addCase(fetchAdvertiser.rejected, (state, action) => {
         state.status = 'failed'

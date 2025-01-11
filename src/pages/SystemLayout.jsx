@@ -44,7 +44,7 @@ const SystemLayout = () => {
           minSize={30}
           className="sm:pl-[20px] pl-0 h-screen space-y-4 overflow-hidden"
         >
-          <div className="h-full flex flex-col">
+          <div className="h-full flex flex-col ">
 
             <div
               className="border_container glass-background border_design flex justify-between items-center px-4 py-2 ">
@@ -82,7 +82,7 @@ const SystemLayout = () => {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 h-full">
               <Outlet/>
             </div>
           </div>

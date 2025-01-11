@@ -157,6 +157,88 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               </div>
             </div>
 
+
+            <div className=" flex gap-4 pb-4">
+              {/**/}
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-1 flex gap-1 items-center">
+                  <MonitorPlay/> TV Preroll<span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="cpm_tv_preroll"
+                  control={control}
+                  rules={{required: 'Поле обязательно к заполнению'}}
+                  defaultValue=""
+                  render={({
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
+                    <Input
+                      type="text"
+                      value={value?.toLocaleString ('en-US')}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
+                      }}
+                      onBlur={onBlur}
+                      name={name}
+                      ref={ref}
+                      autoComplete="off"
+                      step="1000"
+                      className={`border ${
+                        errors?.cpm_preroll_uz
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }  transition-all duration-300 text-sm text-[#CECECE]`}
+                      placeholder={'Введите target preroll'}
+                    />
+                  )}
+                />
+              </div>
+              {/**/}
+
+              {/**/}
+              <div className="grid w-full">
+                <Label className="text-sm	text-white pb-2 flex items-center gap-1">
+                  <MonitorPlay/> TV Preroll <div
+                  className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
+                  uz
+                </div><span className="text-red-500 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="cpm_tv_preroll_uz"
+                  control={control}
+                  rules={{required: 'Поле обязательно к заполнению'}}
+                  defaultValue=""
+                  render={({
+                             field: {onChange, onBlur, value, name, ref},
+                           }) => (
+                    <Input
+                      type="text"
+                      value={value?.toLocaleString ('en-US')}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace (/\D/g, '')
+                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
+                        onChange (newValue)
+                      }}
+                      onBlur={onBlur}
+                      name={name}
+                      ref={ref}
+                      autoComplete="off"
+                      step="1000"
+                      className={`border ${
+                        errors?.cpm_mixroll_uz
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }   transition-all duration-300 text-sm text-[#CECECE]`}
+                      placeholder={'Введите target mixroll'}
+                    />
+                  )}
+                />
+              </div>
+              {/**/}
+            </div>
+
             <div className="pb-4 flex gap-4">
               {/**/}
               <div className="grid w-full">
@@ -199,7 +281,8 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               {/**/}
               <div className="grid w-full">
                 <Label className="text-sm	text-white pb-2 flex items-center gap-1">
-                  <MonitorUp/> Top Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
+                  <MonitorUp/> Top Preroll <div
+                  className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
                   uz
                 </div><span className="text-red-500 ml-0.5">*</span>
                 </Label>
@@ -236,96 +319,13 @@ export default function EditAdvModal({ onClose, currentAdvertiser, fetchCpm }) {
               </div>
               {/**/}
             </div>
-
-
-            <div className=" flex gap-4">
-              {/**/}
-              <div className="grid w-full">
-                <Label className="text-sm	text-white pb-1 flex gap-1 items-center">
-                  <MonitorPlay/> TV Preroll<span className="text-red-500 ml-0.5">*</span>
-                </Label>
-                <Controller
-                  name="cpm_tv_preroll"
-                  control={control}
-                  rules={{required: 'Поле обязательно к заполнению'}}
-                  defaultValue=""
-                  render={({
-                             field: {onChange, onBlur, value, name, ref},
-                           }) => (
-                    <Input
-                      type="text"
-                      value={value?.toLocaleString ('en-US')}
-                      onChange={(e) => {
-                        const rawValue = e.target.value.replace (/\D/g, '')
-                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
-                        onChange (newValue)
-                      }}
-                      onBlur={onBlur}
-                      name={name}
-                      ref={ref}
-                      autoComplete="off"
-                      step="1000"
-                      className={`border ${
-                        errors?.cpm_preroll_uz
-                          ? 'border-red-500'
-                          : 'border-gray-300'
-                      }  transition-all duration-300 text-sm text-[#CECECE]`}
-                      placeholder={'Введите target preroll'}
-                    />
-                  )}
-                />
-              </div>
-              {/**/}
-
-              {/**/}
-              <div className="grid w-full">
-                <Label className="text-sm	text-white pb-2 flex items-center gap-1">
-                  <MonitorPlay/> TV Preroll <div className="rounded-[6px] px-1 pb-0 h-auto text-[15px] bg-[#606afc] inline">
-                  uz
-                </div><span className="text-red-500 ml-0.5">*</span>
-                </Label>
-                <Controller
-                  name="cpm_tv_preroll_uz"
-                  control={control}
-                  rules={{required: 'Поле обязательно к заполнению'}}
-                  defaultValue=""
-                  render={({
-                             field: {onChange, onBlur, value, name, ref},
-                           }) => (
-                    <Input
-                      type="text"
-                      value={value?.toLocaleString ('en-US')}
-                      onChange={(e) => {
-                        const rawValue = e.target.value.replace (/\D/g, '')
-                        const newValue = rawValue ? parseInt (rawValue, 10) : ''
-                        onChange (newValue)
-                      }}
-                      onBlur={onBlur}
-                      name={name}
-                      ref={ref}
-                      autoComplete="off"
-                      step="1000"
-                      className={`border ${
-                        errors?.cpm_mixroll_uz
-                          ? 'border-red-500'
-                          : 'border-gray-300'
-                      }   transition-all duration-300 text-sm text-[#CECECE]`}
-                      placeholder={'Введите target mixroll'}
-                    />
-                  )}
-                />
-              </div>
-              {/**/}
-            </div>
-
-
             <div>
               <Button
                 className={`${
                   isValid
                     ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
                     : 'bg-[#616161]'
-                } w-full   h-[44px] text-white rounded-2xl	mt-8`}
+                } w-full   h-[44px] text-white rounded-2xl	mt-4`}
                 disabled={!isValid || isEditingCreated}
               >
                 Сохранить

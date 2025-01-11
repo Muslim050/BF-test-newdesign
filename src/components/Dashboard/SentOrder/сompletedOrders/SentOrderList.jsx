@@ -33,7 +33,7 @@ function SentOrderList({ listsentPublisher }) {
       {/*    </ModalUI>*/}
       {/*  )}*/}
       {/*</AnimatePresence>*/}
-      {listsentPublisher.map((item, i) => (
+      {listsentPublisher.results.map((item, i) => (
         <>
           <TableRow>
             <TableCell

@@ -7,9 +7,9 @@ import {
   SelectItem,
   SelectValue,
 } from '@/components/ui/select.jsx'
-import { FormatSvg, TvSvg } from '@/assets/icons-ui.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import {Tv, FileCog} from "lucide-react";
 
 const formatV = [
   { value: 'preroll', text: 'Pre-roll' },
@@ -33,12 +33,12 @@ function Filter({
           onValueChange={handleSelectChange}
           value={selectedOptionChannel}
         >
-          <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+          <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl">
             <div
               className="text-xs flex gap-2 "
               style={{ color: 'var(--text-color )' }}
             >
-              <TvSvg /> Канал
+              <Tv className='size-4'/> Канал
             </div>
             <SelectTrigger
               className="rounded-none border-0 p-0 h-auto pl-[25px] "
@@ -65,12 +65,12 @@ function Filter({
 
         {/*Выбрать формат*/}
         <Select onValueChange={handleSelectFormat} value={selectedFormat}>
-          <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-md">
+          <div className="bg-white bg-opacity-30 backdrop-blur-md px-2 py-2 h-[50px] rounded-2xl">
             <div
               className="text-xs flex gap-2 "
               style={{ color: 'var(--text-color )' }}
             >
-              <FormatSvg style={{ color: 'var(--text-color )' }} /> Формат
+              <FileCog className='size-4' style={{ color: 'var(--text-color )' }} /> Формат
             </div>
             <SelectTrigger
               className="rounded-none border-0 p-0 h-auto pl-[25px] "
@@ -98,7 +98,7 @@ function Filter({
         {(selectedChannel || selectedFormat) && (
           <Button
             variant="ghost"
-            className="bg-brandPrimary-1 rounded-lg hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
+            className="bg-brandPrimary-1 rounded-2xl hover:bg-brandPrimary-50 text-white no-underline hover:text-white h-[44px] w-full"
             onClick={handleSearch}
           >
             Поиск

@@ -2,30 +2,27 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import backendURL from '@/utils/url'
 import Cookies from 'js-cookie'
+import axiosInstance from "@/api/api.js";
 
 const initialState = {
   videos: [],
   status: 'idle',
   error: null,
+  total_count: 0, // Изначально общее количество равно 0
 }
 
 export const fetchVideos = createAsyncThunk(
   'videos/fetchVideos',
-  async (_, { rejectWithValue }) => {
-    const token = Cookies.get('token')
-
+  async ({ page = null, pageSize = null } = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${backendURL}/inventory/video/`,
+      const url = new URL(`${backendURL}/inventory/video/`);
+      const params = new URLSearchParams();
 
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      if (page) params.append('page', page);
+      if (pageSize) params.append('page_size', pageSize);
+
+      url.search = params.toString();
+      const response = await axiosInstance.get(url.href);
       return response.data.data
     } catch (error) {
       return rejectWithValue(error.response)
@@ -153,6 +150,7 @@ const videoSlice = createSlice({
       .addCase(fetchVideos.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.videos = action.payload
+        state.total_count = action.payload?.count; // Обновляем общее количество
       })
       .addCase(fetchVideos.rejected, (state, action) => {
         state.status = 'failed'

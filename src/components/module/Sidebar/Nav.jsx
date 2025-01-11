@@ -96,18 +96,18 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
     const fetchData = async () => {
       if (user === 'admin') {
         await fetchfilteredOrders({ status: 'sent' });
-        dispatch(fetchInventory({ status: 'open' }));
-        dispatch(fetchChannel());
-        dispatch(fetchVideos())
+        // dispatch(fetchInventory({ status: 'open' }));
+        // dispatch(fetchChannel());
+        // dispatch(fetchVideos())
       }
 
       if (user === 'advertiser' || user === 'advertising_agency') {
-        dispatch(fetchOrder());
+        // dispatch(fetchOrder());
       }
 
       if (['publisher', 'channel'].includes(user)) {
-        dispatch(fetchChannel());
-        dispatch(fetchVideos());
+        // dispatch(fetchChannel());
+        // dispatch(fetchVideos());
         // dispatch(fetchOnceListSentToPublisher({ is_deactivated: false }))
 
       }
@@ -119,22 +119,36 @@ const Nav = ({ links, isCollapsed, handleLogout }) => {
 
 
   //Заказы
-  const filteredOrdersAdvertiser = order.filter(
-    (i) => i.status === 'accepted' || i.status === 'in_progress',
-  )
-  const filteredComplitedI = сomplitedInventories.filter((i) => i.removal_date === null,)
-  const filteredConfirmedI = сonfirmedInventories.filter((i) => i)
+  // const filteredOrdersAdvertiser = order?.filter(
+  //   (i) => i.status === 'accepted' || i.status === 'in_progress',
+  // ) || []
+  const filteredOrdersAdvertiser = order?.filter || []
+  const filteredComplitedI = сomplitedInventories.filter((i) => i.removal_date === null) || []
+  const filteredConfirmedI = сonfirmedInventories.filter((i) => i) || []
   //Заказы
 
   //Каналы
-  const filteredChannel = channel.filter((i) => i.is_connected === false)
-  const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
-  const filtredSentPublisher = listsentPublisher.filter((i) => i.order_status === 'in_review')
-  const countInventoryCount = listsentPublisher.some(item => item.inventory_count === 0);
+
+  // const filteredChannel = channel.filter((i) => i.is_connected === false) || []
+  const filteredChannel = channel.filter || []
+  // const filteredChannelIsActive = channel.filter((i) => i.is_active === false)
+    const filteredChannelIsActive = channel.filter || []
+
+
+  // const filtredSentPublisher = listsentPublisher.filter((i) => i.order_status === 'in_review') || []
+  const filtredSentPublisher = listsentPublisher.filter || []
+
+  // const countInventoryCount = listsentPublisher.some(item => item.inventory_count === 0) || []
+  const countInventoryCount = listsentPublisher.some || []
+
   //Каналы
-  const finishedOrder = (listsentPublisher.map((i) => i.order_status === 'finished'))
+  // const finishedOrder = (listsentPublisher.map((i) => i.order_status === 'finished')) || []
+  const finishedOrder = listsentPublisher.map || []
+
   //Видео
-  const filteredVideo = videos.filter((i) => i.link_to_video === null)
+  // const filteredVideo = videos && videos?.filter((i) => i.link_to_video === null) || []
+  const filteredVideo = videos && videos?.filter || []
+
   //Видео
   const updateMenuItems = (items) => {
     return items.map(item => {

@@ -13,6 +13,8 @@ import {
 import { ThemeContext } from '@/utils/ThemeContext.jsx'
 import Cookies from 'js-cookie'
 import PreLoadDashboard from "@/components/Dashboard/PreLoadDashboard/PreLoad.jsx";
+import TablePagination from "@/components/module/TablePagination/index.jsx";
+import Pagination from "@/components/module/Pagination/index.jsx";
 
 const headers = [
   { key: 'id', label: '№' },
@@ -30,16 +32,19 @@ const headers = [
   { key: 'category', label: 'Статус' },
   { key: 'category', label: 'Действия' },
 ]
-const ReceivedOrders = () => {
+const ReceivedOrders = ({table, pagination, flexRender, renderSubComponent}) => {
   const { textColor } = React.useContext(ThemeContext)
 
   const dispatch = useDispatch()
   const videos = useSelector((state) => state.video.videos)
   const [loading, setLoading] = React.useState(true)
-  const { listsentPublisher } = useSelector((state) => state.sentToPublisher)
 
   React.useEffect(() => {
-    dispatch(fetchOnceListSentToPublisher({ is_deactivated: false })).then(() =>
+    dispatch(fetchOnceListSentToPublisher({
+      is_deactivated: false,
+      page: pagination.pageIndex + 1, // API использует нумерацию с 1
+      pageSize: pagination.pageSize
+    })).then(() =>
       setLoading(false),
     )
   }, [dispatch])
@@ -51,41 +56,55 @@ const ReceivedOrders = () => {
         <PreLoadDashboard onComplete={() => setLoading(false)} loading={loading} text={'Загрузка заказов'} />
 
         ) : (
-        <div className="tableWrapper" style={{ overflow: 'visible' }}>
-          <div
-            // style={{ background: ' var(--bg-color)' }}
-            className="border_container w-full h-[calc(100vh-150px)]   rounded-[22px]  p-[3px] glass-background flex flex-col"          >
+        // <div className="tableWrapper" style={{ overflow: 'visible' }}>
+        //   <div
+        //     // style={{ background: ' var(--bg-color)' }}
+        //     className="border_container w-full h-[calc(100vh-150px)]   rounded-[22px]  p-[3px] glass-background flex flex-col"          >
+        //
+        //   <div className="h-full overflow-y-auto">
+        //       <Table
+        //         className={`${style.responsive_table} border_design rounded-lg h-full`}
+        //       >
+        //         <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
+        //           <TableRow>
+        //             {headers.map((row) => {
+        //               const user = Cookies.get('role')
+        //               const showStatusColumn = user !== 'admin'
+        //               if (row.key === 'is_connected' && !showStatusColumn) {
+        //                 return null
+        //               }
+        //               return (
+        //                 <TableHead
+        //                   key={row.key}
+        //                   className={`text-${textColor} `}
+        //                 >
+        //                   {row.label}
+        //                 </TableHead>
+        //               )
+        //             })}
+        //           </TableRow>
+        //         </TableHeader>
+        //         <TableBody>
+        //           <SentOrderList listsentPublisher={listsentPublisher} />
+        //         </TableBody>
+        //       </Table>
+        //     </div>
+        //   </div>
+        // </div>
+        //
 
-          <div className="h-full overflow-y-auto">
-              <Table
-                className={`${style.responsive_table} border_design rounded-lg h-full`}
-              >
-                <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg">
-                  <TableRow>
-                    {headers.map((row) => {
-                      const user = Cookies.get('role')
-                      const showStatusColumn = user !== 'admin'
-                      if (row.key === 'is_connected' && !showStatusColumn) {
-                        return null
-                      }
-                      return (
-                        <TableHead
-                          key={row.key}
-                          className={`text-${textColor} `}
-                        >
-                          {row.label}
-                        </TableHead>
-                      )
-                    })}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <SentOrderList listsentPublisher={listsentPublisher} />
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        </div>
+
+        <>
+        <div
+        className="border_container rounded-[22px] mt-3 p-[3px] glass-background flex flex-col h-full max-h-screen">
+        <div className="overflow-y-auto sm:max-h-[calc(100vh-200px)] max-h-[calc(100vh-250px)] flex-1">
+        <TablePagination table={table} flexRender={flexRender} renderSubComponent={renderSubComponent} />
+</div>
+</div>
+{
+  table.getPageCount() > 1 &&
+  <Pagination table={table} pagination={pagination}/>}
+</>
       )}
     </>
   )

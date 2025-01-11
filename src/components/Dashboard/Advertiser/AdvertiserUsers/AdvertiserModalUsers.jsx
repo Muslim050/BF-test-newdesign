@@ -1,15 +1,12 @@
-import axios from 'axios'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { toast } from 'react-hot-toast'
 import { Controller, useForm } from 'react-hook-form'
 import {
   addAdvertiserUsers,
   fetchAdvertiserUsers,
 } from '@/redux/advertiserUsers/advertiserUsersSlice.js'
-import backendURL from '@/utils/url.js'
 import MaskedInput from 'react-text-mask'
-
 import {
   DialogContent,
   DialogHeader,
@@ -28,35 +25,22 @@ import {
 } from '@/components/ui/select.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import Cookies from 'js-cookie'
+import {fetchAdvertiser} from "@/redux/advertiser/advertiserSlice.js";
 
 export default function AdvertiserModalUsers({ onClose }) {
   const dispatch = useDispatch()
   const [showPasswordOld, setShowPasswordOld] = React.useState(false)
   const [isLogin, setIsLogin] = React.useState(false)
-
-  const [advertiserModal, setAdvertiserModal] = React.useState([])
+  const { advertisers } = useSelector((state) => state.advertiser);
   const handleTogglePasswordOld = () => {
     setShowPasswordOld(!showPasswordOld)
   }
-  const fetchAdvertiser = async () => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/advertiser/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    setAdvertiserModal(response.data.data)
-  }
   React.useEffect(() => {
-    fetchAdvertiser()
-  }, [])
+    dispatch(fetchAdvertiser({
+      page: 1, // API использует нумерацию с 1
+      pageSize: 100,
+    }))
+  }, [dispatch])
 
   const {
     register,
@@ -79,7 +63,6 @@ export default function AdvertiserModalUsers({ onClose }) {
   const onSubmit = async (data) => {
     try {
       setIsLogin(true)
-
       const advertiser = await dispatch(addAdvertiserUsers({ data })).unwrap()
       toast.success('Пользователь рекламодателя успешно создан!')
       onClose()
@@ -291,7 +274,7 @@ export default function AdvertiserModalUsers({ onClose }) {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Выбрать рекламное агенство</SelectLabel>
-                          {advertiserModal.map((adv) => (
+                          {advertisers?.results.map((adv) => (
                             <SelectItem key={adv.id} value={adv.id.toString()}>
                               {adv.name}
                             </SelectItem>

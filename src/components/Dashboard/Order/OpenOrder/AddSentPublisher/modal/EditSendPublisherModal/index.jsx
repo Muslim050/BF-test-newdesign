@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
 import { Button } from '../../../../../../ui/button.jsx'
+import axiosInstance from "@/api/api.js";
 
 const format = [
   { value: 'preroll', text: 'Pre-roll', icon: Monitor },
@@ -42,7 +43,7 @@ const EditSendPublisherModal = ({
   const dispatch = useDispatch()
   const [channelModal, setChannelModal] = React.useState([])
   const { publisher } = useSelector((state) => state.publisher)
-
+  console.log (channelModal)
   const [publisherID, setPublisherID] = React.useState('')
   const [channelID, setChannelID] = React.useState('')
   const selectedPublisher = (value) => {
@@ -53,16 +54,8 @@ const EditSendPublisherModal = ({
   }
   const fetchChannel = async () => {
     if (!publisherID) return // Skip fetch if publisherID is not set
-    const token = Cookies.get('token')
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${backendURL}/publisher/channel/?publisher_id=${publisherID}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
     )
     setChannelModal(response.data.data)
   }
@@ -143,16 +136,8 @@ const EditSendPublisherModal = ({
       requestData.notes_url = data.notes_url
     }
     try {
-      const response = await axios.patch(
-        `${backendURL}/order/assignments/${item.id}/`,
-        requestData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
+      const response = await axiosInstance.patch(
+        `${backendURL}/order/assignments/${item.id}/`, requestData,
       )
 
       // Debug log to inspect response
@@ -175,18 +160,8 @@ const EditSendPublisherModal = ({
   }, [publisherID])
 
   const fetchCpm = async () => {
-    const token = Cookies.get('token')
-
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${backendURL}/order/cpm/?advertiser`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
     )
     setCpm(response.data.data)
   }
@@ -247,8 +222,8 @@ const EditSendPublisherModal = ({
           onChange={selectedPublisher}
         >
           <option value="">Выбрать Паблишера</option>
-          {publisher?.map((option, index) => (
-            <option key={index} value={option.id}>
+          {publisher?.map((option, index.jsx) => (
+            <option key={index.jsx} value={option.id}>
               {option.name}
             </option>
           ))}
@@ -273,7 +248,7 @@ const EditSendPublisherModal = ({
                   <SelectLabel>Выбрать паблишера</SelectLabel>
                   {/* Assuming you have a publisher array */}
 
-                  {publisher.map((pub) => (
+                  {publisher?.results?.map((pub) => (
                     <SelectItem key={pub.id} value={pub.id.toString()}>
                       {pub.name}
                     </SelectItem>
@@ -297,8 +272,8 @@ const EditSendPublisherModal = ({
         >
           <option value="">Выбрать канал</option>
           {Array.isArray(channelModal) ? (
-            channelModal.map((option, index) => (
-              <option key={index} value={option.id}>
+            channelModal.map((option, index.jsx) => (
+              <option key={index.jsx} value={option.id}>
                 {option.name}
               </option>
             ))
@@ -326,7 +301,7 @@ const EditSendPublisherModal = ({
                 <SelectGroup>
                   <SelectLabel>Выбрать канал</SelectLabel>
                   {/* Assuming you have a channelModal array */}
-                  {channelModal.map((option) => (
+                  {channelModal?.results?.map((option) => (
                     <SelectItem key={option.id} value={option.id.toString()}>
                       {option.name}
                     </SelectItem>
@@ -348,8 +323,8 @@ const EditSendPublisherModal = ({
       {/*  >*/}
       {/*    <option value="">Выбрать Формат</option>*/}
 
-      {/*    {format.map((option, index) => (*/}
-      {/*      <option key={index} value={option.value}>*/}
+      {/*    {format.map((option, index.jsx) => (*/}
+      {/*      <option key={index.jsx} value={option.value}>*/}
       {/*        {option.text}*/}
       {/*      </option>*/}
       {/*    ))}*/}
@@ -453,28 +428,6 @@ const EditSendPublisherModal = ({
               }}
               defaultValue=""
               render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                // <input
-                //   className={style.input}
-                //   type="text"
-                //   style={{
-                //     border: errors?.ordered_number_of_views
-                //       ? '1px solid red'
-                //       : '',
-                //   }}
-                //   value={value.toLocaleString('en-US')}
-                //   onChange={(e) => {
-                //     const rawValue = e.target.value.replace(/\D/g, '')
-                //     const newValue = rawValue ? parseInt(rawValue, 10) : ''
-                //     onChange(newValue)
-                //   }}
-                //   onBlur={onBlur}
-                //   name={name}
-                //   ref={ref}
-                //   placeholder="Количество показов"
-                //   autoComplete="off"
-                //   step="1000"
-                //   disabled={!selectedFormat}
-                // />
                 <Input
                   className={style.input}
                   type="text"
@@ -566,26 +519,22 @@ const EditSendPublisherModal = ({
         />
       </td>
 
-      <td className='flex'
-        style={{
-          padding: '0px 10px',
-          gap: '5px',
-        }}
-      >
+      <td style={{padding: '2px', paddingTop: '5px'}}>
+
         <Button
           variant="link"
           disabled={!isValid}
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit (onSubmit)}
           className="relative hover:scale-125 transition-all p-0"
         >
-          <ClipboardCheck className="hover:text-green-500 text-white" />
+          <ClipboardCheck className="hover:text-green-500 text-white"/>
         </Button>
         <Button
           variant="link"
-          onClick={() => setCurrentOrder(null)}
+          onClick={() => setCurrentOrder (null)}
           className="relative hover:scale-125 transition-all p-0"
         >
-          <X className="hover:text-red-500 text-red-400" />
+          <X className="hover:text-red-500 text-red-400"/>
         </Button>
       </td>
     </>

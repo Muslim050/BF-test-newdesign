@@ -1,13 +1,17 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import PublisherTable from '@/components/Dashboard/Publisher/PublihserUtilizer/PublisherTable.jsx'
-import PublisherTableUsers from '@/components/Dashboard/Publisher/PublisherUsers/PublisherTableUsers/PublisherTableUsers.jsx'
+import PublihserUtilizer from '@/components/Dashboard/Publisher/PublihserUtilizer/index.jsx'
 import React from 'react'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Plus } from 'lucide-react'
-import PublisherModalUsers from '@/components/Dashboard/Publisher/PublisherUsers/PublisherModalUsers/PublisherModalUsers.jsx'
 import PublisherModal from '@/components/Dashboard/Publisher/PublihserUtilizer/PublisherModal.jsx'
 import Cookies from 'js-cookie'
+import {usePublihserUtilizer} from "@/components/Dashboard/Publisher/PublihserUtilizer/usePublihserUtilizer.jsx";
+import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
+import {usePublihserUser} from "@/components/Dashboard/Publisher/PublisherUsers/usePublisherUser.jsx";
+import PublisherTableUsers from "@/components/Dashboard/Publisher/PublisherUsers/index.jsx";
+import PublisherModalUsers from "@/components/Dashboard/Publisher/PublisherUsers/PublisherModalUsers.jsx";
+
 
 const PublisherAndUsers = () => {
   const [selectedTab, setSelectedTab] = React.useState('pablisher')
@@ -26,6 +30,27 @@ const PublisherAndUsers = () => {
     setModalUser(false)
   }
   // Модальное окно ModalUser
+
+
+
+  const {
+    table, // Экземпляр таблицы
+    globalFilter,
+    setGlobalFilter,
+    flexRender,
+    pagination
+  } = usePublihserUtilizer();
+
+  const {
+    table: publisherUsersTable,
+    globalFilter: usersGlobalFilter,
+    setGlobalFilter: setUsersGlobalFilter,
+    flexRender: flexRenderUsers,
+    pagination: paginationUsers
+  } = usePublihserUser();
+
+
+
   return (
     <div className="mb-4 mt-2">
       <Tabs defaultValue="pablisher">
@@ -60,6 +85,16 @@ const PublisherAndUsers = () => {
               {user === 'publisher' ? (
                 ''
               ) : (
+                <div className="flex justify-end ">
+
+                <div className='flex flex-wrap gap-2'>
+                  <div>
+                    <TableSearchInput
+                      value={globalFilter ?? ''}
+                      onChange={value => setGlobalFilter (String (value))}
+                      className={`p-2 font-lg shadow border border-block `}
+                    />
+                  </div>
                 <Dialog open={modalUtilizer} onOpenChange={setModalUtilizer}>
                   <DialogTrigger asChild>
                     <Button
@@ -73,12 +108,22 @@ const PublisherAndUsers = () => {
                     <PublisherModal onClose={handleCloseModalUtilizer} />
                   )}
                 </Dialog>
+                </div>
+                </div>
               )}
             </div>
           )}
 
           {selectedTab === 'pablisher-users' && (
             <div className="flex justify-end ">
+              <div className='flex flex-wrap gap-2'>
+                <div>
+                  <TableSearchInput
+                    value={usersGlobalFilter ?? ''}
+                    onChange={value => setUsersGlobalFilter (String (value))}
+                    className={`p-2 font-lg shadow border border-block `}
+                  />
+                </div>
               <Dialog open={modalUser} onOpenChange={setModalUser}>
                 <DialogTrigger asChild>
                   <Button
@@ -93,15 +138,18 @@ const PublisherAndUsers = () => {
                   <PublisherModalUsers onClose={handleCloseModalUser} />
                 )}
               </Dialog>
+              </div>
             </div>
           )}
         </div>
 
         <TabsContent value="pablisher">
-          <PublisherTable />
+          <PublihserUtilizer table={table} flexRender={flexRender} pagination={pagination}/>
         </TabsContent>
         <TabsContent value="pablisher-users">
-          <PublisherTableUsers />
+          <PublisherTableUsers flexRender={flexRenderUsers}
+                 table={publisherUsersTable}
+                 pagination={paginationUsers}/>
         </TabsContent>
       </Tabs>
     </div>

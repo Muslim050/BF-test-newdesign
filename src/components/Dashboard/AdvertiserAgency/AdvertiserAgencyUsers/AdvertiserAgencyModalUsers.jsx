@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 
@@ -30,30 +30,33 @@ import {
 } from '@/components/ui/select.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
+import {fetchAdvertiserAgency} from "@/redux/AgencySlice/advertiserAgency/advertiserAgencySlice.js";
 
 export default function AdvertiserAgencyModalUsers({ onClose }) {
   const dispatch = useDispatch()
-  const [agency, setAgency] = React.useState([])
+  // const [agency, setAgency] = React.useState([])
   const [showPasswordOld, setShowPasswordOld] = React.useState(false)
-
-  const fetchAgency = async () => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/advertiser/advertising-agency/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    setAgency(response.data.data)
-  }
+  const { advertiserAgency } = useSelector(
+    (state) => state.advertiserAgency,
+  )
+  // const fetchAgency = async () => {
+  //   const token = Cookies.get('token')
+  //   const response = await axios.get(
+  //     `${backendURL}/advertiser/advertising-agency/`,
+  //
+  //     {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     },
+  //   )
+  //   setAgency(response.data.data)
+  // }
   React.useEffect(() => {
-    fetchAgency()
-  }, [])
+    dispatch(fetchAdvertiserAgency())
+  }, [dispatch])
 
   const {
     register,
@@ -289,7 +292,7 @@ export default function AdvertiserAgencyModalUsers({ onClose }) {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Выбрать рекламное агенство</SelectLabel>
-                          {agency.map((adv) => (
+                          {advertiserAgency?.results?.map((adv) => (
                             <SelectItem key={adv.id} value={adv.id.toString()}>
                               {adv.name}
                             </SelectItem>

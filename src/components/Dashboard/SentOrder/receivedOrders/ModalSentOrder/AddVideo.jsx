@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button.jsx'
 import { fetchInventory } from '../../../../../redux/inventory/inventorySlice'
 import Cookies from 'js-cookie'
 import {Monitor, MonitorPlay, MonitorUp} from "lucide-react";
+import axiosInstance from "@/api/api.js";
 
 const categoryC = [
   { id: 1, value: 'Шоу', text: 'Шоу' },
@@ -34,7 +35,6 @@ const format = [
 ]
 
 export default function AddVideo({
-  setOpenPopoverIndex,
   item,
   setIsPopoverOpen,
 }) {
@@ -48,17 +48,8 @@ export default function AddVideo({
   const user = Cookies.get('role')
 
   const fetchChannel = async () => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/publisher/channel/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
+    const response = await axiosInstance.get(
+      `${backendURL}/publisher/channel/`
     )
     setChannelModal(response.data.data)
   }
@@ -115,10 +106,9 @@ export default function AddVideo({
     }
   }
   const onSubmit = async (data) => {
-    const token = Cookies.get('token')
 
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${backendURL}/inventory/assign-to-order-with-new-video`,
         {
           expected_number_of_views: data.expected_number_of_views,
@@ -133,13 +123,6 @@ export default function AddVideo({
           publication_time: data.publication_time,
           link_to_video: data.link_to_video
         },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
       )
 
       // Debug log to inspect response
@@ -148,10 +131,10 @@ export default function AddVideo({
         toast.success('Размещение успешно созданно !')
         // dispatch(fetchInventory({ orderAssignmentId: item.id }))
         dispatch(fetchOnceListSentToPublisher({ is_deactivated: false }))
+
         setTimeout(() => {
           window.location.reload()
         }, 1500)
-        setIsPopoverOpen(false)
       } else {
         throw new Error('Unexpected response payload')
       }
@@ -195,7 +178,7 @@ export default function AddVideo({
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} >
         {user === 'publisher' ? (
           <div className="grid w-full mb-4">
             <Label className="text-sm	text-white pb-2">
@@ -466,7 +449,7 @@ export default function AddVideo({
             isValid
               ? 'bg-[#2A85FF66] hover:bg-[#0265EA] border-2 border-[#0265EA] hover:border-[#0265EA]'
               : 'bg-[#616161]'
-          } w-full   h-[40px] text-white rounded-lg	mt-4`}
+          } w-full   h-[40px] text-white rounded-2xl	mt-4`}
           disabled={!isValid}
         >
           Создать

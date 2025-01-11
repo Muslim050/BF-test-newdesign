@@ -1,5 +1,4 @@
 import React from 'react'
-import style from './AdvChartTable.module.scss'
 import OrderChartThead from './AdvChartThead'
 import AdvChartData from './AdvChartData'
 import { InfoCardsBottom } from './components/InfoCardsBottom/InfoCards'
@@ -136,7 +135,7 @@ function AdvertiserReportTable() {
               <>
                 <div className="h-full overflow-y-auto">
                   <Table
-                    className={`${style.responsive_table} border_design rounded-lg overflow-auto`}
+                    className={` border_design rounded-lg overflow-auto`}
                   >
                     {' '}
                     {/* Колонки основной таблица  */}

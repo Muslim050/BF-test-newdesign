@@ -1,7 +1,6 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { addAdvertiser } from '@/redux/advertiser/advertiserSlice.js'
+import {useDispatch, useSelector} from 'react-redux'
+import {addAdvertiser, fetchAdvertiser} from '@/redux/advertiser/advertiserSlice.js'
 import { useForm, Controller } from 'react-hook-form'
 import backendURL from '@/utils/url.js'
 import MaskedInput from 'react-text-mask'
@@ -28,14 +27,13 @@ import {
 } from '@/components/ui/select.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { SelectTrigger } from '@/components/ui/selectTrigger.jsx'
-import Cookies from 'js-cookie'
 import InputField
   from "@/components/Dashboard/Advertiser/AdvertiserUtilizer/modal/AdvertiserModal/components/InputField.jsx";
+import axiosInstance from "@/api/api.js";
 
 export default function AdvertiserModal({ onClose }) {
-  const [advertiserModal, setAdvertiserModal] = React.useState([])
   const [isLogin, setIsLogin] = React.useState(false)
-
+  const { advertisers } = useSelector((state) => state.advertiser);
   const [setCpm] = React.useState([])
   const dispatch = useDispatch()
   const {
@@ -59,42 +57,19 @@ export default function AdvertiserModal({ onClose }) {
     },
     mode: 'onChange',
   })
-  const fetchAdvertiser = async () => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-      `${backendURL}/advertiser/advertising-agency/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    setAdvertiserModal(response.data.data)
-  }
   const fetchCpm = async () => {
-    const token = Cookies.get('token')
-
-    const response = await axios.get(
-      `${backendURL}/order/cpm/`,
-
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
+    const url = `${backendURL}/order/cpm/`
+    const response = await axiosInstance.get(url)
     setCpm(response.data.data)
     setValue('cpm_mixroll', response.data.data.mixroll)
     setValue('cpm_preroll', response.data.data.preroll)
   }
   React.useEffect(() => {
-    fetchAdvertiser()
-  }, [])
+    dispatch(fetchAdvertiser({
+      page: 1, // API использует нумерацию с 1
+      pageSize: 100,
+    }))
+  }, [dispatch])
   React.useEffect(() => {
     fetchCpm()
   }, [])
@@ -102,7 +77,6 @@ export default function AdvertiserModal({ onClose }) {
   const onSubmit = async (data) => {
     try {
       setIsLogin(true)
-
       const adv = await dispatch(addAdvertiser({ data })).unwrap()
       toast.success('Пользователь рекламодателя успешно создан!')
       onClose()
@@ -383,7 +357,8 @@ export default function AdvertiserModal({ onClose }) {
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Выбрать рекламное агенство</SelectLabel>
-                        {advertiserModal.map((adv) => (
+                        {advertisers?.results
+                          .map((adv) => (
                           <SelectItem key={adv.id} value={adv.id.toString()}>
                             {adv.name}
                           </SelectItem>
