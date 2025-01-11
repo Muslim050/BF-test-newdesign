@@ -14,7 +14,6 @@ export const fetchViewStatus = createAsyncThunk(
   'order/fetchViewStatus',
   async (orderID) => {
     const token = Cookies.get('token')
-
     try {
       const response = await axios.post(
         `${backendURL}/order/accept-order/`,

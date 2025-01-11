@@ -32,6 +32,7 @@ import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
 import { Monitor, MonitorPlay, MonitorUp } from 'lucide-react';
 import axiosInstance from "@/api/api.js";
+import {Checkbox} from "@/components/ui/checkbox.jsx";
 
 
 const formatV = [
@@ -328,7 +329,7 @@ export default function CreateOrder({ onClose }) {
               </div>
 
               <div className="grid w-full">
-                <div className="border-dashed border-2 border-sky-500 rounded-2xl p-2 flex flex-col justify-between">
+                <div className="border-dashed border-2 border-[#5570f1] rounded-2xl p-2 flex flex-col justify-between">
                   <Label className="text-sm	text-white pb-0.5">
                     Target для РУЗ
                   </Label>
@@ -337,7 +338,7 @@ export default function CreateOrder({ onClose }) {
                     onClick={taretCheckbox}
                   >
                     Target UZ
-                    <input type="checkbox" />
+                    <Checkbox id="terms" className='size-6 rounded-lg data-[state=checked]:bg-[#5570f1] data-[state=checked]:border-[#5570f1] border-[#5570f1]' />
                     <span className={style.checkmark}></span>
                   </label>
                 </div>

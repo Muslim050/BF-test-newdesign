@@ -278,9 +278,9 @@ const orderSlice = createSlice({
   reducers: {
     setOrderStatus: (state, action) => {
       const { orderId, status } = action.payload;
-      const index = state.order.findIndex((o) => o.id === orderId);
+      const index = state.order.results.findIndex((o) => o.id === orderId);
       if (index !== -1) {
-        state.order[index] = { ...state.order[index], status };
+        state.order.results[index] = { ...state.order.results[index], status };
       }
     },
     updateOrderWithInventory(state, action) {

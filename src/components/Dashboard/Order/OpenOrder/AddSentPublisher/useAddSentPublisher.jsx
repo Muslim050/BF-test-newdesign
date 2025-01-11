@@ -54,7 +54,6 @@ export const useAddSentPublisher = ( expandedRows, onceOrder) => {
   }, [dispatch, pagination.pageIndex, pagination.pageSize])
 
   const [openPopoverIndex, setOpenPopoverIndex] = React.useState(null)
-  console.log (openPopoverIndex)
   const clickSentPublisher = (itemID) => {
     dispatch(sentToPublisherButton({ id: itemID }))
       .unwrap()

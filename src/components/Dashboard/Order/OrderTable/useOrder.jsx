@@ -23,8 +23,8 @@ import NestedTable from "@/components/module/TablePagination/nestedTable.jsx";
 import CircularBadge from "@/components/Labrery/Circular/CircularBadge.jsx";
 import PopoverButtons from "@/components/Dashboard/Order/OrderTable/components/PopoverButtons.jsx";
 import toast from 'react-hot-toast'
-import {fetchOrder} from "@/redux/order/orderSlice.js";
-import {finishOrder} from "@/redux/orderStatus/orderStatusSlice.js";
+import {fetchOrder, setOrderStatus} from "@/redux/order/orderSlice.js";
+import {fetchViewStatus, finishOrder} from "@/redux/orderStatus/orderStatusSlice.js";
 
 
 export const useOrder = () => {
@@ -75,6 +75,20 @@ export const useOrder = () => {
           }),
         )
       })
+  }
+
+  const handleRowClick = (id, data) => {
+    const item = data.find((item) => item.id === id)
+
+    if (item && item.status === 'sent') {
+      dispatch(fetchViewStatus(id)).then((result) => {
+        if (result.type === fetchViewStatus.fulfilled.toString()) {
+          dispatch(setOrderStatus({ orderId: id, status: 'accepted' }))
+        }
+      })
+    } else {
+      // setTimeout (() => fetchGetOrder (id), 2000); // Fetch the specific order directly after 2 seconds if the status is not "sent"
+    }
   }
 
   const columns = React.useMemo(
@@ -270,9 +284,8 @@ export const useOrder = () => {
                 <button
                   // onClick={() => handleRowClick(advert.id, row)}
                   onClick={() => {
-                    setExpandedRowId ((prev) => {
-                      return prev === row.id ? null : row.id; // Переключение состояния
-                    });
+                    handleRowClick(row.original.id, table.options.data); // Передача данных в функцию
+                    setExpandedRowId((prev) => (prev === row.id ? null : row.id)); // Переключение состояния
                   }}
                   className="relative hover:scale-125 transition-all "
                 >
