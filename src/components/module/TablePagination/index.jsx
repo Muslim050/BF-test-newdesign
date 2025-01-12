@@ -17,7 +17,8 @@ const TablePagination = ({flexRender,table, renderSubComponent, text }) => {
   const isFilteredEmpty = table.getRowModel().rows.length === 0;
   return (
     <>
-      <Table className={`${style.responsive_table} border_design rounded-lg `}>
+      <Table
+        className={`${style.responsive_table} border_design rounded-lg `}>
         <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg justify-between">
           {table.getHeaderGroups ().map (headerGroup => (
             <TableRow key={headerGroup.id}>

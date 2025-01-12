@@ -28,7 +28,7 @@ export default function AddSentPublisher({ expandedRows, onceOrder, table, flexR
   const isFilteredEmpty = table.getRowModel().rows.length === 0;
 
   return (
-    <div className={` rounded-[22px] p-2  relative`}>
+    <div className={` rounded-[22px]  relative`}>
       {/*Добавление новой записи*/}
 
       {/* кнопка крестик чтобы закрыть создание записи */}
