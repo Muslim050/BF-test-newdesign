@@ -126,6 +126,7 @@ function OrderTable() {
                   flexRender={flexRender}
                   renderSubComponent={renderSubComponent}
                   expandedRowId={expandedRowId}
+                  text='создайте заказ'
                 />
               </div>
             </div>

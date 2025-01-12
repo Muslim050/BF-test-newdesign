@@ -18,12 +18,14 @@ export default function AddSentPublisher({ expandedRows, onceOrder, table, flexR
 
   const [totalOnlineView, setTotalOnlineView] = React.useState(0)
   React.useEffect(() => {
-    const total = listsentPublisherWithIndex.reduce(
+    const total = listsentPublisherWithIndex?.reduce(
       (acc, advert) => acc + (advert?.online_views || 0),
       0,
     )
     setTotalOnlineView(total)
   }, [listsentPublisherWithIndex])
+  const isDataEmpty = table.getPrePaginationRowModel().rows.length === 0;
+  const isFilteredEmpty = table.getRowModel().rows.length === 0;
 
   return (
     <div className={` rounded-[22px] p-2  relative`}>
@@ -186,16 +188,25 @@ export default function AddSentPublisher({ expandedRows, onceOrder, table, flexR
           {
             table.getPageCount() > 1 &&
             <Pagination table={table} pagination={pagination}/>}
-          <InfoCartSentPublisher
-          totalOnlineView={totalOnlineView}
-          onceOrder={onceOrder}
-        />
-        {
-          table.getRowModel ().rows.length === 0 &&
-          <div className='flex justify-center items-center h-full py-10'>
-            <div>По данному фильтру ничего не найдено!</div>
-          </div>
-        }
+
+
+          {isDataEmpty && (
+            <div className="flex justify-center items-center h-full py-10">
+              <div>{`Данные отсутствуют, создайте запись!`}</div>
+            </div>
+          )}
+          {/* Если фильтрация вернула пустой результат */}
+          {isFilteredEmpty && !isDataEmpty && (
+            <div className="flex justify-center items-center h-full py-10">
+              <div>По данному фильтру ничего не найдено!</div>
+            </div>
+          )}
+          {
+            !isDataEmpty && <InfoCartSentPublisher
+              totalOnlineView={totalOnlineView}
+              onceOrder={onceOrder}
+            />
+          }
         </div>
 
       </div>

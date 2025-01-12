@@ -152,7 +152,7 @@ function TableInventory() {
           <div
             className="border_container rounded-[22px] mt-3 p-[3px] glass-background flex flex-col h-full max-h-screen">
             <div className="overflow-y-auto sm:max-h-[calc(100vh-200px)] max-h-[calc(100vh-250px)] flex-1">
-              <TablePagination table={table} flexRender={flexRender}/>
+              <TablePagination table={table} flexRender={flexRender} text='создайте инвентарь'/>
             </div>
           </div>
           <Pagination table={table} pagination={pagination} />
