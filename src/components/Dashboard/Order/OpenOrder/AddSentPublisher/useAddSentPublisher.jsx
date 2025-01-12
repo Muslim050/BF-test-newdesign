@@ -96,7 +96,10 @@ export const useAddSentPublisher = ( expandedRows, onceOrder) => {
         accessorFn: (row) => row.format, // Преобразование в число
         id: 'Формат',
         cell: ({ row }) =>
-          <FormatFormatter format={row.original.format} target={row.original.target_country} />,
+          <div className='text-blue-400	'>
+
+          <FormatFormatter format={row.original.format} target={row.original.target_country} />
+          </div>,
         filterFn: 'includesStringSensitive', //note: normal non-fuzzy filter column - case sensitive
         header: () => <span>Формат</span>,
       },

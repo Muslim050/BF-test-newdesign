@@ -22,7 +22,7 @@ export const FormatFormatter = ({ format, target }) => {
       {label}
 
       {
-        target && <div className='bg-[#606afc] flex items-center px-1 rounded-lg font-semibold text-base'>{target}</div>
+        target && <div className='bg-[#606afc] flex items-center px-1 rounded-lg font-semibold '>{target}</div>
       }
     </div>
   )

@@ -4,7 +4,7 @@ import {ChevronDown, ChevronsUpDown, ChevronUp} from "lucide-react";
 import React from "react";
 import {ThemeContext} from "@/utils/ThemeContext.jsx";
 
-const TablePagination = ({flexRender,table, renderSubComponent }) => {
+const TablePagination = ({flexRender,table, renderSubComponent, text }) => {
   const { textColor } = React.useContext(ThemeContext)
   React.useEffect(() => {
     if (table.getState().columnFilters[0]?.id === 'fullName') {
@@ -13,7 +13,8 @@ const TablePagination = ({flexRender,table, renderSubComponent }) => {
       }
     }
   }, [table.getState().columnFilters[0]?.id])
-
+  const isDataEmpty = table.getPrePaginationRowModel().rows.length === 0;
+  const isFilteredEmpty = table.getRowModel().rows.length === 0;
   return (
     <>
       <Table className={`${style.responsive_table} border_design rounded-lg `}>
@@ -25,11 +26,11 @@ const TablePagination = ({flexRender,table, renderSubComponent }) => {
                   <TableHead key={header.id} colSpan={header.colSpan}
                              className={`text-${textColor} ${header.column.getIsSorted () ? 'underline ' : ''}`}>
                     {header.isPlaceholder ? null : (
-                      <div className='flex flex-col justify-center h-full py-2'>
+                      <div className='flex flex-col justify-center h-full py-2 w-fit'>
                         {
                           header.column.id === 'edit' ? null :
                             <div
-                              className={`flex items-center ${
+                              className={`flex items-center  ${
                                 header.column.getCanSort () ? 'cursor-pointer select-none' : ''
                               }`}
                               onClick={header.column.getToggleSortingHandler ()}
@@ -66,7 +67,7 @@ const TablePagination = ({flexRender,table, renderSubComponent }) => {
                     {row.getVisibleCells ().map (cell => {
                       return (
                         <TableCell
-                          className={`font-normal text-${textColor} text-sm`}
+                          className={`font-normal text-${textColor} text-sm `}
                           key={cell.id}
                           data-label={cell.column.id}
                         >
@@ -92,12 +93,17 @@ const TablePagination = ({flexRender,table, renderSubComponent }) => {
           </TableBody>
         }
       </Table>
-      {
-        table.getRowModel ().rows.length === 0 &&
-        <div className='flex justify-center items-center h-full py-10'>
+      {isDataEmpty && (
+        <div className="flex justify-center items-center h-full py-10">
+          <div>{`Данные отсутствуют, ${text}!`}</div>
+        </div>
+      )}
+      {/* Если фильтрация вернула пустой результат */}
+      {isFilteredEmpty && !isDataEmpty && (
+        <div className="flex justify-center items-center h-full py-10">
           <div>По данному фильтру ничего не найдено!</div>
         </div>
-      }
+      )}
       </>
   )
 }

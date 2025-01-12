@@ -389,14 +389,14 @@ export const useOrder = () => {
       },
       {
         id: 'Действия',
-        header: () => <span className="flex items-center gap-1">Действия</span>,
+        header: () => <span className="flex items-center gap-1 w-max">Действия</span>,
         cell: ({ row }) => {
           const isOver100Percent =
             (row.original.online_views / row.original.expected_number_of_views) * 100 >= 100;
 
 
           return (
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-fit">
 
               {/*POPOVER*/}
               {hasRole ('admin') ||

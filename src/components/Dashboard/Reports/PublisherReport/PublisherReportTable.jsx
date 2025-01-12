@@ -258,7 +258,7 @@ function PublisherReportTable() {
 
   const headers = [
     { key: 'id', label: 'ID' },
-    { key: 'company', label: 'Компания' },
+    { key: 'company', label: 'Кампания' },
     { key: 'name', label: 'Рекламодатель' },
     { key: 'phone_number', label: 'Канал' },
     { key: 'commission_rate', label: 'Название Видео' },
@@ -266,7 +266,7 @@ function PublisherReportTable() {
     { key: 'commission_rate', label: 'Начало' },
     { key: 'commission_rate', label: 'Конец' },
     { key: 'commission_rate', label: 'Показы факт' },
-    { key: 'commission_rate', label: 'Бюджет компании' },
+    { key: 'commission_rate', label: 'Бюджет кампании' },
     { key: 'commission_rate', label: 'Комиссия Агенства' },
     { key: 'commission_rate', label: 'Комиссия AdTech Media' },
     {
