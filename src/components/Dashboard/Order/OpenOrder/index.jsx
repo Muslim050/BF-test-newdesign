@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
+import React, {useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux'
 import backendURL from '@/utils/url'
 import AddInventory from './AddInventory'
 import AddSentPublisher from './AddSentPublisher'
@@ -11,11 +10,8 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs.jsx'
 import { hasRole } from '@/utils/roleUtils.js'
-import Cookies from 'js-cookie'
-import {useChannelUtilizer} from "@/components/Dashboard/Channel/ChannelUtilizer/useChannelUtilizer.jsx";
 import {useAddInventory} from "@/components/Dashboard/Order/OpenOrder/AddInventory/useAddInventory.jsx";
 import TableSearchInput from "@/shared/TableSearchInput/index.jsx";
-import {usePublihserUser} from "@/components/Dashboard/Publisher/PublisherUsers/usePublisherUser.jsx";
 import {useAddSentPublisher} from "@/components/Dashboard/Order/OpenOrder/AddSentPublisher/useAddSentPublisher.jsx";
 import axiosInstance from "@/api/api.js";
 
@@ -24,7 +20,7 @@ const OpenOrderTable = ({  expandedRows }) => {
   const [selectedRows, setSelectedRows] = React.useState([])
   const [getOrder, setGetOrder] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false)
-  const [activeTab, setActiveTab] = useState('inventory'); // Состояние для отслеживания активной вкладки
+  const [activeTab, setActiveTab] = useState( 'inventory'); // Состояние для отслеживания активной вкладки
 
   const [onceOrder, setOnceOrder] = React.useState([])
   const fetchGetOrder = async () => {
@@ -75,16 +71,20 @@ const OpenOrderTable = ({  expandedRows }) => {
   } = useAddSentPublisher(expandedRows, onceOrder);
 
 
-
-
-
+  console.log (onceOrder)
   React.useEffect(() => {
     fetchGetOrder()
   }, [dispatch, expandedRows, setOnceOrder, pagination.pageIndex, pagination.pageSize])
   const isDisabled = selectedRows.length === 0
   const [addInventroyModal, setAddInventroyModal] = React.useState(false)
 
-
+  useEffect(() => {
+    if (['accepted', 'open', 'in_review'].includes(onceOrder?.status)) {
+      setActiveTab('sentpublisher'); // Установить вкладку 'sentpublisher'
+    } else {
+      setActiveTab('inventory'); // Установить вкладку 'inventory' для других статусов
+    }
+  }, [onceOrder?.status]); // Следить за изменением onceOrder.status
   return (
     <>
       {isLoading ? (
@@ -96,6 +96,7 @@ const OpenOrderTable = ({  expandedRows }) => {
           <Tabs
             style={{background: 'var(--bg-color)'}}
             className='p-2 rounded-b-3xl'
+            value={activeTab} // Управляемая вкладка
             defaultValue="inventory"
                 onValueChange={(value) => setActiveTab (value)} // Обновление активной вкладки
           >
