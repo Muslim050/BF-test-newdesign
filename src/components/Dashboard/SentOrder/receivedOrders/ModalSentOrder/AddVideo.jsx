@@ -106,7 +106,7 @@ export default function AddVideo({
     }
   }
   const onSubmit = async (data) => {
-
+    console.log (data)
     try {
       const response = await axiosInstance.post(
         `${backendURL}/inventory/assign-to-order-with-new-video`,
@@ -116,12 +116,13 @@ export default function AddVideo({
           promo_start_at: data.promo_start_at,
           promo_duration: data.promo_duration,
           order_assignment_id: data.order_id,
-          channel_id: data.channel_id,
           video_name: data.video_name,
           category: data.category,
           video_duration: data.video_duration,
           publication_time: data.publication_time,
-          link_to_video: data.link_to_video
+          link_to_video: data.link_to_video,
+          ...(data.channel_id ? { channel_id: data.channel_id } : {}) // Добавляем channel_id только если он существует
+
         },
       )
 

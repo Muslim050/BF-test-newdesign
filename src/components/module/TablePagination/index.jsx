@@ -95,7 +95,7 @@ const TablePagination = ({flexRender,table, renderSubComponent, text }) => {
       </Table>
       {isDataEmpty && (
         <div className="flex justify-center items-center h-full py-10">
-          <div>{`Данные отсутствуют, ${text}!`}</div>
+          <div>{`Данные отсутствуют, ${text && text}!`}</div>
         </div>
       )}
       {/* Если фильтрация вернула пустой результат */}

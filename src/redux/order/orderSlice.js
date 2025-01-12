@@ -356,10 +356,10 @@ const orderSlice = createSlice({
       })
       .addCase(fetchSingleOrder.fulfilled, (state, action) => {
         const { orderId, data } = action.payload;
-        const index = state.order.findIndex((order) => order.id === orderId); // Изменено с state.orders на state.order
+        const index = state.order.results.findIndex((order) => order.id === orderId);
         if (index !== -1) {
-          state.order[index] = {
-            ...state.order[index],
+          state.order.results[index] = {
+            ...state.order.results[index],
             ...data.data, // Обновляем только изменённые поля
           };
         }

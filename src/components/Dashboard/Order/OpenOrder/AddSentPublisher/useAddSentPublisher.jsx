@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {formatDate} from "@/utils/formatterDate.jsx";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import FormatterView from "@/components/Labrery/formatter/FormatterView.jsx";
-import {BookmarkCheck, Plus, Send, Pencil, Link} from "lucide-react";
+import {BookmarkCheck, Plus, Send, Pencil, Link, SquareArrowOutUpRight} from "lucide-react";
 import Cookies from "js-cookie";
 import {fetchOnceListSentToPublisher, sentToPublisherButton} from "@/redux/order/SentToPublisher.js";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
@@ -27,6 +27,8 @@ import {
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog.jsx";
 import {toast} from "react-hot-toast";
+import {fetchViewStatus} from "@/redux/orderStatus/orderStatusSlice.js";
+import {fetchSingleOrder, setOrderStatus} from "@/redux/order/orderSlice.js";
 
 export const useAddSentPublisher = ( expandedRows, onceOrder) => {
   const [columnFilters, setColumnFilters] = React.useState([]);
@@ -46,19 +48,25 @@ export const useAddSentPublisher = ( expandedRows, onceOrder) => {
       expandedRows
     }))
   }, [dispatch, pagination.pageIndex, pagination.pageSize])
-
+  console.log (onceOrder)
   const [openPopoverIndex, setOpenPopoverIndex] = React.useState(null)
-  const clickSentPublisher = (itemID) => {
+  const clickSentPublisher = (itemID, ) => {
     dispatch(sentToPublisherButton({ id: itemID }))
       .unwrap()
       .then(() => {
         toast.success('Запись успешно отправлена')
-        dispatch(fetchOnceListSentToPublisher({ expandedRows,       page: pagination.pageIndex + 1, // API использует нумерацию с 1
-          pageSize: pagination.pageSize, }))
+        dispatch(fetchOnceListSentToPublisher({
+          expandedRows,
+          page: pagination.pageIndex + 1,
+          pageSize: pagination.pageSize,
+        }))
+        dispatch(fetchSingleOrder(onceOrder.id));
       })
       .catch((error) => {
         toast.error(error.message)
-        dispatch(fetchOnceListSentToPublisher({ expandedRows,       page: pagination.pageIndex + 1, // API использует нумерацию с 1
+        dispatch(fetchOnceListSentToPublisher({
+          expandedRows,
+          page: pagination.pageIndex + 1,
           pageSize: pagination.pageSize, }))
       })
   }
@@ -207,7 +215,7 @@ export const useAddSentPublisher = ( expandedRows, onceOrder) => {
             className="underline text-[#A7CCFF] flex gap-1 items-center hover:text-[#3e8bf4]"
           >
             Ссылка
-            <Link />
+            <SquareArrowOutUpRight className='size-4'/>
           </LinkR>,
         filterFn: 'includesStringSensitive', //note: normal non-fuzzy filter column - case sensitive
         header: () => <span>Ссылка</span>,
