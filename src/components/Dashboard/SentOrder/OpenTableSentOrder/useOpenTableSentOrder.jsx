@@ -173,7 +173,10 @@ export const useOpenTableSentOrder = () => {
         accessorFn: (row) => row.format, // Преобразование в число
         id: 'Формат',
         cell: ({ row }) =>
-          <FormatFormatter format={row.original.format} target={row.original.target_country} />,
+          <div className='text-blue-400	'>
+            <FormatFormatter format={row.original.format} target={row.original.target_country} />
+          </div>,
+
         filterFn: 'includesString',
         header: () => <span className="flex items-center gap-1">Формат</span>
       },
@@ -224,7 +227,7 @@ export const useOpenTableSentOrder = () => {
                         linkedVideo (row.original.video_content.id), setOpen (!open)
                       }}
                       style={{backdropFilter: 'blur(10.3049px)'}}
-                      className=" hover:scale-105 transition-all w-full h-auto px-4 py-1 rounded-lg flex items-center gap-1.5  bg-blue-500 hover:bg-blue-400 border border-transparent hover:border-blue-600"
+                      className=" hover:scale-105 transition-all w-full h-auto px-4 py-1.5 rounded-2xl flex items-center gap-1.5  bg-blue-500 hover:bg-blue-400 border border-transparent hover:border-blue-600"
                     >
                       <Paperclip className="w-[20px] h-[20px] text-white"/>
                       Прикрепить Видео

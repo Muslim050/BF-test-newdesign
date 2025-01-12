@@ -51,7 +51,6 @@ export const useReceived = () => {
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
   // Модальное окно Index
   const [currentOrder, setCurrentOrder] = React.useState(null)
-  console.log (isPopoverOpen)
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(currentOrder.notes)

@@ -13,7 +13,6 @@ export default function ModalSentOrder({
   item,
   setIsPopoverOpen,
 }) {
-  console.log (item)
   return (
     <>
       <div className="">

@@ -37,6 +37,7 @@ const format = [
 export default function AddVideo({
   item,
   setIsPopoverOpen,
+                                   setOpenPopoverIndex
 }) {
   const [channelModal, setChannelModal] = React.useState([])
   const [selectedTimer, setSelectedTimer] = React.useState('')
@@ -120,8 +121,8 @@ export default function AddVideo({
           category: data.category,
           video_duration: data.video_duration,
           publication_time: data.publication_time,
-          link_to_video: data.link_to_video,
-          ...(data.channel_id ? { channel_id: data.channel_id } : {}) // Добавляем channel_id только если он существует
+          ...(data.channel_id ? { channel_id: data.channel_id } : {}), // Добавляем channel_id только если он существует
+          ...(data.link_to_video ? { link_to_video: data.link_to_video } : {}) // Добавляем channel_id только если он существует
 
         },
       )
@@ -131,6 +132,7 @@ export default function AddVideo({
       if (response.data) {
         toast.success('Размещение успешно созданно !')
         // dispatch(fetchInventory({ orderAssignmentId: item.id }))
+        setIsPopoverOpen(false)
         dispatch(fetchOnceListSentToPublisher({ is_deactivated: false }))
 
         setTimeout(() => {
