@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table';
 import {useDispatch, useSelector} from 'react-redux';
 import {hasRole} from "@/utils/roleUtils.js";
-import {Copy, ChartColumnIncreasing, PackagePlus} from "lucide-react";
+import {Copy, ChartColumnIncreasing, PackagePlus, MessageSquareText} from "lucide-react";
 import Cookies from "js-cookie";
 import {FormatFormatter} from "@/utils/FormatFormatter.jsx";
 import {formatDate} from "@/utils/formatterDate.jsx";
@@ -190,8 +190,9 @@ export const useReceived = () => {
               {
                 <>
                   {
-                    row.original.order_status === 'in_review' ? null : <div className='absolute top-1.5 -left-1'>
-                      {row.original.inventory_count ? null : <span className="relative flex h-3 w-3">
+                    row.original.order_status === 'in_review' ? null : <div className='absolute -top-1.5 left-4'>
+                      {row.original.inventory_count ? null :
+                        <span className="relative flex h-3 w-3">
                       <span
                         className="animate-ping absolute  inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
                       <span
@@ -212,7 +213,7 @@ export const useReceived = () => {
                           }}
                           className="hover:scale-125 transition-all p-0"
                         >
-                          <ChartColumnIncreasing className="w-[24px] h-[24px] text-white hover:text-green-500" />
+                          <MessageSquareText className="w-[24px] h-[24px] text-white hover:text-green-500" />
                         </button>
                       </PopoverTrigger>
                       <PopoverContent className="w-full  bg-white bg-opacity-30 backdrop-blur-md rounded-xl">
@@ -251,9 +252,9 @@ export const useReceived = () => {
                     onClick={() => setIsPopoverOpen(true)}
                     className="hover:scale-125 transition-all relative"
                   >
-                    <PackagePlus className="hover:text-orange-500" />
+                    <PackagePlus className={`hover:text-orange-500 ${row.original.order_status === 'in_review' || row.original.order_status === 'confirmed' && 'text-green-400'}` } />
                     {hasRole('channel') || hasRole('publisher') ? (
-                      <div className="absolute top-0 right-0">
+                      <div className="absolute -top-2 -right-1">
                         {row.original.order_status === 'in_review' ||
                         row.original.order_status === 'confirmed' ? (
                           <span className="relative flex h-3 w-3">
