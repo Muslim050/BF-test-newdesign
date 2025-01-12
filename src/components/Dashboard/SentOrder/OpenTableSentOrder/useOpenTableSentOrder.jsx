@@ -211,13 +211,11 @@ export const useOpenTableSentOrder = () => {
         filterFn: 'includesString',
         header: () => <span className="flex items-center gap-1">Статус</span>
       },
-
       {
         id: 'Действия',
         header: () => <span className="flex items-center gap-1">Действия</span>,
         cell: ({ row }) => {
           return (
-
             <div className="inline-flex">
               <Dialog>
                 {row.original.video_content.link_to_video === null ? (
@@ -246,9 +244,7 @@ export const useOpenTableSentOrder = () => {
                   </a>
                 )}
                 <DialogContent className="sm:max-w-[425px]">
-                  <LinkedVideoModal onClose={handleClose} selectedId={id} />
-
-
+                  <LinkedVideoModal onClose={handleClose} selectedId={row.original.video_content.id} setOpen={setOpen} />
                 </DialogContent>
               </Dialog>
 

@@ -13,10 +13,10 @@ import {
 import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Button } from '@/components/ui/button.jsx'
-import { fetchOnceListSentToPublisher } from '../../../../redux/order/SentToPublisher.js'
 
 //Модальное окно прикрпление ссылки
-export default function LinkedVideoModal({ selectedId, onClose }) {
+export default function LinkedVideoModal({ selectedId, onClose, setOpen }) {
+  console.log (selectedId)
   const dispatch = useDispatch()
   const {
     register,
@@ -36,7 +36,7 @@ export default function LinkedVideoModal({ selectedId, onClose }) {
         inventoryPublish({ data }),
       ).unwrap()
       toast.success('Видео успешно прикреплено !')
-      onClose()
+      setOpen(false);
       setTimeout(() => {
         window.location.reload()
       }, 1500)
