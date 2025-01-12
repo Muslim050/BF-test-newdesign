@@ -17,96 +17,81 @@ const TablePagination = ({flexRender,table, renderSubComponent, text }) => {
   const isFilteredEmpty = table.getRowModel().rows.length === 0;
   return (
     <>
-      <Table
-        className={`${style.responsive_table} border_design rounded-lg `}>
-        <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg justify-between">
-          {table.getHeaderGroups ().map (headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map (header => {
-                return (
-                  <TableHead key={header.id} colSpan={header.colSpan}
-                             className={`text-${textColor} ${header.column.getIsSorted () ? 'underline ' : ''}`}>
+      {!isDataEmpty ? (
+        <Table
+          className={`${style.responsive_table} border_design rounded-lg`}>
+          <TableHeader className="bg-[#FFFFFF2B] rounded-t-lg justify-between">
+            {table.getHeaderGroups().map(headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={`text-${textColor} ${header.column.getIsSorted() ? 'underline ' : ''}`}
+                  >
                     {header.isPlaceholder ? null : (
-                      <div className='flex flex-col justify-center h-full py-2 w-fit'>
-                        {
-                          header.column.id === 'edit' ? null :
-                            <div
-                              className={`flex items-center  ${
-                                header.column.getCanSort () ? 'cursor-pointer select-none' : ''
-                              }`}
-                              onClick={header.column.getToggleSortingHandler ()}
-                            >
-                              {flexRender (
-                                header.column.columnDef.header,
-                                header.getContext ()
-                              )}
-                              <span className="ml-2">
-                                {{
-                                  asc: <ChevronUp className='size-4'/>, // Сортировка по возрастанию
-                                  desc: <ChevronDown className='size-4'/>, // Сортировка по убыванию
-                                }[header.column.getIsSorted ()] ?? (
-                                  <ChevronsUpDown className='size-4'/>
-                                )}
-                              </span>
-                            </div>
-                        }
-
+                      <div className="flex flex-col justify-center h-full py-2 w-fit">
+                        {header.column.id === 'edit' ? null : (
+                          <div
+                            className={`flex items-center ${
+                              header.column.getCanSort() ? 'cursor-pointer select-none' : ''
+                            }`}
+                            onClick={header.column.getToggleSortingHandler()}
+                          >
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            <span className="ml-2">
+                            {{
+                              asc: <ChevronUp className="size-4" />,
+                              desc: <ChevronDown className="size-4" />,
+                            }[header.column.getIsSorted()] ?? <ChevronsUpDown className="size-4" />}
+                          </span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        {table.getRowModel ().rows.length > 0 &&
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
           <TableBody>
-            {table.getRowModel ().rows.map (row => {
-              return (
-                <>
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells ().map (cell => {
-                      return (
-                        <TableCell
-                          className={`font-normal text-${textColor} text-sm `}
-                          key={cell.id}
-                          data-label={cell.column.id}
-                        >
-                          {flexRender (
-                            cell.column.columnDef.cell,
-                            cell.getContext ()
-                          )}
-                        </TableCell>
-                      )
-                    })}
+            {table.getRowModel().rows.map(row => (
+              <>
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell
+                      className={`font-normal text-${textColor} text-sm`}
+                      key={cell.id}
+                      data-label={cell.column.id}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                {row.getIsExpanded() && (
+                  <TableRow>
+                    <TableCell className="p-0" colSpan={row.getVisibleCells().length}>
+                      {renderSubComponent({ row })}
+                    </TableCell>
                   </TableRow>
-
-                  {row.getIsExpanded() && (
-                    <TableRow >
-                      <TableCell className='p-0' colSpan={row.getVisibleCells().length}>
-                        {renderSubComponent({ row })} {/* Передача строки в компонент */}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </>
-              )
-            })}
+                )}
+              </>
+            ))}
           </TableBody>
-        }
-      </Table>
-      {isDataEmpty && (
+        </Table>
+      ) : (
         <div className="flex justify-center items-center h-full py-10">
           <div>{`Данные отсутствуют, ${text && text}!`}</div>
         </div>
       )}
-      {/* Если фильтрация вернула пустой результат */}
       {isFilteredEmpty && !isDataEmpty && (
         <div className="flex justify-center items-center h-full py-10">
           <div>По данному фильтру ничего не найдено!</div>
         </div>
       )}
-      </>
-  )
+    </>
+  );
+
 }
 
 
